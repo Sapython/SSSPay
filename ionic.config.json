@@ -1,0 +1,7 @@
+{
+  "name": "SSSPay",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
