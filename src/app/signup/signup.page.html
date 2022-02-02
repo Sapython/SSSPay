@@ -1,0 +1,54 @@
+<ion-content class="login-screen">
+  <ion-grid>
+    <ion-row class="main-row">
+      <ion-col size="3"></ion-col>
+      <ion-col size="6">
+          <ion-img src="assets/images/logo.png" class="logo"></ion-img>
+      </ion-col>
+      <ion-col size="3"></ion-col>
+      <ion-col size="12" class="class="ion-padding>
+        <div>
+          <ion-item class="input-wrap ion-margin-bottom">
+            <ion-input class="ion-no-border" autocomplete="off" placeholder="Username" autocorrect="off" autofocus="true"  name="username" pattern="email"></ion-input>
+          </ion-item>
+          <ion-item class="input-wrap ion-margin-bottom">
+            <ion-input type="email" class="ion-no-border" autocomplete="off" placeholder="Email" autocorrect="off" autofocus="true"  name="username" pattern="email"></ion-input>
+          </ion-item>
+          <ion-item class="input-wrap ion-margin-bottom ion-no-border">
+            <ion-input [type]="showPassword === false ? 'password' : 'text'" class="input-reverse ion-no-border"  autocomplete="off" placeholder="Password" autocorrect="off" autofocus="true" color="dark" name="password" pattern="email">
+              <button class="ion-float-end pwd-icon-box"  (click)="togglePassword('p')">
+                <ion-icon class="show-option" [hidden]="!showPassword" name="eye-off-outline"></ion-icon>
+                <ion-icon class="hide-option" [hidden]="showPassword" name="eye-outline"></ion-icon>
+             </button>
+            </ion-input>
+          </ion-item>
+          <ion-item class="input-wrap ion-margin-bottom ion-no-border">
+            <ion-input [type]="showCnfPwd === false ? 'password' : 'text'" class="input-reverse ion-no-border"  autocomplete="off" placeholder="Password" autocorrect="off" autofocus="true" color="dark" name="password" pattern="email">
+              <button class="ion-float-end pwd-icon-box"  (click)="togglePassword('c')">
+                <ion-icon class="show-option" [hidden]="!showCnfPwd" name="eye-off-outline"></ion-icon>
+                <ion-icon class="hide-option" [hidden]="showCnfPwd" name="eye-outline"></ion-icon>
+             </button>
+            </ion-input>
+          </ion-item>
+            <ion-button class="" expand="block" fill="solid" size="large" shape="round" color="primary">
+             Register
+            </ion-button>
+        </div>
+
+      </ion-col>
+      <ion-col size="2"></ion-col>
+      <ion-col size="4">
+        <ion-img src="assets/icon/google.svg" class="social-media-svg ion-padding-horizontal"></ion-img>
+      </ion-col>
+      <ion-col size="4">
+        <ion-img src="assets/icon/facebook.svg" class="social-media-svg ion-padding-horizontal"></ion-img>
+      </ion-col>
+      <ion-col size="2"></ion-col>
+      <ion-col size="12">
+        <ion-text class="ion-text-center">
+          <h6>Already have an account ? <span class="text-light-green" routerLink="/login">Login Now</span></h6>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

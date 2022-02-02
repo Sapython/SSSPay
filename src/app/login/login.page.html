@@ -1,0 +1,46 @@
+<ion-content class="login-screen">
+  <ion-grid>
+    <ion-row class="main-row">
+      <ion-col size="3"></ion-col>
+      <ion-col size="6">
+          <ion-img src="assets/images/logo.png" class="logo"></ion-img>
+      </ion-col>
+      <ion-col size="3"></ion-col>
+      <ion-col size="12" class="class="ion-padding>
+        <div>
+          <ion-item class="input-wrap ion-margin-bottom">
+            <ion-input type="password" class="ion-no-border" autocomplete="off" placeholder="Username" autocorrect="off" autofocus="true"  name="username"></ion-input>
+          </ion-item>
+
+          <ion-item class="input-wrap ion-margin-bottom ion-no-border">
+            <ion-input [type]="showPassword === false ? 'password' : 'text'" class="input-reverse ion-no-border"  autocomplete="off" placeholder="Password" autocorrect="off" autofocus="true" color="dark" name="password" pattern="email">
+              <button class="ion-float-end pwd-icon-box"  (click)="togglePassword()">
+                <ion-icon class="show-option" [hidden]="!showPassword" name="eye-off-outline"></ion-icon>
+                <ion-icon class="hide-option" [hidden]="showPassword" name="eye-outline"></ion-icon>
+             </button>
+            </ion-input>
+          </ion-item>
+            <ion-button class="" expand="block" fill="solid" size="large" shape="round" color="primary">
+             Login
+            </ion-button>
+        </div>
+        <ion-text class="ion-text-center">
+          <h6 class="text-green" routerLink="/forget-password">Forget Password ?</h6>
+        </ion-text>
+      </ion-col>
+      <ion-col size="2"></ion-col>
+      <ion-col size="4">
+        <ion-img src="assets/icon/google.svg" class="social-media-svg ion-padding-horizontal"></ion-img>
+      </ion-col>
+      <ion-col size="4">
+        <ion-img src="assets/icon/facebook.svg" class="social-media-svg ion-padding-horizontal"></ion-img>
+      </ion-col>
+      <ion-col size="2"></ion-col>
+      <ion-col size="12">
+        <ion-text class="ion-text-center">
+          <h6>Don't have an account ? <span class="text-light-green" routerLink="/signup">Signup Now</span></h6>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,28 @@
+
+.input-wrap {
+  border: 2px solid #21bf64;
+  border-radius: 30px;
+}
+.input-reverse {
+  display: flex;
+  flex-direction: row-reverse;
+}
+--ion-padding-vertical{
+  padding: 25px 0;
+}
+.main-row {
+  min-height: 100vh;
+  height: 100%;
+  overflow: scroll;
+  padding: 50px 30px;
+}
+.pwd-icon-box{
+  line-height: 25px;
+  font-size: 22px;
+  height: 100%;
+  display: flex;
+}
+ion-input{
+  --placeholder-color	: #000;
+  --placeholder-opacity	: 1
+}
