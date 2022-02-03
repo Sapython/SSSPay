@@ -1,16 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-notifications',
-  templateUrl: './notifications.page.html',
-  styleUrls: ['./notifications.page.scss'],
+  selector: 'app-notify-widget',
+  templateUrl: './notify-widget.component.html',
+  styleUrls: ['./notify-widget.component.scss'],
 })
-export class NotificationsPage implements OnInit {
+export class NotifyWidgetComponent implements OnInit {
   @Input() time:string = '1m27s'
   @Input() billsinfo:string = 'Pay electricity, postpaid, credit card & other bills!'
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }

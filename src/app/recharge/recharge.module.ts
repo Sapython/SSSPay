@@ -1,13 +1,13 @@
-import { UiwidgetsModule } from './../uiwidgets/uiwidgets.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { NotificationsPageRoutingModule } from './notifications-routing.module';
+import { RechargePageRoutingModule } from './recharge-routing.module';
 
-import { NotificationsPage } from './notifications.page';
+import { RechargePage } from './recharge.page';
+import { UiwidgetsModule } from '../uiwidgets/uiwidgets.module';
 import { BaseComponentsModule } from '../base-components/base-components.module';
 
 @NgModule({
@@ -15,10 +15,10 @@ import { BaseComponentsModule } from '../base-components/base-components.module'
     CommonModule,
     FormsModule,
     IonicModule,
-    NotificationsPageRoutingModule,
+    RechargePageRoutingModule,
     UiwidgetsModule,
     BaseComponentsModule
   ],
-  declarations: [NotificationsPage]
+  declarations: [RechargePage]
 })
-export class NotificationsPageModule {}
+export class RechargePageModule {}

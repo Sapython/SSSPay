@@ -6,9 +6,13 @@ const routes: Routes = [
   //   path: '',
   //   loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
   // },
+  // {
+  //   path: '',
+  //   loadChildren: () => import('./homepage/homepage.module').then( m => m.HomepagePageModule)
+  // },
   {
     path: '',
-    loadChildren: () => import('./homepage/homepage.module').then( m => m.HomepagePageModule)
+    loadChildren: () => import('./notifications/notifications.module').then( m => m.NotificationsPageModule)
   },
   {
     path: 'login',
@@ -33,7 +37,21 @@ const routes: Routes = [
   {
     path: 'history',
     loadChildren: () => import('./history/history.module').then( m => m.HistoryPageModule)
+  },
+  {
+    path: 'wallet',
+    loadChildren: () => import('./wallet/wallet.module').then( m => m.WalletPageModule)
+  },
+  {
+    path: 'transac-history',
+    loadChildren: () => import('./transac-history/transac-history.module').then( m => m.TransacHistoryPageModule)
+  },
+  {
+    path: 'recharge',
+    loadChildren: () => import('./recharge/recharge.module').then( m => m.RechargePageModule)
   }
+
+
 
 
 ];

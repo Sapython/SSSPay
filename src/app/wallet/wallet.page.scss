@@ -1,0 +1,20 @@
+.box{
+    box-shadow: 0px 4px 10px 5px rgba(196, 196, 196, 0.5);
+    border-radius: 15px;
+    text-align: center;
+    font-size: 30px;
+    font-family: 'Poppins, sans-serif';
+    font-weight: 600;
+    margin: 15px;
+}
+.box img{
+    width: 100%;
+
+}
+#heading{
+    position: absolute;
+    color: white;
+    left: 27%;
+    padding-bottom:10px ;
+    font-family: 'Poppins, sans-serif';
+}
