@@ -7,13 +7,16 @@
   </div>
   <div class="box">
     <p>All Contacts</p>
-    <div class="search">
-      <input type="text" placeholder="Search">
-      <ion-icon name="search"></ion-icon>
-    </div>
+      <ion-searchbar></ion-searchbar>
   </div>
-  <app-contacts-widget></app-contacts-widget>
-  <app-contacts-widget></app-contacts-widget>
-  <app-contacts-widget></app-contacts-widget>
-  <app-contacts-widget></app-contacts-widget>
-</ion-content>
+  <ion-infinite-scroll>
+    <ion-infinite-scroll-content>
+      <app-contacts-widget></app-contacts-widget>
+      <app-contacts-widget></app-contacts-widget>
+      <app-contacts-widget></app-contacts-widget>
+      <app-contacts-widget></app-contacts-widget>
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  
+  
+ 

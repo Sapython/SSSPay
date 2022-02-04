@@ -12,7 +12,7 @@ const routes: Routes = [
   // },
   {
     path: '',
-    loadChildren: () => import('./notifications/notifications.module').then( m => m.NotificationsPageModule)
+    loadChildren: () => import('./recharge/recharge.module').then( m => m.RechargePageModule)
   },
   {
     path: 'login',

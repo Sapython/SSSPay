@@ -8,7 +8,6 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ContactsWidgetComponent implements OnInit {
   @Input() name:string = 'Kumar Saptam'
   constructor() { }
-
   ngOnInit() {}
 
 }
