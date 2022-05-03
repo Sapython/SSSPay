@@ -1,9 +1,111 @@
 <ion-content class="login-screen">
-  <ion-grid>
-    <ion-row class="main-row">
+  <section>
+    <ion-grid>
+      <ion-row> 
+        <ion-col size="6" offset="3">
+          <ion-img src="assets/sss-logo.svg" id="logo"></ion-img>
+        </ion-col>
+      </ion-row>
+      <ion-row id="form">
+        <ion-col size="11" offset="0.5">
+          <ion-card>
+            <ion-input
+              placeholder="Username"
+              autocomplete="off"
+              autocorrect="off"
+              autofocus="true"
+              name="username"
+            >
+            </ion-input>
+          </ion-card>
+          <ion-card>
+            <ion-input
+              placeholder="Password"
+              class="input-reverse ion-no-border"
+              autocomplete="off"
+            >
+              <!-- <ion-input [type]="showPassword === false ? 'password' : 'text'" class="input-reverse ion-no-border"  autocomplete="off" placeholder="Password" autocorrect="off" autofocus="true" name="password" pattern="email"> -->
+              <button
+                class="ion-float-end pwd-icon-box"
+                (click)="togglePassword()"
+              >
+                <ion-icon
+                  [hidden]="!showPassword"
+                  name="eye-off-outline"
+                  id="eye"
+                ></ion-icon>
+                <ion-icon
+                  [hidden]="showPassword"
+                  name="eye-outline"
+                  id="eye"
+                ></ion-icon>
+              </button>
+            </ion-input>
+          </ion-card>
+          <ion-button
+            class="ion-margin login_btn"
+            expand="block"
+            fill="solid"
+            size="large"
+            color="primary"
+            
+          >
+            Login
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <h1 class="ion-text-center fogotPass" routerLink="/forget-password">Forgot Password?</h1>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-text-center ion-margin-top">
+        <ion-col>
+          <button id="social-icon">
+            <ion-icon name="logo-google"></ion-icon>
+          </button>
+          <button id="social-icon">
+            <ion-icon name="logo-twitter"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-text-center ion-margin-top">
+        <ion-col class="create-account">
+          <b> Don’ have account? <a href="#">Singup Now</a> </b>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+</ion-content>
+
+<!-- <div>
+          <ion-item class="input-wrap ion-margin-bottom">
+            <ion-input type="password" class="ion-no-border" autocomplete="off" placeholder="Username" autocorrect="off" autofocus="true"  name="username"></ion-input>
+          </ion-item>
+
+          <ion-item class="input-wrap ion-margin-bottom ion-no-border">
+            <ion-input [type]="showPassword === false ? 'password' : 'text'" class="input-reverse ion-no-border"  autocomplete="off" placeholder="Password" autocorrect="off" autofocus="true" color="dark" name="password" pattern="email">
+              <button class="ion-float-end pwd-icon-box"  (click)="togglePassword()">
+                <ion-icon class="show-option" [hidden]="!showPassword" name="eye-off-outline"></ion-icon>
+                <ion-icon class="hide-option" [hidden]="showPassword" name="eye-outline"></ion-icon>
+             </button>
+            </ion-input>
+          </ion-item>
+            <ion-button class="" expand="block" fill="solid" size="large" shape="round" color="primary">
+             Login
+            </ion-button>
+        </div> -->
+
+<!-- <ion-icon class="ion-float-right" name="eye-off-outline"></ion-icon> -->
+
+<!-- <ion-col>
+        <ion-row size="6" offSet="3">
+<h3>hii</h3>
+        </ion-row>
+      </ion-col>
       <ion-col size="3"></ion-col>
       <ion-col size="6">
-          <ion-img src="assets/images/logo.png" class="logo"></ion-img>
+          <ion-img src="assets/sss-logo.svg" class="logo"></ion-img>
       </ion-col>
       <ion-col size="3"></ion-col>
       <ion-col size="12" class="class="ion-padding>
@@ -40,7 +142,4 @@
         <ion-text class="ion-text-center">
           <h6>Don't have an account ? <span class="text-light-green" routerLink="/signup">Signup Now</span></h6>
         </ion-text>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-content>
+      </ion-col> -->

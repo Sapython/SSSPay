@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-forget-password',
@@ -8,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 export class ForgetPasswordPage implements OnInit {
 
   emailValue;
-  constructor() { }
+  constructor(
+    private alertCtrl:AlertController
+  ) { }
 
   ngOnInit() {
   }
@@ -18,5 +21,26 @@ export class ForgetPasswordPage implements OnInit {
     }else{
       console.log('enter email');
     }
+  }
+  onSend() {
+    //  this.recipeService.deleteRecipe(this.loadedRecipe.id);
+    this.alertCtrl.create({
+      header: 'Check your mail',
+      message: 'Do you really want to delete this message',
+     
+      buttons:[{
+        text:'cancel',
+        role:'cancel'
+      },{
+        text:'Delete',
+       
+      }]
+    }).then(alertEl=> {
+      alertEl.present();
+    })
+   
+  }
+  popup(){
+    
   }
 }

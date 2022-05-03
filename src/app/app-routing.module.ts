@@ -49,7 +49,11 @@ const routes: Routes = [
   {
     path: 'recharge',
     loadChildren: () => import('./recharge/recharge.module').then( m => m.RechargePageModule)
+  },  {
+    path: 'reset-password',
+    loadChildren: () => import('./reset-password/reset-password.module').then( m => m.ResetPasswordPageModule)
   }
+
 
 
 
