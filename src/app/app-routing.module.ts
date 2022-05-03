@@ -6,63 +6,85 @@ const routes: Routes = [
   //   path: '',
   //   loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
   // },
+  {
+    path: '',
+    loadChildren: () =>
+      import('./homepage/homepage.module').then((m) => m.HomepagePageModule),
+  },
   // {
   //   path: '',
-  //   loadChildren: () => import('./homepage/homepage.module').then( m => m.HomepagePageModule)
+  //   loadChildren: () => import('./recharge/recharge.module').then( m => m.RechargePageModule)
+  // },
+  // {
+  //   path: '',
+  //   loadChildren: () => import('./notifications/notifications.module').then( m => m.NotificationsPageModule)
   // },
   {
     path: '',
-    loadChildren: () => import('./recharge/recharge.module').then( m => m.RechargePageModule)
+    loadChildren: () =>
+      import('./recharge/recharge.module').then((m) => m.RechargePageModule),
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () =>
+      import('./login/login.module').then((m) => m.LoginPageModule),
   },
+
   {
     path: 'signup',
-    loadChildren: () => import('./signup/signup.module').then( m => m.SignupPageModule)
+    loadChildren: () =>
+      import('./signup/signup.module').then((m) => m.SignupPageModule),
   },
   {
     path: 'forget-password',
-    loadChildren: () => import('./forget-password/forget-password.module').then( m => m.ForgetPasswordPageModule)
+    loadChildren: () =>
+      import('./forget-password/forget-password.module').then(
+        (m) => m.ForgetPasswordPageModule
+      ),
   },
   {
     path: 'homepage',
-    loadChildren: () => import('./homepage/homepage.module').then( m => m.HomepagePageModule)
+    loadChildren: () =>
+      import('./homepage/homepage.module').then((m) => m.HomepagePageModule),
   },
   {
     path: 'notifications',
-    loadChildren: () => import('./notifications/notifications.module').then( m => m.NotificationsPageModule)
+    loadChildren: () =>
+      import('./notifications/notifications.module').then(
+        (m) => m.NotificationsPageModule
+      ),
   },
   {
     path: 'history',
-    loadChildren: () => import('./history/history.module').then( m => m.HistoryPageModule)
+    loadChildren: () =>
+      import('./history/history.module').then((m) => m.HistoryPageModule),
   },
   {
     path: 'wallet',
-    loadChildren: () => import('./wallet/wallet.module').then( m => m.WalletPageModule)
+    loadChildren: () =>
+      import('./wallet/wallet.module').then((m) => m.WalletPageModule),
   },
   {
     path: 'transac-history',
-    loadChildren: () => import('./transac-history/transac-history.module').then( m => m.TransacHistoryPageModule)
+    loadChildren: () =>
+      import('./transac-history/transac-history.module').then(
+        (m) => m.TransacHistoryPageModule
+      ),
   },
   {
     path: 'recharge',
-    loadChildren: () => import('./recharge/recharge.module').then( m => m.RechargePageModule)
-  },  {
+    loadChildren: () =>
+      import('./recharge/recharge.module').then((m) => m.RechargePageModule),
+  },
+  {
     path: 'reset-password',
     loadChildren: () => import('./reset-password/reset-password.module').then( m => m.ResetPasswordPageModule)
-  }
-
-
-
-
-
+  },
 ];
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

@@ -1,5 +1,5 @@
 .container{
-    background-color: #21BF64;
+    background-color: #009970;
     color: #fff;
     top: 0;
     display: flex;
@@ -16,6 +16,15 @@
     width: 35px;
 }
 button{
-    background-color: #21BF64;
-    color: #fff;
+    background-color: #009970;
+    margin-top: 5%;
+}
+button img{
+    border-radius: 50%;
+}
+.inner-container{
+    width: 25%;
+    display: flex;
+    justify-content: space-between;
+
 }
