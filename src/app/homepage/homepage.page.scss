@@ -1,0 +1,50 @@
+
+.container{
+    margin-top: -6%;
+    padding: 20px 5px;
+    background-color: #ebf7f4;
+}
+.inner{
+    background-color: #fff;
+    font-size: 20px;
+    font-family: 'Poppins','sans-serif';
+    margin: 10px;
+    border-radius: 15px;
+}
+.icon-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.box{
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 15px;
+}
+#heading{
+    margin-left: 03%;
+}
+.round-icons{
+    text-align: center;
+    cursor: pointer;
+}
+#subtitle{
+    font-size: 12px;
+    color: var(--ion-color-primary);
+}
+#fastag{
+    margin-top: 4%;
+}
+#promotions{
+    margin-top: -7%;
+}
+.view{
+    display: flex;
+    font-size: 20px;
+    background-color: #f0f0f0;
+    justify-content: space-between;
+    color: var(--ion-color-primary);
+    margin: 1%;
+    padding: 0% 3%;
+    border-radius: 10px;
+}

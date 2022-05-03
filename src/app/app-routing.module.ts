@@ -6,18 +6,18 @@ const routes: Routes = [
   //   path: '',
   //   loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
   // },
-  // {
-  //   path: '',
-  //   loadChildren: () => import('./homepage/homepage.module').then( m => m.HomepagePageModule)
-  // },
   {
     path: '',
-    loadChildren: () => import('./recharge/recharge.module').then( m => m.RechargePageModule)
+    loadChildren: () => import('./homepage/homepage.module').then( m => m.HomepagePageModule)
   },
-  {
-    path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
-  },
+  // {
+  //   path: '',
+  //   loadChildren: () => import('./recharge/recharge.module').then( m => m.RechargePageModule)
+  // },
+  // {
+  //   path: '',
+  //   loadChildren: () => import('./notifications/notifications.module').then( m => m.NotificationsPageModule)
+  // },
   {
     path: 'signup',
     loadChildren: () => import('./signup/signup.module').then( m => m.SignupPageModule)

@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./home-widget.component.scss'],
 })
 export class HomeWidgetComponent implements OnInit {
-  @Input() name:string = 'AEPS';
+  @Input() name:string = 'AEPS Services';
   @Input() break:string = 'Services';
   @Input() pngname:string = 'group-1'
   constructor() { }
