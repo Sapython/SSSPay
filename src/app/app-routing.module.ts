@@ -79,7 +79,15 @@ const routes: Routes = [
   {
     path: 'reset-password',
     loadChildren: () => import('./reset-password/reset-password.module').then( m => m.ResetPasswordPageModule)
+  },  {
+    path: 'aeps',
+    loadChildren: () => import('./aeps/aeps.module').then( m => m.AepsPageModule)
   },
+  {
+    path: 'card-details',
+    loadChildren: () => import('./card-details/card-details.module').then( m => m.CardDetailsPageModule)
+  },
+
 ];
 @NgModule({
   imports: [

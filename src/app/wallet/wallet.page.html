@@ -1,20 +1,19 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>wallet</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header></app-header>
 
 <ion-content>
+  <section>
+  <ion-text id="wallet-details">Wallets</ion-text>
   <div class="container">
     <div class="box">
       <p id="heading">AEPS Wallet</p>
-      <img src="/assets/wallet1.png" alt="">
-      <p>Rs. {{amount}}</p>
+      <img src="/assets/aeps_wallett.png" alt="">
+      <p class="amount">Rs. {{amount}}</p>
     </div>
     <div class="box">
       <p id="heading">Main Wallet</p>
-      <img src="/assets/wallet2.png" alt="">
-      <p>Rs. {{amount}}</p>
+      <img src="/assets/main_wallet.png" alt="">
+      <p class="amount">Rs. {{amount}}</p>
     </div>
   </div>
+</section>
 </ion-content>

@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { HistoryPageRoutingModule } from './history-routing.module';
+import { AepsPageRoutingModule } from './aeps-routing.module';
 
-import { HistoryPage } from './history.page';
+import { AepsPage } from './aeps.page';
 import { BaseComponentsModule } from '../base-components/base-components.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { BaseComponentsModule } from '../base-components/base-components.module'
     CommonModule,
     FormsModule,
     IonicModule,
-    HistoryPageRoutingModule,
+    AepsPageRoutingModule,
     BaseComponentsModule
   ],
-  declarations: [HistoryPage]
+  declarations: [AepsPage]
 })
-export class HistoryPageModule {}
+export class AepsPageModule {}

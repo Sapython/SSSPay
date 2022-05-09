@@ -1,9 +1,23 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>history</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header></app-header>
 
 <ion-content>
+  <section>
+  <ion-text id="history-details" >Transaction History</ion-text>
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <ion-card>
+       <ion-text>${{amount}}  {{status}}  {{user}} <ion-icon color="success" name="arrow-up-outline"></ion-icon></ion-text>
+      </ion-card>
+      <ion-card>
+        <ion-text>${{amount}}  {{status}}  {{user}} <ion-icon color="success"  name="arrow-up-outline"></ion-icon></ion-text>
+       </ion-card>
+       <ion-card>
+        <ion-text>${{amount}}  {{status}}  {{user}} <ion-icon color="danger"  name="arrow-down-outline"></ion-icon></ion-text>
+       </ion-card>
+    </ion-col>
+  </ion-row>
 
+</ion-grid>
+</section>
 </ion-content>

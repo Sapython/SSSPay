@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./wallet.page.scss'],
 })
 export class WalletPage implements OnInit {
-  @Input() amount:string = '232456'
+  @Input() amount:string = '2,32,456.555'
   constructor() { }
 
   ngOnInit() {

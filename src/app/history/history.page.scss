@@ -1,0 +1,31 @@
+section{
+    margin:20px 0px;
+    
+}
+#history-details {
+    font-size: 20px;
+    color: var(--ion-true-dark);
+    font-weight: 900px;
+    margin: 50px 30px;
+  }
+ion-card{
+    font-size: 20px;
+    color: var(--ion-text-dark);
+    padding: 20px 20px;
+    height: 60px;
+    ion-text{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        ion-icon{
+            font-size: 30px;
+            
+        }
+        #sucess{
+            color: var(--ion-color-primary);
+        }
+        #failure{
+            color: var(--ion-danger);
+        }
+    }
+}

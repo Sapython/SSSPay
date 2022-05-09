@@ -1,0 +1,42 @@
+<app-header></app-header>
+<ion-content>
+  <section id="card_section">
+    <ion-text id="card-details">Add card details</ion-text>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-label>Credit or debite card</ion-label>
+        <ion-input id="inputs" placeholder="Enter your card number"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-label>Expiration date</ion-label>
+        <ion-input type="number" id="inputs" placeholder="MM/YYYY"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-label>CVV</ion-label>
+        <ion-input id="inputs" placeholder="CVV Number"></ion-input>
+      </ion-col>
+    </ion-row>
+   
+    <ion-row>
+      <ion-col>
+        <ion-button
+          expand="block"
+          class="send"
+          fill="solid"
+          size="large"
+          color="success"
+          
+        >
+          Submit
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+</section>
+</ion-content>
