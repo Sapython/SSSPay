@@ -4,21 +4,19 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { HistoryPageRoutingModule } from './history-routing.module';
+import { TvDthPageRoutingModule } from './tv-dth-routing.module';
 
-import { HistoryPage } from './history.page';
+import { TvDthPage } from './tv-dth.page';
 import { BaseComponentsModule } from '../base-components/base-components.module';
-import { ModalModule } from '../_modal';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HistoryPageRoutingModule,
     BaseComponentsModule,
-    ModalModule
+    TvDthPageRoutingModule
   ],
-  declarations: [HistoryPage]
+  declarations: [TvDthPage]
 })
-export class HistoryPageModule {}
+export class TvDthPageModule {}
