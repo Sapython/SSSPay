@@ -100,6 +100,11 @@ const routes: Routes = [
     path: 'dth-recharge',
     loadChildren: () => import('./dth-recharge/dth-recharge.module').then( m => m.DthRechargePageModule)
   },
+  {
+    path: 'menu',
+    loadChildren: () => import('./menu/menu.module').then( m => m.MenuPageModule)
+  },
+
 
 ];
 @NgModule({
