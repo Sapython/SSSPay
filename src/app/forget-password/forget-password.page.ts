@@ -9,7 +9,7 @@ import { ModalService } from '../_modal';
 export class ForgetPasswordPage implements OnInit {
 
   emailValue;
-  constructor(
+  constructor(  
     private alertCtrl:AlertController,
     public modalSevices:ModalService
   ) { }

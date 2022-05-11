@@ -8,6 +8,7 @@ import { WalletPageRoutingModule } from './wallet-routing.module';
 
 import { WalletPage } from './wallet.page';
 import { BaseComponentsModule } from '../base-components/base-components.module';
+import { ModalModule } from '../_modal';
 
 @NgModule({
   imports: [
@@ -15,8 +16,9 @@ import { BaseComponentsModule } from '../base-components/base-components.module'
     FormsModule,
     IonicModule,
     WalletPageRoutingModule,
-  BaseComponentsModule
+    BaseComponentsModule,
+    ModalModule,
   ],
-  declarations: [WalletPage]
+  declarations: [WalletPage],
 })
 export class WalletPageModule {}

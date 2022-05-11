@@ -1,7 +1,8 @@
 section{
     width: 100vw;
-    box-sizing: border-box;
     padding: 20px 5px;
+   
+
 }
 .container{
     margin-top: 40px;
@@ -40,4 +41,29 @@ section{
     color: var(--ion-true-dark);
     font-weight: 900px;
     margin: 0px 10px;
+  }
+
+
+  ion-col {
+    margin-top: 20px;
+    ion-text{
+        color: var(--ion-true-dark);
+        font-size: 20px;
+    }
+    .inputs {
+      border-bottom: 2px solid var(--ion-color-primary);
+      width: 100%;
+      --placeholder-color: var(--ion-dark);
+      font-size: 17px;
+      margin-top: 10px;
+      color: var(--ion-true-dark    );
+    }
+  
+
+    .submit_button {
+      height: 50px;
+      font-size: 20px;
+      color: var(--ion-color-primary-contrast);
+      border-radius: 30px;
+    }
   }

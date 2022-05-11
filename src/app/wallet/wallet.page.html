@@ -1,10 +1,50 @@
 <app-header></app-header>
+<jw-modal id="modal-1">
+  <style>
+    
+  </style>
 
+  <div class="card">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+      <ion-text >Please add your PAN card details</ion-text>
+    </ion-col> </ion-row>
+      <ion-row>
+        <ion-col>
+         
+          <ion-input type="text" class="inputs" placeholder="Enter PAN Holder Name"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-input  type="text" class="inputs" placeholder="PAN Card Number"></ion-input>
+        </ion-col>
+      </ion-row>
+     
+      <ion-row>
+        <ion-col>
+          <ion-button
+            expand="block"
+            class="send"
+            fill="solid"
+            size="large"
+            color="success"
+            
+          >
+            Submit
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</jw-modal>
 <ion-content>
+  
   <section>
   <ion-text id="wallet-details">Wallets</ion-text>
   <div class="container">
-    <div class="box">
+    <div class="box" (click)="modalSevices.open('modal-1');">
       <p id="heading">AEPS Wallet</p>
       <img src="/assets/aeps_wallett.png" alt="">
       <p class="amount">Rs. {{amount}}</p>

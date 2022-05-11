@@ -87,6 +87,10 @@ const routes: Routes = [
     path: 'card-details',
     loadChildren: () => import('./card-details/card-details.module').then( m => m.CardDetailsPageModule)
   },
+  {
+    path: 'tv-dth',
+    loadChildren: () => import('./tv-dth/tv-dth.module').then( m => m.TvDthPageModule)
+  },
 
 ];
 @NgModule({
