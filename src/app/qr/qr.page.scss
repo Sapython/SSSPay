@@ -1,0 +1,30 @@
+*{
+    font-family: 'Poppins',sans-serif;
+}
+input{
+    border: none;
+    border-bottom: 1px solid #009970;
+    background-color: #ebf7f4;
+    color: grey;
+    width: 90%;
+    font-size: 20px;
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+}
+img{
+    display: block;
+    margin: auto;
+    margin-top: 20%;
+}
+button{
+    background-color: #009970;
+    color: #fff;
+    padding: 15px;
+    width: 75%;
+    font-size: 18px;
+    border-radius: 15px;
+    display: block;
+    margin: auto;
+    margin-top: 20%;
+}

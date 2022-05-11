@@ -1,0 +1,41 @@
+*,.font{
+    font-family: "Poppins",sans-serif;
+}
+.container{
+    background-color: #fff;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    p{
+        font-size: 25px;
+        font-weight: 600;
+        margin-left: 5%;
+        margin-top: 10px;
+    }
+}
+.font{
+    color: Grey;
+}
+ion-item{
+    background-color: #fff;
+}
+button{
+        background-color: #009970;
+        color: #fff;
+        padding: 15px;
+        width: 75%;
+        font-size: 18px;
+        border-radius: 15px;
+        display: block;
+        margin: auto;
+        margin-top: 25px;
+}
+.container2{
+    background-color: #fff;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px 15px;
+    p{
+        font-size: 20px;
+    }
+}

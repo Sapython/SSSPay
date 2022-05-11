@@ -87,6 +87,18 @@ const routes: Routes = [
     path: 'card-details',
     loadChildren: () => import('./card-details/card-details.module').then( m => m.CardDetailsPageModule)
   },
+  {
+    path: 'transfer-to-mobile',
+    loadChildren: () => import('./transfer-to-mobile/transfer-to-mobile.module').then( m => m.TransferToMobilePageModule)
+  },
+  {
+    path: 'qr',
+    loadChildren: () => import('./qr/qr.module').then( m => m.QRPageModule)
+  },
+  {
+    path: 'dth-recharge',
+    loadChildren: () => import('./dth-recharge/dth-recharge.module').then( m => m.DthRechargePageModule)
+  },
 
 ];
 @NgModule({
