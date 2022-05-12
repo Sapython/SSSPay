@@ -103,7 +103,11 @@ const routes: Routes = [
   {
     path: 'menu',
     loadChildren: () => import('./menu/menu.module').then( m => m.MenuPageModule)
+  },  {
+    path: 'languages',
+    loadChildren: () => import('./languages/languages.module').then( m => m.LanguagesPageModule)
   },
+
 
 
 ];

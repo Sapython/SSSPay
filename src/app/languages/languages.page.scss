@@ -1,0 +1,61 @@
+.setting-card{
+    display: flex;
+  margin-top: 10px;
+    flex-direction: column;
+    width: 100%;
+    margin:auto;
+    background-color: white;
+    box-shadow: rgba(149, 157, 165, 0.4) 0px 8px 24px;
+    padding: 10px 10px;
+    .card{
+        width: 95%;
+        margin: auto;
+        height: 40px;
+       display: flex ;
+       align-items: center;
+       background-color: white ;
+       justify-content: space-between;
+       padding-right: 20px;
+       color: black;
+       ion-text{
+           font-size: 18px;
+       }
+       ion-icon{
+           color: var(--ion-btn-color);
+           font-size: 20px;
+       }
+      
+    }
+    .languages_card{
+        width: 95%;
+        margin: auto;
+        height: 50px;
+       display: flex ;
+       align-items: center;
+       background-color: white ;
+       justify-content: space-between;
+       padding-right: 20px;
+       color: black;
+       ion-text{
+           font-size: 18px;
+       }
+       ion-icon{
+           color: var(--ion-btn-color);
+           font-size: 20px;
+           visibility:hidden;
+       }
+       
+      
+    }
+    .languages_card:hover {
+        background-color: var( --ion-card-color) ;
+        width: 100%;
+        padding: 8px;
+        ion-icon{
+      visibility: visible;
+        }
+    }
+}
+.languages{
+    height: 400px;
+}

@@ -94,7 +94,7 @@
 .card{
     width: 95%;
     margin: auto;
-    height: 50px;
+    height: 40px;
    display: flex ;
    align-items: center;
    background-color: white ;
@@ -108,7 +108,8 @@
        color: var(--ion-btn-color);
        font-size: 20px;
    }
-}.Logout{
+}
+.Logout{
     justify-content: center;
     color: var(--ion-color-danger);
 }
