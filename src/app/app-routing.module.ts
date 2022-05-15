@@ -112,7 +112,15 @@ const routes: Routes = [
   {
     path: 'tv-dth',
     loadChildren: () => import('./tv-dth/tv-dth.module').then( m => m.TvDthPageModule)
+  },  {
+    path: 'mobile-recharge',
+    loadChildren: () => import('./mobile-recharge/mobile-recharge.module').then( m => m.MobileRechargePageModule)
+  },
+  {
+    path: 'view-balance',
+    loadChildren: () => import('./view-balance/view-balance.module').then( m => m.ViewBalancePageModule)
   }
+
 
 ];
 @NgModule({

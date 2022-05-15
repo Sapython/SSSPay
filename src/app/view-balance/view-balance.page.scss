@@ -1,0 +1,36 @@
+p{
+    font-family: 'Poppins',sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    display: block;
+    margin: auto;
+    width: 90%;
+    margin: 40px 0px;
+}
+.container{
+    width: 90%;
+    display: block;
+    margin: auto;
+    text-align: center;
+    padding: 10px;
+}
+.round-div{
+    border-radius: 50%;
+    background-color: #fff;
+    width: 100px;
+    height: 100px;
+    margin-top: 20px;
+    padding-top: 22px;
+    margin-left: 100px;
+    ion-icon{
+        font-size: 45px;
+        display: block;
+        margin: auto;
+    }
+}
+#down{
+    font-size: 18px;
+    span{
+        color: #2C11D0;
+    }
+}
