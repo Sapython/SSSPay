@@ -119,6 +119,14 @@ const routes: Routes = [
   {
     path: 'view-balance',
     loadChildren: () => import('./view-balance/view-balance.module').then( m => m.ViewBalancePageModule)
+  },
+  {
+    path: 'upi-pin',
+    loadChildren: () => import('./upi-pin/upi-pin.module').then( m => m.UpiPinPageModule)
+  },
+  {
+    path: 'qr-scan',
+    loadChildren: () => import('./qr-scan/qr-scan.module').then( m => m.QrScanPageModule)
   }
 
 

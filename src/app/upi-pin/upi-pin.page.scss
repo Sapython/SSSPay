@@ -1,0 +1,35 @@
+*{
+    font-family: 'Poppins',sans-serif;
+}
+.container{
+    display: block;
+    margin: auto;
+    text-align: center;
+}
+#bank{
+    color: #292075;
+    font-size: 25px;
+    font-weight: 500;
+    margin: 40px auto;
+}
+.normal{
+    font-size: 15px;
+    line-height: 20px;
+}
+#enter{
+    margin-top: 25px;
+}
+input{
+    background-color: #ebf7f4;
+    border: none;
+    border-bottom: 1.5px solid #000;
+    width: 30px;
+    display: block;
+    margin: auto;
+}
+.box{
+    display: flex;
+    text-align: center;
+    width: 80%;
+    margin: auto;
+}

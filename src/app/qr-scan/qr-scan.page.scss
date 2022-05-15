@@ -1,0 +1,19 @@
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px;
+    color: #009970;
+}
+ion-icon{
+    font-size: 25px;
+}
+.box{
+    background-color: #fff;
+    display: block;
+    width: 80%;
+    margin: 30px auto;
+    padding: 45px 25px;
+    border-radius: 10px;
+    text-align: center;
+}
