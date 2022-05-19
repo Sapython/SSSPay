@@ -1,3 +1,6 @@
+*{
+    font-family: 'Poppins',sans-serif;
+}
 section{
     padding:20px 0px;
     box-sizing: border-box;
@@ -6,13 +9,14 @@ section{
     background-color: var( --ion-background-color);
 }
 #history-details {
-    font-size: 20px;
+    font-size: 25px;
     color: var(--ion-true-dark);
-    font-weight: 900px;
+    font-weight: 600px;
     margin: 50px 30px;
+    font-family: 'Poppins',sans-serif;
   }
 ion-card{
-    font-size: 20px;
+    font-size: 17px;
     color: var(--ion-true-dark);
     padding: 20px 20px;
     height: 70px;

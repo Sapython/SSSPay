@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { MobileRechargeWidgetComponent } from './mobile-recharge-widget/mobile-recharge-widget.component';
 import { ContactsWidgetComponent } from './contacts-widget/contacts-widget.component';
 import { IonicModule } from '@ionic/angular';
@@ -16,7 +17,8 @@ MobileRechargeWidgetComponent]
   declarations: [components],
   imports: [
     CommonModule,
-    IonicModule
+    IonicModule,
+    RouterModule
   ]
 })
 export class UiwidgetsModule { }

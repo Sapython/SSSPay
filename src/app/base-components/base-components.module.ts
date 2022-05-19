@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
 import { IonicModule } from '@ionic/angular';
 import { HeaderComponent } from './header/header.component';
@@ -11,7 +12,8 @@ const components1 = [HeaderComponent,FooterComponent]
   declarations: [components1],
   imports: [
     CommonModule,
-    IonicModule
+    IonicModule,
+    RouterModule
   ]
 })
 export class BaseComponentsModule { }

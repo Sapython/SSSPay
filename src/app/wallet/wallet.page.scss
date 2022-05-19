@@ -1,3 +1,6 @@
+*{
+    font-family: 'Poppins',sans-serif;
+}
 section{
     width: 100vw;
     padding: 20px 5px;
@@ -39,7 +42,7 @@ section{
 #wallet-details {
     font-size: 25px;
     color: var(--ion-true-dark);
-    font-weight: 900px;
+    font-weight: 600px;
     margin: 0px 10px;
   }
 
