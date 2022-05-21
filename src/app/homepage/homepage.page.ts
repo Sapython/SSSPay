@@ -6,31 +6,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./homepage.page.scss'],
 })
 export class HomepagePage implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
   items = [
     {
       name: 'AEPS Services',
       service: 'service',
-      page :'aeps',
+      page: 'aeps',
     },
     {
       name: 'Bank Transfer',
       service: 'bank',
-      page :'aeps',
+      page: 'aeps',
     },
     {
       name: 'Pay Your Bills',
       service: 'bills',
-      page :'aeps',
+      page: 'aeps',
     },
     {
       name: 'Verify PAN ID',
       service: 'PAN',
-      page :'aeps',
-    }
-  ]
+      page: 'aeps',
+    },
+  ];
 }

@@ -1,11 +1,58 @@
-<app-header></app-header>
+<ion-header>
+ <ion-toolbar>
+  <ion-title>Scan To Pay</ion-title>
+  <ion-buttons slot="start">
+    <ion-button (click)="back()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+ </ion-toolbar>
+</ion-header>
 <ion-content>
-  <div class="container">
-    <ion-icon name="flash"></ion-icon>
-    <img src="assets/flip-camera.png" alt="">
+  <div>
+    <div class="scanner">
+      <video #video [hidden]="!scanActive" width="100%"></video>
+      <canvas #canvas hidden></canvas>
+    </div>
+    <div class="actions">
+      <input #fileinput type="file" accept="image/*;capture=camera" hidden (change)="handleFile($event.target)">
+      <span>
+        <ion-icon name="folder" (click)="fileinput.click()"></ion-icon>
+      </span>
+    </div>
   </div>
-  <div class="box">
-    <img src="assets/qr-scan.png" alt="">
-  </div>
+  <!-- <input #fileinput type="file" accept="image/*;capture=camera" hidden (change)="handleFile($event.target)">
+  <ion-button expand="full" (click)="captureImage()">
+    <ion-icon slot="start" name="camera"></ion-icon>
+    Capture Image
+  </ion-button>
+  <ion-button expand="full" (click)="startScan()">
+    <ion-icon slot="start" name="qr-scanner"></ion-icon>
+    Start scan
+  </ion-button>
+  <ion-button expand="full" (click)="reset()" color="warning" *ngIf="scanResult">
+    <ion-icon slot="start" name="refresh"></ion-icon>
+    Reset
+  </ion-button>
+  <ion-button expand="full" (click)="stopScan()" color="danger" *ngIf="scanActive">
+    <ion-icon slot="start" name="close"></ion-icon>
+    Stop scan
+  </ion-button>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>QR Code</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{ scanResult || 'N/A'}}
+    </ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="scanResult">
+    <ion-card-header>
+      <ion-card-title>QR Code</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{ scanResult }}
+    </ion-card-content>
+  </ion-card> -->
+
 </ion-content>
-<app-footer></app-footer>

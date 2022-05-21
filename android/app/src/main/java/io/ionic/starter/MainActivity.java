@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.shreeva.ssspay;
 
 import com.getcapacitor.BridgeActivity;
 

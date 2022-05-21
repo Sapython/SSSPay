@@ -1,0 +1,6 @@
+{
+	"appId": "com.shreeva.ssspay",
+	"appName": "SSSPay",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
