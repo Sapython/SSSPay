@@ -2,10 +2,10 @@
 
 <ion-content>
   <div class="container">
-    <app-home-widget></app-home-widget>
-    <app-home-widget></app-home-widget>
-    <app-home-widget></app-home-widget>
-    <app-home-widget></app-home-widget>
+    <app-home-widget *ngFor="let item of items"
+    [name]="item.name"
+    [service]="item.service"
+    [page]="item.page"></app-home-widget>
     <div class="inner">
       <div class="box">
         <p id="heading">Recharge And Pay Bills</p>

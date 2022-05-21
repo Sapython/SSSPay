@@ -1,28 +1,33 @@
 .container{
     margin: 10px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
-    padding: 00px 05px;
+    box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.25);
+    padding: 10px;
+    padding-bottom: 02px;
     font-family: 'Poppins',sans-serif;
-    border-radius: 10px;
+    border-radius: 15px;
 }
 .box{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 35px;
+    font-size: 15px;
     font-weight: 500;
-    padding: 0px 15px;
-    color: var(--ion-color-primary);
 }
 .box p{
     width: 80%;
     margin-left: 5%;
-    font-size: 15px;
-    color: #000;
+}
+.box img{
+    height: 45px;
+    width: 45px;
 }
 .text{
     opacity: .4;
     font-size: 13px;
     display: flex;
     justify-content: space-between;
+    margin-top: 0px;
+    p{
+        margin-top: 0px;
+    }
 }

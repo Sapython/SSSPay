@@ -8,7 +8,9 @@ import { Component, Input, OnInit } from '@angular/core';
 export class HomeWidgetComponent implements OnInit {
   @Input() name:string = 'AEPS Services';
   @Input() break:string = 'Services';
-  @Input() pngname:string = 'group-1'
+  @Input() pngname:string = 'group-1';
+  @Input() service:string = 'service';
+  @Input() page:string = 'aeps'
   constructor() { }
 
   ngOnInit() {}

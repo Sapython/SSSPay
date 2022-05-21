@@ -11,5 +11,26 @@ export class HomepagePage implements OnInit {
 
   ngOnInit() {
   }
-
+  items = [
+    {
+      name: 'AEPS Services',
+      service: 'service',
+      page :'aeps',
+    },
+    {
+      name: 'Bank Transfer',
+      service: 'bank',
+      page :'aeps',
+    },
+    {
+      name: 'Pay Your Bills',
+      service: 'bills',
+      page :'aeps',
+    },
+    {
+      name: 'Verify PAN ID',
+      service: 'PAN',
+      page :'aeps',
+    }
+  ]
 }
