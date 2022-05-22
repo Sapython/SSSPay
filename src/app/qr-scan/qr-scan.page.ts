@@ -1,12 +1,16 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import jsQR from 'jsqr';
 import { ToastController, LoadingController, Platform } from '@ionic/angular';
+import { Plugins } from "@capacitor/core";
+const { BiometricAuth } = Plugins;
+
 @Component({
   selector: 'app-qr-scan',
   templateUrl: './qr-scan.page.html',
   styleUrls: ['./qr-scan.page.scss'],
 })
 export class QrScanPage implements OnInit {
+  constructor(private loadingCtrl: LoadingController,private platform:Platform) {}
   @ViewChild('video', { static: false }) video: ElementRef;
   @ViewChild('canvas', { static: false }) canvas: ElementRef;
   @ViewChild('fileinput', { static: false }) fileinput: ElementRef;
@@ -21,7 +25,7 @@ export class QrScanPage implements OnInit {
     this.canvasContext = this.canvasElement.getContext('2d');
     this.videoElement = this.video.nativeElement;
   }
-
+  
   // Helper functions
   async showQrToast() {
     if (confirm('Do you want to ')) {
@@ -101,10 +105,29 @@ export class QrScanPage implements OnInit {
     };
     img.src = URL.createObjectURL(file);
   }
-  constructor(private loadingCtrl: LoadingController,) {}
 
   ngOnInit() {
-    this.startScan();  
+    if(this.platform.is('capacitor')){
+      // alert('Checking for fingerptin');
+      BiometricAuth.isAvailable().then(async (available:any)=>{
+        if (available.has) {
+          const authResult = await BiometricAuth.verify({reason: "Message ..."})
+          if (authResult.verified) {
+            // success authentication
+            alert('Verified')
+            this.startScan();
+          } else {
+            alert('Verification Failed')
+            // fail authentication
+          }
+        } else {
+          alert('Fingerprint not available/setup on this device')
+          // biometric not available
+        }
+      })
+    } else {
+      this.startScan();
+    }
   }
   back(){
     window.history.back();
