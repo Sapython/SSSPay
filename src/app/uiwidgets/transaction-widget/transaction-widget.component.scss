@@ -1,0 +1,18 @@
+.container {
+    display: flex;
+    font-family: 'Poppins', sans-serif;
+    color: #000;
+    background-color: #e1e1e1;
+    margin: 15px 10px;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 15px;
+    font-size: 15px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+}
+.bigger {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 10px;
+}

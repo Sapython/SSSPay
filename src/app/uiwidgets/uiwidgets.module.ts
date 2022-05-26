@@ -8,10 +8,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WidgetsComponent } from './widgets/widgets.component';
 import { NotifyWidgetComponent } from './notify-widget/notify-widget.component';
+import { TransactionWidgetComponent } from './transaction-widget/transaction-widget.component';
 
 
 const components = [WidgetsComponent,HomeWidgetComponent,NotifyWidgetComponent,ContactsWidgetComponent,
-MobileRechargeWidgetComponent]
+MobileRechargeWidgetComponent,TransactionWidgetComponent]
 @NgModule({
   exports: [components],
   declarations: [components],

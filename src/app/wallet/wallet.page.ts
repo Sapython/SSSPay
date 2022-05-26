@@ -6,7 +6,7 @@ import { ModalService } from '../_modal';
   styleUrls: ['./wallet.page.scss'],
 })
 export class WalletPage implements OnInit {
-  @Input() amount:string = '2,32,456.555'
+  @Input() amount:string = 'Rs.2,32,456'
   constructor(public modalSevices:ModalService) { }
 
   ngOnInit() {
