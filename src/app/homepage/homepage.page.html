@@ -1,7 +1,8 @@
 <app-header></app-header>
+
 <ion-content>
   <div class="container">
-    <app-home-widget *ngFor="let item of items" [name]="item.name" [service]="item.service" [page]="item.page">
+    <app-home-widget *ngFor="let item of items" [name]="item.name" [service]="item.service" [page]="item.page" [routerLink]="item.routerLink">
     </app-home-widget>
     <div class="inner">
       <div class="box">

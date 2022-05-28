@@ -127,6 +127,18 @@ const routes: Routes = [
   {
     path: 'qr-scan',
     loadChildren: () => import('./qr-scan/qr-scan.module').then( m => m.QrScanPageModule)
+  },
+  {
+    path: 'payment-status',
+    loadChildren: () => import('./payment-status/payment-status.module').then( m => m.PaymentStatusPageModule)
+  },
+  {
+    path: 'pan-verify',
+    loadChildren: () => import('./pan-verify/pan-verify.module').then( m => m.PanVerifyPageModule)
+  },
+  {
+    path: 'bank-transfer',
+    loadChildren: () => import('./bank-transfer/bank-transfer.module').then( m => m.BankTransferPageModule)
   }
 
 

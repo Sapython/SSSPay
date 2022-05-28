@@ -5,7 +5,7 @@
     background-color: #fff;
     border-radius: 10px;
     margin: 10px;
-    padding: 10px;
+    padding: 10px 0px;
     p{
         font-size: 25px;
         font-weight: 600;
@@ -38,4 +38,29 @@ button{
     p{
         font-size: 20px;
     }
+}
+// ion-item:nth-child(0){
+//     padding-top: 20px;
+// }
+select{
+    width:100%;
+    margin: 20px auto;
+    padding: 20px auto;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    box-shadow: none;
+    color: grey;
+    option{
+      width:100%;
+    margin: auto;
+    
+    
+    }
+    }
+    .operator-select{
+    font-size: 18px;
+    padding: 20px ;
+    color: Grey; 
+    margin-bottom: 10px;   
 }

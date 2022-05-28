@@ -12,21 +12,28 @@ export class HomepagePage implements OnInit {
       name: 'AEPS Services',
       service: 'service',
       page: 'aeps',
+      routerLink:'/aeps'
     },
     {
       name: 'Bank Transfer',
       service: 'bank',
       page: 'aeps',
+      
+      routerLink:'/bank-transfer'
     },
     {
       name: 'Pay Your Bills',
       service: 'bills',
       page: 'aeps',
+      
+      routerLink:'/mobile-recharge'
     },
     {
       name: 'Verify PAN ID',
       service: 'PAN',
       page: 'aeps',
+      
+      routerLink:'/pan-verify'
     },
   ];
 }
