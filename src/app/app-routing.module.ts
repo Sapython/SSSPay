@@ -139,6 +139,10 @@ const routes: Routes = [
   {
     path: 'bank-transfer',
     loadChildren: () => import('./bank-transfer/bank-transfer.module').then( m => m.BankTransferPageModule)
+  },
+  {
+    path: 'transaction-status',
+    loadChildren: () => import('./transaction-status/transaction-status.module').then( m => m.TransactionStatusPageModule)
   }
 
 

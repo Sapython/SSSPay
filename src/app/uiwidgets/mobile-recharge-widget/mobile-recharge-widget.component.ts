@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class MobileRechargeWidgetComponent implements OnInit {
   @Input() name:string = 'Kumar Saptam'
-  @Input() number:number = 91256365214;
+  @Input() number:number = +91256365214;
   @Input() operator:string = 'airtel';
   constructor() { }
 

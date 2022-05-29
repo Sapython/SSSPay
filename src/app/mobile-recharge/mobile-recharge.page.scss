@@ -4,25 +4,32 @@
     padding: 10px;
     border-radius: 10px;
     font-family: 'Poppins',sans-serif;
+    p{
+        color: black;
+        padding: 0;
+        font-size: 20px;
+    }
 }
 ion-searchbar{
     display: block;
-    width: 90%;
-    margin: auto;
-    background-color: #fff;
-    color: grey;
-    border-radius: 20px;
-    border: 1px solid #009970;
-    font-family: 'Poppins',sans-serif;
+    width: 100%;
+    border: 2px solid #009970;
+    font-family:var(--font-family);
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    height: 55px;
 }
 #enter-number{
     border: none;
-    border-bottom: 1px solid #009970;
+    border-bottom: 2px solid #009970;
     background-color: #fff;
+    font-size: 16px;
     display: block;
-    width: 90%;
-    margin: auto;
-    margin-top: 10%;
+    width: 100%;
+    margin: 15% auto;
+    outline: none;
+    padding: 10px 0px;
 }
 #heading{
     font-size: 20px;
