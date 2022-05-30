@@ -2,7 +2,10 @@ ion-card{
     height: 300px;
     // width: 100%;
     // box-sizing: border-box;
+    margin:20px auto;
+    width: 87vw;
     padding: 20px;
+    border-radius: 15px;
     ion-avatar{
         margin: 40px auto;
        height: 60px;
@@ -21,8 +24,7 @@ ion-card{
   
 }
 .transaction-card{
-    // margin-top: 70px;
-    width: 85vw;
+    border-radius: 10px;
     .transaction_id{
         color: var(--ion-text-dark);
         font-size: 18px;

@@ -6,27 +6,25 @@
 
     <!-- <ion-label position="floating" class="font">Operator</ion-label> -->
     <ion-label class="operator-select">Select Operator</ion-label>
-      <ion-item >
-        
-        <select>
-          <option value="1">Airtel</option>
-          <option value="2">Videocon</option>
-          <option value="3">Tata play</option>
-        </select>
+    <ion-item>
+      <select>
+        <option value="1">Airtel</option>
+        <option value="2">Videocon</option>
+        <option value="3">Tata play</option>
+      </select>
+    </ion-item>
+
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating" class="font">Customer No</ion-label>
+        <ion-input></ion-input>
       </ion-item>
-    
-<ion-list>
-    <ion-item>
-      <ion-label position="floating" class="font">Customer No</ion-label>
-      <ion-input></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating" class="font">
-        Amount to pack </ion-label>
-      <ion-input></ion-input>
-    </ion-item>
-  </ion-list>
-    <button>Recharge</button>
+      <ion-item>
+        <ion-label position="floating" class="font"> Amount to pack </ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+    </ion-list>
+    <button  routerLink="/payment-status">Recharge</button>
   </div>
   <div class="container2">
     <p>Recent Payments</p>

@@ -1,16 +1,32 @@
 <app-header></app-header>
-<ion-content color="ion-background-color">
-  <ion-card>
-  <div class="container" >
-    <ion-searchbar color="contrast" placeholder="Search by Number or Name"></ion-searchbar>
-    <input type="number" placeholder="Enter Number" id="enter-number" />
-    <p id="heading">Contacts</p>
-    <app-mobile-recharge-widget></app-mobile-recharge-widget>
-    <app-mobile-recharge-widget></app-mobile-recharge-widget>
-    <app-mobile-recharge-widget></app-mobile-recharge-widget>
-    <app-mobile-recharge-widget></app-mobile-recharge-widget>
-    <app-mobile-recharge-widget></app-mobile-recharge-widget>
-  </div>
-</ion-card>
+<ion-content color="light">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+          <ion-card class="ion-padding">
+            <ion-text>Mobile Recharge</ion-text>
+            <input type="number" placeholder="Enter Number" id="enter-number" />
+         
+            <ion-button expand="block" routerLink="/payment-status">Confirm</ion-button>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    <ion-row>
+    <ion-col>
+        <ion-card>
+          <div class="container" >
+            <p id="heading">All Contacts</p>
+            <ion-searchbar  color="ion-text-color" placeholder="Search"></ion-searchbar>
+            <app-mobile-recharge-widget  routerLink="/payment-status"></app-mobile-recharge-widget>
+            <app-mobile-recharge-widget  routerLink="/payment-status"></app-mobile-recharge-widget>
+            <app-mobile-recharge-widget  routerLink="/payment-status"></app-mobile-recharge-widget>
+            <app-mobile-recharge-widget  routerLink="/payment-status"></app-mobile-recharge-widget>
+            <app-mobile-recharge-widget  routerLink="/payment-status"></app-mobile-recharge-widget>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+ 
 </ion-content>
 <app-footer></app-footer>
