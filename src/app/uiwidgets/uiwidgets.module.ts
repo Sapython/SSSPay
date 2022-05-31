@@ -9,17 +9,20 @@ import { CommonModule } from '@angular/common';
 import { WidgetsComponent } from './widgets/widgets.component';
 import { NotifyWidgetComponent } from './notify-widget/notify-widget.component';
 import { TransactionWidgetComponent } from './transaction-widget/transaction-widget.component';
+import { BankWidgetComponent } from './bank-widget/bank-widget.component';
+import { LpgGasComponentsComponent } from './lpg-gas-components/lpg-gas-components.component';
+import { RewardsComponentComponent } from './rewards-component/rewards-component.component';
 
 
 const components = [WidgetsComponent,HomeWidgetComponent,NotifyWidgetComponent,ContactsWidgetComponent,
-MobileRechargeWidgetComponent,TransactionWidgetComponent]
+MobileRechargeWidgetComponent,TransactionWidgetComponent,BankWidgetComponent,LpgGasComponentsComponent,RewardsComponentComponent]
 @NgModule({
   exports: [components],
   declarations: [components],
   imports: [
     CommonModule,
     IonicModule,
-    RouterModule
+    RouterModule,
   ]
 })
 export class UiwidgetsModule { }

@@ -143,6 +143,18 @@ const routes: Routes = [
   {
     path: 'transaction-status',
     loadChildren: () => import('./transaction-status/transaction-status.module').then( m => m.TransactionStatusPageModule)
+  },
+  {
+    path: 'fast-tag-recharge',
+    loadChildren: () => import('./fast-tag-recharge/fast-tag-recharge.module').then( m => m.FastTagRechargePageModule)
+  },
+  {
+    path: 'gas-bill-pay',
+    loadChildren: () => import('./gas-bill-pay/gas-bill-pay.module').then( m => m.GasBillPayPageModule)
+  },
+  {
+    path: 'rewards',
+    loadChildren: () => import('./rewards/rewards.module').then( m => m.RewardsPageModule)
   }
 
 

@@ -15,7 +15,8 @@ ion-card{
    
 }
 .container{
-   padding: 0px 10px;
+    box-sizing: border-box;
+   padding: 10px 10px;
     border-radius: 10px;
     font-family: 'Poppins',sans-serif;
     p{

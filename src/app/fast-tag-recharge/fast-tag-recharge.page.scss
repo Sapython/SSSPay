@@ -1,0 +1,13 @@
+ion-card{
+    padding: 15px;
+    ion-text{
+        font-size: 23px;
+        font-weight: 400;
+        color: black;
+    }
+    p{
+        font-size: 20px;
+        color: var(--ion-text-li);
+        // padding-right:50px;
+    }
+}
