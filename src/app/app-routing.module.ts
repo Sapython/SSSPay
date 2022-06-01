@@ -155,6 +155,14 @@ const routes: Routes = [
   {
     path: 'rewards',
     loadChildren: () => import('./rewards/rewards.module').then( m => m.RewardsPageModule)
+  },
+  {
+    path: 'offers',
+    loadChildren: () => import('./offers/offers.module').then( m => m.OffersPageModule)
+  },
+  {
+    path: 'invite',
+    loadChildren: () => import('./invite/invite.module').then( m => m.InvitePageModule)
   }
 
 

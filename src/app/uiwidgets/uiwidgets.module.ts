@@ -12,10 +12,11 @@ import { TransactionWidgetComponent } from './transaction-widget/transaction-wid
 import { BankWidgetComponent } from './bank-widget/bank-widget.component';
 import { LpgGasComponentsComponent } from './lpg-gas-components/lpg-gas-components.component';
 import { RewardsComponentComponent } from './rewards-component/rewards-component.component';
+import { OfferComponentComponent } from './offer-component/offer-component.component';
 
 
 const components = [WidgetsComponent,HomeWidgetComponent,NotifyWidgetComponent,ContactsWidgetComponent,
-MobileRechargeWidgetComponent,TransactionWidgetComponent,BankWidgetComponent,LpgGasComponentsComponent,RewardsComponentComponent]
+MobileRechargeWidgetComponent,TransactionWidgetComponent,BankWidgetComponent,LpgGasComponentsComponent,RewardsComponentComponent,OfferComponentComponent]
 @NgModule({
   exports: [components],
   declarations: [components],

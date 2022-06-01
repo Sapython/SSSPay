@@ -1,5 +1,5 @@
 
-ion-card{
+.first_card{
     
     font-family: var(--font-family);
     box-shadow: none;
@@ -14,40 +14,22 @@ ion-card{
     }
    
 }
+
 .container{
-    box-sizing: border-box;
-   padding: 10px 10px;
+    margin: 0px;
+    padding: 0;
     border-radius: 10px;
     font-family: 'Poppins',sans-serif;
-    p{
+    ion-text{
         font-size: 18px;
         color: black;
-        margin: 30px 10px;
+        // margin: 30px 10px;
        }
-       ion-searchbar{
-        // display: block;
-        // width: 100%; 
-        //  padding: 5px 10px;
-        // border: 2px solid #009970;  
-        // box-shadow: none;
-        // font-family:var(--font-family);
-        // border-radius: 30px;
-        // box-shadow: none;
-        // display: flex;
-        // align-items: center;
-    //    color: transparent;
-        // height: 55px;
-    }
+      #invite_option{
+           margin: 20px;
+           padding: 0px;
+           background-color: red;
+       }
 }
 
-#enter-number{
-    border: none;
-    border-bottom: 2px solid #009970;
-    background-color: #fff;
-    font-size: 16px;
-    display: block;
-    width: 100%;
-    margin: 15% auto;
-    outline: none;
-    padding: 10px 0px;
-}
+
