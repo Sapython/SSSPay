@@ -6,11 +6,14 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./transaction-widget.component.scss'],
 })
 export class TransactionWidgetComponent implements OnInit {
-  @Input() amount:string = '$48'
+  @Input() amount:string = '48,900'
+  @Input() currency:string = '₹'
   @Input() sign:string = '+'
   @Input() time:string = '1m 3s ago'
   @Input() purpose:string = 'For Beverages'
   @Input() name:string = 'Ranvijay Sinha'
+  @Input() status:string = "success"
+  //for credit amount "success" for debit amount "danger"
   constructor() { }
 
   ngOnInit() {}

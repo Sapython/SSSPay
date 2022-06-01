@@ -163,6 +163,10 @@ const routes: Routes = [
   {
     path: 'invite',
     loadChildren: () => import('./invite/invite.module').then( m => m.InvitePageModule)
+  },
+  {
+    path: 'upi',
+    loadChildren: () => import('./upi/upi.module').then( m => m.UpiPageModule)
   }
 
 

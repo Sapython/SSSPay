@@ -2,19 +2,19 @@
 
 <ion-content color="light">
   <div class="container">
-    <p>Tv</p>
-
-    <!-- <ion-label position="floating" class="font">Operator</ion-label> -->
-    <ion-label class="operator-select">Select Operator</ion-label>
-    <ion-item>
-      <select>
-        <option value="1">Airtel</option>
-        <option value="2">Videocon</option>
-        <option value="3">Tata play</option>
-      </select>
-    </ion-item>
+    <ion-label class="tv">Tv</ion-label>
 
     <ion-list>
+      <ion-item>
+        <ion-label class="operator-select">Select Operator</ion-label>
+        <ion-select value="dth_operator" interface="action-sheet">
+          <ion-select-option value="id">Airtel </ion-select-option>
+          <ion-select-option value="mobile">Dish Tv</ion-select-option>
+          <ion-select-option value="Consumer_no">Videocon</ion-select-option>
+          <ion-select-option value="Consumer_no">Tata Play</ion-select-option>
+          <ion-select-option value="Consumer_no">Sky Plus</ion-select-option>
+        </ion-select>
+      </ion-item>
       <ion-item>
         <ion-label position="floating" class="font">Customer No</ion-label>
         <ion-input></ion-input>
@@ -24,7 +24,7 @@
         <ion-input></ion-input>
       </ion-item>
     </ion-list>
-    <button  routerLink="/payment-status" class="ion-margin">Recharge</button>
+    <button routerLink="/payment-status" class="ion-margin">Recharge</button>
   </div>
   <div class="container2">
     <p>Recent Payments</p>

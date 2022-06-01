@@ -5,12 +5,17 @@
       <ion-col>
         <ion-card class="select_LPG_gas">
           <ion-label>LPG Gas</ion-label>
-        
+
           <ion-grid>
-            <app-lpg-gas-components ></app-lpg-gas-components>
-            <app-lpg-gas-components name="Bharat" image="../../../assets/lpg-gas/bharat.svg" ></app-lpg-gas-components>
-            <app-lpg-gas-components name="HP Gas" image="../../../assets/lpg-gas/hp.svg" ></app-lpg-gas-components>
-          
+            <app-lpg-gas-components></app-lpg-gas-components>
+            <app-lpg-gas-components
+              name="Bharat"
+              image="../../../assets/lpg-gas/bharat.svg"
+            ></app-lpg-gas-components>
+            <app-lpg-gas-components
+              name="HP Gas"
+              image="../../../assets/lpg-gas/hp.svg"
+            ></app-lpg-gas-components>
           </ion-grid>
         </ion-card>
         <ion-card class="booking_method">
@@ -35,8 +40,14 @@
               <ion-input placeholder="" autofocus=""></ion-input>
             </ion-item>
           </ion-list>
-          
-          <ion-button expand="block"  type="number" class="ion-margin" routerLink="../payment-status">confirm</ion-button>
+
+          <ion-button
+            expand="block"
+            type="number"
+            class="ion-margin"
+            routerLink="../payment-status"
+            >confirm</ion-button
+          >
         </ion-card>
       </ion-col>
     </ion-row>

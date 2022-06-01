@@ -1,6 +1,32 @@
 <app-header></app-header>
-<ion-content>
-  <div class="container">
+<ion-content color="light">
+  <ion-card id="user_info" color="secondary">
+    <ion-card color="secondary">
+      <ion-label>John doe</ion-label>
+      <ion-text>+91-2121-9831-89 </ion-text>
+      <ion-text>test@gamil.com </ion-text>
+    </ion-card>
+    <ion-avatar>
+      <ion-img src="https://i.pravatar.cc/300"> </ion-img>
+    </ion-avatar>
+  </ion-card>
+  <ion-card id="balance_info">
+    <div id="balace">
+      <ion-text>₹10,211</ion-text>
+      <ion-label>Current Balance</ion-label>
+      <ion-text>₹9,102,11</ion-text>
+      <ion-label>Highest Balance</ion-label>
+    </div>
+    <div id="controller">
+      <ion-button color="secondary"><ion-icon name="refresh-outline"></ion-icon><ion-text>Refresh</ion-text></ion-button>
+      <ion-button color="secondary"><ion-icon name="share-social-outline"></ion-icon> <ion-text>Share</ion-text></ion-button>
+      <ion-button color="secondary"><ion-icon name="qr-code-outline"></ion-icon><ion-text>QR Code</ion-text></ion-button>
+    </div>
+  </ion-card>
+</ion-content>
+<app-footer></app-footer>
+
+<!-- <div class="container">
     <p>Savings Account</p>
   <div class="round-div">
     <ion-icon class="text-green" name="checkmark"></ion-icon>
@@ -8,6 +34,4 @@
   <p>Available Balance</p>
   <p class="text-green">{{available}}</p>
   <p id="down">Highest Balance In Your Account <span>{{highest}}</span></p>
-  </div>
-</ion-content>
-<app-footer></app-footer>
+  </div> -->

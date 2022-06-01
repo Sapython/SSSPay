@@ -1,13 +1,13 @@
-<div class="container">
-  <ion-avatar slot="start">
+<ion-card class="container" >
+  <ion-avatar >
     <img src="https://i.pravatar.cc/300" />
   </ion-avatar>
   <div class="inner-container">
-    <p class="bigger amount">{{name}}</p>
-    <p>{{purpose}}</p>
+    <ion-label class="bigger amount">{{name}}</ion-label>
+    <ion-text>{{purpose}}</ion-text>
   </div>
   <div class="second-container">
-    <p class="bigger amount">{{sign}}{{amount}}</p>
-    <p>{{time}}</p>
+    <ion-text color={{status}} class="bigger amount">{{sign}}{{currency}}{{amount}}</ion-text>
+    <ion-label>{{time}}</ion-label>
   </div>
-</div>
+</ion-card>

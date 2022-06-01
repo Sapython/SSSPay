@@ -1,17 +1,17 @@
 <app-header></app-header>
-<ion-content>
-  <div class="container">
+<ion-content color="light">
+  <ion-card class="container" >
     <div class="inner-container">
-      <p>Total Assets</p>
+      <ion-label>Total Assets</ion-label>
       <p id="amount">{{amount}}</p>
     </div>
-    <ion-icon name="refresh-circle"></ion-icon>
-  </div>
+    <ion-icon name="refresh-circle-outline"></ion-icon>
+  </ion-card>
   <p id="amount">Transactions</p>
-  <app-transaction-widget></app-transaction-widget>
-  <app-transaction-widget></app-transaction-widget>
-  <app-transaction-widget></app-transaction-widget>
-  <app-transaction-widget></app-transaction-widget>
-  <app-transaction-widget></app-transaction-widget>
+  <app-transaction-widget routerLink="../transaction-status"  ></app-transaction-widget>
+  <app-transaction-widget   routerLink="../transaction-status" ></app-transaction-widget>
+  <app-transaction-widget  routerLink="../transaction-status" ></app-transaction-widget>
+  <app-transaction-widget  routerLink="../transaction-status" ></app-transaction-widget>
+  <app-transaction-widget  routerLink="../transaction-status" ></app-transaction-widget>
 </ion-content>
 <app-footer></app-footer>
