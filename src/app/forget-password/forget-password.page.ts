@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { ModalService } from '../_modal';
 @Component({
   selector: 'app-forget-password',
   templateUrl: './forget-password.page.html',
@@ -11,7 +10,6 @@ export class ForgetPasswordPage implements OnInit {
   emailValue;
   constructor(  
     private alertCtrl:AlertController,
-    public modalSevices:ModalService
   ) { }
 
   ngOnInit() {

@@ -8,7 +8,8 @@ import { HistoryPageRoutingModule } from './history-routing.module';
 
 import { HistoryPage } from './history.page';
 import { BaseComponentsModule } from '../base-components/base-components.module';
-import { ModalModule } from '../_modal';
+import { UiwidgetsModule } from '../uiwidgets/uiwidgets.module';
+
 
 @NgModule({
   imports: [
@@ -16,8 +17,7 @@ import { ModalModule } from '../_modal';
     FormsModule,
     IonicModule,
     HistoryPageRoutingModule,
-    BaseComponentsModule,
-    ModalModule
+    BaseComponentsModule,UiwidgetsModule
   ],
   declarations: [HistoryPage]
 })

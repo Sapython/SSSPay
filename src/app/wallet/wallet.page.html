@@ -3,15 +3,12 @@
   <ion-card class="container" >
     <div class="inner-container">
       <ion-label>Total Assets</ion-label>
-      <p id="amount">{{amount}}</p>
+      <p id="amount">{{currency}}{{' '}}{{amount}}</p>
     </div>
     <ion-icon name="refresh-circle-outline"></ion-icon>
   </ion-card>
   <p id="amount">Transactions</p>
-  <app-transaction-widget routerLink="../transaction-status"  ></app-transaction-widget>
-  <app-transaction-widget   routerLink="../transaction-status" ></app-transaction-widget>
-  <app-transaction-widget  routerLink="../transaction-status" ></app-transaction-widget>
-  <app-transaction-widget  routerLink="../transaction-status" ></app-transaction-widget>
-  <app-transaction-widget  routerLink="../transaction-status" ></app-transaction-widget>
+  <app-transaction-widget *ngFor=" let transaction of transactions"  [image]="transaction.image" [time]="transaction.time" [purpose]="transaction.purpose" [amount]="transaction.amount" [status]="transaction.status" [sign]="transaction.sign" [name]="transaction.name" routerLink="../transaction-status"  ></app-transaction-widget>
+  
 </ion-content>
 <app-footer></app-footer>

@@ -9,8 +9,8 @@ import { WalletPageRoutingModule } from './wallet-routing.module';
 
 import { WalletPage } from './wallet.page';
 import { BaseComponentsModule } from '../base-components/base-components.module';
-import { ModalModule } from '../_modal';
-import { WidgetsComponent } from '../uiwidgets/widgets/widgets.component';
+
+
 
 @NgModule({
   imports: [
@@ -19,7 +19,6 @@ import { WidgetsComponent } from '../uiwidgets/widgets/widgets.component';
     IonicModule,
     WalletPageRoutingModule,
     BaseComponentsModule,
-    ModalModule,
     UiwidgetsModule
   ],
   declarations: [WalletPage],

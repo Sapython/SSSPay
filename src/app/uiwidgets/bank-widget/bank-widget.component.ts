@@ -7,7 +7,6 @@ import { Component, OnInit,Input } from '@angular/core';
 })
 export class BankWidgetComponent implements OnInit {
   @Input() name:string = 'Axis Bank Fastag'
-  @Input() operator:string = 'airtel';
   @Input() image:string = "../../../assets/banks/axisbank.svg";
   constructor() { }
 

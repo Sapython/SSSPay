@@ -6,17 +6,18 @@ import { HomeWidgetComponent } from './home-widget/home-widget.component';
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WidgetsComponent } from './widgets/widgets.component';
 import { NotifyWidgetComponent } from './notify-widget/notify-widget.component';
 import { TransactionWidgetComponent } from './transaction-widget/transaction-widget.component';
 import { BankWidgetComponent } from './bank-widget/bank-widget.component';
 import { LpgGasComponentsComponent } from './lpg-gas-components/lpg-gas-components.component';
 import { RewardsComponentComponent } from './rewards-component/rewards-component.component';
 import { OfferComponentComponent } from './offer-component/offer-component.component';
+import { PopoverComponent } from './popover/popover.component';
+import { HistoryComponentComponent } from './history-component/history-component.component';
 
 
-const components = [WidgetsComponent,HomeWidgetComponent,NotifyWidgetComponent,ContactsWidgetComponent,
-MobileRechargeWidgetComponent,TransactionWidgetComponent,BankWidgetComponent,LpgGasComponentsComponent,RewardsComponentComponent,OfferComponentComponent]
+const components = [HomeWidgetComponent,NotifyWidgetComponent,ContactsWidgetComponent,
+MobileRechargeWidgetComponent,TransactionWidgetComponent,BankWidgetComponent,LpgGasComponentsComponent,RewardsComponentComponent,OfferComponentComponent,PopoverComponent,HistoryComponentComponent]
 @NgModule({
   exports: [components],
   declarations: [components],

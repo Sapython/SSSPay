@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TransactionWidgetComponent implements OnInit {
   @Input() amount:string = '48,900'
+   @Input() image:string = '"https://i.pravatar.cc/300"'
   @Input() currency:string = '₹'
   @Input() sign:string = '+'
   @Input() time:string = '1m 3s ago'

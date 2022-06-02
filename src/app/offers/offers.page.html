@@ -1,19 +1,12 @@
 <app-header></app-header>
-
 <ion-content color="light">
   <ion-card class="ion-margin ion-padding">
     <ion-label>Offers</ion-label>
-    <app-offer-component image="https://gumlet.assettype.com/swarajya%2F2021-01%2F7a6e91f6-5862-4ac5-bb08-eb5bf2a3e20c%2FboAt_logo.jpg?format=auto" offer="get Rs.500 off on purcahse of Rs.3000 and above"></app-offer-component>
-
-    <app-offer-component image="../../assets/sss-logo.svg" offer="First Prepaid Recharge Via SSS-Pay | Win Up To Rs 50 Cashback"></app-offer-component>
-
-    <app-offer-component></app-offer-component>
-    <app-offer-component image="https://gumlet.assettype.com/swarajya%2F2021-01%2F7a6e91f6-5862-4ac5-bb08-eb5bf2a3e20c%2FboAt_logo.jpg?format=auto" offer="get Rs.500 off on purcahse of Rs.3000 and above"></app-offer-component>
-
-    <app-offer-component image="../../assets/sss-logo.svg" offer="First Prepaid Recharge Via SSS-Pay | Win Up To Rs 50 Cashback"></app-offer-component>
-
-    <app-offer-component></app-offer-component>
-
+    <app-offer-component
+      *ngFor="let offer of offers"
+      [offer]="offer.offer"
+      [image]="offer.Image"
+    ></app-offer-component>
     <ion-card></ion-card>
   </ion-card>
 </ion-content>

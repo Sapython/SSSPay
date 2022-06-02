@@ -1,16 +1,13 @@
-
-<ion-card >
-  <div>NEW</div>
-     <ion-img  src="../../assets/nayasa-reward.svg"></ion-img>
-     <ion-text class="offer">
-      ₹400 off on <br>
-      NAAYASA jewellery
-     <ion-text>
-      will expire in   2 days
-      
-     <ion-button class="ion-margin-bottom">Shop Now</ion-button>
-     </ion-text>
-     
-     </ion-text>
-
-   </ion-card>
+<ion-card>
+  <div class="new">NEW</div>
+  <ion-img src="{{ image }}"></ion-img>
+  <div class="offer">
+   <ion-text>{{ offer }}</ion-text> 
+    <div class="desc" >
+      <ion-text>
+        {{ expire }}
+      </ion-text>
+      <ion-button class="ion-margin-bottom">Shop Now</ion-button>
+    </div>
+  </div>
+</ion-card>
