@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
+import { ModalPageComponent } from '../uiwidgets/modal-page/modal-page.component';
 @Component({
   selector: 'app-forget-password',
   templateUrl: './forget-password.page.html',
@@ -9,37 +10,21 @@ export class ForgetPasswordPage implements OnInit {
 
   emailValue;
   constructor(  
-    private alertCtrl:AlertController,
+    public modalController: ModalController
   ) { }
 
   ngOnInit() {
   }
-  submitForgetPWD(){
-    if(this.emailValue){
-      console.log('email',this.emailValue);
-    }else{
-      console.log('enter email');
-    }
+
+ 
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: ModalPageComponent,
+      cssClass: 'my-custom-class'
+      
+
+    });
+    return await modal.present();
   }
-  onSend() {
-    //  this.recipeService.deleteRecipe(this.loadedRecipe.id);
-    this.alertCtrl.create({
-      header: 'Check your mail',
-      message: 'Do you really want to delete this message',
-     
-      buttons:[{
-        text:'cancel',
-        role:'cancel'
-      },{
-        text:'Delete',
-       
-      }]
-    }).then(alertEl=> {
-      alertEl.present();
-    })
-   
-  }
-  popup(){
-    
-  }
+
 }
