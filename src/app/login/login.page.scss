@@ -6,77 +6,81 @@ section {
   #logo {
     margin-top: 50px;
   }
-  #form{
-
+  #form {
     margin-top: 50px;
   }
-  ion-input{
-    color:var(--ion-true-dark);
+  ion-input {
+    color: var(--ion-true-dark);
   }
   ion-card {
+    margin-bottom: 20px;
     background-color: #ffffff;
-    border: 2px solid var(--ion-border-color);
-    height: 65px;
-    border-radius: 10px;
-    box-sizing: border-box;
-    padding: 10px 20px;
+    border: 2px solid var(--ion-color-primary);
+    height: 55px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     box-shadow: none;
+    padding: 8px;
     ion-input {
       --placeholder-color: var(--ion-placeholder-color);
       --placeholder-opacity: 1;
-      font-size: 22px;
-     font-weight: 400;
+      font-size: 19px;
+      font-weight: 400;
       box-sizing: border-box;
-     .pwd-icon-box{
-       background-color: #ffffff;
-       color:var(--ion-placeholder-color);
-     }
+      color: rgb(155, 154, 154);
+      .pwd-icon-box {
+        background-color: #ffffff;
+        color: var(--ion-placeholder-color);
+      }
     }
-    #eye{
+    #eye {
       font-weight: 900;
       font-size: 27px;
     }
   }
-  .login_btn{
+  .login_btn {
     border-radius: 20px;
-    
-    &:hover,&:active{
+
+    &:hover,
+    &:active {
       background-color: #21bf64;
     }
   }
-  .fogotPass{
+  .fogotPass {
     color: var(--ion-text-color-2);
     font-size: 20px;
     font-weight: 600;
-    &:hover{
+    &:hover {
       color: var(--ion-text-color-1);
     }
   }
-  #social-icon{
+  #social-icon {
     width: 59px;
     height: 45px;
     border-radius: 25px;
     background-color: var(--ion-btn-color);
     margin: 0px 30px;
-    ion-icon{
+    ion-icon {
       font-size: 40px;
       font-weight: 900;
-   
     }
   }
-.create-account{
-  margin: auto;
-  padding: 30px 0px;
-  b{
-    font-size: 18px;
-    color: var(--ion-dark);
-    letter-spacing: 1.2px;
-    font-weight: 600;
-    a{
-      text-decoration: none;
+  .create-account {
+    margin: auto;
+    padding: 30px 0px;
+    b {
+      font-size: 18px;
+      color: var(--ion-dark);
+      letter-spacing: 1.2px;
+      font-weight: 600;
+      span {
+        text-decoration: none;
+        color: var(--ion-color-primary);
+      }
     }
   }
-}
 }
 
 .input-wrap {

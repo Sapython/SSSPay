@@ -1,4 +1,91 @@
-<ion-content class="login-screen">
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-text class="ion-padding-start">Creat Account</ion-text>
+  </ion-toolbar>
+</ion-header>
+<ion-content color="light">
+  <section>
+    <ion-grid>
+     
+      <ion-row id="form">
+        <ion-col size="11" offset="0.5">
+          <ion-label class="ion-margin">First Name</ion-label>
+          <ion-card>
+            <ion-input
+              placeholder=""
+              autocomplete="off"
+              autocorrect="off"
+              autofocus="true"
+              name="username"
+            >
+            </ion-input>
+          </ion-card>
+          <ion-label class="ion-margin">Last Name</ion-label>
+          <ion-card>
+            <ion-input
+              placeholder=""
+              autocomplete="off"
+              autocorrect="off"
+              autofocus="true"
+              name="username"
+            >
+            </ion-input>
+          </ion-card>
+          <ion-label class="ion-margin">Email </ion-label>
+          <ion-card>
+            <ion-input
+              placeholder=""
+              autocomplete="off"
+              autocorrect="off"
+              autofocus="true"
+              name="username"
+            >
+            </ion-input>
+          </ion-card>
+          <ion-label class="ion-margin">Password</ion-label>
+          <ion-card>
+            <ion-input [type]="showPassword === false ? 'password' : 'text'" class="input-reverse ion-no-border"  autocomplete="off" placeholder="" autocorrect="off" autofocus="true" color="dark" name="password" pattern="email">
+              <button class="ion-float-end pwd-icon-box"  (click)="togglePassword('p')">
+                <ion-icon class="show-option" [hidden]="!showPassword" name="eye-off-outline"></ion-icon>
+                <ion-icon class="hide-option" [hidden]="showPassword" name="eye-outline"></ion-icon>
+             </button>
+            </ion-input>
+          </ion-card>
+          <ion-label class="ion-margin">Confirm Password </ion-label>
+          <ion-card>
+            <ion-input [type]="showPassword === false ? 'password' : 'text'" class="input-reverse ion-no-border"  autocomplete="off" placeholder="" autocorrect="off" autofocus="true" color="dark" name="password" pattern="email">
+              <button class="ion-float-end pwd-icon-box"  (click)="togglePassword('p')">
+                <ion-icon class="show-option" [hidden]="!showPassword" name="eye-off-outline"></ion-icon>
+                <ion-icon class="hide-option" [hidden]="showPassword" name="eye-outline"></ion-icon>
+             </button>
+            </ion-input>
+          </ion-card>
+          <ion-text class="ion-margin">at least 8 characters</ion-text>
+         
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button
+            class="ion-margin sign_up"
+            expand="block"
+            fill="solid"
+            size="large"
+            color="primary"
+            routerLink="/"
+          >
+            Signup
+          </ion-button>
+        </ion-col>
+      </ion-row>
+     
+    </ion-grid>
+  </section>
+</ion-content>
+ <!-- <ion-content class="login-screen">
   <ion-grid>
     <ion-row class="main-row">
       <ion-col size="3"></ion-col>
@@ -51,4 +138,4 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-</ion-content>
+</ion-content>  -->

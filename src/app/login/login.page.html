@@ -1,4 +1,4 @@
-<ion-content class="login-screen">
+<ion-content class="login-screen" color="light">
   <section>
     <ion-grid>
       <ion-row> 
@@ -19,27 +19,11 @@
             </ion-input>
           </ion-card>
           <ion-card>
-            <ion-input
-              placeholder="Password"
-              class="input-reverse ion-no-border"
-              autocomplete="off"
-            >
-              <!-- <ion-input [type]="showPassword === false ? 'password' : 'text'" class="input-reverse ion-no-border"  autocomplete="off" placeholder="Password" autocorrect="off" autofocus="true" name="password" pattern="email"> -->
-              <button
-                class="ion-float-end pwd-icon-box"
-                (click)="togglePassword()"
-              >
-                <ion-icon
-                  [hidden]="!showPassword"
-                  name="eye-off-outline"
-                  id="eye"
-                ></ion-icon>
-                <ion-icon
-                  [hidden]="showPassword"
-                  name="eye-outline"
-                  id="eye"
-                ></ion-icon>
-              </button>
+            <ion-input [type]="showPassword === false ? 'password' : 'text'" class="input-reverse ion-no-border"  autocomplete="off" placeholder="Password" autocorrect="off" autofocus="true" color="dark" name="password" pattern="email">
+              <button class="ion-float-end pwd-icon-box"  (click)="togglePassword('p')">
+                <ion-icon class="show-option" [hidden]="!showPassword" name="eye-off-outline"></ion-icon>
+                <ion-icon class="hide-option" [hidden]="showPassword" name="eye-outline"></ion-icon>
+             </button>
             </ion-input>
           </ion-card>
           <ion-button
@@ -48,7 +32,7 @@
             fill="solid"
             size="large"
             color="primary"
-            
+            routerLink="/"
           >
             Login
           </ion-button>
@@ -71,7 +55,7 @@
       </ion-row>
       <ion-row class="ion-text-center ion-margin-top">
         <ion-col class="create-account">
-          <b> Don’ have account? <a href="#">Singup Now</a> </b>
+          <b> Don’ have account? <span routerLink="/signup">Singup Now</span> </b>
         </ion-col>
       </ion-row>
     </ion-grid>

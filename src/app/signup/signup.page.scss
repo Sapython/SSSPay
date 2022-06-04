@@ -1,13 +1,78 @@
+section {
+  background-color: var(--ion-background-color);
+  min-height: 100vh;
+  min-width: 100vw;
+  position: relative;
+  font-family: var(--font-family);
+  #form {
+    margin-top: 50px;
+  }
+  ion-input {
+    color: var(--ion-true-dark);
+  }
+  ion-label {
+    font-size: 18px;
+    color: var(--ion-color-primary);
+    font-weight: 600;
+  }
+  ion-text{
+    color: var(--ion-color-primary);
+  }
+  ion-card {
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    border: 2px solid var(--ion-color-primary);
+    height: 50px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none;
+    padding: 10px;
+    ion-input {
+      --placeholder-color: var(--ion-placeholder-color);
+      --placeholder-opacity: 1;
+      font-size: 18px;
+      font-weight: 400;
+      box-sizing: border-box;
+      color: rgb(155, 154, 154);
+      .pwd-icon-box {
+        background-color: #ffffff;
+        color: var(--ion-placeholder-color);
+      }
+    }
+    #eye {
+      font-weight: 900;
+      font-size: 27px;
+    }
+  }
+  .sign_up {
+    border-radius: 20px;
+
+    &:hover,
+    &:active {
+      background-color: #21bf64;
+    }
+  }
+  .fogotPass {
+    color: var(--ion-text-color-2);
+    font-size: 20px;
+    font-weight: 600;
+    &:hover {
+      color: var(--ion-text-color-1);
+    }
+  }
+}
 
 .input-wrap {
   border: 2px solid #21bf64;
-  border-radius: 30px;
+  border-radius: 15px;
 }
 .input-reverse {
   display: flex;
   flex-direction: row-reverse;
 }
---ion-padding-vertical{
+--ion-padding-vertical {
   padding: 25px 0;
 }
 .main-row {
@@ -16,13 +81,9 @@
   overflow: scroll;
   padding: 50px 30px;
 }
-.pwd-icon-box{
+.pwd-icon-box {
   line-height: 25px;
   font-size: 22px;
   height: 100%;
   display: flex;
-}
-ion-input{
-  --placeholder-color	: #000;
-  --placeholder-opacity	: 1
 }

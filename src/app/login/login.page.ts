@@ -7,12 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginPage implements OnInit {
   showPassword = false;
+  showCnfPwd = false;
   constructor() { }
 
   ngOnInit() {
   }
-  togglePassword(){
-    this.showPassword = !this.showPassword;
-    //console.log(this.showPassword);
+  togglePassword(type){
+    if(type === 'p'){
+      this.showPassword = !this.showPassword;
+    }
+    else if(type === 'c'){
+      this.showCnfPwd = !this.showCnfPwd;
+    }
   }
 }
