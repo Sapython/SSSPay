@@ -1,4 +1,25 @@
-
+ion-toolbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    --background:var(--ion-color-primary);
+    ion-avatar{
+        --border-radius:50%;
+        width:45px;
+        height:45px;
+        margin-left: 10px;
+    }
+    ion-back-button{
+        color: #fff;
+    }
+    ion-buttons{
+        ion-icon{
+            font-size: 1.5rem;
+            color: #fff;
+            margin-left: 10px;
+        }
+    }
+}
 .container{
     margin-top: -6%;
     padding: 20px 5px;

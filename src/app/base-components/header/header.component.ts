@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
 
 @Component({
@@ -8,7 +9,8 @@ import { Platform } from '@ionic/angular';
 })
 export class HeaderComponent implements OnInit {
   @ViewChild('cam') camera:any;
-  constructor(private platform:Platform) {
+  constructor(private platform:Platform,
+    private route:Router) {
   }
 
   ngOnInit() {}
