@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DataProvider } from '../providers/data.provider';
+import { AuthencationService } from '../services/authencation.service';
+import { AlertsAndNotificationsService } from '../services/uiService/alerts-and-notifications.service';
 
 @Component({
   selector: 'app-login',
@@ -8,9 +12,23 @@ import { Component, OnInit } from '@angular/core';
 export class LoginPage implements OnInit {
   showPassword = false;
   showCnfPwd = false;
-  constructor() { }
 
+  constructor(public authService:AuthencationService,public alertify:AlertsAndNotificationsService,private dataProvider:DataProvider) { }
+emailControl:FormControl = new FormControl('',[Validators.required,Validators.email])
+  passwordControl:FormControl = new FormControl('',[Validators.required,Validators.minLength(8),Validators.maxLength(50)])
+  signinForm:FormGroup = new FormGroup({
+    email: this.emailControl,
+    password: this.passwordControl,
+  });
   ngOnInit() {
+  }
+  login():void{
+    console.log(this.signinForm);
+    if (this.signinForm.status === 'VALID'){
+      this.authService.loginEmailPassword(this.emailControl.value,this.passwordControl.value);
+    } else {
+      this.alertify.presentToast('Please fill all the fields correctly','error',3000);
+    }
   }
   togglePassword(type){
     if(type === 'p'){

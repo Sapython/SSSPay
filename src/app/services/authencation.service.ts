@@ -24,6 +24,7 @@ import { AlertsAndNotificationsService } from './uiService/alerts-and-notificati
 import { UserDataService } from './user-data.service';
 import { DataProvider } from '../providers/data.provider';
 import { Router } from '@angular/router';
+
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { Platform } from '@ionic/angular';
 import {
