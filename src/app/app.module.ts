@@ -17,7 +17,7 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideFunctions, getFunctions } from '@angular/fire/functions';
 import { provideStorage, getStorage } from '@angular/fire/storage';
-import { AuthencationService } from './services/authencation.service';
+import { AuthenticationService } from './services/authentication.service';
 import { UserDataService } from './services/user-data.service';
 import { DataProvider } from './providers/data.provider';
 import { DatabaseService } from './services/database.service';
@@ -41,7 +41,7 @@ import { AlertsAndNotificationsService } from './services/uiService/alerts-and-n
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     ScreenTrackingService,
     UserTrackingService,
-    AuthencationService,
+    AuthenticationService,
     UserDataService,
     DataProvider,
     DatabaseService,

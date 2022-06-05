@@ -27,7 +27,7 @@ import {
 } from 'firebase/storage';
 import { DataProvider } from '../providers/data.provider';
 import { ContactRequest, UserData } from '../structures/user.structure';
-import { AuthencationService } from './authencation.service';
+import { AuthenticationService } from './authentication.service';
 import { AlertsAndNotificationsService } from './uiService/alerts-and-notifications.service';
 import {
   Analytics,
@@ -45,7 +45,7 @@ export class AdminDatabaseService {
     private analytics: Analytics,
     private fs: Firestore,
     private dataProvider: DataProvider,
-    private authService: AuthencationService,
+    private authService: AuthenticationService,
     private alertify: AlertsAndNotificationsService
   ) {}
   // Secuirty functions starts

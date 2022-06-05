@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataProvider } from '../providers/data.provider';
-import { AuthencationService } from '../services/authencation.service';
+import { AuthenticationService } from '../services/authentication.service';
 import { AlertsAndNotificationsService } from '../services/uiService/alerts-and-notifications.service';
 
 @Component({
@@ -12,8 +12,6 @@ import { AlertsAndNotificationsService } from '../services/uiService/alerts-and-
 export class SignupPage implements OnInit {
   showPassword = false;
   showCnfPwd = false;
-
-  
   fullNameControl:FormControl = new FormControl('',[Validators.required,Validators.minLength(2),Validators.maxLength(50)])
   emailControl:FormControl = new FormControl('',[Validators.required,Validators.email])
   passwordControl:FormControl = new FormControl('',[Validators.required,Validators.minLength(8),Validators.maxLength(50)])
@@ -24,7 +22,7 @@ export class SignupPage implements OnInit {
     password: this.passwordControl,
     confirmPassword:this.confirmPasswordControl,
   });
-  constructor(public authService:AuthencationService,public alertify:AlertsAndNotificationsService,private dataProvider:DataProvider) { }
+  constructor(public authService:AuthenticationService,public alertify:AlertsAndNotificationsService,private dataProvider:DataProvider) { }
   ngOnInit() {
   }
   signup():void{

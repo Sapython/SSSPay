@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataProvider } from '../providers/data.provider';
 
 @Component({
   selector: 'app-homepage',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomepagePage implements OnInit {
   ngOnInit() {}
+  constructor(public dataProvider:DataProvider){}
   items = [
     {
       name: 'AEPS Services',

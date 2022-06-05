@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataProvider } from '../providers/data.provider';
 
 @Component({
   selector: 'app-home',

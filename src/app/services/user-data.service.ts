@@ -20,6 +20,7 @@ export class UserDataService {
   public async setGoogleUserData(user:User,userData:ExtraLoginGoogleInfo){
     this.dataProvider.pageSetting.blur = true;
     this.dataProvider.pageSetting.lastRedirect = '';
+    console.log('Setting up data',user,userData);
     let data:UserData = {
       userId: user.uid,
       email: user.email || '',
@@ -35,6 +36,7 @@ export class UserDataService {
       aadhaarNumber:'',
     }
     this.userDoc  = doc(this.firestore,'users/'+user.uid);
+    console.log('Doc and data ',this.userDoc,data)
     await setDoc(this.userDoc,data).then(()=>{
       this.alertify.presentToast('User data set successfully')
       this.router.navigate([''])

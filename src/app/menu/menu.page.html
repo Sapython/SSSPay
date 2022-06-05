@@ -107,14 +107,11 @@
         <ion-col size="12">
           <ion-card class="setting-card ">
             <div class="card Logout" >
-              <ion-text class="Logout" routerLink="../login">Logout</ion-text>
-             
+              <ion-button fill="clear" color="danger" class="Logout" (click)="authService.logout()">Logout</ion-button>
             </div>
           </ion-card>
-          
         </ion-col>
       </ion-row>
     </ion-grid>
-
   </section>
 </ion-content>

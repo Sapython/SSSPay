@@ -17,6 +17,7 @@ import {
   createUserWithEmailAndPassword,
   UserCredential,
   signInWithCredential,
+  signInWithPopup,
 } from '@angular/fire/auth';
 import { EMPTY, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -43,7 +44,7 @@ import { signInWithRedirect } from 'firebase/auth';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthencationService {
+export class AuthenticationService {
   userDoc: DocumentReference | undefined;
   checkerUserDoc: DocumentReference | undefined;
   allowedStatuses: string[] = ['active', 'inactive'];
@@ -138,8 +139,12 @@ export class AuthencationService {
         this.alertify.presentToast(error.message, 'error', 5000, [], true, '');
       });
     } else {
-      const gauth = new GoogleAuthProvider()
-      signInWithRedirect(this.auth,gauth).then((credentials:UserCredential)=>{
+      const gauth = new GoogleAuthProvider();
+      console.log('Signing in with google',gauth);
+      // signInWithPopup(this.auth, gauth).then((credentials:UserCredential)=>{
+      //   console.log("Credentials ",credentials);
+      // })
+       signInWithPopup(this.auth,gauth).then((credentials:UserCredential)=>{
         console.log("Credentials ",credentials);
         getDoc(doc(this.firestore, 'users/' + credentials.user.uid)).then((userDocument:any)=>{
           if (!userDocument.exists()) {
@@ -167,7 +172,44 @@ export class AuthencationService {
           this.dataProvider.pageSetting.blur = false;
           this.alertify.presentToast(error.message, 'error', 5000, [], true, '');  ;
         })
+      }).catch((error)=>{
+        console.log('Error ',error)
+      }).finally(()=>{
+        alert('Finished')
       })
+      // signInWithRedirect(this.auth,gauth).then((credentials:UserCredential)=>{
+      //   console.log("Credentials ",credentials);
+      //   getDoc(doc(this.firestore, 'users/' + credentials.user.uid)).then((userDocument:any)=>{
+      //     if (!userDocument.exists()) {
+      //       logEvent(this.analytics, 'Marked_Attendance');
+      //       if (credentials.user.phoneNumber == null) {
+      //         this.userData.setGoogleUserData(credentials.user, {
+      //           phoneNumber: '',
+      //         }).then(()=>{
+      //           this.router.navigate(['']);
+      //         });;
+      //       } else {
+      //         this.userData.setGoogleUserData(credentials.user, {
+      //           phoneNumber: credentials.user.phoneNumber || '',
+      //         }).then(()=>{
+      //           this.router.navigate(['']);
+      //         });
+      //       }
+      //     } else {
+      //       this.dataProvider.pageSetting.blur = false;
+      //       this.alertify.presentToast('Logged In.', 'info', 5000, [], true, '');
+      //       this.router.navigate(['']);
+      //     }
+      //   }).catch((error)=>{
+      //     console.log('ErrorCatched getting data',error);
+      //     this.dataProvider.pageSetting.blur = false;
+      //     this.alertify.presentToast(error.message, 'error', 5000, [], true, '');  ;
+      //   })
+      // }).catch((error)=>{
+      //   console.log('Error ',error)
+      // }).finally(()=>{
+      //   alert('Finished')
+      // })
     }
   }
 
@@ -245,22 +287,23 @@ export class AuthencationService {
   }
   
   private async setDataObserver(user: Observable<User | null>) {
-    // console.log('Starting data observer')
+    console.log('Starting data observer')
     if (user) {
-      // console.log('Setting data observer')
+      console.log('Setting data observer')
       user.subscribe(async (u: User) => {
+        console.log("USer ",user)
         if (u) {
           this.dataProvider.loggedIn = true;
-          // console.log('User is Logged In')
-          // this.markAttendance(u.uid);
+          console.log('User is Logged In')
           this.userDoc = doc(this.firestore, 'users/' + u.uid);
-          // console.log("User data from auth",u);
+          console.log("User data from auth",u);
           if (this.userServerSubscription != undefined) {
             this.userServerSubscription.unsubscribe();
           }
+          // this.logout();
           this.userServerSubscription = docData(this.userDoc).subscribe(
             async (data: any) => {
-              // console.log("Received new data",data)
+              console.log("Received new data",data)
               if (data.status) {
                 if (!this.allowedStatuses.includes(data.status.access)) {
                   alert('You ('+data.userId+') have been '+data.status.access+' and will be signed out.');
