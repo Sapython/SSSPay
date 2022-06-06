@@ -21,9 +21,12 @@
 .box{
     right: 0;
     display: flex;
-    width: 60%;
-    justify-content: space-between;
+    width: 80%;
+    justify-content:flex-start  ;
+    gap:15px;
+    padding-left: 10px;
     align-items: center;
+    
     p{
         color: black;
     }
@@ -35,9 +38,13 @@ ion-item-option{
     padding: 10px 5px;
     margin: 10px;
 }
-.box1 img{
- transform: scale(0.6);
-}
+
 .inner-box{
     line-height: 10px;
+}
+
+ion-avatar {
+ion-img{
+    padding: 18px;
+}
 }

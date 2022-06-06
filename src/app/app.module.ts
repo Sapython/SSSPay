@@ -45,7 +45,7 @@ import { AlertsAndNotificationsService } from './services/uiService/alerts-and-n
     UserDataService,
     DataProvider,
     DatabaseService,
-    AlertsAndNotificationsService
+    AlertsAndNotificationsService,
   ],
   bootstrap: [AppComponent],
 })

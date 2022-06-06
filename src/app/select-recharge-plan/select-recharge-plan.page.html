@@ -1,0 +1,44 @@
+<app-header></app-header>
+<ion-content color="light">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+          <ion-card class="ion-padding">
+            <div class="container">
+              <div class="box">
+                <img src={{image}} alt="">
+                <div class="inner-box">
+                  <p>{{name}}</p>
+                  <p>+91 {{number}}</p>
+                </div>
+              </div>
+              <ion-avatar>
+                <ion-img src="assets/{{operator}}.svg"></ion-img>
+              </ion-avatar>
+            </div>
+            <ion-text>Amount</ion-text>
+            <div class="recharge_amount">
+
+              <ion-input type="number" placeholder="₹">   </ion-input>  
+              <ion-text>see all plans</ion-text>
+            </div>
+            <ion-button class="ion-margin-top" expand="block" routerLink="/select-recharge-plan">Recharge</ion-button>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+            <ion-card class="ion-padding select_plan">
+          <ion-label>All Plans</ion-label>
+          <div class="packs">
+            <ion-text class="pack active">Unlimited </ion-text>
+            <ion-text class="pack ">Data</ion-text>
+            <ion-text class="pack ">Talktime</ion-text>
+            <ion-text class="pack ">International</ion-text>
+            <ion-text class="pack ">SmartRecharge</ion-text>
+          </div>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

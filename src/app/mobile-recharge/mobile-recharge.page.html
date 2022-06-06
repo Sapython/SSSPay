@@ -7,7 +7,7 @@
             <ion-text>Mobile Recharge</ion-text>
             <input type="number" placeholder="Enter Number" id="enter-number" />
          
-            <ion-button expand="block" routerLink="/payment-status">Confirm</ion-button>
+            <ion-button expand="block" routerLink="/select-recharge-plan">Confirm</ion-button>
           </ion-card>
         </ion-col>
       </ion-row>
@@ -16,12 +16,9 @@
         <ion-card>
           <div class="container" >
             <p id="heading">All Contacts</p>
-            <ion-searchbar  color="ion-text-color" placeholder="Search"></ion-searchbar>
-            <app-mobile-recharge-widget  routerLink="/payment-status"></app-mobile-recharge-widget>
-            <app-mobile-recharge-widget  routerLink="/payment-status"></app-mobile-recharge-widget>
-            <app-mobile-recharge-widget  routerLink="/payment-status"></app-mobile-recharge-widget>
-            <app-mobile-recharge-widget  routerLink="/payment-status"></app-mobile-recharge-widget>
-            <app-mobile-recharge-widget  routerLink="/payment-status"></app-mobile-recharge-widget>
+            <ion-searchbar   color="ion-text-color" [(ngModel)]="searchVall" placeholder="Search  "></ion-searchbar>
+            <app-mobile-recharge-widget  *ngFor="let contact of contacts | filter:searchVall"  [image]="contact.image"  [number]="contact.number" [name]="contact.name" [operator]="contact.operator" routerLink="/select-recharge-plan"></app-mobile-recharge-widget>
+           
           </div>
         </ion-card>
       </ion-col>

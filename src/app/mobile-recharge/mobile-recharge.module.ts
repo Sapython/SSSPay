@@ -9,7 +9,7 @@ import { IonicModule } from '@ionic/angular';
 import { MobileRechargePageRoutingModule } from './mobile-recharge-routing.module';
 
 import { MobileRechargePage } from './mobile-recharge.page';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 @NgModule({
   imports: [
     CommonModule,
@@ -17,7 +17,8 @@ import { MobileRechargePage } from './mobile-recharge.page';
     IonicModule,
     MobileRechargePageRoutingModule,
     BaseComponentsModule,
-    UiwidgetsModule
+    UiwidgetsModule,
+    Ng2SearchPipeModule
   ],
   declarations: [MobileRechargePage]
 })
