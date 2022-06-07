@@ -15,10 +15,12 @@ import { OfferComponentComponent } from './offer-component/offer-component.compo
 import { PopoverComponent } from './popover/popover.component';
 import { HistoryComponentComponent } from './history-component/history-component.component';
 import { ModalPageComponent } from './modal-page/modal-page.component';
+import { RechargePlanComponent } from './recharge-plan/recharge-plan.component';
+import { SelectRechargePlanPage } from '../select-recharge-plan/select-recharge-plan.page';
 
 
 const components = [HomeWidgetComponent,NotifyWidgetComponent,ContactsWidgetComponent,
-MobileRechargeWidgetComponent,TransactionWidgetComponent,BankWidgetComponent,LpgGasComponentsComponent,RewardsComponentComponent,OfferComponentComponent,PopoverComponent,HistoryComponentComponent,ModalPageComponent]
+MobileRechargeWidgetComponent,TransactionWidgetComponent,BankWidgetComponent,LpgGasComponentsComponent,RewardsComponentComponent,OfferComponentComponent,PopoverComponent,HistoryComponentComponent,ModalPageComponent,RechargePlanComponent]
 @NgModule({
   exports: [components],
   declarations: [components],

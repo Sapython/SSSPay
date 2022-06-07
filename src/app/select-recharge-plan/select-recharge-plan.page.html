@@ -3,42 +3,139 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-          <ion-card class="ion-padding">
-            <div class="container">
-              <div class="box">
-                <img src={{image}} alt="">
-                <div class="inner-box">
-                  <p>{{name}}</p>
-                  <p>+91 {{number}}</p>
-                </div>
+        <ion-card class="ion-padding">
+          <div class="container">
+            <div class="box">
+              <img src="{{image}}" alt="" />
+              <div class="inner-box">
+                <p>{{name}}</p>
+                <p>+91 {{number}}</p>
               </div>
-              <ion-avatar>
-                <ion-img src="assets/{{operator}}.svg"></ion-img>
-              </ion-avatar>
             </div>
-            <ion-text>Amount</ion-text>
-            <div class="recharge_amount">
-
-              <ion-input type="number" placeholder="₹">   </ion-input>  
-              <ion-text>see all plans</ion-text>
-            </div>
-            <ion-button class="ion-margin-top" expand="block" routerLink="/select-recharge-plan">Recharge</ion-button>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-            <ion-card class="ion-padding select_plan">
+            <ion-avatar>
+              <ion-img src="assets/{{operator}}.svg"></ion-img>
+            </ion-avatar>
+          </div>
+          <ion-text>Amount</ion-text>
+          <div class="recharge_amount">
+            <ion-input type="number" placeholder="">₹ </ion-input>
+            <ion-text (click)="togglePlans()">see all plans</ion-text>
+          </div>
+          <ion-button
+            class="ion-margin-top"
+            expand="block"
+            routerLink="/select-recharge-plan"
+            >Recharge</ion-button
+          >
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="showPlans">
+      <ion-col>
+        <ion-card  class="ion-padding select_plan">
           <ion-label>All Plans</ion-label>
           <div class="packs">
-            <ion-text class="pack active">Unlimited </ion-text>
-            <ion-text class="pack ">Data</ion-text>
-            <ion-text class="pack ">Talktime</ion-text>
-            <ion-text class="pack ">International</ion-text>
-            <ion-text class="pack ">SmartRecharge</ion-text>
+            <ion-text
+              class="pack"
+              (click)="this.pack=0"
+              [ngClass]="{'active':pack==0}"
+            >
+              All
+            </ion-text>
+            <ion-text
+              class="pack"
+              (click)="this.pack=1"
+              [ngClass]="{'active':pack==1}"
+              >Unlimited
+            </ion-text>
+            <ion-text
+              class="pack"
+              (click)="this.pack=2"
+              [ngClass]="{'active':pack==2}"
+              >Data</ion-text
+            >
+            <ion-text
+              class="pack"
+              (click)="this.pack=3"
+              [ngClass]="{'active':pack==3}"
+              >Talktime</ion-text
+            >
+            <ion-text
+              class="pack"
+              (click)="this.pack=4"
+              [ngClass]="{'active':pack==4}"
+              >International</ion-text
+            >
+            <ion-text
+              class="pack"
+              (click)="this.pack=5"
+              [ngClass]="{'active':pack==5}"
+              >SmartRecharge</ion-text
+            >
           </div>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-    </ion-grid>
+        </ion-card>
+        <div *ngIf="this.pack==0">
+          <app-recharge-plan
+            *ngFor="let a of plans.all"
+            [amount]="a.amount"
+            [validity]="a.validity"
+            [data]="a.data"
+            [calls]="a.calls"
+          >
+          </app-recharge-plan>
+        </div>
+
+        <div *ngIf="this.pack==1">
+          <app-recharge-plan
+            *ngFor="let a of plans.unlimited"
+            [amount]="a.amount"
+            [validity]="a.validity"
+            [data]="a.data"
+            [calls]="a.calls"
+          >
+          </app-recharge-plan>
+        </div>
+        <div *ngIf="this.pack==2">
+          <app-recharge-plan
+            *ngFor="let a of plans.data"
+            [amount]="a.amount"
+            [validity]="a.validity"
+            [data]="a.data"
+            [calls]="a.calls"
+          >
+          </app-recharge-plan>
+        </div>
+        <div *ngIf="this.pack==3">
+          <app-recharge-plan
+            *ngFor="let a of plans.talktime"
+            [amount]="a.amount"
+            [validity]="a.validity"
+            [data]="a.data"
+            [calls]="a.calls"
+          >
+          </app-recharge-plan>
+        </div>
+        <div *ngIf="this.pack==4">
+          <app-recharge-plan
+            *ngFor="let a of plans.international"
+            [amount]="a.amount"
+            [validity]="a.validity"
+            [data]="a.data"
+            [calls]="a.calls"
+          >
+          </app-recharge-plan>
+        </div>
+        <div *ngIf="this.pack==5">
+          <app-recharge-plan
+            *ngFor="let a of plans.smart"
+            [amount]="a.amount"
+            [validity]="a.validity"
+            [data]="a.data"
+            [calls]="a.calls"
+          >
+          </app-recharge-plan>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

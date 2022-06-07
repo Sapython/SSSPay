@@ -8,6 +8,7 @@ import { SelectRechargePlanPageRoutingModule } from './select-recharge-plan-rout
 
 import { SelectRechargePlanPage } from './select-recharge-plan.page';
 import { BaseComponentsModule } from '../base-components/base-components.module';
+import { UiwidgetsModule } from '../uiwidgets/uiwidgets.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { BaseComponentsModule } from '../base-components/base-components.module'
     FormsModule,
     IonicModule,
     SelectRechargePlanPageRoutingModule,
-    BaseComponentsModule
+    BaseComponentsModule,
+    UiwidgetsModule
   ],
   declarations: [SelectRechargePlanPage]
 })

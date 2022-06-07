@@ -3,27 +3,38 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-          <ion-card class="ion-padding">
-            <ion-text>Mobile Recharge</ion-text>
-            <input type="number" placeholder="Enter Number" id="enter-number" />
-         
-            <ion-button expand="block" routerLink="/select-recharge-plan">Confirm</ion-button>
-          </ion-card>
-        </ion-col>
-      </ion-row>
+        <ion-card class="ion-padding">
+          <ion-text>Mobile Recharge</ion-text>
+          <input type="number" placeholder="Enter Number" id="enter-number" />
+
+          <ion-button expand="block" routerLink="/select-recharge-plan"
+            >Confirm</ion-button
+          >
+        </ion-card>
+      </ion-col>
+    </ion-row>
     <ion-row>
-    <ion-col>
+      <ion-col>
         <ion-card>
-          <div class="container" >
+          <div class="container">
             <p id="heading">All Contacts</p>
-            <ion-searchbar   color="ion-text-color" [(ngModel)]="searchVall" placeholder="Search  "></ion-searchbar>
-            <app-mobile-recharge-widget  *ngFor="let contact of contacts | filter:searchVall"  [image]="contact.image"  [number]="contact.number" [name]="contact.name" [operator]="contact.operator" routerLink="/select-recharge-plan"></app-mobile-recharge-widget>
-           
+            <ion-searchbar
+              color="ion-text-color"
+              [(ngModel)]="searchVall"
+              placeholder="Search  "
+            ></ion-searchbar>
+            <app-mobile-recharge-widget
+              *ngFor="let contact of contacts | filter:searchVall"
+              [image]="contact.image"
+              [number]="contact.number"
+              [name]="contact.name"
+              [operator]="contact.operator"
+              routerLink="/select-recharge-plan"
+            ></app-mobile-recharge-widget>
           </div>
         </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
- 
 </ion-content>
 <app-footer></app-footer>
