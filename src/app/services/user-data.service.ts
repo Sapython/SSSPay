@@ -39,10 +39,10 @@ export class UserDataService {
     console.log('Doc and data ',this.userDoc,data)
     await setDoc(this.userDoc,data).then(()=>{
       this.alertify.presentToast('User data set successfully')
-      this.router.navigate([''])
+      this.router.navigate(['homepage'])
     });
     this.dataProvider.pageSetting.blur = false;
-    this.router.navigate([''])
+    this.router.navigate(['../homepage'])
   }
   public async setEmailUserData(user:User,userData:ExtraLoginEmailInfo){
     this.dataProvider.pageSetting.blur = true;

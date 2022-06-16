@@ -119,7 +119,7 @@ export class AuthenticationService {
             } else {
               this.dataProvider.pageSetting.blur = false;
               this.alertify.presentToast('Logged In.', 'info', 5000, [], true, '');
-              this.router.navigate(['']);
+              this.router.navigate(['homepage']);
             }
           }).catch((error)=>{
             console.log('ErrorCatched getting data',error);
@@ -165,7 +165,7 @@ export class AuthenticationService {
           } else {
             this.dataProvider.pageSetting.blur = false;
             this.alertify.presentToast('Logged In.', 'info', 5000, [], true, '');
-            this.router.navigate(['']);
+            this.router.navigate(['homepage']);
           }
         }).catch((error)=>{
           console.log('ErrorCatched getting data',error);

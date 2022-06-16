@@ -8,7 +8,7 @@
       <ion-icon name="wallet"></ion-icon>
       <p>Wallet</p>
     </div>
-    <div class="box"  routerLink="../profile">
+    <div class="box"  routerLink="../profile" *ngIf="dataprovider.loggedIn">
       <ion-icon name="person"></ion-icon>
       <p>Profile</p>
     </div>
