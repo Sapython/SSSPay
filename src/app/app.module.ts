@@ -22,6 +22,8 @@ import { UserDataService } from './services/user-data.service';
 import { DataProvider } from './providers/data.provider';
 import { DatabaseService } from './services/database.service';
 import { AlertsAndNotificationsService } from './services/uiService/alerts-and-notifications.service';
+import { provideMessaging,getMessaging } from '@angular/fire/messaging';
+import { providePerformance,getPerformance } from '@angular/fire/performance';
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,6 +38,8 @@ import { AlertsAndNotificationsService } from './services/uiService/alerts-and-n
     provideFirestore(() => getFirestore()),
     provideFunctions(() => getFunctions()),
     provideStorage(() => getStorage()),
+    provideMessaging(() => getMessaging()),
+    providePerformance(() => getPerformance()),
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
