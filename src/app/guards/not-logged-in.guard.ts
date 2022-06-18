@@ -1,19 +1,14 @@
-import { DataProvider } from './../providers/data.provider';
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  RouterStateSnapshot,
-  UrlTree,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
+import { DataProvider } from '../providers/data.provider';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class LoginguardGuard implements CanActivate {
+export class NotLoggedInGuard implements CanActivate {
   constructor(private dataprovider: DataProvider) {}
-
+  
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -22,7 +17,6 @@ export class LoginguardGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return true;
-    // return this.dataprovider.loggedIn;
+    return !this.dataprovider.loggedIn;
   }
 }

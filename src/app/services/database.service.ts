@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Firestore, addDoc, collection } from '@angular/fire/firestore';
+import {
+  Firestore,
+  addDoc,
+  collection,
+  getDocs,
+  query,
+  orderBy,
+} from '@angular/fire/firestore';
 import {
   getDownloadURL,
   getStorage,
@@ -17,9 +24,11 @@ export class DatabaseService {
   constructor(
     private fs: Firestore,
     private dataProvider: DataProvider,
-    private analytics: Analytics,
+    private analytics: Analytics
   ) {}
+
   storage = getStorage();
+
   logBug(description) {
     logEvent(this.analytics, 'bug', { description: description });
     let date = new Date().toDateString();
@@ -53,7 +62,9 @@ export class DatabaseService {
     };
     return addDoc(collection(this.fs, 'logs'), data);
   }
+
   // Files services starts
+
   async upload(
     path: string,
     file: File | ArrayBuffer | Blob | Uint8Array
@@ -75,5 +86,23 @@ export class DatabaseService {
       return false;
     }
   }
+
   // Files services ends
+
+  // DTH services starts
+
+  getDTHPayments() {
+    console.log(this.dataProvider.userID);
+    return getDocs(
+      query(
+        collection(
+          this.fs,
+          'users/' + this.dataProvider.userID + '/dth-recharges'
+        ),
+        orderBy('timestamp', 'desc')
+      )
+    );
+  }
+
+  // DTH services ends
 }

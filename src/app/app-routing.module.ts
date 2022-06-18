@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes, CanActivate } from '@angular/router';
 import { LoginguardGuard } from './guards/loginguard.guard';
+import { NotLoggedInGuard } from './guards/not-logged-in.guard';
 
 const routes: Routes = [
 
@@ -12,12 +13,14 @@ const routes: Routes = [
   },
   {
     path: '',
+    canActivate:[NotLoggedInGuard],
     loadChildren: () =>
       import('./login/login.module').then((m) => m.LoginPageModule),
   },
 
   {
     path: 'signup',
+    canActivate:[NotLoggedInGuard],
     loadChildren: () =>
       import('./signup/signup.module').then((m) => m.SignupPageModule),
   },
@@ -217,11 +220,6 @@ const routes: Routes = [
     canActivate:[LoginguardGuard],
     loadChildren: () =>
       import('./invite/invite.module').then((m) => m.InvitePageModule),
-  },
-  {
-    path: 'upi',
-    canActivate:[LoginguardGuard],
-    loadChildren: () => import('./upi/upi.module').then((m) => m.UpiPageModule),
   },
   {
     path: 'profile',

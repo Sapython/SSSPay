@@ -1,71 +1,66 @@
-*,.font{
-    font-family: "Poppins",sans-serif;
-}
-.container{
-    background-color: #fff;
-    border-radius: 10px;
-    margin: 20px 10px 0px;
-    // height: fit-content;
-    padding: 10px 0px;
-    .tv{
-        font-size: 25px;
-        font-weight: 600;
-        margin-left: 5%;
-        margin-top: 10px;
-    }
-    ion-item{
-        .operator-select{
-margin-left: -20px;
-// margin: 0px;
-        }
-    }
-}
-.font{
-    color: Grey;
+*,
+.font {
+  font-family: "Poppins", sans-serif;
 }
 
-button{
-        background-color: #009970;
-        color: #fff;
-        padding: 15px;
-        width: 75%;
-        font-size: 18px;
-        border-radius: 15px;
-        display: block;
-        margin: auto;
-        margin: 25px auto;
-}
-.container2{
-    background-color: #fff;
-    border-radius: 10px;
-    margin: 10px;
-    padding: 10px 15px;
-    p{
-        font-size: 20px;
+.container {
+  background-color: #fff;
+  border-radius: 10px;
+  margin: 20px 10px 0px;
+
+  padding: 10px 0px;
+
+  .tv {
+    font-size: 25px;
+    font-weight: 600;
+    margin-left: 5%;
+    margin-top: 10px;
+  }
+
+  ion-item {
+    .operator-select {
+      margin-left: -20px;
     }
+  }
+
+  ion-button {
+    margin-top: 1em;
+  }
 }
-// ion-item:nth-child(0){
-//     padding-top: 20px;
-// }
-select{
-    width:100%;
-    margin: 20px auto;
-    padding: 20px auto;
-    border: none;
-    outline: none;
-    font-size: 18px;
-    box-shadow: none;
-    color: grey;
-    option{
-      width:100%;
+
+.font {
+  color: Grey;
+}
+
+.container2 {
+  background-color: #fff;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 10px 15px;
+  p {
+    font-size: 20px;
+  }
+}
+
+select {
+  width: 100%;
+  margin: 20px auto;
+  padding: 20px auto;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  box-shadow: none;
+  color: grey;
+
+  option {
+    width: 100%;
     margin: auto;
-    
-    
-    }
-    }
-    .operator-select{
-    font-size: 18px;
-    padding: 20px ;
-    color: Grey; 
-    margin-bottom: 10px;   
+  }
+}
+
+.operator-select {
+  font-size: 18px;
+  padding: 20px;
+  color: Grey;
+  margin-bottom: 10px;
 }

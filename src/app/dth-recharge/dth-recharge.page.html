@@ -2,32 +2,36 @@
 
 <ion-content color="light">
   <div class="container">
-    <ion-label class="tv">Tv</ion-label>
+    <ion-label class="tv">TV</ion-label>
 
-    <ion-list>
+    <form [formGroup]="dthForm" (ngSubmit)="submitDthForm()">
       <ion-item>
         <ion-label class="operator-select">Select Operator</ion-label>
-        <ion-select value="dth_operator" interface="action-sheet">
-          <ion-select-option value="id">Airtel </ion-select-option>
-          <ion-select-option value="mobile">Dish Tv</ion-select-option>
-          <ion-select-option value="Consumer_no">Videocon</ion-select-option>
-          <ion-select-option value="Consumer_no">Tata Play</ion-select-option>
-          <ion-select-option value="Consumer_no">Sky Plus</ion-select-option>
+        <ion-select formControlName="operator" interface="action-sheet">
+          <ion-select-option>TΛTΛ PLΛY</ion-select-option>
+          <ion-select-option>Dish TV</ion-select-option>
+          <ion-select-option>d2h</ion-select-option>
+          <ion-select-option>Zing Digital</ion-select-option>
+          <ion-select-option>Airtel Digital TV</ion-select-option>
+          <ion-select-option>Sun Direct</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>
-        <ion-label position="floating" class="font">Customer No</ion-label>
-        <ion-input></ion-input>
+        <ion-label position="floating" class="font">Customer ID</ion-label>
+        <ion-input formControlName="customerID"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="floating" class="font"> Amount to pack </ion-label>
-        <ion-input></ion-input>
+        <ion-label position="floating" class="font">Recharge Amount</ion-label>
+        <ion-input type="number" formControlName="amount"></ion-input>
       </ion-item>
-    </ion-list>
-    <button routerLink="/payment-status" class="ion-margin">Recharge</button>
+      <ion-button type="submit" expand="block" [disabled]="!dthForm.valid"
+        >Recharge</ion-button
+      >
+    </form>
   </div>
   <div class="container2">
     <p>Recent Payments</p>
+    <p *ngFor="let payment of recentPayments">{{payment.operator}}</p>
   </div>
 </ion-content>
 <app-footer></app-footer>
