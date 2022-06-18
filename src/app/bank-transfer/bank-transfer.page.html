@@ -11,24 +11,36 @@
   </ion-item>
  </ion-list> -->
     <ion-grid>
+      <form [formGroup]="bankTransferForm" (ngSubmit)="submitAepsForm()">
       <ion-row>
         <ion-col>
-          <ion-input id="inputs" placeholder="Account Number" type="password"></ion-input>
+          <ion-input  formControlName="accountNo"   id="inputs" placeholder="Account Number" type="password"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
-          <ion-input id="inputs" placeholder="Confirm Account Number" type="password"></ion-input>
+          <ion-input  formControlName="confirmAccountNo"  id="inputs" placeholder="Confirm Account Number" type="password"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
-          <ion-input id="inputs" placeholder="Account  Name" type="string"></ion-input>
+          <ion-input  formControlName="accountName"  id="inputs" placeholder="Account  Name" type="string"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
-          <ion-input id="inputs" placeholder="IFSC code" type="number"></ion-input>
+          <ion-input  formControlName="issccode"  id="inputs" placeholder="IFSC code" type="number"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-input  formControlName="mobileno"  id="inputs" type="number"  placeholder="Mobile Number"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-label>amount</ion-label>
+          <ion-input  formControlName="amount"  id="inputs" placeholder="₹" type="number"></ion-input>
         </ion-col>
       </ion-row>
       <!-- <ion-row>
@@ -46,11 +58,7 @@
           </ion-card>
         </ion-col>
       </ion-row> -->
-      <ion-row>
-        <ion-col>
-          <ion-input id="inputs" type="number"  placeholder="Mobile Number"></ion-input>
-        </ion-col>
-      </ion-row>
+    
       <ion-row>
         <ion-col>
           <ion-button
@@ -59,12 +67,15 @@
             fill="solid"
             size="large"
             color="success"
-            routerLink="/payment-status"
+          type="submit"
+          [disabled]="!bankTransferForm.valid"
+
           >
             Pay
           </ion-button>
         </ion-col>
       </ion-row>
+    </form>
     </ion-grid>
   </section>
 </ion-content>

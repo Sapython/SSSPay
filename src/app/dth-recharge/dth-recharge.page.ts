@@ -33,7 +33,7 @@ export class DthRechargePage implements OnInit {
       docs.forEach((doc) => {
         this.recentPayments.push(doc.data());
       });
-      console.log(this.recentPayments)
+      console.log(this.recentPayments);
     });
   }
 
