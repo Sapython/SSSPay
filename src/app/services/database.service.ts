@@ -6,6 +6,8 @@ import {
   getDocs,
   query,
   orderBy,
+  doc,
+  getDoc,
 } from '@angular/fire/firestore';
 import {
   getDownloadURL,
@@ -87,12 +89,17 @@ export class DatabaseService {
     }
   }
 
+  // user actions
+  getUser(userId:string){
+    return getDoc(doc(this.fs,'users/'+userId));
+  }
+
   // Files services ends
 
   // DTH services starts
 
   getDTHPayments() {
-    console.log(this.dataProvider.userID);
+    console.log('EX123',this.dataProvider.userID);
     return getDocs(
       query(
         collection(
