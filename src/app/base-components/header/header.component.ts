@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild ,Input} from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
 
@@ -8,17 +8,20 @@ import { Platform } from '@ionic/angular';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  @Input() page: string = '';
+  @ViewChild('cam') camera: any;
   
-  @Input() page:string = ''
-  @ViewChild('cam') camera:any;
-  constructor(private platform:Platform,
-    private route:Router) {
-  }
+  constructor(private platform: Platform, private route: Router) {}
 
   ngOnInit() {}
-  scanQRCode(){
+
+  goBack() {
+    window.history.back();
+  }
+
+  scanQRCode() {
     // alert('Opening qr scanner')
-    if(this.platform.is('capacitor')){
+    if (this.platform.is('capacitor')) {
     } else {
       // this.camera.click()
     }
