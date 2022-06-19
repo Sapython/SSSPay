@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { LoadingController, NavController } from '@ionic/angular';
 import { present } from '@ionic/core/dist/types/utils/overlays';
@@ -8,10 +9,18 @@ import { present } from '@ionic/core/dist/types/utils/overlays';
   styleUrls: ['./pan-verify.page.scss'],
 })
 export class PanVerifyPage implements OnInit {
- private loading;
- private presentLoading;
-   constructor( private navCtrl:NavController,public loadingController: LoadingController) { }
- 
+  private loading;
+  private presentLoading;
+
+  panForm: FormGroup = new FormGroup({
+    holderName: new FormControl('', [Validators.required]),
+    panNumber: new FormControl('', [Validators.required]),
+  });
+
+  constructor(
+    private navCtrl: NavController,
+    public loadingController: LoadingController
+  ) {}
 
   // async presentLoadingWithOptions() {
   //   const loading = await this.loadingController.create({
@@ -27,9 +36,8 @@ export class PanVerifyPage implements OnInit {
   //   const { role, data } = await loading.onDidDismiss();
   //   console.log('Loading dismissed with role:', role);
   // }
-  ngOnInit() {
-  }
-  verifying(){
+  ngOnInit() {}
+  verifying() {
     //  this.loadingController.create({
     //   cssClass: 'my-custom-class',
     //   message: 'Please wait...',
@@ -38,21 +46,23 @@ export class PanVerifyPage implements OnInit {
     //   this.loading=overlay;
     //   this.loading=present;
     // })
-       this.loadingController.create({
-        cssClass: 'my-custom-class',
-        message: 'verifying...',
-        duration: 2000
-      }).then((loading)=>{
-        loading.present();
-        // loading.onDidDismiss().then(()=> console.log('Loading dismissed!'))
-      })
-     
-  
-    
-    setTimeout(()=>{
-      // this.loading.dismiss;
-      this.navCtrl.navigateRoot('/payment-status')
-    },2000)
-  }
 
+    if (this.panForm.valid) {
+      this.loadingController
+        .create({
+          cssClass: 'my-custom-class',
+          message: 'verifying...',
+          duration: 2000,
+        })
+        .then((loading) => {
+          loading.present();
+          // loading.onDidDismiss().then(()=> console.log('Loading dismissed!'))
+        });
+
+      setTimeout(() => {
+        // this.loading.dismiss;
+        this.navCtrl.navigateRoot('/pan-verified');
+      }, 2000);
+    }
+  }
 }
