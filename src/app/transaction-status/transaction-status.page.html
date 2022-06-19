@@ -4,22 +4,23 @@
   <ion-grid>
     <ion-row class="ion-text-center">
       <ion-col>
-        <ion-card color="success">
+        <ion-card *ngIf="paymnetStatus" color="success">
           <ion-avatar class="ion-margin">
             <ion-img src="https://i.pravatar.cc/300"></ion-img>
           </ion-avatar>
-          <ion-text>₹7,588</ion-text>
+          <ion-text>₹{{amount}}</ion-text>
           <p>Paid to</p>
           <ion-text>John doe</ion-text>
         </ion-card>
-        <!-- <ion-card color="danger">
+        <ion-card *ngIf="!paymnetStatus" color="danger">
           <ion-avatar class="ion-margin">
             <ion-img src="https://i.pravatar.cc/300"></ion-img>
           </ion-avatar>
-          <ion-text>₹7,588</ion-text>
-          <p>Paid to</p>
+          <ion-text>₹{{amount}}</ion-text>
+
+          <p> Failed to Pay !</p>
           <ion-text>John doe</ion-text>
-        </ion-card> -->
+        </ion-card>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -44,9 +45,9 @@
         <ion-button
           class="ion-text-center ion-margin"
           expand="block"
-          routerLink="/"
+          routerLink="../homepage"
         >
-          Done</ion-button
+          {{paymnetStatus?'Done':'Back to Paymnet'}}</ion-button
         >
       </ion-col>
     </ion-row>

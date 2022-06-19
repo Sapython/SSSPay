@@ -5,19 +5,20 @@
     <ion-grid class="ion-text-center payment_details">
       <ion-row>
         <ion-col  class="ion-margin">
-          <ion-text  color="success" class="status-text ion-margin">Payment Successful </ion-text>
-          <!-- <ion-text  color="danger" class="status-text ion-margin">payment failure </ion-text> -->
+          <ion-text  *ngIf="paymnetStatus" color="success" class="status-text ion-margin">Payment Successful </ion-text>
+          <ion-text *ngIf="!paymnetStatus" color="danger" class="status-text ion-margin">Payment failure </ion-text>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col >
-          <ion-img class="ion-text-center" src="../../assets/sucess.svg"></ion-img>
-          <!-- <ion-img class="ion-text-center" src="../../assets/failure.svg"></ion-img> -->
+          <ion-img  *ngIf="paymnetStatus" class="ion-text-center" src="../../assets/sucess.svg"></ion-img>
+          <ion-img  *ngIf="!paymnetStatus" class="ion-text-center" src="../../assets/failed.svg"></ion-img>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
-          <p>Your payment of ₹300.00 was successfull</p>
+          <p>Your payment of ₹
+            {{amount}} was {{paymnetStatus?'sucessfull':'failure'}}</p>
           <!-- <p>  Your Bank is currently facing a server issue.  </p> -->
         
  
