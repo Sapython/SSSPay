@@ -10,9 +10,9 @@ import { NotLoggedInGuard } from './guards/not-logged-in.guard';
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'homepage',
-    pathMatch: 'full',
+    path:'',
+    redirectTo:'homepage',
+    pathMatch:'full'
   },
   {
     path: 'recharge',
@@ -22,14 +22,13 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    canActivate: [NotLoggedInGuard],
+    canActivate:[NotLoggedInGuard],
     loadChildren: () =>
       import('./login/login.module').then((m) => m.LoginPageModule),
   },
-
   {
     path: 'signup',
-    canActivate: [NotLoggedInGuard],
+    canActivate:[NotLoggedInGuard],
     loadChildren: () =>
       import('./signup/signup.module').then((m) => m.SignupPageModule),
   },
@@ -290,7 +289,6 @@ export class AppRoutingModule {}
 //   path: '',
 //   loadChildren: () => import('./recharge/recharge.module').then( m => m.RechargePageModule)
 // },
-// {
 //   path: '',
 //   loadChildren: () => import('./notifications/notifications.module').then( m => m.NotificationsPageModule)
 // },
