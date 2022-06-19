@@ -61,7 +61,7 @@ export class PanVerifyPage implements OnInit {
 
       setTimeout(() => {
         // this.loading.dismiss;
-        this.navCtrl.navigateRoot('/payment-status');
+        this.navCtrl.navigateRoot('/pan-verified');
       }, 2000);
     }
   }

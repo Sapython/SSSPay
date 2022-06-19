@@ -231,7 +231,11 @@ const routes: Routes = [
     path: 'select-recharge-plan',
     canActivate:[LoginguardGuard],
     loadChildren: () => import('./select-recharge-plan/select-recharge-plan.module').then( m => m.SelectRechargePlanPageModule)
+  },  {
+    path: 'pan-verified',
+    loadChildren: () => import('./pan-verified/pan-verified.module').then( m => m.PanVerifiedPageModule)
   },
+
 
 ];
 @NgModule({
