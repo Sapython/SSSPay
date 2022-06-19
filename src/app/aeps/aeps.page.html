@@ -1,64 +1,65 @@
-<app-header page="AEPS Service"> </app-header>
+<app-header page="AEPS Service"></app-header>
 <ion-content>
-  <section id="aeps_section">
-    <ion-text id="Aeps"> AEPS Service </ion-text>
-    <ion-grid>
-      
-    <form [formGroup]="aepsForm" (ngSubmit)="submitAepsForm()">
-      <ion-row>
-        <ion-col>
-          <!-- <ion-input id="inputs" placeholder="Your Aadhar No" maxlength="10" type="number"></ion-input> -->
-          <ion-input  formControlName="adharNo"   id="inputs" placeholder="Your Aadhar No" type="number" maxlength="10"></ion-input>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <ion-input formControlName="mobileNo"   id="inputs" placeholder="Your Mobile Number" type="number"></ion-input>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <ion-card>
-            <ion-label>Select Bank</ion-label>
-            <ion-select formControlName="bank"  >
-              <ion-select-option value="1"> HDFC </ion-select-option>
-              <ion-select-option value="2"> State Bank of India </ion-select-option>
-              <ion-select-option value="3"> ICICI </ion-select-option>
-              <ion-select-option value="3"> Bank of India </ion-select-option>
-              <ion-select-option value="4"> Bandhan Bank </ion-select-option>
-              <ion-select-option value="5"> Canara Bank </ion-select-option>
-              <ion-select-option value="6"> Central Bank of India </ion-select-option>
-              <ion-select-option value="7"> City Union Bank </ion-select-option>
-              <ion-select-option value="8"> Indian Bank </ion-select-option>
-              <ion-select-option value="10"> Punjab National Bank </ion-select-option>
-              <ion-select-option value="11"> UCO Bank </ion-select-option>
-              <ion-select-option value="12"> Union Bank of India </ion-select-option>
-              <ion-select-option value="13"> Yes Bank </ion-select-option>
-            </ion-select>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <ion-input  formControlName="accountNo"  id="inputs" type="number" placeholder="Account Number"></ion-input>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <ion-label>Amount</ion-label>
-          <ion-input  formControlName="amount"  id="inputs" type="number" placeholder="  ₹"></ion-input>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <ion-button expand="block" class="send" fill="solid" size="large" color="success"
-        type="submit" [disabled]="!aepsForm.valid">
-            Pay
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </form>
-    </ion-grid>
-  </section>
+  <form [formGroup]="aepsForm" (ngSubmit)="submitAepsForm()">
+    <ion-item>
+      <ion-label position="floating">Mobile Number (without +91)</ion-label>
+      <ion-input
+        type="number"
+        formControlName="mobilenumber"
+        maxlength="10"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Aadhar Number</ion-label>
+      <ion-input
+        type="number"
+        formControlName="adhaarnumber"
+        maxlength="12"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Select Bank</ion-label>
+      <ion-select interface="alert">
+        <ion-select-option *ngFor="let bank of banks"
+          >{{ bank.name }}</ion-select-option
+        >
+      </ion-select>
+    </ion-item>
+    <ion-row>
+      <ion-col>
+        <ion-input
+          formControlName="accountNo"
+          id="inputs"
+          type="number"
+          placeholder="Account Number"
+        ></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-label>Amount</ion-label>
+        <ion-input
+          formControlName="amount"
+          id="inputs"
+          type="number"
+          placeholder="  ₹"
+        ></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button
+          expand="block"
+          class="send"
+          fill="solid"
+          size="large"
+          color="success"
+          type="submit"
+          [disabled]="!aepsForm.valid"
+        >
+          Pay
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
 </ion-content>
-<app-footer></app-footer>

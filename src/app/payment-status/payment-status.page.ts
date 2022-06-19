@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UpiService } from '../services/upi.service';
 
 @Component({
   selector: 'app-payment-status',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./payment-status.page.scss'],
 })
 export class PaymentStatusPage implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
+  amount: number;
+  paymnetStatus:boolean=  false;
+  constructor(private upiService: UpiService) {
+    this.amount = this.upiService.details.amount;
   }
 
+  ngOnInit() {}
 }

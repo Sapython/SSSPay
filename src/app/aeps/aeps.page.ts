@@ -10,18 +10,22 @@ import { UpiService } from '../services/upi.service';
   styleUrls: ['./aeps.page.scss'],
 })
 export class AepsPage implements OnInit {
+  banks: any[];
+
   aepsForm: FormGroup = new FormGroup({
-    adharNo: new FormControl('', [
+    mobilenumber: new FormControl('', [
       Validators.required,
-      Validators.pattern(/[0-9 ]*/),
+      Validators.pattern(/[0-9]*/),
+      Validators.minLength(10),
+      Validators.maxLength(10),
     ]),
-    mobileNo: new FormControl('', [
+    adhaarnumber: new FormControl('', [
       Validators.required,
-      Validators.pattern(/(\+|)[0-9 ]*/),
+      Validators.pattern(/[0-9]*/),
+      Validators.minLength(12),
+      Validators.maxLength(12),
     ]),
-    bank: new FormControl('', [
-      Validators.required,
-    ]),
+    bank: new FormControl('', [Validators.required]),
     accountNo: new FormControl('', [
       Validators.required,
       Validators.pattern(/[0-9 ]*/),
@@ -37,16 +41,24 @@ export class AepsPage implements OnInit {
   constructor(
     private upiService: UpiService,
     private router: Router,
+    private databaseService: DatabaseService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.databaseService.getBanks().then((docs) => {
+      this.banks = [];
+      docs.forEach((doc) => {
+        this.banks.push(doc.data());
+      });
+    });
+  }
 
   submitAepsForm() {
     this.upiService.details = {
       paymentFor: 'aeps',
       ...this.aepsForm.value,
     };
-    console.log( this.upiService.details );
+    console.log(this.upiService.details);
     this.router.navigate(['/upi-pin']);
   }
 }

@@ -23,19 +23,19 @@ export class HomepagePage implements OnInit {
       
       routerLink:'/bank-transfer'
     },
-    {
-      name: 'Pay Your Bills',
-      service: 'bills',
-      page: 'aeps',
+    // {
+    //   name: 'Pay Your Bills',
+    //   service: 'bills',
+    //   page: 'aeps',
       
-      routerLink:'/mobile-recharge'
-    },
+    //   routerLink:'/mobile-recharge'
+    // },
     {
-      name: 'Verify PAN ID',
+      name: 'Onboarding',
       service: 'PAN',
       page: 'aeps',
       
-      routerLink:'/pan-verify'
+      routerLink:'/onboarding/phone-and-dob'
     },
   ];
 }
