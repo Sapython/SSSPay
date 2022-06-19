@@ -89,6 +89,22 @@ export class DatabaseService {
 
   // Files services ends
 
+  // AEPS services starts
+
+  getBanks() {
+    return getDocs(
+      query(
+        collection(
+          this.fs,
+          '/banks'
+        ),
+        orderBy('name', 'asc')
+      )
+    );
+  }
+
+  // AEPS services ends
+
   // DTH services starts
 
   getDTHPayments() {
