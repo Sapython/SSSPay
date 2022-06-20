@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { PanPageRoutingModule } from './pan-routing.module';
 
 import { PanPage } from './pan.page';
+import { BaseComponentsModule } from 'src/app/base-components/base-components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PanPageRoutingModule
+    PanPageRoutingModule,
+    BaseComponentsModule
   ],
   declarations: [PanPage]
 })

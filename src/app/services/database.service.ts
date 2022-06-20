@@ -93,13 +93,7 @@ export class DatabaseService {
 
   getBanks() {
     return getDocs(
-      query(
-        collection(
-          this.fs,
-          '/banks'
-        ),
-        orderBy('name', 'asc')
-      )
+      query(collection(this.fs, '/banks'), orderBy('name', 'asc'))
     );
   }
 

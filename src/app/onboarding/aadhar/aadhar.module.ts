@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
 import { AadharPageRoutingModule } from './aadhar-routing.module';
 
 import { AadharPage } from './aadhar.page';
+import { BaseComponentsModule } from 'src/app/base-components/base-components.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     IonicModule,
-    AadharPageRoutingModule
+    AadharPageRoutingModule,
+    BaseComponentsModule,
   ],
-  declarations: [AadharPage]
+  declarations: [AadharPage],
 })
 export class AadharPageModule {}

@@ -1,9 +1,41 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>aadhar</ion-title>
-  </ion-toolbar>
-</ion-header>
-
+<app-header page="Upload Aadhar Card"> </app-header>
 <ion-content>
+  <ion-text>
+    <h1>Upload your Aadhar Card</h1>
+  </ion-text>
+  <form (ngSubmit)="submit()">
+    <input
+      type="file"
+      accept="image/jpeg, image/jpg, image/png"
+      (change)="selectImage($event)"
+      #input
+    />
+    <img
+      src="assets/images/aadhar-in-green.png"
+      (click)="input.click()"
+      [style.display]="input.value ? 'none' : 'inline'"
+      id="placeholder-image"
+    />
+    <img [style.display]="input.value ? 'inline' : 'none'" id="aadhar-image" />
+    <ion-button
+      type="button"
+      *ngIf="input.value"
+      id="remove"
+      (click)="input.value = ''"
+    >
+      <ion-icon name="close-outline"></ion-icon> Remove
+    </ion-button>
 
+    <p>
+      Ensure that your aadhar has the same details (name, address) you have
+      provided earlier or else, your verification process will fail.
+    </p>
+    <ion-button
+      type="submit"
+      *ngIf="input.value"
+      expand="block"
+      id="upload-button"
+      >Upload</ion-button
+    >
+  </form>
 </ion-content>
