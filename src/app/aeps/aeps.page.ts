@@ -3,62 +3,73 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DatabaseService } from '../services/database.service';
 import { UpiService } from '../services/upi.service';
-
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 @Component({
   selector: 'app-aeps',
   templateUrl: './aeps.page.html',
   styleUrls: ['./aeps.page.scss'],
 })
 export class AepsPage implements OnInit {
-  banks: any[];
+  banks: {
+    id: string;
+    name: string;
+  }[];
 
   aepsForm: FormGroup = new FormGroup({
-    mobilenumber: new FormControl('', [
-      Validators.required,
-      Validators.pattern(/^[0-9]*$/),
-      Validators.minLength(10),
-      Validators.maxLength(10),
-    ]),
+    latitude: new FormControl('', [Validators.required]),
+    longitude: new FormControl('', [Validators.required]),
+    nationalbankidentification: new FormControl('', [Validators.required]),
     adhaarnumber: new FormControl('', [
       Validators.required,
-      Validators.pattern(/^[0-9]*$/),
-      Validators.minLength(12),
-      Validators.maxLength(12),
+      Validators.pattern(/^[0-9]{12}$/),
     ]),
-    bank: new FormControl('', [Validators.required]),
-    accountNo: new FormControl('', [
+    mobilenumber: new FormControl('', [
       Validators.required,
-      Validators.pattern(/^[0-9 ]*$/),
+      Validators.pattern(/^(0|)[1-9][0-9]{9}$/),
     ]),
     amount: new FormControl('', [
       Validators.required,
-      Validators.pattern(/^[0-9]*$/),
+      Validators.pattern(/^(0|)[1-9][0-9]*$/),
     ]),
+    transactiontype: new FormControl('', [Validators.required]),
+    requestremarks: new FormControl(''),
   });
 
-  recentPayments: any[];
-
   constructor(
-    private upiService: UpiService,
     private router: Router,
-    private databaseService: DatabaseService
+    private databaseService: DatabaseService,
+    private geolocation: Geolocation
   ) {}
 
   ngOnInit() {
+    // Get location
+    this.geolocation
+      .getCurrentPosition()
+      .then((response) => {
+        this.aepsForm.patchValue({
+          latitude: response.coords.latitude,
+          longitude: response.coords.longitude,
+        });
+      })
+      .catch((error) => {
+        console.error('Error getting location', error);
+      });
+
+    // Get list of banks
     this.databaseService.getBanks().then((docs) => {
       this.banks = [];
       docs.forEach((doc) => {
-        this.banks.push(doc.data());
+        this.banks.push({
+          id: doc.id,
+          name: doc.data().name,
+        });
       });
     });
   }
 
-  submitAepsForm() {
-    this.upiService.details = {
-      paymentFor: 'aeps',
-      ...this.aepsForm.value,
-    };
-    console.log(this.upiService.details);
-    this.router.navigate(['/upi-pin']);
+  submit() {
+    if (this.aepsForm.valid) {
+      // Send aepsForm.value
+    }
   }
 }

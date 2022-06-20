@@ -1,65 +1,42 @@
 <app-header page="AEPS Service"></app-header>
 <ion-content>
-  <form [formGroup]="aepsForm" (ngSubmit)="submitAepsForm()">
+  <ion-text>
+    <h1>Enter your details</h1>
+  </ion-text>
+  <form [formGroup]="aepsForm" (ngSubmit)="submit()">
     <ion-item>
-      <ion-label position="floating">Mobile Number (without +91)</ion-label>
-      <ion-input
-        type="number"
-        formControlName="mobilenumber"
-        maxlength="10"
-      ></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Aadhar Number</ion-label>
-      <ion-input
-        type="number"
-        formControlName="adhaarnumber"
-        maxlength="12"
-      ></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Select Bank</ion-label>
-      <ion-select interface="alert">
-        <ion-select-option *ngFor="let bank of banks"
+      <ion-label position="floating">Select bank</ion-label>
+      <ion-select
+        interface="alert"
+        formControlName="nationalbankidentification"
+      >
+        <ion-select-option *ngFor="let bank of banks" [value]="bank.id"
           >{{ bank.name }}</ion-select-option
         >
       </ion-select>
     </ion-item>
-    <ion-row>
-      <ion-col>
-        <ion-input
-          formControlName="accountNo"
-          id="inputs"
-          type="number"
-          placeholder="Account Number"
-        ></ion-input>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-label>Amount</ion-label>
-        <ion-input
-          formControlName="amount"
-          id="inputs"
-          type="number"
-          placeholder="  ₹"
-        ></ion-input>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-button
-          expand="block"
-          class="send"
-          fill="solid"
-          size="large"
-          color="success"
-          type="submit"
-          [disabled]="!aepsForm.valid"
-        >
-          Pay
-        </ion-button>
-      </ion-col>
-    </ion-row>
+    <ion-item>
+      <ion-label position="floating">Aadhar Number</ion-label>
+      <ion-input type="number" formControlName="adhaarnumber"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Mobile Number</ion-label>
+      <ion-input type="number" formControlName="mobilenumber"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Amount</ion-label>
+      <ion-input type="number" formControlName="amount"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Transaction Type</ion-label>
+      <ion-input type="text" formControlName="transactiontype"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Remarks (optional)</ion-label>
+      <ion-input type="text" formControlName="requestremarks"></ion-input>
+    </ion-item>
+    <ion-button type="submit" expand="block" [disabled]="!aepsForm.valid"
+      >Next</ion-button
+    >
   </form>
 </ion-content>
