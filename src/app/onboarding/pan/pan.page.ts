@@ -75,6 +75,7 @@ export class PanPage implements OnInit {
               'PAN card uploaded successfully.',
               'info'
             );
+            this.router.navigate(['onboarding/verified']);
             // this.router.navigate(['onboarding/received']);
           } else {
             this.alertService.presentToast(url, 'error');

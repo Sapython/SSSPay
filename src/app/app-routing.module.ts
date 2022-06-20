@@ -276,6 +276,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./onboarding/pan/pan.module').then((m) => m.PanPageModule),
   },
+  {
+    path: 'onboarding/verified',
+    loadChildren: () => import('./onboarding/verified/verified.module').then( m => m.VerifiedPageModule)
+  },
+
 ];
 @NgModule({
   imports: [
