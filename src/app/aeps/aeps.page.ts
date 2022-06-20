@@ -15,24 +15,24 @@ export class AepsPage implements OnInit {
   aepsForm: FormGroup = new FormGroup({
     mobilenumber: new FormControl('', [
       Validators.required,
-      Validators.pattern(/[0-9]*/),
+      Validators.pattern(/^[0-9]*$/),
       Validators.minLength(10),
       Validators.maxLength(10),
     ]),
     adhaarnumber: new FormControl('', [
       Validators.required,
-      Validators.pattern(/[0-9]*/),
+      Validators.pattern(/^[0-9]*$/),
       Validators.minLength(12),
       Validators.maxLength(12),
     ]),
     bank: new FormControl('', [Validators.required]),
     accountNo: new FormControl('', [
       Validators.required,
-      Validators.pattern(/[0-9 ]*/),
+      Validators.pattern(/^[0-9 ]*$/),
     ]),
     amount: new FormControl('', [
       Validators.required,
-      Validators.pattern(/[0-9]*/),
+      Validators.pattern(/^[0-9]*$/),
     ]),
   });
 

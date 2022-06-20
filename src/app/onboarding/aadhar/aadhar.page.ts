@@ -70,7 +70,7 @@ export class AadharPage implements OnInit {
         .then((url) => {
           this.loaderService.stop();
           if (typeof url === 'string' || url instanceof String) {
-            this.onboardingService.aadharImageUrl = url;
+            this.onboardingService.details.aadharImageUrl = url;
             this.alertService.presentToast(
               'Aadhar uploaded successfully.',
               'info'

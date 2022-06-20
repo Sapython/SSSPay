@@ -59,10 +59,10 @@ export class PanVerifyPage implements OnInit {
           // loading.onDidDismiss().then(()=> console.log('Loading dismissed!'))
         });
 
-      setTimeout(() => {
-        // this.loading.dismiss;
-        this.navCtrl.navigateRoot('/pan-verified');
-      }, 2000);
+      // setTimeout(() => {
+      //   // this.loading.dismiss;
+      //   this.navCtrl.navigateRoot('/pan-verified');
+      // }, 2000);
     }
   }
 }

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoadingController, NavController } from '@ionic/angular';
+import { LoaderService } from 'src/app/services/loader.service';
+import { OnboardingService } from 'src/app/services/onboarding.service';
 
 @Component({
   selector: 'app-phone-and-dob',
@@ -8,39 +11,31 @@ import { LoadingController, NavController } from '@ionic/angular';
   styleUrls: ['./phone-and-dob.page.scss'],
 })
 export class PhoneAndDobPage implements OnInit {
-  private loading;
-  private presentLoading;
-  
-  constructor(
-    private navCtrl: NavController,
-    public loadingController: LoadingController
-  ) { }
-  credentials: FormGroup = new FormGroup({
-    phonenumber: new FormControl('', [Validators.required]),
+  phoneAndDobForm: FormGroup = new FormGroup({
+    mobileNumber: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^[0-9]{10}$/),
+    ]),
     dob: new FormControl('', [Validators.required]),
   });
 
-  ngOnInit() {
+  constructor(
+    private loaderService: LoaderService,
+    private onboardingService: OnboardingService,
+    private router: Router
+  ) {}
+
+  ngOnInit() {}
+
+  submit() {
+    if (this.phoneAndDobForm.valid) {
+      // this.loaderService.start();
+      this.onboardingService.details.mobileNumber =
+        this.phoneAndDobForm.get('mobileNumber').value;
+      this.onboardingService.details.dob =
+        this.phoneAndDobForm.get('dob').value;
+      // this.loaderService.stop();
+      this.router.navigate(['onboarding/location']);
+    }
   }
-
-  verifying() {
-    if (this.credentials.valid) {
-    this.loadingController
-      .create({
-        cssClass: 'my-custom-class',
-        message: 'verifying...',
-        duration: 2000,
-      })
-      .then((loading) => {
-        loading.present();
-        // loading.onDidDismiss().then(()=> console.log('Loading dismissed!'))
-      });
-
-    setTimeout(() => {
-      // this.loading.dismiss;
-      this.navCtrl.navigateRoot('onboarding/location');
-    }, 2000);
-  }
-}
-
 }

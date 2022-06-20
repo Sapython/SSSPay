@@ -7,6 +7,7 @@ import { AadharPageRoutingModule } from './aadhar-routing.module';
 
 import { AadharPage } from './aadhar.page';
 import { BaseComponentsModule } from 'src/app/base-components/base-components.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { BaseComponentsModule } from 'src/app/base-components/base-components.mo
     IonicModule,
     AadharPageRoutingModule,
     BaseComponentsModule,
+    FormsModule
   ],
   declarations: [AadharPage],
 })

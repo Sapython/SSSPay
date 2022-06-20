@@ -15,7 +15,7 @@ export class DthRechargePage implements OnInit {
     customerID: new FormControl('', [Validators.required]),
     amount: new FormControl('', [
       Validators.required,
-      Validators.pattern(/[0-9]*/),
+      Validators.pattern(/^[0-9]*$/),
     ]),
   });
 

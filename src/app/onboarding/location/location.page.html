@@ -1,67 +1,31 @@
-<app-header page="Pan Verifiction"> </app-header>
+<app-header page="Onboarding"></app-header>
 <ion-content>
-  <section id="aeps_section">
-    <ion-text id="Aeps">Add your  details</ion-text>
-    <form [formGroup]="location" (ngSubmit)="verifying()">
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <ion-item>
-              <ion-label class="operator-select">Select State</ion-label>
-              <ion-select formControlName="state" interface="action-sheet">
-                <ion-select-option *ngFor="let state of states">{{state.state}}</ion-select-option>
-              </ion-select>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-input
-              id="inputs"
-              placeholder="City"
-              type="text"
-              formControlName="city"
-            ></ion-input>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-input
-              id="inputs"
-              placeholder="Address"
-              type="text"
-              formControlName="address"
-            ></ion-input>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-input
-              id="inputs"
-              placeholder="Phone Number"
-              min="0"
-              maxlength="10"
-              formControlName="phoneNumber"
-            ></ion-input>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-button
-              expand="block"
-              class="send"
-              fill="solid"
-              size="large"
-              color="success"
-              type="submit"
-              [disabled]="!location.valid"
-            >
-              next <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </form>
-  </section>
+  <ion-text>
+    <h1>Enter your details</h1>
+  </ion-text>
+  <form [formGroup]="locationForm" (ngSubmit)="submit()">
+    <ion-item>
+      <ion-label position="floating">Select State</ion-label>
+      <ion-select interface="alert" formControlName="state">
+        <ion-select-option *ngFor="let state of states"
+          >{{ state }}</ion-select-option
+        >
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">City</ion-label>
+      <ion-input type="text" formControlName="city"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Pincode</ion-label>
+      <ion-input type="number" formControlName="pincode"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Address</ion-label>
+      <ion-input type="text" formControlName="address"></ion-input>
+    </ion-item>
+    <ion-button type="submit" expand="block" [disabled]="!locationForm.valid"
+      >Next</ion-button
+    >
+  </form>
 </ion-content>
-<app-footer></app-footer>

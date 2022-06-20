@@ -70,12 +70,12 @@ export class PanPage implements OnInit {
         .then((url) => {
           this.loaderService.stop();
           if (typeof url === 'string' || url instanceof String) {
-            this.onboardingService.panImageUrl = url;
+            this.onboardingService.details.panImageUrl = url;
             this.alertService.presentToast(
               'PAN card uploaded successfully.',
               'info'
             );
-            this.router.navigate(['onboarding/pan']);
+            // this.router.navigate(['onboarding/received']);
           } else {
             this.alertService.presentToast(url, 'error');
           }

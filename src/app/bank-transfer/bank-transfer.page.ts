@@ -12,24 +12,24 @@ export class BankTransferPage implements OnInit {
   bankTransferForm: FormGroup = new FormGroup({
     accountNo: new FormControl('', [
       Validators.required,
-      Validators.pattern(/[0-9 ]*/),
+      Validators.pattern(/^[0-9 ]*$/),
     ]),
     confirmAccountNo: new FormControl('', [
       Validators.required,
-      Validators.pattern(/[0-9 ]*/),
+      Validators.pattern(/^[0-9 ]*$/),
     ]),
     accountName: new FormControl('', [Validators.required]),
     issccode: new FormControl('', [
       Validators.required,
-      Validators.pattern(/[0-9 ]*/),
+      Validators.pattern(/^[0-9 ]*$/),
     ]),
     mobileno: new FormControl('', [
       Validators.required,
-      Validators.pattern(/(\+|)[0-9 ]*/),
+      Validators.pattern(/^(\+|)[0-9 ]*$/),
     ]),
     amount: new FormControl('', [
       Validators.required,
-      Validators.pattern(/[0-9]*/),
+      Validators.pattern(/^[0-9]*$/),
     ]),
   });
 
