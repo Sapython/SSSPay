@@ -24,7 +24,7 @@
               placeholder="Search  "
             ></ion-searchbar>
             <app-mobile-recharge-widget
-              *ngFor="let contact of contacts | filter:searchVall"
+              *ngFor="let contact of contacts"
               [image]="contact.image"
               [number]="contact.number"
               [name]="contact.name"
