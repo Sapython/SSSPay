@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-mobile-recharge',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MobileRechargePage implements OnInit {
   searchVall: string;
-
+  operators: {
+    id: string;
+    name: string;
+  }[];
   contacts = [
     {
       id: 1,
@@ -67,7 +71,18 @@ export class MobileRechargePage implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(
+    private databaseService: DatabaseService,) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.databaseService.getOperators().then((docs) => {
+      this.operators = [];
+      docs.forEach((doc) => {
+        this.operators.push({
+          id: doc.id,
+          name: doc.data().name,
+        });
+      });
+    });
+  }
 }

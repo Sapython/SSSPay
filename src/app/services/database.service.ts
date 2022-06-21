@@ -103,7 +103,11 @@ export class DatabaseService {
       query(collection(this.fs, '/banks'), orderBy('name', 'asc'))
     );
   }
-
+  getOperators() {
+    return getDocs(
+      query(collection(this.fs, '/mobileOperators'), orderBy('name', 'asc'))
+    );
+  }
   // AEPS services ends
 
   // DTH services starts

@@ -5,8 +5,15 @@
       <ion-col>
         <ion-card class="ion-padding">
           <ion-text>Mobile Recharge</ion-text>
-          <input type="number" placeholder="Enter Number" id="enter-number" />
-
+          <ion-input type="number" placeholder="Enter Number" id="enter-number" ></ion-input>
+          <ion-item> <ion-label>Select operator</ion-label>
+            <ion-select >
+           
+              <ion-select-option *ngFor="let operator of operators">{{operator.name}}</ion-select-option>
+              
+            </ion-select>
+          </ion-item>
+          
           <ion-button expand="block" routerLink="/select-recharge-plan"
             >Confirm</ion-button
           >
