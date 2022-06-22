@@ -1,56 +1,59 @@
-<app-header page="LPG "></app-header>
-<ion-content color="light">
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <ion-card class="select_LPG_gas">
-          <ion-label>LPG Gas</ion-label>
-
-          <ion-grid>
-            <app-lpg-gas-components></app-lpg-gas-components>
-            <app-lpg-gas-components
-              name="Bharat"
-              image="../../../assets/lpg-gas/bharat.svg"
-            ></app-lpg-gas-components>
-            <app-lpg-gas-components
-              name="HP Gas"
-              image="../../../assets/lpg-gas/hp.svg"
-            ></app-lpg-gas-components>
-          </ion-grid>
-        </ion-card>
-        <ion-card class="booking_method">
-          <ion-label>Select booking method </ion-label>
-          <ion-list>
-            <ion-item>
-              <ion-label>Book using</ion-label>
-              <ion-select value="notifications" interface="action-sheet">
-                <ion-select-option value="id">LPG ID</ion-select-option>
-                <ion-select-option value="mobile"
-                  >Mobile Number</ion-select-option
-                >
-                <ion-select-option value="Consumer_no"
-                  >Consumer Number</ion-select-option
-                >
-              </ion-select>
-            </ion-item>
-            <ion-item>
-              <ion-label position="stacked"
-                >Registered Contact Number</ion-label
-              >
-              <ion-input placeholder="" autofocus=""></ion-input>
-            </ion-item>
-          </ion-list>
-
-          <ion-button
-            expand="block"
-            type="number"
-            class="ion-margin"
-            routerLink="../payment-status"
-            >confirm</ion-button
-          >
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+<app-header page="Gas & LPG Service"></app-header>
+<ion-content>
+  <ng-container *ngIf="!lpgFormSubmitted">
+    <ion-text>
+      <h1>Enter your details</h1>
+    </ion-text>
+    <form [formGroup]="lpgForm" (ngSubmit)="submitLpgForm()">
+      <ion-item>
+        <ion-label position="floating">Select Type</ion-label>
+        <ion-select interface="popover" #type>
+          <ion-select-option>Gas</ion-select-option>
+          <ion-select-option>LPG</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Select Operator</ion-label>
+        <ion-select
+          interface="alert"
+          formControlName="operator"
+          [disabled]="!type.value"
+          (ionChange)="onOperatorSelect($event)"
+          #operatorSelect
+        >
+          <ng-container *ngFor="let op of operators">
+            <ion-select-option *ngIf="op.category == type.value" [value]="op.id"
+              >{{ op.name }}</ion-select-option
+            >
+          </ng-container>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="operatorSelect.value">
+        <ion-label position="floating">{{ operator['displayname'] }}</ion-label>
+        <ion-input type="text" formControlName="canumber"></ion-input>
+      </ion-item>
+      <ion-button type="submit" expand="block" [disabled]="!lpgForm.valid"
+        >Next</ion-button
+      >
+    </form>
+  </ng-container>
+  <ng-container *ngIf="lpgFormSubmitted">
+    <div id="lpg-details">
+      <!-- <img [src]="'assets/images/' + operator.value  + '.png'" id="gas-icon" /> -->
+      <h2>Indane LPG Service</h2>
+      <div class="detail">
+        <h3>Customer ID</h3>
+        <p>{{ lpgForm.get('canumber').value }}</p>
+      </div>
+      <div class="detail">
+        <h3>Customer Name</h3>
+        <p>{{ customerName  }}</p>
+      </div>
+      <div class="detail">
+        <h3>Payable Amount</h3>
+        <p>₹{{ amount }}</p>
+      </div>
+    </div>
+    <ion-button expand="block">Pay ₹{{ amount }}</ion-button>
+  </ng-container>
 </ion-content>
-<app-footer></app-footer>

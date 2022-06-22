@@ -1,45 +1,62 @@
-ion-col {
-  .select_LPG_gas {
-    padding: 20px 15px;
-    font-family: var(font-family);
-    border-radius: 8px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    ion-label {
-      font-size: 22px;
-      font-weight: 500;
-      color: black;
-      padding: 13px;
-    }
-    ion-grid {
-      margin-top: 20px;
-  
-    }
-  }
+* {
+  font-family: "Poppins", sans-serif;
 }
-.booking_method {
-  padding: 15px 0px;
-  font-family: var(font-family);
-  border-radius: 8px;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  ion-label {
-    font-size: 18px;
-    font-weight: 500;
-    color: black;
-    padding: 13px;
+
+ion-content {
+  --padding: 1.5em;
+  --padding-top: var(--padding);
+  --padding-end: var(--padding);
+  --padding-bottom: var(--padding);
+  --padding-start: var(--padding);
+  text-align: center;
+
+  h1 {
+    font-size: 1.5rem;
   }
-  ion-item {
-    margin: 20px 0px;
-    padding-right: 10px;
-    color: black;
+
+  ion-button {
+    margin-top: 1.5em;
+  }
+
+  form {
+    margin-top: 1.5em;
 
     ion-label {
-      color: rgba(0, 0, 0, 0.714);
-      padding: 0;
-      margin: 0;
-      margin-top: 20px;
+      font-family: "Poppins", sans-serif;
     }
+
     ion-input {
-      margin: 10px auto;
+      font-size: 1.1rem;
+    }
+  }
+
+  #lpg-details {
+    #gas-icon {
+      width: 30%;
+      margin-bottom: 1em;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5em;
+    }
+
+    .detail {
+      text-align: left;
+
+      &:not(:last-child) {
+        margin-bottom: 1em;
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        margin: 0;
+      }
+
+      p {
+        font-size: 1.25rem;
+        margin: 0;
+      }
     }
   }
 }
