@@ -18,6 +18,7 @@ import {
   UserCredential,
   signInWithCredential,
   signInWithPopup,
+  getIdToken,
 } from '@angular/fire/auth';
 import { EMPTY, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -397,6 +398,10 @@ export class AuthenticationService {
         this.alertify.presentToast('Invalid Phone Number', 'error', 5000);
       }
     }
+  }
+
+  public getIdToken(user: User) {
+    return getIdToken(user, true);
   }
   // createNewUser(newUser:any){
   //   return (newUser)

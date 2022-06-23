@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DatabaseService } from '../services/database.service';
-import { UpiService } from '../services/upi.service';
-import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { LocationService } from '../services/location.service';
+import { AlertsAndNotificationsService } from '../services/uiService/alerts-and-notifications.service';
+
 @Component({
   selector: 'app-aeps',
   templateUrl: './aeps.page.html',
@@ -36,24 +37,25 @@ export class AepsPage implements OnInit {
   });
 
   constructor(
-    private router: Router,
     private databaseService: DatabaseService,
-    private geolocation: Geolocation
+    private locationService: LocationService,
+    private alertService: AlertsAndNotificationsService,
+    private router: Router
   ) {}
 
   ngOnInit() {
     // Get location
-    this.geolocation
-      .getCurrentPosition()
-      .then((response) => {
+    this.locationService.getLatitudeAndLongitude().then((response) => {
+      if (response.status) {
         this.aepsForm.patchValue({
-          latitude: response.coords.latitude,
-          longitude: response.coords.longitude,
+          latitude: response.latitude,
+          longitude: response.longitude,
         });
-      })
-      .catch((error) => {
-        console.error('Error getting location', error);
-      });
+      } else {
+        this.alertService.presentToast(response.message);
+        this.router.navigate(['/homepage']);
+      }
+    });
 
     // Get list of banks
     this.databaseService.getBanks().then((docs) => {
@@ -70,6 +72,7 @@ export class AepsPage implements OnInit {
   submit() {
     if (this.aepsForm.valid) {
       // Send aepsForm.value
+      console.log(this.aepsForm.value);
     }
   }
 }

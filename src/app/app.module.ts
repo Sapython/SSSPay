@@ -25,6 +25,7 @@ import { AlertsAndNotificationsService } from './services/uiService/alerts-and-n
 import { provideMessaging, getMessaging } from '@angular/fire/messaging';
 import { providePerformance, getPerformance } from '@angular/fire/performance';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { ServerService } from './services/server.service';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -51,6 +52,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
     DatabaseService,
     AlertsAndNotificationsService,
     Geolocation,
+    ServerService,
   ],
   bootstrap: [AppComponent],
 })
