@@ -1,0 +1,47 @@
+<app-header pageName="Bill Payment" backUrl="../homepage"></app-header>
+<ion-content color="light">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card class="ion-padding">
+          <ion-text>Mobile Recharge</ion-text>
+          <ion-input type="number" placeholder="Enter Number" id="enter-number" ></ion-input>
+          <ion-item> <ion-label>Select operator</ion-label>
+            <ion-select >
+           
+              <ion-select-option *ngFor="let operator of operators">{{operator.name}}</ion-select-option>
+              
+            </ion-select>
+          </ion-item>
+          
+          <ion-button expand="block" routerLink="/select-recharge-plan"
+            >Confirm</ion-button
+          >
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <div class="container">
+            <p id="heading">All Contacts</p>
+            <ion-searchbar
+              color="ion-text-color"
+              [(ngModel)]="searchVall"
+              placeholder="Search"
+            ></ion-searchbar>
+            <app-mobile-recharge-widget
+              *ngFor="let contact of contacts"
+              [image]="contact.image"
+              [number]="contact.number"
+              [name]="contact.name"
+              [operator]="contact.operator"
+              routerLink="/select-recharge-plan"
+            ></app-mobile-recharge-widget>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<app-footer></app-footer>

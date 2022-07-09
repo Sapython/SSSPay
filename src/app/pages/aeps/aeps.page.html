@@ -1,0 +1,35 @@
+<app-header pageName="AEPS Service" backUrl="../homepage"></app-header>
+<ion-content>
+  <ion-text>
+    <h1>Enter your details</h1>
+  </ion-text>
+  <form [formGroup]="aepsForm" (ngSubmit)="submit()">
+    <ion-item button (click)="openBankModal()">
+      <ion-label >Select bank</ion-label>
+      <ion-select interface="action-sheet" readonly formControlName="nationalBankIdentification">
+        <ion-select-option *ngFor="let bank of banks" [value]="bank.id">{{ bank.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">aadhaar Number</ion-label>
+      <ion-input type="number" formControlName="aadhaarNumber"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Mobile Number</ion-label>
+      <ion-input type="number" formControlName="mobileNumber"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Amount</ion-label>
+      <ion-input type="number" formControlName="amount"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Transaction Type</ion-label>
+      <ion-input type="text" formControlName="transactionType"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Remarks (optional)</ion-label>
+      <ion-input type="text" formControlName="requestRemarks"></ion-input>
+    </ion-item>
+    <ion-button type="submit" expand="block" [disabled]="!aepsForm.valid">Next</ion-button>
+  </form>
+</ion-content>

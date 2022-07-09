@@ -1,0 +1,7 @@
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let bank of banks" (click)="submit(bank)">
+      <ion-label>{{bank.name}}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

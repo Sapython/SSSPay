@@ -1,0 +1,48 @@
+<app-header pageName="UPI Pin" backUrl="../homepage"></app-header>
+<ion-content>
+  <div class="container">
+    <p id="bank">{{bankname}}</p>
+    <p class="normal">{{accountNumber}}</p>
+    <p class="normal">₹{{amount}}</p>
+    <p id="enter">Enter UPI PIN</p>
+    <div class="box">
+      <input
+        type="password"
+        maxlength="1"
+        #box1
+        (input)="box2.focus()"
+        class="upi-box"
+      />
+      <input
+        type="password"
+        maxlength="1"
+        #box2
+        (input)="box3.focus()"
+        class="upi-box"
+      />
+      <input
+        type="password"
+        maxlength="1"
+        #box3
+        (input)="box4.focus()"
+        class="upi-box"
+      />
+      <input
+        type="password"
+        maxlength="1"
+        #box4
+        (input)="box5.focus()"
+        class="upi-box"
+      />
+      <input
+        type="password"
+        maxlength="1"
+        #box5
+        (input)="box6.focus()"
+        class="upi-box"
+      />
+      <input type="password" maxlength="1" #box6 class="upi-box" />
+    </div>
+    <ion-button (click)="pay()">Pay</ion-button>
+  </div>
+</ion-content>

@@ -1,0 +1,25 @@
+<app-header pageName="Languages" backUrl="../homepage"></app-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-card class="setting-card">
+       
+            <ion-item >
+              <ion-label class="language-select">Select Languages</ion-label>
+              <ion-select value="dth_operator" interface="action-sheet">
+                <ion-select-option value="English">English </ion-select-option>
+                <ion-select-option value="hindi">हिंदी</ion-select-option>
+                <ion-select-option value="gujurati">ગુજરાતી</ion-select-option>
+                <ion-select-option value="telugu">తెలుగు</ion-select-option>
+                <ion-select-option value="tamil">தமிழ்</ion-select-option>
+              </ion-select>
+            </ion-item>
+      
+        </ion-card>
+        <ion-button expand="block" class="ion-margin" routerLink="/menu"> Done</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<app-footer></app-footer>

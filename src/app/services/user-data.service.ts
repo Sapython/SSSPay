@@ -20,69 +20,91 @@ export class UserDataService {
   public async setGoogleUserData(user:User,userData:ExtraLoginGoogleInfo){
     this.dataProvider.pageSetting.blur = true;
     this.dataProvider.pageSetting.lastRedirect = '';
-    console.log('Setting up data',user,userData);
+    console.log('Setting up  data',user,userData);
     let data:UserData = {
       userId: user.uid,
-      email: user.email || '',
-      displayName: user.displayName || '',
-      photoURL: user.photoURL ||  this.getRandomImage(),
-      phoneNumber: userData.phoneNumber,
-      emailVerified:true,
-      status:{access:'active',isOnline:true},
-      access: {
-        access: 'guest',
-      },
-      address:'',
-      aadhaarNumber:'',
+        email: user.email || '',
+        displayName: user.displayName || '',
+        photoURL: user.photoURL || this.getRandomImage(),
+        phoneNumber: '',
+        dob: new Date(),
+        access: {
+          access: 'guest',
+        },
+        status: { access: 'active', isOnline: true },
+        aadhaarNumber: '',
+        gender:'not-specified',
+        address:'',
+        emailVerified:false,
+        tutorialCompleted:false,
+        city:'',
+        nickName:'',
+        pincode:'',
+        state:'',
+        panCardNumber:'',
     }
     this.userDoc  = doc(this.firestore,'users/'+user.uid);
     console.log('Doc and data ',this.userDoc,data)
     await setDoc(this.userDoc,data).then(()=>{
       this.alertify.presentToast('User data set successfully')
-      this.router.navigate(['homepage'])
     });
     this.dataProvider.pageSetting.blur = false;
-    this.router.navigate(['../homepage'])
   }
   public async setEmailUserData(user:User,userData:ExtraLoginEmailInfo){
     this.dataProvider.pageSetting.blur = true;
     this.dataProvider.pageSetting.lastRedirect = '';
     let data:UserData = {
       userId: user.uid,
-      email: user.email || '',
-      displayName: userData.displayName || '',
-      photoURL: userData.photoURL || this.getRandomImage(),
-      phoneNumber: userData.phoneNumber || '',
-      emailVerified:true,
-      status:{access:'active',isOnline:true},
-      access: {
-        access: 'guest',
-      },
-      address:'',
-      aadhaarNumber:'',
+        email: user.email || '',
+        displayName: user.displayName || '',
+        photoURL: user.photoURL || this.getRandomImage(),
+        phoneNumber: '',
+        dob: new Date(),
+        access: {
+          access: 'guest',
+        },
+        status: { access: 'active', isOnline: true },
+        aadhaarNumber: '',
+        gender:'not-specified',
+        address:'',
+        emailVerified:false,
+        tutorialCompleted:false,
+        city:'',
+        nickName:'',
+        pincode:'',
+        state:'',
+        panCardNumber:'',
     }
     this.userDoc  = doc(this.firestore,'users/'+user.uid);
     await setDoc(this.userDoc,data).then(()=>{
       this.alertify.presentToast('User data set successfully')
-      this.router.navigate([''])
     });
     this.dataProvider.pageSetting.blur = false;
-    this.router.navigate([''])
   }
   public setCompleteUserData(user:User,role:UserAccess,name:string,phoneNumber:string,department:department,designation:designation,bloodGroup:bloodGroup,currentAddress:string,permanentAddress:string,nickName:string){
     this.dataProvider.pageSetting.blur = true;
     this.dataProvider.pageSetting.lastRedirect = '';
     let data:UserData = {
       userId: user.uid,
-      email: user.email || '',
-      displayName: name,
-      photoURL: this.getRandomImage(),
-      phoneNumber: phoneNumber,
-      emailVerified:true,
-      status:{access:'active',isOnline:true},
-      access: role || {access:'guest'},
-      address:'',
-      aadhaarNumber:'',
+        email: user.email || '',
+        displayName: name || user.displayName || '',
+        photoURL: user.photoURL || this.getRandomImage(),
+        phoneNumber: '',
+        dob: new Date(),
+        access: {
+          access: 'guest',
+        },
+        status: { access: 'active', isOnline: true },
+        aadhaarNumber: '',
+        gender:'not-specified',
+        address:'',
+        emailVerified:false,
+        tutorialCompleted:false,
+        city:'',
+        nickName:'',
+        pincode:'',
+        state:'',
+        panCardNumber:'',
     }
     for (const key in data) {
       if (!Object.prototype.hasOwnProperty.call(data, key)) {
