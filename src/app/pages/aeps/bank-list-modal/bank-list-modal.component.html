@@ -1,7 +1,22 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start" (click)="closeModal()">
+      <ion-back-button defaultHref="homepage"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Banks</ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
+  <ion-searchbar placeholder="Filter Bank" inputmode="search" type="search" (ionChange)="search($event)" [debounce]="250" showCancelButton="focus"></ion-searchbar>
   <ion-list>
-    <ion-item *ngFor="let bank of banks" (click)="submit(bank)">
+    <ion-item detail *ngFor="let bank of this.filteredBanks.length > 0 ? this.filteredBanks : banksPart" (click)="submit(bank)">
       <ion-label>{{bank.name}}</ion-label>
     </ion-item>
+    <ion-infinite-scroll threshold="50px" (ionInfinite)="loadData($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
   </ion-list>
 </ion-content>

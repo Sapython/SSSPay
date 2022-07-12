@@ -37,6 +37,7 @@
     "@material/menu": "^14.0.0",
     "capacitor-biometric-auth": "^0.1.1",
     "cordova-plugin-geolocation": "^4.1.0",
+    "fuse.js": "^6.6.2",
     "jsqr": "^1.4.0",
     "ng2-search-filter": "^0.5.1",
     "rxjs": "~6.6.0",
