@@ -7,9 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { SelectOperatorPageRoutingModule } from './select-operator-routing.module';
 
 import { SelectOperatorPage } from './select-operator.page';
-import { BaseComponentsModule } from 'src/app/base-components/base-components.module';
-import { BankWidgetComponent } from 'src/app/uiwidgets/bank-widget/bank-widget.component';
-import { UiwidgetsModule } from 'src/app/uiwidgets/uiwidgets.module';
+import { BaseComponentsModule } from '../../base-components/base-components.module';
+import { UiwidgetsModule } from '../../uiwidgets/uiwidgets.module';
 
 @NgModule({
   imports: [
@@ -18,7 +17,7 @@ import { UiwidgetsModule } from 'src/app/uiwidgets/uiwidgets.module';
     IonicModule,
     SelectOperatorPageRoutingModule,
     BaseComponentsModule,
-    UiwidgetsModule
+    UiwidgetsModule,
   ],
   declarations: [SelectOperatorPage],
 })

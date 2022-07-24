@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { EnterCanumberPageRoutingModule } from './enter-canumber-routing.module';
 
 import { EnterCanumberPage } from './enter-canumber.page';
-import { BaseComponentsModule } from 'src/app/base-components/base-components.module';
+import { BaseComponentsModule } from '../../base-components/base-components.module';
 
 @NgModule({
   imports: [
@@ -16,8 +16,8 @@ import { BaseComponentsModule } from 'src/app/base-components/base-components.mo
     ReactiveFormsModule,
     IonicModule,
     EnterCanumberPageRoutingModule,
-    BaseComponentsModule
+    BaseComponentsModule,
   ],
-  declarations: [EnterCanumberPage]
+  declarations: [EnterCanumberPage],
 })
 export class EnterCanumberPageModule {}

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import Fuse from 'fuse.js';
+
 @Component({
   selector: 'app-bank-list-modal',
   templateUrl: './bank-list-modal.component.html',
