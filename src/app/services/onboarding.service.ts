@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { doc, Firestore } from '@angular/fire/firestore';
+import { setDoc, updateDoc } from '@firebase/firestore';
+import { DataProvider } from '../providers/data.provider';
 
 @Injectable({
   providedIn: 'root',
@@ -11,11 +14,11 @@ export class OnboardingService {
     city: string;
     address: string;
     pincode: string;
-    aadharImageUrl: any;
+    aadhaarImageUrl: any;
     panImageUrl: any;
   };
 
-  constructor() {
+  constructor(private fs:Firestore,private dataProvider:DataProvider) {
     this.details = {
       mobileNumber: '',
       dob: '',
@@ -23,8 +26,20 @@ export class OnboardingService {
       city: '',
       address: '',
       pincode: '',
-      aadharImageUrl: '',
+      aadhaarImageUrl: '',
       panImageUrl: '',
     };
+  }
+  setAadhaarDetails(aadhaarData:any){
+    return setDoc(doc(this.fs,`users/${this.dataProvider.userData.userId}/aadhaar/data`),aadhaarData,{merge:true})
+  }
+  setPanDetails(panData:any){
+    return setDoc(doc(this.fs,`users/${this.dataProvider.userData.userId}/pan/data`),panData,{merge:true})
+  }
+  setPhoneAndDobDetails(phone:number,dob:string){
+    return updateDoc(doc(this.fs,`users/${this.dataProvider.userData.userId}`),{phoneNumber:phone,dob:dob})
+  }
+  setLocationDetails(locationData:any){
+    return updateDoc(doc(this.fs,`users/${this.dataProvider.userData.userId}`),locationData)
   }
 }

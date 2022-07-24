@@ -98,14 +98,13 @@ export class AuthenticationService {
               getDoc(doc(this.firestore, 'users/' + credentials.user.uid))
                 .then((userDocument: any) => {
                   if (!userDocument.exists()) {
-                    logEvent(this.analytics, 'Marked_Attendance');
                     if (credentials.user.phoneNumber == null) {
                       this.userData
                         .setGoogleUserData(credentials.user, {
                           phoneNumber: '',
                         })
                         .then(() => {
-                          this.router.navigate(['']);
+                          this.router.navigate(['onboarding']);
                         });
                     } else {
                       this.userData
@@ -113,24 +112,22 @@ export class AuthenticationService {
                           phoneNumber: credentials.user.phoneNumber || '',
                         })
                         .then(() => {
-                          this.router.navigate(['']);
+                          this.router.navigate(['onboarding']);
                         });
                     }
                   } else {
                     this.dataProvider.pageSetting.blur = false;
-                    this.alertify.presentToast(
-                      'Logged In.',
-                      'info',
-                      5000,
-                      [],
-                      true,
-                      ''
-                    );
-                    this.router.navigate(['homepage']);
+                    this.alertify.presentToast('Logged In.','info',5000,[],true,'');
+                    if (!userDocument.data().tutorialCompleted) {
+                      this.router.navigate(['onboarding']);
+                      return;
+                    } else {
+                      this.router.navigate(['homepage']);
+                    }
                   }
                 })
                 .catch((error) => {
-                  console.log('ErrorCatched getting data', error);
+                  console.log('Error, getting data', error);
                   this.dataProvider.pageSetting.blur = false;
                   this.alertify.presentToast(
                     error.message,
@@ -143,7 +140,7 @@ export class AuthenticationService {
                 });
             })
             .catch((error) => {
-              console.log('ErrorCatched authorizing', error);
+              console.log('Error while authorizing', error);
               this.dataProvider.pageSetting.blur = false;
               this.alertify.presentToast(
                 error.message,
@@ -229,39 +226,6 @@ export class AuthenticationService {
         .finally(() => {
           alert('Finished');
         });
-      // signInWithRedirect(this.auth,gauth).then((credentials:UserCredential)=>{
-      //   console.log("Credentials ",credentials);
-      //   getDoc(doc(this.firestore, 'users/' + credentials.user.uid)).then((userDocument:any)=>{
-      //     if (!userDocument.exists()) {
-      //       logEvent(this.analytics, 'Marked_Attendance');
-      //       if (credentials.user.phoneNumber == null) {
-      //         this.userData.setGoogleUserData(credentials.user, {
-      //           phoneNumber: '',
-      //         }).then(()=>{
-      //           this.router.navigate(['']);
-      //         });;
-      //       } else {
-      //         this.userData.setGoogleUserData(credentials.user, {
-      //           phoneNumber: credentials.user.phoneNumber || '',
-      //         }).then(()=>{
-      //           this.router.navigate(['']);
-      //         });
-      //       }
-      //     } else {
-      //       this.dataProvider.pageSetting.blur = false;
-      //       this.alertify.presentToast('Logged In.', 'info', 5000, [], true, '');
-      //       this.router.navigate(['']);
-      //     }
-      //   }).catch((error)=>{
-      //     console.log('ErrorCatched getting data',error);
-      //     this.dataProvider.pageSetting.blur = false;
-      //     this.alertify.presentToast(error.message, 'error', 5000, [], true, '');  ;
-      //   })
-      // }).catch((error)=>{
-      //   console.log('Error ',error)
-      // }).finally(()=>{
-      //   alert('Finished')
-      // })
     }
   }
 

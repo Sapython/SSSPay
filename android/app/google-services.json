@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1044964269542",
+    "project_id": "ssspay-prod",
+    "storage_bucket": "ssspay-prod.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1044964269542:android:543e62b012e5378f994a27",
+        "android_client_info": {
+          "package_name": "com.shreeva.ssspay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1044964269542-8h4ed1snks66e8n0nn4q9trohdgnf5v3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shreeva.ssspay",
+            "certificate_hash": "af079e451f6aafbfc73c771c8f7c147f275a83e6"
+          }
+        },
+        {
+          "client_id": "1044964269542-uhumgrlgrfgr6mp2gc0gpctudta4eiad.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMGsj73yuygnuvhTlmRgmoF7eoQ_GTwhk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1044964269542-uhumgrlgrfgr6mp2gc0gpctudta4eiad.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

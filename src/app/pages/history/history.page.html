@@ -1,0 +1,8 @@
+<app-header pageName="Payment History" backUrl="../homepage"></app-header>
+<ion-content >
+  <ion-card class="ion-padding card" >
+    <ion-text id="history-details">Transaction History</ion-text>
+    <app-history-component *ngFor="let transaction of transactions" [image]="transaction.image" [name]="transaction.name" [date]="transaction.date" [time]="transaction.time" [status]="transaction.status" [amount]="transaction.amount"></app-history-component>
+  </ion-card>
+</ion-content>
+<app-footer></app-footer>

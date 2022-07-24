@@ -3,14 +3,21 @@ export type UserData = {
     displayName:string;
     email:string;
     phoneNumber?:string;
+    dob:Date;
     photoURL:string;
+    gender:'male' | 'female' | 'other' | 'not-specified';
     emailVerified:boolean;
     access:UserAccess;
     status:UserStatus;
     nickName?:string;
+    state?:string;
+    city?:string;
+    pincode?:string;
     address:string;
     aadhaarNumber:string;
-}
+    tutorialCompleted:boolean;
+    panCardNumber:string;
+  }
 export type bloodGroup={
     bloodGroup:'A+'|'A-'|'B+'|'B-'|'AB+'|'AB-'|'O+'|'O-'|'Unknown';
 }

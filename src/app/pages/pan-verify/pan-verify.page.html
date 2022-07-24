@@ -1,0 +1,47 @@
+<app-header pageName="Pan Verification" [backButton]="false" backUrl="../homepage"></app-header>
+<ion-content>
+  <section id="aeps_section">
+    <ion-text id="Aeps">Add your PAN card details</ion-text>
+    <form [formGroup]="panForm" (ngSubmit)="verifying()">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-input
+              id="inputs"
+              placeholder="Enter PAN Holder Name "
+              type="text"
+              formControlName="holderName"
+            ></ion-input>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-input
+              id="inputs"
+              placeholder="PAN Card Number"
+              min="0"
+              max="10"
+              formControlName="panNumber"
+            ></ion-input>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button
+              expand="block"
+              class="send"
+              fill="solid"
+              size="large"
+              color="success"
+              type="submit"
+              [disabled]="!panForm.valid"
+            >
+              Verify
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </form>
+  </section>
+</ion-content>
+<app-footer></app-footer>

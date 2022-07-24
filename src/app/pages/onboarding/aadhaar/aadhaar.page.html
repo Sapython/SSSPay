@@ -1,0 +1,27 @@
+<div>
+  <h3>Upload your aadhaar Card</h3>
+  <form (ngSubmit)="submit()" [formGroup]="uploadAadhaarForm">
+    <ion-item>
+      <ion-label>Aadhaar Number</ion-label>
+      <ion-input type="number" formControlName="aadhaarNumber" placeholder="Aadhaar Number"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Full Name</ion-label>
+      <ion-input type="text" placeholder="Full Name" formControlName="fullName"></ion-input>
+    </ion-item>
+    <h5>Please upload a clear picture only.</h5>
+    <ion-button (click)="input.click()" expand="block" fill="solid" shape="round" *ngIf="!input.value">
+      Upload File
+    </ion-button> 
+    <input type="file" hidden accept="image/jpeg, image/jpg, image/png" formControlName="aadhaarImage" (change)="selectImage($event)" #input />
+    <img height="200" [style.display]="input.value ? 'inline' : 'none'" id="aadhaar-image" />
+    <ion-button type="button" *ngIf="input.value" id="remove" (click)="input.value = ''">
+      <ion-icon name="close-outline"></ion-icon> Remove
+    </ion-button>
+    <p>
+      Ensure that your aadhaar has the same details (name, address) you have
+      provided earlier or else, your verification process will fail.
+    </p>
+    <ion-button type="submit" *ngIf="uploadAadhaarForm.status==='VALID'" expand="block" id="upload-button">Save & Next</ion-button>
+  </form>
+</div>
