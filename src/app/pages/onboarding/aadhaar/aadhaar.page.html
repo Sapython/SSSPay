@@ -1,12 +1,13 @@
 <div>
   <h3>Upload your aadhaar Card</h3>
+  <!-- <button routerLink="../pan">Next</button> -->
   <form (ngSubmit)="submit()" [formGroup]="uploadAadhaarForm">
     <ion-item>
-      <ion-label>Aadhaar Number</ion-label>
+      <ion-label position="floating">Aadhaar Number</ion-label>
       <ion-input type="number" formControlName="aadhaarNumber" placeholder="Aadhaar Number"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Full Name</ion-label>
+      <ion-label position="floating">Full Name</ion-label>
       <ion-input type="text" placeholder="Full Name" formControlName="fullName"></ion-input>
     </ion-item>
     <h5>Please upload a clear picture only.</h5>

@@ -16,7 +16,7 @@ export class PanPage implements OnInit {
   @ViewChild('panImage') panImage;
   @ViewChild('input') input;
   uploadPanForm: FormGroup = new FormGroup({
-    panNumber:new FormControl('',[Validators.required]),
+    panNumber:new FormControl('',[Validators.required,Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')]),
     panImage:new FormControl('',[Validators.required]),
   })
   constructor(
@@ -84,7 +84,7 @@ export class PanPage implements OnInit {
                 'Pan details uploaded successfully.',
                 'info'
               );
-              this.router.navigate(['onboarding/phone-and-dob']);
+              this.router.navigate(['onboarding/verification-request-sent']);
             }).catch(() => {
               this.alertService.presentToast('Something went wrong. Please try again.');
             }).finally(()=>{

@@ -7,6 +7,7 @@ import {
 } from '@angular/router';
 import { LoginguardGuard } from './guards/loginguard.guard';
 import { NotLoggedInGuard } from './guards/not-logged-in.guard';
+import { OnboardingGuard } from './guards/onboarding.guard';
 
 const routes: Routes = [
   {
@@ -16,7 +17,7 @@ const routes: Routes = [
   },
   {
     path: 'recharge',
-    canActivate: [LoginguardGuard],
+    canActivate: [LoginguardGuard,OnboardingGuard],
     loadChildren: () =>
       import('./pages/recharge/recharge.module').then((m) => m.RechargePageModule),
   },
@@ -61,7 +62,7 @@ const routes: Routes = [
   },
   {
     path: 'wallet',
-    canActivate: [LoginguardGuard],
+    canActivate: [LoginguardGuard,OnboardingGuard],
     loadChildren: () =>
       import('./pages/wallet/wallet.module').then((m) => m.WalletPageModule),
   },
@@ -75,7 +76,7 @@ const routes: Routes = [
   },
   {
     path: 'recharge',
-    canActivate: [LoginguardGuard],
+    canActivate: [LoginguardGuard,OnboardingGuard],
     loadChildren: () =>
       import('./pages/recharge/recharge.module').then((m) => m.RechargePageModule),
   },
@@ -88,13 +89,13 @@ const routes: Routes = [
   },
   {
     path: 'aeps',
-    canActivate: [LoginguardGuard],
+    canActivate: [LoginguardGuard,OnboardingGuard],
     loadChildren: () =>
       import('./pages/aeps/aeps.module').then((m) => m.AepsPageModule),
   },
   {
     path: 'card-details',
-    canActivate: [LoginguardGuard],
+    canActivate: [LoginguardGuard,OnboardingGuard],
     loadChildren: () =>
       import('./pages/card-details/card-details.module').then(
         (m) => m.CardDetailsPageModule
@@ -102,7 +103,7 @@ const routes: Routes = [
   },
   {
     path: 'transfer-to-mobile',
-    canActivate: [LoginguardGuard],
+    canActivate: [LoginguardGuard,OnboardingGuard],
     loadChildren: () =>
       import('./pages/transfer-to-mobile/transfer-to-mobile.module').then(
         (m) => m.TransferToMobilePageModule
@@ -110,12 +111,12 @@ const routes: Routes = [
   },
   {
     path: 'qr',
-    canActivate: [LoginguardGuard],
+    canActivate: [LoginguardGuard,OnboardingGuard],
     loadChildren: () => import('./pages/qr/qr.module').then((m) => m.QRPageModule),
   },
   {
     path: 'dth-recharge',
-    canActivate: [LoginguardGuard],
+    canActivate: [LoginguardGuard,OnboardingGuard],
     loadChildren: () =>
       import('./pages/dth-recharge/dth-recharge.module').then(
         (m) => m.DthRechargePageModule
@@ -131,13 +132,13 @@ const routes: Routes = [
 
   {
     path: 'tv-dth',
-    canActivate: [LoginguardGuard],
+    canActivate: [LoginguardGuard,OnboardingGuard],
     loadChildren: () =>
       import('./pages/tv-dth/tv-dth.module').then((m) => m.TvDthPageModule),
   },
   {
     path: 'mobile-recharge',
-    canActivate: [LoginguardGuard],
+    canActivate: [LoginguardGuard,OnboardingGuard],
     loadChildren: () =>
       import('./pages/mobile-recharge/mobile-recharge.module').then(
         (m) => m.MobileRechargePageModule
@@ -145,7 +146,7 @@ const routes: Routes = [
   },
   {
     path: 'view-balance',
-    canActivate: [LoginguardGuard],
+    canActivate: [LoginguardGuard,OnboardingGuard],
     loadChildren: () =>
       import('./pages/view-balance/view-balance.module').then(
         (m) => m.ViewBalancePageModule
@@ -153,19 +154,19 @@ const routes: Routes = [
   },
   {
     path: 'upi-pin',
-    canActivate: [LoginguardGuard],
+    canActivate: [LoginguardGuard,OnboardingGuard],
     loadChildren: () =>
       import('./pages/upi-pin/upi-pin.module').then((m) => m.UpiPinPageModule),
   },
   {
     path: 'qr-scan',
-    canActivate: [LoginguardGuard],
+    canActivate: [LoginguardGuard,OnboardingGuard],
     loadChildren: () =>
       import('./pages/qr-scan/qr-scan.module').then((m) => m.QrScanPageModule),
   },
   {
     path: 'payment-status',
-    canActivate: [LoginguardGuard],
+    canActivate: [LoginguardGuard,OnboardingGuard],
     loadChildren: () =>
       import('./pages/payment-status/payment-status.module').then(
         (m) => m.PaymentStatusPageModule
@@ -181,7 +182,7 @@ const routes: Routes = [
   },
   {
     path: 'bank-transfer',
-    canActivate: [LoginguardGuard],
+    canActivate: [LoginguardGuard,OnboardingGuard],
     loadChildren: () =>
       import('./pages/bank-transfer/bank-transfer.module').then(
         (m) => m.BankTransferPageModule
@@ -197,7 +198,7 @@ const routes: Routes = [
   },
   {
     path: 'fast-tag-recharge',
-    canActivate: [LoginguardGuard],
+    canActivate: [LoginguardGuard,OnboardingGuard],
     loadChildren: () =>
       import('./pages/fast-tag-recharge/fast-tag-recharge.module').then(
         (m) => m.FastTagRechargePageModule
@@ -205,7 +206,7 @@ const routes: Routes = [
   },
   {
     path: 'gas-bill-pay',
-    canActivate: [LoginguardGuard],
+    canActivate: [LoginguardGuard,OnboardingGuard],
     loadChildren: () =>
       import('./pages/gas-bill-pay/gas-bill-pay.module').then(
         (m) => m.GasBillPayPageModule
@@ -213,31 +214,31 @@ const routes: Routes = [
   },
   {
     path: 'rewards',
-    canActivate: [LoginguardGuard],
+    canActivate: [LoginguardGuard,OnboardingGuard],
     loadChildren: () =>
       import('./pages/rewards/rewards.module').then((m) => m.RewardsPageModule),
   },
   {
     path: 'offers',
-    canActivate: [LoginguardGuard],
+    canActivate: [LoginguardGuard,OnboardingGuard],
     loadChildren: () =>
       import('./pages/offers/offers.module').then((m) => m.OffersPageModule),
   },
   {
     path: 'invite',
-    canActivate: [LoginguardGuard],
+    canActivate: [LoginguardGuard,OnboardingGuard],
     loadChildren: () =>
       import('./pages/invite/invite.module').then((m) => m.InvitePageModule),
   },
   {
     path: 'profile',
-    canActivate: [LoginguardGuard],
+    canActivate: [LoginguardGuard,OnboardingGuard],
     loadChildren: () =>
       import('./pages/profile/profile.module').then((m) => m.ProfilePageModule),
   },
   {
     path: 'select-recharge-plan',
-    canActivate: [LoginguardGuard],
+    canActivate: [LoginguardGuard,OnboardingGuard],
     loadChildren: () =>
       import('./pages/select-recharge-plan/select-recharge-plan.module').then(
         (m) => m.SelectRechargePlanPageModule
@@ -245,6 +246,7 @@ const routes: Routes = [
   },
   {
     path: 'pan-verified',
+    canActivate: [LoginguardGuard],
     loadChildren: () =>
       import('./pages/pan-verified/pan-verified.module').then(
         (m) => m.PanVerifiedPageModule
@@ -252,6 +254,7 @@ const routes: Routes = [
   },
   {
     path: 'onboarding',
+    canActivate: [LoginguardGuard],
     loadChildren: () =>
       import('./pages/onboarding/onboarding.module').then(
         (m) => m.OnboardingPageModule

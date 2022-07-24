@@ -1,8 +1,12 @@
 <app-header pageName="Home" [backButton]="false" backUrl="./"></app-header>
 <ion-content>
   <div class="container">
-    <app-home-widget *ngFor="let item of items" [name]="item.name" [service]="item.service" [page]="item.page" [routerLink]="item.routerLink">
-    </app-home-widget>
+    <app-home-widget [name]="items[0].name"
+      [service]="items[0].service" [page]="items[0].page" [routerLink]="items[0].routerLink"></app-home-widget>
+    <app-home-widget [name]="items[1].name"
+      [service]="items[1].service" [page]="items[1].page" [routerLink]="items[0].routerLink"></app-home-widget>
+    <app-home-widget *ngIf="dataProvider.userData?.kycStatus !== 'approved'" [name]="items[2].name"
+      [service]="items[2].service" [page]="items[2].page" [routerLink]="items[2].routerLink"></app-home-widget>
     <div class="inner">
       <div class="box">
         <p id="heading">Recharge And Pay Bills</p>
@@ -30,7 +34,7 @@
       <div class="box">
         <p id="heading">Promotions</p>
         <div class="icon-container">
-          <div class="round-icons"  routerLink="../rewards">
+          <div class="round-icons" routerLink="../rewards">
             <img src="assets/reward.png" alt="">
             <p id="subtitle">Reward</p>
           </div>

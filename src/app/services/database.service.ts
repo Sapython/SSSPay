@@ -8,6 +8,7 @@ import {
   orderBy,
   doc,
   getDoc,
+  updateDoc,
 } from '@angular/fire/firestore';
 import {
   getDownloadURL,
@@ -90,8 +91,8 @@ export class DatabaseService {
   }
 
   // user actions
-  getUser(userId:string){
-    return getDoc(doc(this.fs,'users/'+userId));
+  getUser(userId: string) {
+    return getDoc(doc(this.fs, 'users/' + userId));
   }
 
   // Files services ends
@@ -113,7 +114,7 @@ export class DatabaseService {
   // DTH services starts
 
   getDTHPayments() {
-    console.log('EX123',this.dataProvider.userID);
+    console.log('EX123', this.dataProvider.userID);
     return getDocs(
       query(
         collection(
@@ -126,4 +127,16 @@ export class DatabaseService {
   }
 
   // DTH services ends
+
+  resetVerification() {
+    return updateDoc(doc(this.fs, 'users/' + this.dataProvider.userID), {
+      onboardingSteps: {
+        phoneDobDone:false,
+        panDone:false,
+        locationDone:false,
+        aadhaarDone:false,
+      },
+      kycStatus:'pending'
+    });
+  }
 }

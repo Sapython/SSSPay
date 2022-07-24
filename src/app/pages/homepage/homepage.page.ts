@@ -6,8 +6,7 @@ import { DataProvider } from '../../providers/data.provider';
   templateUrl: './homepage.page.html',
   styleUrls: ['./homepage.page.scss'],
 })
-export class HomepagePage implements OnInit {
-  ngOnInit() {}
+export class HomepagePage{
   constructor(public dataProvider:DataProvider){}
   items = [
     {
@@ -35,7 +34,8 @@ export class HomepagePage implements OnInit {
       service: 'PAN',
       page: 'aeps',
       
-      routerLink:'/onboarding/phone-and-dob'
+      routerLink:'/onboarding'
     },
   ];
+  
 }

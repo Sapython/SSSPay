@@ -26,6 +26,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import com.codetrixstudio.capacitor.GoogleAuth.GoogleAuth;
+
 public class MainActivity extends BridgeActivity {
   public static final String NAME = "RdServices";
   public static final int RDINFO_CODE = 1;
@@ -35,43 +37,52 @@ public class MainActivity extends BridgeActivity {
   private String PckName = "";
   private Promise promise;
   private Map<String, Object> logging = new HashMap<>();
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    registerPlugin(RdIntegration.class);
+    this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {
+      {
+        add(GoogleAuth.class);
+        add(BiometricAuth.class);
+      }
+    });
+  }
 
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
-    if (requestCode == 1) {
-      if (resultCode == RESULT_OK) {
-        Bundle b = data.getExtras();
-        if (b != null) {
-          String deviceInfo = b.getString("DEVICE_INFO", "");
-          String rdServiceInfo = b.getString("RD_SERVICE_INFO", "");
-          String pidData = b.getString("PID_DATA");
-          String dnc = b.getString("DNC", "");
-          String dnr = b.getString("DNR", "");
-          logging.put("PID", pidData);
-          logging.put("dnc", dnc);
-          logging.put("dnr", dnr);
-          logging.put("info",deviceInfo);
-          logging.put("rd",rdServiceInfo);
-          sendData(logging.toString());
-          showLogInfoDialog("DBXL Fingerprint Data:" + pidData, dnc + " --- " + dnr);
+    if (requestCode != 0){
+      if (requestCode == 2) {
+        if (resultCode == RESULT_OK) {
+          Bundle b = data.getExtras();
+          if (b != null && b.containsKey("PID_DATA")) {
+            String pidData = b.getString("PID_DATA");
+            String dnc = b.getString("DNC", "");
+            String dnr = b.getString("DNR", "");
+            logging.put("PID", pidData);
+            sendData(logging.toString());
+//            showLogInfoDialog("DBXL Fingerprint Data:" + pidData, dnc + " --- " + dnr);
+          }
         }
       }
-    }
-    if (resultCode == RESULT_OK) {
-      showLogInfoDialog("DBXL DATA:", data.getDataString());
-      Bundle b = data.getExtras();
-      if (b != null) {
-        String deviceInfo = b.getString("DEVICE_INFO", "");
-        String rdServiceInfo = b.getString("RD_SERVICE_INFO", "");
-        String dnc = b.getString("DNC", "");
-        String dnr = b.getString("DNR", "");
-        if (!dnc.isEmpty() || !dnr.isEmpty()) {
-          showLogInfoDialog("DBXL Device Info", dnc + dnr + " " + deviceInfo + rdServiceInfo);
-          sendData( dnc + dnr + "|" + deviceInfo +"|"+ rdServiceInfo);
-        } else {
-          showLogInfoDialog("DBXL Device Info", deviceInfo + rdServiceInfo);
-          sendData(deviceInfo +"|"+ rdServiceInfo);
+      if (requestCode == 1){
+        if (resultCode == RESULT_OK) {
+//      showLogInfoDialog("DBXL DATA:", data.getDataString());
+          Bundle b = data.getExtras();
+          if (b != null && b.containsKey("RD_SERVICE_INFO")) {
+            String deviceInfo = b.getString("DEVICE_INFO", "");
+            String rdServiceInfo = b.getString("RD_SERVICE_INFO", "");
+            String dnc = b.getString("DNC", "");
+            String dnr = b.getString("DNR", "");
+            if (!dnc.isEmpty() || !dnr.isEmpty()) {
+//          showLogInfoDialog("DBXL Device Info", dnc + dnr + " " + deviceInfo + rdServiceInfo);
+              sendData( dnc + dnr + "|" + deviceInfo +"|"+ rdServiceInfo);
+            } else {
+//          showLogInfoDialog("DBXL Device Info", deviceInfo + rdServiceInfo);
+              sendData(deviceInfo +"|"+ rdServiceInfo);
+            }
+          }
         }
       }
     }
@@ -93,15 +104,13 @@ public class MainActivity extends BridgeActivity {
                 public void onFailure(@NonNull Exception e) {
                   showLogInfoDialog( "Error adding document", e.toString());
                 }
-              });           
+              });
     }
     Context context = getApplicationContext();
     CharSequence text = data + dbase;
     int duration = Toast.LENGTH_LONG;
     Toast toast = Toast.makeText(context, text, duration);
     toast.show();
-    System.out.println("DBXL d1" + data);
-    System.out.println("DBXL d2" + dbase);
   }
 
   void getFingerPrint() {
@@ -110,67 +119,8 @@ public class MainActivity extends BridgeActivity {
     intent.setPackage("com.scl.rdservice");
     String responseXml = "<?xml version=\"1.0\"?><PidOptions ver=\"2.0\"><Opts fCount=\"1\" fType=\"2\" iCount=\"0\" pCount=\"0\" format=\"0\" pidVer=\"2.0\" timeout=\"10000\" env=\"P\" /><CustOpts></CustOpts></PidOptions>";
     intent.putExtra("PID_OPTIONS", responseXml);
-    startActivityForResult(intent, 1);
+    startActivityForResult(intent, 2);
     showLogInfoDialog("DBXL Started finger capture", "Now");
-  }
-
-  // @Override
-  // protected void onActivityResult(
-  // Activity activity,
-  // int requestCode,
-  // int resultCode,
-  // Intent data
-  // ) {
-  // Context context = getApplicationContext();
-  // CharSequence text = "Got Data! "+data.getDataString();
-  // int duration = Toast.LENGTH_SHORT;
-  // Toast toast = Toast.makeText(context, text, duration);
-  // toast.show();
-  //
-  // System.out.print("log1234: data MRPH");
-  // System.out.println(data);
-  // if (data == null) {
-  // return "No action taken";
-  // } else {
-  // sendData(data);
-  // }
-  // if (requestCode == RDINFO_CODE) {
-  // String requiredValue = data.getStringExtra("RD_SERVICE_INFO");
-  //
-  // if (requiredValue == null) {
-  // return "Device not ready";
-  // }
-  // if (requiredValue.length() <= 10) {
-  // return "Device not ready";
-  // }
-  // if (requiredValue.toLowerCase().contains("notready")) {
-  // return "Device not ready";
-  // }
-  // return captureData();
-  // }
-  // if (requestCode == RDCAPTURE_CODE) {
-  // if (data == null) {
-  // return "Device not ready";
-  // }
-  // String captureXML = data.getStringExtra("PID_DATA");
-  // if (captureXML == null || captureXML.length() <= 10) {
-  // return "Device not ready";
-  // }
-  // if (captureXML.toLowerCase().contains("device not ready")) {
-  // return "Device not ready";
-  // }
-  // return captureXML;
-  // }
-  // return "FAILED";
-  // }
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    registerPlugin(RdIntegration.class);
-    this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {
-      {
-        add(BiometricAuth.class);
-      }
-    });
   }
 
   public void getDevicesInfo() {

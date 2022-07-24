@@ -24,10 +24,11 @@ export class LoginguardGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
+      console.log('LoginguardGuard',this.dataProvider.loggedIn);
     if(this.dataProvider.loggedIn){
-      return this.dataProvider.loggedIn;
+      return true;
     } else {
-      if (environment.production){
+      if (!environment.production){
         this.router.navigate(['/login']);
         return false;
       } else {

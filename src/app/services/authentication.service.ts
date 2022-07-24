@@ -1,4 +1,4 @@
-import { Injectable, Optional } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   Firestore,
   DocumentReference,
@@ -9,7 +9,6 @@ import {
 import {
   Auth,
   authState,
-  signInAnonymously,
   signOut,
   User,
   GoogleAuthProvider,
@@ -17,7 +16,6 @@ import {
   createUserWithEmailAndPassword,
   UserCredential,
   signInWithCredential,
-  signInWithPopup,
   getIdToken,
 } from '@angular/fire/auth';
 import { EMPTY, Observable, Subscription } from 'rxjs';
@@ -29,9 +27,8 @@ import { Router } from '@angular/router';
 
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { Platform } from '@ionic/angular';
-import { increment, setDoc, updateDoc } from 'firebase/firestore';
+import { setDoc, updateDoc } from 'firebase/firestore';
 import { Analytics, logEvent } from '@angular/fire/analytics';
-import { DatabaseService } from './database.service';
 import { httpsCallable, Functions } from '@angular/fire/functions';
 import { signInWithRedirect } from 'firebase/auth';
 
@@ -82,6 +79,152 @@ export class AuthenticationService {
     return this.user;
   }
 
+  // public async signInWithGoogle() {
+  //   this.dataProvider.pageSetting.blur = true;
+  //   this.dataProvider.pageSetting.lastRedirect = '';
+  //   if (this.platform.is('capacitor')) {
+  //     GoogleAuth.signIn()
+  //       .then((googleUser: any) => {
+  //         const credential = GoogleAuthProvider.credential(
+  //           googleUser.authentication.idToken,
+  //           googleUser.authentication.accessToken
+  //         );
+  //         signInWithCredential(this.auth, credential)
+  //           .then((credentials: UserCredential) => {
+  //             console.log('Credentials ', credentials);
+  //             getDoc(doc(this.firestore, 'users/' + credentials.user.uid))
+  //               .then((userDocument: any) => {
+  //                 if (!userDocument.exists()) {
+  //                   if (credentials.user.phoneNumber == null) {
+  //                     this.userData
+  //                       .setGoogleUserData(credentials.user, {
+  //                         phoneNumber: '',
+  //                       })
+  //                       .then(() => {
+  //                         this.router.navigate(['onboarding']);
+  //                       });
+  //                   } else {
+  //                     this.userData
+  //                       .setGoogleUserData(credentials.user, {
+  //                         phoneNumber: credentials.user.phoneNumber || '',
+  //                       })
+  //                       .then(() => {
+  //                         this.router.navigate(['onboarding']);
+  //                       });
+  //                   }
+  //                 } else {
+  //                   this.dataProvider.pageSetting.blur = false;
+  //                   this.alertify.presentToast('Logged In.','info',5000,[],true,'');
+  //                   if (!userDocument.data().tutorialCompleted) {
+  //                     this.router.navigate(['onboarding']);
+  //                     return;
+  //                   } else {
+  //                     this.router.navigate(['homepage']);
+  //                   }
+  //                 }
+  //               })
+  //               .catch((error) => {
+  //                 console.log('Error, getting data', error);
+  //                 this.dataProvider.pageSetting.blur = false;
+  //                 this.alertify.presentToast(
+  //                   error.message,
+  //                   'error',
+  //                   5000,
+  //                   [],
+  //                   true,
+  //                   ''
+  //                 );
+  //               });
+  //           })
+  //           .catch((error) => {
+  //             console.log('Error while authorizing', error);
+  //             this.dataProvider.pageSetting.blur = false;
+  //             this.alertify.presentToast(
+  //               error.message,
+  //               'error',
+  //               5000,
+  //               [],
+  //               true,
+  //               ''
+  //             );
+  //           });
+  //       })
+  //       .catch((error) => {
+  //         console.log('ErrorCatched', error);
+  //         this.dataProvider.pageSetting.blur = false;
+  //         this.alertify.presentToast(
+  //           error.message,
+  //           'error',
+  //           5000,
+  //           [],
+  //           true,
+  //           ''
+  //         );
+  //       });
+  //   } else {
+  //     const gauth = new GoogleAuthProvider();
+  //     console.log('Signing in with google', gauth);
+  //     // signInWithPopup(this.auth, gauth).then((credentials:UserCredential)=>{
+  //     //   console.log("Credentials ",credentials);
+  //     // })
+  //     signInWithPopup(this.auth, gauth)
+  //       .then((credentials: UserCredential) => {
+  //         console.log('Credentials ', credentials);
+  //         getDoc(doc(this.firestore, 'users/' + credentials.user.uid))
+  //           .then((userDocument: any) => {
+  //             if (!userDocument.exists()) {
+  //               logEvent(this.analytics, 'Marked_Attendance');
+  //               if (credentials.user.phoneNumber == null) {
+  //                 this.userData
+  //                   .setGoogleUserData(credentials.user, {
+  //                     phoneNumber: '',
+  //                   })
+  //                   .then(() => {
+  //                     this.router.navigate(['']);
+  //                   });
+  //               } else {
+  //                 this.userData
+  //                   .setGoogleUserData(credentials.user, {
+  //                     phoneNumber: credentials.user.phoneNumber || '',
+  //                   })
+  //                   .then(() => {
+  //                     this.router.navigate(['']);
+  //                   });
+  //               }
+  //             } else {
+  //               this.dataProvider.pageSetting.blur = false;
+  //               this.alertify.presentToast(
+  //                 'Logged In.',
+  //                 'info',
+  //                 5000,
+  //                 [],
+  //                 true,
+  //                 ''
+  //               );
+  //               this.router.navigate(['homepage']);
+  //             }
+  //           })
+  //           .catch((error) => {
+  //             console.log('ErrorCatched getting data', error);
+  //             this.dataProvider.pageSetting.blur = false;
+  //             this.alertify.presentToast(
+  //               error.message,
+  //               'error',
+  //               5000,
+  //               [],
+  //               true,
+  //               ''
+  //             );
+  //           });
+  //       })
+  //       .catch((error) => {
+  //         console.log('Error ', error);
+  //       })
+  //       .finally(() => {
+  //         alert('Finished');
+  //       });
+  //   }
+  // }
   public async signInWithGoogle() {
     this.dataProvider.pageSetting.blur = true;
     this.dataProvider.pageSetting.lastRedirect = '';
@@ -94,40 +237,26 @@ export class AuthenticationService {
           );
           signInWithCredential(this.auth, credential)
             .then((credentials: UserCredential) => {
-              console.log('Credentials ', credentials);
               getDoc(doc(this.firestore, 'users/' + credentials.user.uid))
                 .then((userDocument: any) => {
                   if (!userDocument.exists()) {
-                    if (credentials.user.phoneNumber == null) {
-                      this.userData
-                        .setGoogleUserData(credentials.user, {
-                          phoneNumber: '',
-                        })
-                        .then(() => {
-                          this.router.navigate(['onboarding']);
-                        });
-                    } else {
-                      this.userData
-                        .setGoogleUserData(credentials.user, {
-                          phoneNumber: credentials.user.phoneNumber || '',
-                        })
-                        .then(() => {
-                          this.router.navigate(['onboarding']);
-                        });
-                    }
+                    this.userData.setUserData(credentials.user).then(() => {
+                      this.router.navigate(['']);
+                    });
                   } else {
                     this.dataProvider.pageSetting.blur = false;
-                    this.alertify.presentToast('Logged In.','info',5000,[],true,'');
-                    if (!userDocument.data().tutorialCompleted) {
-                      this.router.navigate(['onboarding']);
-                      return;
-                    } else {
-                      this.router.navigate(['homepage']);
-                    }
+                    this.alertify.presentToast(
+                      'Logged In.',
+                      'info',
+                      5000,
+                      [],
+                      true,
+                      ''
+                    );
+                    this.router.navigate(['']);
                   }
                 })
                 .catch((error) => {
-                  console.log('Error, getting data', error);
                   this.dataProvider.pageSetting.blur = false;
                   this.alertify.presentToast(
                     error.message,
@@ -140,7 +269,6 @@ export class AuthenticationService {
                 });
             })
             .catch((error) => {
-              console.log('Error while authorizing', error);
               this.dataProvider.pageSetting.blur = false;
               this.alertify.presentToast(
                 error.message,
@@ -153,7 +281,6 @@ export class AuthenticationService {
             });
         })
         .catch((error) => {
-          console.log('ErrorCatched', error);
           this.dataProvider.pageSetting.blur = false;
           this.alertify.presentToast(
             error.message,
@@ -165,35 +292,15 @@ export class AuthenticationService {
           );
         });
     } else {
-      const gauth = new GoogleAuthProvider();
-      console.log('Signing in with google', gauth);
-      // signInWithPopup(this.auth, gauth).then((credentials:UserCredential)=>{
-      //   console.log("Credentials ",credentials);
-      // })
-      signInWithPopup(this.auth, gauth)
-        .then((credentials: UserCredential) => {
-          console.log('Credentials ', credentials);
+      const googleAuthProvider = new GoogleAuthProvider();
+      signInWithRedirect(this.auth, googleAuthProvider).then(
+        (credentials: UserCredential) => {
           getDoc(doc(this.firestore, 'users/' + credentials.user.uid))
             .then((userDocument: any) => {
               if (!userDocument.exists()) {
-                logEvent(this.analytics, 'Marked_Attendance');
-                if (credentials.user.phoneNumber == null) {
-                  this.userData
-                    .setGoogleUserData(credentials.user, {
-                      phoneNumber: '',
-                    })
-                    .then(() => {
-                      this.router.navigate(['']);
-                    });
-                } else {
-                  this.userData
-                    .setGoogleUserData(credentials.user, {
-                      phoneNumber: credentials.user.phoneNumber || '',
-                    })
-                    .then(() => {
-                      this.router.navigate(['']);
-                    });
-                }
+                this.userData.setUserData(credentials.user).then(() => {
+                  this.router.navigate(['']);
+                });
               } else {
                 this.dataProvider.pageSetting.blur = false;
                 this.alertify.presentToast(
@@ -204,11 +311,10 @@ export class AuthenticationService {
                   true,
                   ''
                 );
-                this.router.navigate(['homepage']);
+                this.router.navigate(['']);
               }
             })
             .catch((error) => {
-              console.log('ErrorCatched getting data', error);
               this.dataProvider.pageSetting.blur = false;
               this.alertify.presentToast(
                 error.message,
@@ -219,13 +325,8 @@ export class AuthenticationService {
                 ''
               );
             });
-        })
-        .catch((error) => {
-          console.log('Error ', error);
-        })
-        .finally(() => {
-          alert('Finished');
-        });
+        }
+      );
     }
   }
 
@@ -251,14 +352,10 @@ export class AuthenticationService {
     console.log('Signing Up');
     this.dataProvider.pageSetting.blur = true;
     this.dataProvider.pageSetting.lastRedirect = '';
-    let data = createUserWithEmailAndPassword(this.auth, email, password)
+    createUserWithEmailAndPassword(this.auth, email, password)
       .then(async (credentials: UserCredential) => {
         logEvent(this.analytics, 'Signed_Up');
-        await this.userData.setEmailUserData(credentials.user, {
-          displayName: username,
-          phoneNumber: '',
-          photoURL: '',
-        });
+        await this.userData.setUserData(credentials.user);
       })
       .catch((error) => {
         this.dataProvider.pageSetting.blur = false;
@@ -307,6 +404,7 @@ export class AuthenticationService {
       user.subscribe(async (u: User) => {
         console.log('USer ', user);
         if (u) {
+          this.dataProvider.userInstance = u;
           this.dataProvider.loggedIn = true;
           this.dataProvider.userID = u.uid;
           // alert(this.dataProvider.userID);
@@ -342,6 +440,7 @@ export class AuthenticationService {
             }
           );
         } else {
+          this.router.navigate(['../login']);
           console.log('User is Logged Out');
         }
       });

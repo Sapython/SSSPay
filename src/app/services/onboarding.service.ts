@@ -18,7 +18,7 @@ export class OnboardingService {
     panImageUrl: any;
   };
 
-  constructor(private fs:Firestore,private dataProvider:DataProvider) {
+  constructor(private fs: Firestore, private dataProvider: DataProvider) {
     this.details = {
       mobileNumber: '',
       dob: '',
@@ -30,16 +30,71 @@ export class OnboardingService {
       panImageUrl: '',
     };
   }
-  setAadhaarDetails(aadhaarData:any){
-    return setDoc(doc(this.fs,`users/${this.dataProvider.userData.userId}/aadhaar/data`),aadhaarData,{merge:true})
+  async setAadhaarDetails(aadhaarData: any) {
+    try {
+      const data = await setDoc(
+        doc(this.fs, `users/${this.dataProvider.userData.userId}/aadhaar/data`),
+        aadhaarData,
+        { merge: true }
+      );
+      await updateDoc(
+        doc(this.fs, `users/${this.dataProvider.userData.userId}`),
+        { onboardingSteps: { aadhaarDone: true } }
+      );
+      return data;
+    } catch (error) {
+      return error;
+    }
   }
-  setPanDetails(panData:any){
-    return setDoc(doc(this.fs,`users/${this.dataProvider.userData.userId}/pan/data`),panData,{merge:true})
+  async setPanDetails(panData: any) {
+    try {
+      const data = await setDoc(
+        doc(this.fs, `users/${this.dataProvider.userData.userId}/pan/data`),
+        panData,
+        { merge: true }
+      );
+      await updateDoc(
+        doc(this.fs, `users/${this.dataProvider.userData.userId}`),
+        {
+          onboardingSteps: {
+            panDone: true,
+            aadhaarDone: this.dataProvider.userData.onboardingSteps.aadhaarDone,
+          },
+        }
+      );
+      return data;
+    } catch (error) {
+      return error;
+    }
   }
-  setPhoneAndDobDetails(phone:number,dob:string){
-    return updateDoc(doc(this.fs,`users/${this.dataProvider.userData.userId}`),{phoneNumber:phone,dob:dob})
+  setPhoneAndDobDetails(phone: number, dob: string) {
+    return setDoc(
+      doc(this.fs, `users/${this.dataProvider.userData.userId}`),
+      {
+        phoneNumber: phone,
+        dob: dob,
+        onboardingSteps: {
+          phoneDobDone: true,
+          aadhaarDone: this.dataProvider.userData.onboardingSteps.aadhaarDone,
+          panDone: this.dataProvider.userData.onboardingSteps.panDone,
+        },
+      },
+      { merge: true }
+    );
   }
-  setLocationDetails(locationData:any){
-    return updateDoc(doc(this.fs,`users/${this.dataProvider.userData.userId}`),locationData)
+  setLocationDetails(locationData: any) {
+    return setDoc(
+      doc(this.fs, `users/${this.dataProvider.userData.userId}`),
+      {
+        ...locationData,
+        onboardingSteps: {
+          locationDone: true,
+          phoneDobDone: this.dataProvider.userData.onboardingSteps.phoneDobDone,
+          aadhaarDone: this.dataProvider.userData.onboardingSteps.aadhaarDone,
+          panDone: this.dataProvider.userData.onboardingSteps.panDone,
+        },
+      },
+      { merge: true }
+    );
   }
 }

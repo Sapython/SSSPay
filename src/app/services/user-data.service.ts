@@ -17,40 +17,8 @@ export class UserDataService {
   constructor(private firestore: Firestore,private router:Router ,private alertify:AlertsAndNotificationsService, private dataProvider:DataProvider) {
     this.usersDoc = collection(this.firestore,'users');
   }
-  public async setGoogleUserData(user:User,userData:ExtraLoginGoogleInfo){
-    this.dataProvider.pageSetting.blur = true;
-    this.dataProvider.pageSetting.lastRedirect = '';
-    console.log('Setting up  data',user,userData);
-    let data:UserData = {
-      userId: user.uid,
-        email: user.email || '',
-        displayName: user.displayName || '',
-        photoURL: user.photoURL || this.getRandomImage(),
-        phoneNumber: '',
-        dob: new Date(),
-        access: {
-          access: 'guest',
-        },
-        status: { access: 'active', isOnline: true },
-        aadhaarNumber: '',
-        gender:'not-specified',
-        address:'',
-        emailVerified:false,
-        tutorialCompleted:false,
-        city:'',
-        nickName:'',
-        pincode:'',
-        state:'',
-        panCardNumber:'',
-    }
-    this.userDoc  = doc(this.firestore,'users/'+user.uid);
-    console.log('Doc and data ',this.userDoc,data)
-    await setDoc(this.userDoc,data).then(()=>{
-      this.alertify.presentToast('User data set successfully')
-    });
-    this.dataProvider.pageSetting.blur = false;
-  }
-  public async setEmailUserData(user:User,userData:ExtraLoginEmailInfo){
+
+  public async setUserData(user:User){
     this.dataProvider.pageSetting.blur = true;
     this.dataProvider.pageSetting.lastRedirect = '';
     let data:UserData = {
@@ -74,6 +42,14 @@ export class UserDataService {
         pincode:'',
         state:'',
         panCardNumber:'',
+        onboardingDone:false,
+        kycStatus:'pending',
+        onboardingSteps: {
+          phoneDobDone: false,
+          panDone: false,
+          locationDone: false,
+          aadhaarDone: false,
+        }
     }
     this.userDoc  = doc(this.firestore,'users/'+user.uid);
     await setDoc(this.userDoc,data).then(()=>{
@@ -81,41 +57,7 @@ export class UserDataService {
     });
     this.dataProvider.pageSetting.blur = false;
   }
-  public setCompleteUserData(user:User,role:UserAccess,name:string,phoneNumber:string,department:department,designation:designation,bloodGroup:bloodGroup,currentAddress:string,permanentAddress:string,nickName:string){
-    this.dataProvider.pageSetting.blur = true;
-    this.dataProvider.pageSetting.lastRedirect = '';
-    let data:UserData = {
-      userId: user.uid,
-        email: user.email || '',
-        displayName: name || user.displayName || '',
-        photoURL: user.photoURL || this.getRandomImage(),
-        phoneNumber: '',
-        dob: new Date(),
-        access: {
-          access: 'guest',
-        },
-        status: { access: 'active', isOnline: true },
-        aadhaarNumber: '',
-        gender:'not-specified',
-        address:'',
-        emailVerified:false,
-        tutorialCompleted:false,
-        city:'',
-        nickName:'',
-        pincode:'',
-        state:'',
-        panCardNumber:'',
-    }
-    for (const key in data) {
-      if (!Object.prototype.hasOwnProperty.call(data, key)) {
-        this.alertify.presentToast('Cannot create user missing fields');
-        throw throwError('Cannot create user missing fields');
-      }
-    }
-    console.log(data);
-    this.userDoc  = doc(this.firestore,'users/'+user.uid);
-    return setDoc(this.userDoc,data);
-  }
+
   getRandomImage():string{
     return "https://firebasestorage.googleapis.com/v0/b/sit-manager.appspot.com/o/users%2Fdefault%2Fuser.png?alt=media&token=f7502ba7-275f-40a8-92bd-7df725bc7786";
   }

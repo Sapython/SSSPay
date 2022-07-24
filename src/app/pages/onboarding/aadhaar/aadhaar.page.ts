@@ -16,7 +16,7 @@ export class AadhaarPage implements OnInit {
   @ViewChild('aadhaarImage') aadhaarImage;
   @ViewChild('input') input;
   uploadAadhaarForm: FormGroup = new FormGroup({
-    aadhaarNumber:new FormControl('',[Validators.required]),
+    aadhaarNumber:new FormControl('',[Validators.required,Validators.pattern('[0-9]{12}')]),
     fullName:new FormControl('',[Validators.required]),
     aadhaarImage:new FormControl('',[Validators.required]),
   })
@@ -46,6 +46,7 @@ export class AadhaarPage implements OnInit {
       this.alertService.presentToast(
         'Your file must be less than or equal to ' + MAX_SIZE_STR
       );
+      file = null;
       return false;
     }
     return true;

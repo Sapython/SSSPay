@@ -36,7 +36,7 @@ export class PhoneAndDobPage implements OnInit {
         'Phone and DOB added successfully.',
         'info'
       );
-      this.router.navigate(['onboarding/verification-request-sent']);
+      this.router.navigate(['onboarding/location']);
     }).catch(() => {
       this.alertService.presentToast('Something went wrong. Please try again.');
     }).finally(()=>{

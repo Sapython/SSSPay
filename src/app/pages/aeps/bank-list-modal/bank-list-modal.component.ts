@@ -15,11 +15,11 @@ export class BankListModalComponent implements OnInit {
     this.banksPart = this.banks.slice(0, 20);
   }
   submit(bank:any){
-    console.log(bank);
+    this.modalController.dismiss(bank);
   }
   search(event:any){
     // console.log(event.target.value);
-    const options = { keys: ['name'] };
+    const options = { keys: ['bankName','iinno'] };
     const fuse = new Fuse(this.banks, options);
     this.filteredBanks = []
     const results = fuse.search(event.target.value);

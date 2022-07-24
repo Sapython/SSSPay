@@ -36,7 +36,11 @@ const routes: Routes = [
       {
         path: 'verification-request-sent',
         loadChildren: () => import('./verification-request-sent/verification-request-sent.module').then( m => m.VerificationRequestSentPageModule)
-      }
+      },
+      {
+        path: 'rejected',
+        loadChildren: () => import('./rejected/rejected.module').then( m => m.RejectedPageModule)
+      },
     ]
   },
 ];

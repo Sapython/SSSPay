@@ -21,11 +21,13 @@ const config: CapacitorConfig = {
       layoutName: "launch_screen",
       useDialog: true,
     },
-    GoogleAuth:{
+    "GoogleAuth": {
       "scopes": [
         "profile",
         "email"
       ],
+      "serverClientId": "1044964269542-uhumgrlgrfgr6mp2gc0gpctudta4eiad.apps.googleusercontent.com",
+      "forceCodeForRefreshToken": true
     }
   },
 };

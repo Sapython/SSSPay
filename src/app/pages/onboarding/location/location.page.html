@@ -1,4 +1,30 @@
-<ion-text>
+<div>
+  <ion-text>
+    <h3>Enter your details</h3>
+  </ion-text>
+  <form [formGroup]="locationForm" (ngSubmit)="submit()">
+    <ion-item>
+      <ion-label position="floating">Select State</ion-label>
+      <ion-select interface="alert" formControlName="state">
+        <ion-select-option *ngFor="let state of states">{{ state }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">City</ion-label>
+      <ion-input type="text" formControlName="city"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Pincode</ion-label>
+      <ion-input type="number" formControlName="pincode"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Address</ion-label>
+      <ion-input type="text" formControlName="address"></ion-input>
+    </ion-item>
+    <ion-button type="submit" expand="block" [disabled]="!locationForm.valid">Next</ion-button>
+  </form>
+</div>
+<!-- <ion-text>
   <h1>Enter your details</h1>
 </ion-text>
 <form [formGroup]="locationForm" (ngSubmit)="submit()">
@@ -21,4 +47,4 @@
     <ion-input type="text" formControlName="address"></ion-input>
   </ion-item>
   <ion-button type="submit" expand="block" [disabled]="!locationForm.valid">Next</ion-button>
-</form>
+</form> -->

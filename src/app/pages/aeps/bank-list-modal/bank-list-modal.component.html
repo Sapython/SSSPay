@@ -10,7 +10,7 @@
   <ion-searchbar placeholder="Filter Bank" inputmode="search" type="search" (ionChange)="search($event)" [debounce]="250" showCancelButton="focus"></ion-searchbar>
   <ion-list>
     <ion-item detail *ngFor="let bank of this.filteredBanks.length > 0 ? this.filteredBanks : banksPart" (click)="submit(bank)">
-      <ion-label>{{bank.name}}</ion-label>
+      <ion-label>{{bank.bankName}}</ion-label>
     </ion-item>
     <ion-infinite-scroll threshold="50px" (ionInfinite)="loadData($event)">
       <ion-infinite-scroll-content

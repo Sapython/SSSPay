@@ -8,7 +8,7 @@
       </ion-row>
       <ion-row id="form">
         <ion-col size="11" offset="0.5">
-          <form size="11" offset="0.5" [formGroup]="signinForm" (ngSubmit)="login()">
+          <form size="11" offset="0.5" [formGroup]="signInForm" (ngSubmit)="login()">
             <ion-card>
               <ion-input placeholder="Username" autocomplete="off" autocorrect="off" autofocus="true" name="username"
                 [formControl]="emailControl">
@@ -24,8 +24,8 @@
                 </button>
               </ion-input>
             </ion-card>
-            <ion-button type="button" class="ion-margin login_btn" expand="block" fill="solid" size="large"
-              color="primary" routerLink="/" type="submit">
+            <ion-button type="submit" class="ion-margin login_btn" expand="block" fill="solid" size="large"
+              color="primary" type="submit">
               Login
             </ion-button>
           </form>

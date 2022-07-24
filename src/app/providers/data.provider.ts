@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { User } from '@angular/fire/auth';
 import { Subject } from 'rxjs';
 import { PageSetting } from '../structures/method.structure';
 import { UserData } from '../structures/user.structure';
@@ -18,6 +19,7 @@ export class DataProvider{
     public loggedIn:boolean = false;
     public gettingUserData = new Subject();;
     public userID:string | undefined;
+    public userInstance:User;
     public verifyEmail:boolean | undefined;
     public reloadPage:boolean = false;
     public checkoutData:any;

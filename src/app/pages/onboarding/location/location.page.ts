@@ -72,14 +72,13 @@ export class LocationPage implements OnInit {
           'Phone and DOB added successfully.',
           'info'
         );
-        this.router.navigate(['onboarding/verified']);
+        this.router.navigate(['onboarding/verification-request-sent']);
       }).catch(() => {
         this.alertService.presentToast('Something went wrong. Please try again.');
       }).finally(()=>{
         this.loaderService.stop();
       });
       this.loaderService.stop();
-      this.router.navigate(['onboarding/aadhaar']);
     }
   }
 }

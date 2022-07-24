@@ -16,15 +16,15 @@ export class LoginPage implements OnInit {
   constructor(public authService:AuthenticationService,public alertify:AlertsAndNotificationsService,private dataProvider:DataProvider) { }
 emailControl:FormControl = new FormControl('',[Validators.required,Validators.email])
   passwordControl:FormControl = new FormControl('',[Validators.required,Validators.minLength(8),Validators.maxLength(50)])
-  signinForm:FormGroup = new FormGroup({
+  signInForm:FormGroup = new FormGroup({
     email: this.emailControl,
     password: this.passwordControl,
   });
   ngOnInit() {
   }
   login():void{
-    console.log(this.signinForm);
-    if (this.signinForm.status === 'VALID'){
+    console.log(this.signInForm);
+    if (this.signInForm.status === 'VALID'){
       this.authService.loginEmailPassword(this.emailControl.value,this.passwordControl.value);
     } else {
       this.alertify.presentToast('Please fill all the fields correctly','error',3000);

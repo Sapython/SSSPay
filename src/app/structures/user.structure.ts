@@ -17,7 +17,15 @@ export type UserData = {
     aadhaarNumber:string;
     tutorialCompleted:boolean;
     panCardNumber:string;
-  }
+    onboardingDone:boolean;
+    kycStatus:'pending' | 'approved' | 'rejected';
+    onboardingSteps:{
+        phoneDobDone:boolean;
+        panDone:boolean;
+        locationDone:boolean;
+        aadhaarDone:boolean;
+    }
+}
 export type bloodGroup={
     bloodGroup:'A+'|'A-'|'B+'|'B-'|'AB+'|'AB-'|'O+'|'O-'|'Unknown';
 }

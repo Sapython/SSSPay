@@ -4,4 +4,5 @@
     <string name="title_activity_main">SSSPay</string>
     <string name="package_name">com.shreeva.ssspay</string>
     <string name="custom_url_scheme">com.shreeva.ssspay</string>
+     <string name="server_client_id">1044964269542-uhumgrlgrfgr6mp2gc0gpctudta4eiad.apps.googleusercontent.com</string>
 </resources>

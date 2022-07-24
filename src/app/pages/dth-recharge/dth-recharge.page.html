@@ -2,17 +2,15 @@
 <ion-content color="light">
   <div class="container">
     <ion-label class="tv">TV</ion-label>
-
     <form [formGroup]="dthForm" (ngSubmit)="submitDthForm()">
       <ion-item>
         <ion-label class="operator-select">Select Operator</ion-label>
         <ion-select formControlName="operator" interface="action-sheet">
-          <ion-select-option>TΛTΛ PLΛY</ion-select-option>
-          <ion-select-option>Dish TV</ion-select-option>
-          <ion-select-option>d2h</ion-select-option>
-          <ion-select-option>Zing Digital</ion-select-option>
-          <ion-select-option>Airtel Digital TV</ion-select-option>
-          <ion-select-option>Sun Direct</ion-select-option>
+          <ion-select-option value="z">Airtel DTH</ion-select-option>
+          <ion-select-option value="TataSky">Tata Sky</ion-select-option>
+          <ion-select-option value="Videocon">Videocon</ion-select-option>
+          <ion-select-option value="Sundirect">Sundirect</ion-select-option>
+          <ion-select-option value="Dishtv">Dishtv</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>
@@ -23,9 +21,7 @@
         <ion-label position="floating" class="font">Recharge Amount</ion-label>
         <ion-input type="number" formControlName="amount"></ion-input>
       </ion-item>
-      <ion-button type="submit" expand="block" [disabled]="!dthForm.valid"
-        >Recharge</ion-button
-      >
+      <ion-button type="submit" expand="block" [disabled]="!dthForm.valid">Recharge</ion-button>
     </form>
   </div>
   <div class="container2">
