@@ -69,7 +69,7 @@ export class GasBillPayPage implements OnInit {
               return response.json();
             })
             .then((json) => {
-              if (json.status) {
+              if (json.response_code == 1) {
                 this.operators = json.data;
                 this.operators.sort((a, b) => {
                   return a.name.localeCompare(b.name);
@@ -140,7 +140,7 @@ export class GasBillPayPage implements OnInit {
               return response.json();
             })
             .then((json) => {
-              if (json.status) {
+              if (json.response_code == 1) {
                 this.lpgFormSubmitted = true;
                 this.customerName = json.name;
                 this.amount = json.amount;

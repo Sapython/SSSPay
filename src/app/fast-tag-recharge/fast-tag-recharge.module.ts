@@ -6,7 +6,6 @@ import { IonicModule } from '@ionic/angular';
 
 import { FastTagRechargePageRoutingModule } from './fast-tag-recharge-routing.module';
 
-import { FastTagRechargePage } from './fast-tag-recharge.page';
 import { BaseComponentsModule } from '../base-components/base-components.module';
 import { UiwidgetsModule } from '../uiwidgets/uiwidgets.module';
 
@@ -19,6 +18,6 @@ import { UiwidgetsModule } from '../uiwidgets/uiwidgets.module';
     BaseComponentsModule,
     UiwidgetsModule,
   ],
-  declarations: [FastTagRechargePage],
+  declarations: [],
 })
 export class FastTagRechargePageModule {}

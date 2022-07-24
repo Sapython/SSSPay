@@ -1,9 +1,0 @@
-<app-header page="Fastag "></app-header>
-<ion-content color="light">
-  <ion-card class="ion-margin">
-    <ion-text>Fastag</ion-text>
-    <p>Select your fast tag provider name</p>
-    <app-bank-widget *ngFor="let bank of banks" [name]="bank.name"  [image]="bank.Image"  class="ion-text-center" routerLink="../payment-status"></app-bank-widget>
-  </ion-card>
-</ion-content>
-<app-footer></app-footer>

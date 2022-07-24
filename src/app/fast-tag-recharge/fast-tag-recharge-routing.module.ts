@@ -1,13 +1,28 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { FastTagRechargePage } from './fast-tag-recharge.page';
-
 const routes: Routes = [
   {
     path: '',
-    component: FastTagRechargePage
-  }
+    redirectTo: 'select-operator',
+    pathMatch: 'full',
+  },
+  {
+    path: 'select-operator',
+    loadChildren: () =>
+      import('./select-operator/select-operator.module').then(
+        (m) => m.SelectOperatorPageModule
+      ),
+  },
+  {
+    path: 'enter-canumber',
+    loadChildren: () => import('./enter-canumber/enter-canumber.module').then( m => m.EnterCanumberPageModule)
+  },  {
+    path: 'details',
+    loadChildren: () => import('./details/details.module').then( m => m.DetailsPageModule)
+  },
+
+
 ];
 
 @NgModule({

@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { FastTagRechargePage } from './fast-tag-recharge.page';
+import { EnterCanumberPage } from './enter-canumber.page';
 
-describe('FastTagRechargePage', () => {
-  let component: FastTagRechargePage;
-  let fixture: ComponentFixture<FastTagRechargePage>;
+describe('EnterCanumberPage', () => {
+  let component: EnterCanumberPage;
+  let fixture: ComponentFixture<EnterCanumberPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FastTagRechargePage ],
+      declarations: [ EnterCanumberPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(FastTagRechargePage);
+    fixture = TestBed.createComponent(EnterCanumberPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
