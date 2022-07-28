@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { LoaderService } from 'src/app/services/loader.service';
@@ -45,11 +45,11 @@ export class LocationPage implements OnInit {
     'West Bengal',
   ];
 
-  locationForm: FormGroup = new FormGroup({
-    state: new FormControl('', [Validators.required]),
-    city: new FormControl('', [Validators.required]),
-    address: new FormControl('', [Validators.required]),
-    pincode: new FormControl('', [
+  locationForm: UntypedFormGroup = new UntypedFormGroup({
+    state: new UntypedFormControl('', [Validators.required]),
+    city: new UntypedFormControl('', [Validators.required]),
+    address: new UntypedFormControl('', [Validators.required]),
+    pincode: new UntypedFormControl('', [
       Validators.required,
       Validators.pattern(/^[0-9]{6}$/),
     ]),

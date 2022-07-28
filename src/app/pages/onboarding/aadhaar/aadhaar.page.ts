@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataProvider } from 'src/app/providers/data.provider';
 import { DatabaseService } from 'src/app/services/database.service';
@@ -15,10 +15,10 @@ import { AlertsAndNotificationsService } from 'src/app/services/uiService/alerts
 export class AadhaarPage implements OnInit {
   @ViewChild('aadhaarImage') aadhaarImage;
   @ViewChild('input') input;
-  uploadAadhaarForm: FormGroup = new FormGroup({
-    aadhaarNumber:new FormControl('',[Validators.required,Validators.pattern('[0-9]{12}')]),
-    fullName:new FormControl('',[Validators.required]),
-    aadhaarImage:new FormControl('',[Validators.required]),
+  uploadAadhaarForm: UntypedFormGroup = new UntypedFormGroup({
+    aadhaarNumber:new UntypedFormControl('',[Validators.required,Validators.pattern('[0-9]{12}')]),
+    fullName:new UntypedFormControl('',[Validators.required]),
+    aadhaarImage:new UntypedFormControl('',[Validators.required]),
   })
   constructor(
     private alertService: AlertsAndNotificationsService,

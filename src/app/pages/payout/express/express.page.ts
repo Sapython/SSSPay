@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataProvider } from 'src/app/providers/data.provider';
 import { DatabaseService } from 'src/app/services/database.service';
@@ -14,53 +14,53 @@ import { Transaction } from 'src/app/structures/method.structure';
   styleUrls: ['./express.page.scss'],
 })
 export class ExpressPage implements OnInit {
-  addPayoutDetailForm: FormGroup = new FormGroup({
-    name: new FormControl(
+  addPayoutDetailForm: UntypedFormGroup = new UntypedFormGroup({
+    name: new UntypedFormControl(
       this.dataProvider.userData.primaryPayoutAccount?.name ||
         this.dataProvider.userData.displayName,
       [Validators.required]
     ),
-    email: new FormControl(
+    email: new UntypedFormControl(
       this.dataProvider.userData.primaryPayoutAccount?.email ||
         this.dataProvider.userData.email,
       [Validators.required]
     ),
-    contact: new FormControl(
+    contact: new UntypedFormControl(
       this.dataProvider.userData.primaryPayoutAccount?.contact ||
         this.dataProvider.userData.phoneNumber,
       [Validators.required]
     ),
-    accountType: new FormControl(
+    accountType: new UntypedFormControl(
       this.dataProvider.userData.primaryPayoutAccount?.accountType,
       [Validators.required]
     ),
-    bankAccountName: new FormControl(
+    bankAccountName: new UntypedFormControl(
       this.dataProvider.userData.primaryPayoutAccount?.bankAccountName
     ),
-    accountNumber: new FormControl(
+    accountNumber: new UntypedFormControl(
       this.dataProvider.userData.primaryPayoutAccount?.accountNumber
     ),
-    ifsc: new FormControl(
+    ifsc: new UntypedFormControl(
       this.dataProvider.userData.primaryPayoutAccount?.ifsc
     ),
-    vpa: new FormControl(this.dataProvider.userData.primaryPayoutAccount?.vpa),
-    cardNumber: new FormControl(
+    vpa: new UntypedFormControl(this.dataProvider.userData.primaryPayoutAccount?.vpa),
+    cardNumber: new UntypedFormControl(
       this.dataProvider.userData.primaryPayoutAccount?.cardNumber
     ),
-    cardName: new FormControl(
+    cardName: new UntypedFormControl(
       this.dataProvider.userData.primaryPayoutAccount?.cardName
     ),
   });
   addingAccount: boolean = false;
-  payoutForm: FormGroup = new FormGroup({
-    amount: new FormControl(null, [
+  payoutForm: UntypedFormGroup = new UntypedFormGroup({
+    amount: new UntypedFormControl(null, [
       Validators.required,
       Validators.max(this.dataProvider.wallet.balance),
       Validators.min(0),
     ]),
-    account: new FormControl(null, [Validators.required]),
-    description: new FormControl(null, [Validators.required]),
-    paymentType: new FormControl(null),
+    account: new UntypedFormControl(null, [Validators.required]),
+    description: new UntypedFormControl(null, [Validators.required]),
+    paymentType: new UntypedFormControl(null),
   });
   fundAccounts = [];
   constructor(

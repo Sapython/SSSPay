@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalController, Platform } from '@ionic/angular';
 import { ServerService } from 'src/app/services/server.service';
@@ -28,23 +28,23 @@ export class AepsPage implements OnInit {
   }[];
   bankId: string;
   selectedBank:any = {"name":"Select Bank","id":""};
-  aepsForm: FormGroup = new FormGroup({
-    latitude: new FormControl('', [Validators.required]),
-    longitude: new FormControl('', [Validators.required]),
-    aadhaarNumber: new FormControl('453453453455', [
+  aepsForm: UntypedFormGroup = new UntypedFormGroup({
+    latitude: new UntypedFormControl('', [Validators.required]),
+    longitude: new UntypedFormControl('', [Validators.required]),
+    aadhaarNumber: new UntypedFormControl('453453453455', [
       Validators.required,
       Validators.pattern(/^[0-9]{12}$/),
     ]),
-    mobileNumber: new FormControl('6546464646', [
+    mobileNumber: new UntypedFormControl('6546464646', [
       Validators.required,
       Validators.pattern(/^(0|)[1-9][0-9]{9}$/),
     ]),
-    amount: new FormControl('50', [
+    amount: new UntypedFormControl('50', [
       Validators.required,
       Validators.pattern(/^(0|)[1-9][0-9]*$/),
     ]),
-    transactionType: new FormControl('', [Validators.required]),
-    requestRemarks: new FormControl(''),
+    transactionType: new UntypedFormControl('', [Validators.required]),
+    requestRemarks: new UntypedFormControl(''),
   });
 
   constructor(

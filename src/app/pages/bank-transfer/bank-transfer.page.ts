@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UpiService } from '../../services/upi.service';
 
@@ -9,25 +9,25 @@ import { UpiService } from '../../services/upi.service';
   styleUrls: ['./bank-transfer.page.scss'],
 })
 export class BankTransferPage implements OnInit {
-  bankTransferForm: FormGroup = new FormGroup({
-    accountNo: new FormControl('', [
+  bankTransferForm: UntypedFormGroup = new UntypedFormGroup({
+    accountNo: new UntypedFormControl('', [
       Validators.required,
       Validators.pattern(/^[0-9 ]*$/),
     ]),
-    confirmAccountNo: new FormControl('', [
+    confirmAccountNo: new UntypedFormControl('', [
       Validators.required,
       Validators.pattern(/^[0-9 ]*$/),
     ]),
-    accountName: new FormControl('', [Validators.required]),
-    issccode: new FormControl('', [
+    accountName: new UntypedFormControl('', [Validators.required]),
+    issccode: new UntypedFormControl('', [
       Validators.required,
       Validators.pattern(/^[0-9 ]*$/),
     ]),
-    mobileno: new FormControl('', [
+    mobileno: new UntypedFormControl('', [
       Validators.required,
       Validators.pattern(/^(\+|)[0-9 ]*$/),
     ]),
-    amount: new FormControl('', [
+    amount: new UntypedFormControl('', [
       Validators.required,
       Validators.pattern(/^[0-9]*$/),
     ]),

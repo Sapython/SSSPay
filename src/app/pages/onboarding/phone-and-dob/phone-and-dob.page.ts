@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoadingController, NavController } from '@ionic/angular';
 import { LoaderService } from 'src/app/services/loader.service';
@@ -12,12 +12,12 @@ import { AlertsAndNotificationsService } from 'src/app/services/uiService/alerts
   styleUrls: ['./phone-and-dob.page.scss'],
 })
 export class PhoneAndDobPage implements OnInit {
-  phoneAndDobForm: FormGroup = new FormGroup({
-    mobileNumber: new FormControl('', [
+  phoneAndDobForm: UntypedFormGroup = new UntypedFormGroup({
+    mobileNumber: new UntypedFormControl('', [
       Validators.required,
       Validators.pattern(/^[0-9]{10}$/),
     ]),
-    dob: new FormControl('', [Validators.required]),
+    dob: new UntypedFormControl('', [Validators.required]),
   });
 
   constructor(

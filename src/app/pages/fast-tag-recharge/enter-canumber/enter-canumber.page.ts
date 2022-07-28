@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { relative } from 'path';
 import { FastagService } from 'src/app/services/fastag.service';
@@ -11,8 +11,8 @@ import { AlertsAndNotificationsService } from 'src/app/services/uiService/alerts
   styleUrls: ['./enter-canumber.page.scss'],
 })
 export class EnterCanumberPage implements OnInit {
-  canumberForm: FormGroup = new FormGroup({
-    canumber: new FormControl(''),
+  canumberForm: UntypedFormGroup = new UntypedFormGroup({
+    canumber: new UntypedFormControl(''),
   });
 
   constructor(

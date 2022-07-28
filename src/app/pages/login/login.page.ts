@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { DataProvider } from '../../providers/data.provider';
 import { AuthenticationService } from '../../services/authentication.service';
 import { AlertsAndNotificationsService } from '../../services/uiService/alerts-and-notifications.service';
@@ -14,9 +14,9 @@ export class LoginPage implements OnInit {
   showCnfPwd = false;
 
   constructor(public authService:AuthenticationService,public alertify:AlertsAndNotificationsService,private dataProvider:DataProvider) { }
-emailControl:FormControl = new FormControl('',[Validators.required,Validators.email])
-  passwordControl:FormControl = new FormControl('',[Validators.required,Validators.minLength(8),Validators.maxLength(50)])
-  signInForm:FormGroup = new FormGroup({
+emailControl:UntypedFormControl = new UntypedFormControl('',[Validators.required,Validators.email])
+  passwordControl:UntypedFormControl = new UntypedFormControl('',[Validators.required,Validators.minLength(8),Validators.maxLength(50)])
+  signInForm:UntypedFormGroup = new UntypedFormGroup({
     email: this.emailControl,
     password: this.passwordControl,
   });

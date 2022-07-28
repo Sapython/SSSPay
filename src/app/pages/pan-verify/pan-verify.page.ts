@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { LoadingController, NavController } from '@ionic/angular';
 import { present } from '@ionic/core/dist/types/utils/overlays';
@@ -12,9 +12,9 @@ export class PanVerifyPage implements OnInit {
   private loading;
   private presentLoading;
 
-  panForm: FormGroup = new FormGroup({
-    holderName: new FormControl('', [Validators.required]),
-    panNumber: new FormControl('', [Validators.required]),
+  panForm: UntypedFormGroup = new UntypedFormGroup({
+    holderName: new UntypedFormControl('', [Validators.required]),
+    panNumber: new UntypedFormControl('', [Validators.required]),
   });
 
   constructor(

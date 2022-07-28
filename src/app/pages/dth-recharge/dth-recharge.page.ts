@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { DatabaseService } from '../../services/database.service';
@@ -11,10 +11,10 @@ import { UpiService } from '../../services/upi.service';
   styleUrls: ['./dth-recharge.page.scss'],
 })
 export class DthRechargePage implements OnInit {
-  dthForm: FormGroup = new FormGroup({
-    operator: new FormControl('', [Validators.required]),
-    customerID: new FormControl('', [Validators.required]),
-    amount: new FormControl('', [
+  dthForm: UntypedFormGroup = new UntypedFormGroup({
+    operator: new UntypedFormControl('', [Validators.required]),
+    customerID: new UntypedFormControl('', [Validators.required]),
+    amount: new UntypedFormControl('', [
       Validators.required,
       Validators.pattern(/^[0-9]*$/),
     ]),

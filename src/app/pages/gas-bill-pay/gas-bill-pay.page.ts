@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { AuthenticationService } from '../../services/authentication.service';
@@ -21,12 +21,12 @@ export class GasBillPayPage implements OnInit {
   latitude: number;
   longitude: number;
 
-  lpgForm: FormGroup = new FormGroup({
-    operator: new FormControl('', [Validators.required]),
-    canumber: new FormControl('', [Validators.required]),
-    ad1: new FormControl(null),
-    ad2: new FormControl(null),
-    ad3: new FormControl(null),
+  lpgForm: UntypedFormGroup = new UntypedFormGroup({
+    operator: new UntypedFormControl('', [Validators.required]),
+    canumber: new UntypedFormControl('', [Validators.required]),
+    ad1: new UntypedFormControl(null),
+    ad2: new UntypedFormControl(null),
+    ad3: new UntypedFormControl(null),
   });
 
   constructor(
