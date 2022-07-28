@@ -26,12 +26,13 @@ import { provideMessaging, getMessaging } from '@angular/fire/messaging';
 import { providePerformance, getPerformance } from '@angular/fire/performance';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ServerService } from './services/server.service';
+import { enterAnimation, pageTransition } from './animation';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
-    IonicModule.forRoot({animated:true}),
+    IonicModule.forRoot({animated:true,navAnimation:pageTransition}),
     AppRoutingModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),

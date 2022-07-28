@@ -8,8 +8,8 @@ import { CommonModule } from '@angular/common';
 
 const components1 = [HeaderComponent,FooterComponent]
 @NgModule({
-  exports:[HeaderComponent,FooterComponent],
-  declarations: [HeaderComponent,FooterComponent],
+  exports:[HeaderComponent],
+  declarations: [HeaderComponent],
   imports: [
     CommonModule,
     IonicModule,

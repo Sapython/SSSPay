@@ -1,10 +1,23 @@
-<ion-card>
-  <ion-avatar>
-    <ion-img src={{image}}></ion-img>
-  </ion-avatar>
-  <div class="transaction_details">
-    <ion-label>{{name}}</ion-label>
-    <ion-text>{{date}} at {{time}}</ion-text>
+<div class="card">
+  <div>
+    <ion-avatar >
+      <img src="assets/icons/{{type}}.svg" alt="">
+    </ion-avatar>
+    <p>{{date | date}}</p>
   </div>
-  <div class="transaction_amount"><ion-text color={{status}}>{{sign}}{{currency}}{{amount}}</ion-text></div>
-</ion-card>
+  <div>
+    <h6>{{status | titlecase}}</h6>
+    <p>{{receiver}}</p>
+  </div>
+  <div>
+    <b>{{amount}}</b>
+    <p>
+      <ion-icon color="danger" name="alert-outline" *ngIf="paymentStatus=='error'"></ion-icon>
+      <ion-icon color="warning" name="time" *ngIf="paymentStatus=='started'"></ion-icon>
+      <ion-icon color="warning" name="hourglass" *ngIf="paymentStatus=='pending'"></ion-icon>
+      <ion-icon color="success" name="checkmark-done-outline" *ngIf="paymentStatus=='success'"></ion-icon>
+      <ion-icon color="tertiary" name="help-circle" *ngIf="paymentStatus=='unknown'"></ion-icon>
+      {{paymentStatus | titlecase}}
+    </p> 
+  </div>
+</div>

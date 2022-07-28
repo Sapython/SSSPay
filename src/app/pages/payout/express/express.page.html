@@ -1,0 +1,107 @@
+<app-header pageName="Express Payout" [backButton]="true" backUrl="../payout"></app-header>
+
+<ion-content>
+    <ion-toolbar>
+        <ion-item>
+            <ion-label>Actions</ion-label>
+            <ion-button (click)="addingAccount=true">
+                <ion-icon name="add-outline"></ion-icon>
+                Add Account
+            </ion-button>
+            <!-- <ion-button (click)="removeAccount()">Remove Account</ion-button> -->
+        </ion-item>
+    </ion-toolbar>
+    <div *ngIf="!dataProvider.userData.payoutDetailsCompleted || addingAccount">
+        <h2>Please fill the details to get a payout</h2>
+        <form [formGroup]="addPayoutDetailForm" (ngSubmit)="submitForm()">
+            <ion-item>
+                <ion-label position="floating">Display Name</ion-label>
+                <ion-input type="text" formControlName="name" placeholder="Display Name"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Email</ion-label>
+                <ion-input type="text" formControlName="email" placeholder="Email"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Contact</ion-label>
+                <ion-input type="text" formControlName="contact" placeholder="Contact"></ion-input>
+            </ion-item>
+            <!-- <ion-input type="text" formControlName="accountType" placeholder="Account Type"></ion-input> -->
+            <ion-item>
+                <ion-label position="floating">Account Type</ion-label>
+                <ion-select value="card" formControlName="accountType" placeholder="Account Type"
+                    (ionChange)="changeControl($event)" #accountType>
+                    <ion-select-option value="bank_account">Bank Account</ion-select-option>
+                    <ion-select-option value="card">Card</ion-select-option>
+                    <ion-select-option value="vpa">VPA</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="accountType.value == 'bank_account'">
+                <ion-label position="floating">Bank Account Name</ion-label>
+                <ion-input type="text" formControlName="bankAccountName" placeholder="Bank Account Name"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="accountType.value == 'bank_account'">
+                <ion-label position="floating">Account Number</ion-label>
+                <ion-input type="text" formControlName="accountNumber" placeholder="Account Number"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="accountType.value == 'bank_account'">
+                <ion-label position="floating">IFSC</ion-label>
+                <ion-input type="text" formControlName="ifsc" placeholder="IFSC"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="accountType.value == 'vpa'">
+                <ion-label position="floating">VPA</ion-label>
+                <ion-input type="text" formControlName="vpa" placeholder="VPA Id"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="accountType.value == 'card'">
+                <ion-label position="floating">Card Number</ion-label>
+                <ion-input type="text" formControlName="cardNumber" placeholder="Card Number"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="accountType.value == 'card'">
+                <ion-label position="floating">Card Name</ion-label>
+                <ion-input type="text" formControlName="cardName" placeholder="Card Name"></ion-input>
+            </ion-item>
+            <ion-row>
+                <ion-button [disabled]="!(addPayoutDetailForm.valid && accountType.value)" shape="round" type="submit">
+                    Add Fund Account
+                </ion-button>
+            </ion-row>
+        </form>
+    </div>
+    <div *ngIf="dataProvider.userData?.payoutDetailsCompleted">
+        <form [formGroup]="payoutForm">
+            <ion-item>
+                <ion-label position="floating">Select Account</ion-label>
+                <ion-select placeholder="Select Account" (ionChange)="setControls()" formControlName="account"
+                    #accountType>
+                    <ng-container *ngFor="let account of fundAccounts">
+                        <ion-select-option [value]="account" *ngIf="account.accountType == 'vpa'">Type:
+                            {{account.accountType}}:{{account.vpa}} </ion-select-option>
+                        <ion-select-option [value]="account" *ngIf="account.accountType == 'bank_account'">Type:
+                            {{account.accountType}}:{{account.bankAccountName}}</ion-select-option>
+                        <!-- <ion-select-option [value]="account" *ngIf="account.accountType == 'card'">Type: {{account.accountType}}:{{account.cardNumber}}</ion-select-option> -->
+                    </ng-container>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="accountType.value.accountType  == 'bank_account'">
+                <ion-label>Payment Type</ion-label>
+                <ion-select value="peperoni" formControlName="paymentType" placeholder="Select Type">
+                    <ion-select-option value="IMPS">IMPS</ion-select-option>
+                    <ion-select-option value="NEFT">NEFT</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Reason</ion-label>
+                <ion-textarea type="text" formControlName="description"></ion-textarea>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Amount <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <ion-input formControlName="amount" [max]="dataProvider.wallet?.balance" required type="number">
+                </ion-input>
+            </ion-item>
+            <ion-button (click)="makePayout()" [disabled]="!payoutForm.valid" expand="block" fill="solid">
+                Get Payout
+            </ion-button>
+        </form>
+    </div>
+</ion-content>

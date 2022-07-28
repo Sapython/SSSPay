@@ -259,7 +259,11 @@ const routes: Routes = [
       import('./pages/onboarding/onboarding.module').then(
         (m) => m.OnboardingPageModule
       ),
+  },  {
+    path: 'payout',
+    loadChildren: () => import('./pages/payout/payout.module').then( m => m.PayoutPageModule)
   },
+
 ];
 @NgModule({
   imports: [

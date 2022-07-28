@@ -6,17 +6,43 @@ import { Component, OnInit,Input } from '@angular/core';
   styleUrls: ['./history-component.component.scss'],
 })
 export class HistoryComponentComponent implements OnInit {
-  @Input() amount:string = '48,900'
-  @Input() image:string = ""
-  @Input() currency:string = '₹'
-  @Input() sign:string = '+'
-  @Input() time:string = '11.20 PM'
-  @Input() date:string = '22 may 2022'
-  @Input() purpose:string = 'For Beverages'
-  @Input() name:string = 'Ranvijay Sinha'
+  @Input() amount:number = 0
+  @Input() type:string = ''
+  @Input() date:Date = new Date();
   @Input() status:string = "success"
+  @Input() receiver:string = 'Ranvijay Sinha'
+  @Input() paymentStatus:string;
+  @Input() description:string = ''
+  
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // this.status = 'AEPS Done to'
+    // this.amount = 4500
+    // this.type = 'aeps'
+    // this.date = new Date()
+    // this.receiver = 'Ranvijay Sinha'
+    // this.paymentStatus = 'started'
+    // this.description = 'AEPS Done to Ranvijay Sinha'
+
+    // Types type:'aeps'|'cableDth'|'fastTag'|'gas'|'recharge'|'expressPayout'|'dailyPayout';
+    if (this.type == 'aeps') {
+      this.status = 'AEPS done to'
+    } else if (this.type == 'cableDth') {
+      this.status = 'DTH paid to'
+    } else if (this.type == 'fastTag') {
+      this.status = 'Fast Tag done to'
+    } else if (this.type == 'gas') {
+      this.status = 'Gas paid to'
+    } else if (this.type == 'recharge') {
+      this.status = 'Recharge done to'
+    } else if (this.type == 'expressPayout') {
+      this.status = 'Express Payout done to'
+    } else if (this.type == 'dailyPayout') {
+      this.status = 'Daily Payout done to'
+    } else {
+      this.status = 'Unknown'
+    }
+  }
 
 }

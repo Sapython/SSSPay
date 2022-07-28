@@ -67,6 +67,7 @@ export class AuthenticationService {
   }
   public createNewUser = httpsCallable(this.functions, 'createUser');
   private userServerSubscription: Subscription | undefined = undefined;
+  private userWalletSubscription: Subscription = Subscription.EMPTY;
   private readonly userDisposable: Subscription | undefined;
   public readonly user: Observable<User | null> = EMPTY;
 
@@ -79,152 +80,6 @@ export class AuthenticationService {
     return this.user;
   }
 
-  // public async signInWithGoogle() {
-  //   this.dataProvider.pageSetting.blur = true;
-  //   this.dataProvider.pageSetting.lastRedirect = '';
-  //   if (this.platform.is('capacitor')) {
-  //     GoogleAuth.signIn()
-  //       .then((googleUser: any) => {
-  //         const credential = GoogleAuthProvider.credential(
-  //           googleUser.authentication.idToken,
-  //           googleUser.authentication.accessToken
-  //         );
-  //         signInWithCredential(this.auth, credential)
-  //           .then((credentials: UserCredential) => {
-  //             console.log('Credentials ', credentials);
-  //             getDoc(doc(this.firestore, 'users/' + credentials.user.uid))
-  //               .then((userDocument: any) => {
-  //                 if (!userDocument.exists()) {
-  //                   if (credentials.user.phoneNumber == null) {
-  //                     this.userData
-  //                       .setGoogleUserData(credentials.user, {
-  //                         phoneNumber: '',
-  //                       })
-  //                       .then(() => {
-  //                         this.router.navigate(['onboarding']);
-  //                       });
-  //                   } else {
-  //                     this.userData
-  //                       .setGoogleUserData(credentials.user, {
-  //                         phoneNumber: credentials.user.phoneNumber || '',
-  //                       })
-  //                       .then(() => {
-  //                         this.router.navigate(['onboarding']);
-  //                       });
-  //                   }
-  //                 } else {
-  //                   this.dataProvider.pageSetting.blur = false;
-  //                   this.alertify.presentToast('Logged In.','info',5000,[],true,'');
-  //                   if (!userDocument.data().tutorialCompleted) {
-  //                     this.router.navigate(['onboarding']);
-  //                     return;
-  //                   } else {
-  //                     this.router.navigate(['homepage']);
-  //                   }
-  //                 }
-  //               })
-  //               .catch((error) => {
-  //                 console.log('Error, getting data', error);
-  //                 this.dataProvider.pageSetting.blur = false;
-  //                 this.alertify.presentToast(
-  //                   error.message,
-  //                   'error',
-  //                   5000,
-  //                   [],
-  //                   true,
-  //                   ''
-  //                 );
-  //               });
-  //           })
-  //           .catch((error) => {
-  //             console.log('Error while authorizing', error);
-  //             this.dataProvider.pageSetting.blur = false;
-  //             this.alertify.presentToast(
-  //               error.message,
-  //               'error',
-  //               5000,
-  //               [],
-  //               true,
-  //               ''
-  //             );
-  //           });
-  //       })
-  //       .catch((error) => {
-  //         console.log('ErrorCatched', error);
-  //         this.dataProvider.pageSetting.blur = false;
-  //         this.alertify.presentToast(
-  //           error.message,
-  //           'error',
-  //           5000,
-  //           [],
-  //           true,
-  //           ''
-  //         );
-  //       });
-  //   } else {
-  //     const gauth = new GoogleAuthProvider();
-  //     console.log('Signing in with google', gauth);
-  //     // signInWithPopup(this.auth, gauth).then((credentials:UserCredential)=>{
-  //     //   console.log("Credentials ",credentials);
-  //     // })
-  //     signInWithPopup(this.auth, gauth)
-  //       .then((credentials: UserCredential) => {
-  //         console.log('Credentials ', credentials);
-  //         getDoc(doc(this.firestore, 'users/' + credentials.user.uid))
-  //           .then((userDocument: any) => {
-  //             if (!userDocument.exists()) {
-  //               logEvent(this.analytics, 'Marked_Attendance');
-  //               if (credentials.user.phoneNumber == null) {
-  //                 this.userData
-  //                   .setGoogleUserData(credentials.user, {
-  //                     phoneNumber: '',
-  //                   })
-  //                   .then(() => {
-  //                     this.router.navigate(['']);
-  //                   });
-  //               } else {
-  //                 this.userData
-  //                   .setGoogleUserData(credentials.user, {
-  //                     phoneNumber: credentials.user.phoneNumber || '',
-  //                   })
-  //                   .then(() => {
-  //                     this.router.navigate(['']);
-  //                   });
-  //               }
-  //             } else {
-  //               this.dataProvider.pageSetting.blur = false;
-  //               this.alertify.presentToast(
-  //                 'Logged In.',
-  //                 'info',
-  //                 5000,
-  //                 [],
-  //                 true,
-  //                 ''
-  //               );
-  //               this.router.navigate(['homepage']);
-  //             }
-  //           })
-  //           .catch((error) => {
-  //             console.log('ErrorCatched getting data', error);
-  //             this.dataProvider.pageSetting.blur = false;
-  //             this.alertify.presentToast(
-  //               error.message,
-  //               'error',
-  //               5000,
-  //               [],
-  //               true,
-  //               ''
-  //             );
-  //           });
-  //       })
-  //       .catch((error) => {
-  //         console.log('Error ', error);
-  //       })
-  //       .finally(() => {
-  //         alert('Finished');
-  //       });
-  //   }
-  // }
   public async signInWithGoogle() {
     this.dataProvider.pageSetting.blur = true;
     this.dataProvider.pageSetting.lastRedirect = '';
@@ -415,6 +270,10 @@ export class AuthenticationService {
             this.userServerSubscription.unsubscribe();
           }
           // this.logout();
+          this.userWalletSubscription = docData(doc(this.firestore, 'users/' + u.uid+'/wallet/wallet')).subscribe((walletData:any)=>{
+            this.dataProvider.wallet = walletData;
+            console.log('Wallet Data', walletData);
+          })
           this.userServerSubscription = docData(this.userDoc).subscribe(
             async (data: any) => {
               console.log('Received new data', data);

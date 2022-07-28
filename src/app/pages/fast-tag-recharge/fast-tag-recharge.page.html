@@ -1,4 +1,4 @@
-<app-header pageName="FasTag" backUrl="../homepage"></app-header>
+<app-header [backButton]="true" pageName="FasTag" backUrl="../homepage"></app-header>
 <ion-content color="light">
   <ion-card class="ion-margin">
     <ion-text>Fastag</ion-text>
@@ -6,4 +6,4 @@
     <app-bank-widget *ngFor="let bank of banks" [name]="bank.name"  [image]="bank.Image"  class="ion-text-center" routerLink="../payment-status"></app-bank-widget>
   </ion-card>
 </ion-content>
-<app-footer></app-footer>
+

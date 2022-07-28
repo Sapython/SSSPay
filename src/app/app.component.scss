@@ -1,100 +1,12 @@
-* {
-  font-family: "Poppins", sans-serif;
-}
-#container {
-  --background: #fff;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-#photo-container {
-  padding: 1em;
-  flex-grow: 1;
-  background: var(--ion-color-primary);
-}
-
-#photo {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-#options-container {
-  background-color: #fff;
-  padding: 1em;
-  flex-grow: 3;
-}
-
-#options {
-  list-style: none;
-}
-
-.option {
-  padding: 0.5em 0;
-  color: #333;
-  border-bottom: 1px solid #333;
-}
-
-.option:hover {
-  opacity: 0.8;
-  cursor: pointer;
-}
-
-#footer {
-  color: black;
-  padding: 1em;
-  flex-grow: 1;
-  background: var(--ion-color-primary);
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
-
-#developed-by {
-  color: black;
-  margin: 0;
-}
-
-#swayambhu-innovations {
-  color: black;
-  margin: 0.5em 0;
-}
-
-#more-info {
-  background-color: black;
-  color: var(--ion-color-primary);
-  padding: 0.5em 1em;
-  margin-left: -1.5em;
-  font-family: inherit;
-  width: 200px;
-  border-radius: 0 25px 25px 0;
-  font-size: 18px;
-}
-
-#incompatible {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  text-align: center;
-  background-color: black;
-  button {
-    padding: 10px;
-    border: none;
-    background-color: #7595ff;
-    color: white;
-    border-radius: 5px;
+ion-app{
+  ion-split-pane{
+    margin-bottom: 150px
   }
-}
-@media screen and (max-width: 300px) {
-  #incompatible {
-    display: flex;
+  ion-tabs{
+   ion-tab-bar{
+    border-radius: 20px 20px 0px 0px;
+   }
   }
+  
+  
 }

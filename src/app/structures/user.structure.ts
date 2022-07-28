@@ -18,6 +18,9 @@ export type UserData = {
     tutorialCompleted:boolean;
     panCardNumber:string;
     onboardingDone:boolean;
+    payoutDetailsCompleted:boolean;
+    primaryPayoutAccount:FundAccount | null;
+    payoutFundAccount:FundAccount[];
     kycStatus:'pending' | 'approved' | 'rejected';
     onboardingSteps:{
         phoneDobDone:boolean;
@@ -25,6 +28,19 @@ export type UserData = {
         locationDone:boolean;
         aadhaarDone:boolean;
     }
+}
+export type FundAccount = {
+    name:string;
+    email:string;
+    contact:string;
+    accountId:string;
+    accountType:'bank_account'|'vpa'|'card';
+    bankAccountName?:string;
+    accountNumber?:string;
+    ifsc?:string;
+    vpa?:string;
+    cardNumber?:string;
+    cardName?:string;
 }
 export type bloodGroup={
     bloodGroup:'A+'|'A-'|'B+'|'B-'|'AB+'|'AB-'|'O+'|'O-'|'Unknown';

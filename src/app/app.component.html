@@ -3,29 +3,27 @@
     <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>
 </ion-app>
-
-<!-- <ion-menu contentId="main-content" type="overlay">
-      <ion-content id="container">
-        <div id="photo-container">
-          <img src="/assets/dummy.png" alt="">
-        </div>
-        <div id="options-container">
-          <ion-list id="options">
-            <ion-menu-toggle auto-hide="false" class="option">
-              <ion-item routerDirection="root" >Account</ion-item>
-            </ion-menu-toggle>
-            <ion-menu-toggle auto-hide="false" class="option">
-              <ion-item routerDirection="root">Transactions</ion-item>
-            </ion-menu-toggle>
-            <ion-menu-toggle auto-hide="false" class="option">
-              <ion-item routerDirection="root">AEPS service</ion-item>
-            </ion-menu-toggle>
-            <ion-menu-toggle auto-hide="false" class="option">
-              <ion-item routerDirection="root">Pay Bill</ion-item>
-            </ion-menu-toggle>
-          </ion-list>
-          <ion-button color="primary" id="logout-button">Logout <ion-icon slot="end" name="person"></ion-icon>
-          </ion-button>
-        </div>
-      </ion-content>
-    </ion-menu> -->
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="homepage">
+      <ion-icon name="home"></ion-icon>
+      <ion-label>Home</ion-label>
+    </ion-tab-button>
+    
+    <ion-tab-button tab="wallet">
+      <ion-icon name="wallet"></ion-icon>
+      <ion-label>Wallet</ion-label>
+    </ion-tab-button>
+    
+    <ion-tab-button tab="profile">
+      <ion-icon name="person"></ion-icon>
+      <ion-label>Profile</ion-label>
+    </ion-tab-button>
+    
+    <ion-tab-button tab="history">
+      <ion-icon name="time"></ion-icon>
+      <ion-label>Payments</ion-label>
+      <ion-badge>6</ion-badge>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

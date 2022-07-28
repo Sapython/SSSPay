@@ -15,6 +15,7 @@ export class DataProvider{
         messageType:'Error'
     };
     public sits:any;
+    public wallet:any;
     public userData:UserData | undefined;
     public loggedIn:boolean = false;
     public gettingUserData = new Subject();;

@@ -14,55 +14,32 @@ export class ServerService {
     private dataProvider: DataProvider
   ) {}
 
-  checkAuth() {
-    // DEPRECATED CODE
-    // this.authService.user.subscribe((user) => {
-    //   if (user) {
-    //     this.authService.getIdToken(user).then((userToken) => {
-    //       console.log('UserToken', userToken, user.uid);
-    //       var myHeaders = new Headers();
-    //       myHeaders.append('Content-Type', 'application/json');
-    //       let data = JSON.stringify({
-    //         token: userToken,
-    //         uid: user.uid,
-    //       });
-    //       var requestOptions: RequestInit = {
-    //         method: 'POST',
-    //         headers: myHeaders,
-    //         body: data,
-    //         redirect: 'follow',
-    //       };
-    //       fetch(environment.serverBaseUrl, requestOptions)
-    //         .then((response) => response.json())
-    //         .then((result) => {
-    //           if (result.error) {
-    //             this.alertify.presentToast(result.error, 'error');
-    //           } else {
-    //             this.alertify.presentToast('Login Successful', 'info');
-    //           }
-    //         })
-    //         .catch((error) => console.log('error', error));
-    //     });
-    //   }
-    // });
+  async getRequestOptions(extraData?:any,method?:string,){
+    if (method==undefined || method === ''){
+      method = 'POST'
+    }
+    var myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+    const userToken = await this.dataProvider.userInstance.getIdToken()
+    let data = JSON.stringify({
+      token: userToken,
+      uid: this.dataProvider.userID,
+      ...extraData
+    });
+    var requestOptions: RequestInit = {
+      method: method,
+      headers: myHeaders,
+      body: data,
+      redirect: 'follow',
+    };
+    console.log("requestOptions",requestOptions)
+    return requestOptions
   }
 
   async getAepsBanksList():Promise<any>{
     console.log('getAepsBanksList',this.dataProvider.userInstance);
     try {
-      const userToken = await this.dataProvider.userInstance.getIdToken()
-      var myHeaders = new Headers();
-      myHeaders.append('Content-Type', 'application/json');
-      let data = JSON.stringify({
-        token: userToken,
-        uid: this.dataProvider.userID,
-      });
-      var requestOptions: RequestInit = {
-        method: 'POST',
-        headers: myHeaders,
-        body: data,
-        redirect: 'follow',
-      };
+      const requestOptions = await this.getRequestOptions();
       const mainResponse = await fetch(environment.serverBaseUrl + '/aeps/bankList', requestOptions)
       const result = mainResponse.json() 
       console.log(result)
@@ -70,6 +47,49 @@ export class ServerService {
     } catch (error) {
       console.log(error)
       throw error
+    }
+  }
+
+  // wallet apis
+  async getWalletBalance():Promise<any>{
+    console.log('getWalletBalance',this.dataProvider.userInstance);
+    try {
+      const requestOptions = await this.getRequestOptions();
+      const mainResponse = await fetch(environment.serverBaseUrl + '/wallet/getBalance', requestOptions)
+      console.log("REsponse",mainResponse)
+      const result = mainResponse.json() 
+      console.log(result)
+      return result
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  async makeExpressPayout(transactionId:string){
+    this.dataProvider.pageSetting.blur = true;
+    console.log('makeExpressPayout',this.dataProvider.userInstance);
+    try {
+      const requestOptions = await this.getRequestOptions(
+        {
+          transactionId:transactionId
+        }
+      );
+      console.log("requestOptions",requestOptions)
+      const mainResponse = await fetch(environment.serverBaseUrl + '/payout/expressPayout', requestOptions)
+      console.log("Response",mainResponse)
+      this.dataProvider.pageSetting.blur = false;
+      if (mainResponse.status == 200){
+        const result = mainResponse.json() 
+        console.log(result)
+        return result 
+      } else {
+        throw mainResponse.statusText
+      }
+    } catch (error) {
+      this.dataProvider.pageSetting.blur = false;
+      console.log(error)
+      // throw error
     }
   }
 }

@@ -1,0 +1,47 @@
+<app-header pageName="Payment Detail" [backButton]="true" backUrl="../homepage"></app-header>
+
+<ion-content>
+  <div class="status">
+    <ion-icon color="danger" name="alert-outline" *ngIf="paymentStatus=='error'"></ion-icon>
+    <ion-icon color="warning" name="time" *ngIf="paymentStatus=='started'"></ion-icon>
+    <ion-icon color="warning" name="hourglass" *ngIf="paymentStatus=='pending'"></ion-icon>
+    <ion-icon color="success" name="checkmark-done-outline" *ngIf="paymentStatus=='success'"></ion-icon>
+    <ion-icon color="tertiary" name="help-circle" *ngIf="paymentStatus=='unknown'"></ion-icon>
+    <ion-text color="">
+      <h4>{{paymentStatus | titlecase}}</h4>
+    </ion-text>
+  </div>
+  <div class="transactionDetail">
+    <ion-item>
+      <p>Date & Time</p>
+      <ion-label color="primary">{{date | date:"medium"}}</ion-label>
+      <ion-icon name="copy-outline" (click)="copy(transactionId)"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <p>Amount</p>
+      <ion-label color="tertiary">&#8377;{{amount}}</ion-label>
+      <ion-icon name="copy-outline" (click)="copy(transactionId)"></ion-icon>
+    </ion-item>
+    <ion-item> 
+      <p>Transaction Id</p>
+      <ion-label color="secondary">{{transactionId}}</ion-label>
+      <ion-icon name="copy-outline" (click)="copy(transactionId)"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <p>Command</p>
+      <ion-label>
+        <ion-chip color="primary" mode="ios" outline="true">
+          <ion-label>{{command}}</ion-label>
+        </ion-chip>
+      </ion-label>
+    </ion-item>
+    <div class="actions">
+      <ion-button>
+        <ion-icon name="share-social"></ion-icon>
+      </ion-button>
+    </div>
+  </div>
+  <button *ngIf="paymentStatus=='pending'">
+    <ion-icon name="refresh-circle"></ion-icon>Re-Initiate
+  </button>
+</ion-content>

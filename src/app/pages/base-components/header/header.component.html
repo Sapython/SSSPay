@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-back-button *ngIf="backButton" slot="start" [defaultHref]="backUrl" (click)="goBack()"></ion-back-button>
-    <ion-avatar slot="start" routerLink="/profile" *ngIf="dataProvider.loggedIn && !onlyTitle">
+    <ion-avatar slot="start" routerLink="/profile" *ngIf="!backButton && dataProvider.loggedIn && !onlyTitle">
       <img [src]="dataProvider.userData?.photoURL" referrerPolicy="no-referrer"/>
     </ion-avatar>
     <ion-title color="light" slot="start">{{pageName}}</ion-title>

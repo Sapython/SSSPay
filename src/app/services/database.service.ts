@@ -9,6 +9,8 @@ import {
   doc,
   getDoc,
   updateDoc,
+  arrayUnion,
+  arrayRemove,
 } from '@angular/fire/firestore';
 import {
   getDownloadURL,
@@ -131,12 +133,32 @@ export class DatabaseService {
   resetVerification() {
     return updateDoc(doc(this.fs, 'users/' + this.dataProvider.userID), {
       onboardingSteps: {
-        phoneDobDone:false,
-        panDone:false,
-        locationDone:false,
-        aadhaarDone:false,
+        phoneDobDone: false,
+        panDone: false,
+        locationDone: false,
+        aadhaarDone: false,
       },
-      kycStatus:'pending'
+      kycStatus: 'pending',
+    });
+  }
+
+  setAsPrimaryAccount(data) {
+    return updateDoc(doc(this.fs, '/users/' + this.dataProvider.userID), {
+      primaryPayoutAccount: data,
+      payoutDetailsCompleted:this.dataProvider.userData.payoutFundAccount?.length > 0 ? true:false
+    });
+  }
+
+  addFundAccount(data) {
+    return updateDoc(doc(this.fs, '/users/' + this.dataProvider.userID), {
+      payoutFundAccount: arrayUnion(data),
+      payoutDetailsCompleted:true
+    });
+  }
+  removeFundAccount(data) {
+    return updateDoc(doc(this.fs, '/users/' + this.dataProvider.userID), {
+      payoutFundAccount: arrayRemove(data),
+      payoutDetailsCompleted:this.dataProvider.userData.payoutFundAccount?.length > 0 ? true:false
     });
   }
 }

@@ -16,11 +16,10 @@ export class HomepagePage{
       routerLink:'/aeps'
     },
     {
-      name: 'Bank Transfer',
+      name: 'Payout',
       service: 'bank',
       page: 'aeps',
-      
-      routerLink:'/bank-transfer'
+      routerLink:'/payout'
     },
     // {
     //   name: 'Pay Your Bills',

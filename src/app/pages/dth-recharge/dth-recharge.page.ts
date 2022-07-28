@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TransactionService } from 'src/app/services/transaction.service';
 import { DatabaseService } from '../../services/database.service';
 import { UpiService } from '../../services/upi.service';
 
@@ -24,24 +25,25 @@ export class DthRechargePage implements OnInit {
   constructor(
     private upiService: UpiService,
     private router: Router,
-    private databaseService: DatabaseService
+    private databaseService: DatabaseService,
+    private transactionsService:TransactionService
   ) {}
 
   ngOnInit() {
-    this.databaseService.getDTHPayments().then((docs) => {
+    this.transactionsService.getDTHPayments().then((docs) => {
       this.recentPayments = [];
       docs.forEach((doc) => {
-        this.recentPayments.push(doc.data());
+        this.recentPayments.push({...doc.data(),id:doc.id});
       });
       console.log(this.recentPayments);
     });
   }
 
   submitDthForm() {
-    this.upiService.details = {
-      paymentFor: 'dth-recharge',
-      ...this.dthForm.value,
-    };
-    this.router.navigate(['/upi-pin']);
+    // this.upiService.details = {
+    //   paymentFor: 'dth-recharge',
+    //   ...this.dthForm.value,
+    // };
+    // this.router.navigate(['/upi-pin']);
   }
 }

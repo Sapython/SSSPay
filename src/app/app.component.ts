@@ -7,6 +7,7 @@ import { registerPlugin } from '@capacitor/core';
 import { Platform } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
+import { DataProvider } from './providers/data.provider';
 
 export interface RdServicePlugin {
   getDeviceInfo(): Promise<{ value: string }>;
@@ -25,7 +26,8 @@ export class AppComponent implements OnInit {
     private authService: AuthenticationService,
     private platform: Platform,
     private databaseService: DatabaseService,
-    private router: Router
+    private router: Router,
+    public dataprovider:DataProvider
   ) {
     if (!this.platform.is('capacitor')) {
       this.platform.ready().then(() => {

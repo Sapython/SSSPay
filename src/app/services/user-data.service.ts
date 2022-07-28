@@ -49,7 +49,10 @@ export class UserDataService {
           panDone: false,
           locationDone: false,
           aadhaarDone: false,
-        }
+        },
+        payoutDetailsCompleted:false,
+        primaryPayoutAccount:null,
+        payoutFundAccount:[],
     }
     this.userDoc  = doc(this.firestore,'users/'+user.uid);
     await setDoc(this.userDoc,data).then(()=>{

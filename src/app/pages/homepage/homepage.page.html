@@ -4,7 +4,7 @@
     <app-home-widget [name]="items[0].name"
       [service]="items[0].service" [page]="items[0].page" [routerLink]="items[0].routerLink"></app-home-widget>
     <app-home-widget [name]="items[1].name"
-      [service]="items[1].service" [page]="items[1].page" [routerLink]="items[0].routerLink"></app-home-widget>
+      [service]="items[1].service" [page]="items[1].page" [routerLink]="items[1].routerLink"></app-home-widget>
     <app-home-widget *ngIf="dataProvider.userData?.kycStatus !== 'approved'" [name]="items[2].name"
       [service]="items[2].service" [page]="items[2].page" [routerLink]="items[2].routerLink"></app-home-widget>
     <div class="inner">
@@ -62,4 +62,3 @@
     </div>
   </div>
 </ion-content>
-<app-footer></app-footer>
