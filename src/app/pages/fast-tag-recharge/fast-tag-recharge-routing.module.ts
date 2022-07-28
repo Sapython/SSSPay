@@ -3,6 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'select-operator',
+    pathMatch: 'full',
+  },
+  {
     path: 'select-operator',
     loadChildren: () =>
       import('./select-operator/select-operator.module').then(
@@ -11,16 +16,13 @@ const routes: Routes = [
   },
   {
     path: 'enter-canumber',
-    loadChildren: () =>
-      import('./enter-canumber/enter-canumber.module').then(
-        (m) => m.EnterCanumberPageModule
-      ),
-  },
-  {
+    loadChildren: () => import('./enter-canumber/enter-canumber.module').then( m => m.EnterCanumberPageModule)
+  },  {
     path: 'details',
-    loadChildren: () =>
-      import('./details/details.module').then((m) => m.DetailsPageModule),
+    loadChildren: () => import('./details/details.module').then( m => m.DetailsPageModule)
   },
+
+
 ];
 
 @NgModule({
