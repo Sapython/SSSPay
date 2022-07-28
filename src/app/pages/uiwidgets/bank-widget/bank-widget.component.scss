@@ -1,42 +1,30 @@
-.container{
-    padding: 5px ;
-    margin-top: 10px;
-    width: 100%;
-    background-color: white;
-    border-bottom: 1px solid grey;
-   font-family: var(--font-family);
-    //  ion-avatar{
-    //     height:50px;
-    //     width: 50px;
-    //     border: 2px solid #009970;
-    // padding: 10px;
-   
-    // }
-    ion-avatar {
-        height: 50px;
-        width: 50px;
-        // border: 2px solid #009970;
-        // padding: 5px;
-        background: linear-gradient(#009970, #ffffff);
-        padding: 2px;
-        img {
-          background: #fff;
-          color: white;
-          padding: 10px;
-        }
-      }
-    .box{
-        right: 0;
-        width: 100%;
-         display: flex;
-         align-items: center;
-         justify-content: flex-start;
-         gap: 30px;
-    
-        p{
-            color: black;
-            font-size: 17px;
-            font-size: 900;
-        }
-    }
+.container {
+  padding: 0.5em;
+  background-color: #fff;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 7px;
+  margin-top: .5em;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  transition: all .3s;
+
+  img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 1em;
+  }
+
+  p {
+    font-family: "Poppins", sans-serif;
+    color: #000;
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  &:hover,
+  &:focus {
+    transform: scale(1.05);
+  }
 }

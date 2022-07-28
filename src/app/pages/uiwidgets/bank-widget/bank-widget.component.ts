@@ -1,4 +1,4 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-bank-widget',
@@ -6,10 +6,11 @@ import { Component, OnInit,Input } from '@angular/core';
   styleUrls: ['./bank-widget.component.scss'],
 })
 export class BankWidgetComponent implements OnInit {
-  @Input() name:string = 'Axis Bank Fastag'
-  @Input() image:string = "../../../assets/banks/axisbank.svg";
-  constructor() { }
+  @Input() name: string;
+  @Input() image: string;
+  @Input() defaultImage: string;
+
+  constructor() {}
 
   ngOnInit() {}
-
 }

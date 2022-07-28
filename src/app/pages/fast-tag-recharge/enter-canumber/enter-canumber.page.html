@@ -1,0 +1,22 @@
+<app-header page="FASTag Recharge"></app-header>
+<ion-content>
+  <img
+    [src]="'assets/fastag-operators/' + fastagService.operatorSelected.id + '.png'"
+    #fastagImage
+    (error)="fastagImage.src = 'assets/fastag-operators/default.png'"
+  />
+  <ion-text>
+    <h1>{{ fastagService.operatorSelected.name }}</h1>
+  </ion-text>
+  <form [formGroup]="canumberForm" (ngSubmit)="submit()">
+    <ion-item>
+      <ion-label position="floating"
+        >{{ fastagService.operatorSelected.displayname }}</ion-label
+      >
+      <ion-input formControlName="canumber"></ion-input>
+    </ion-item>
+    <ion-button type="submit" expand="block" [disabled]="!canumberForm.valid"
+      >Next</ion-button
+    >
+  </form>
+</ion-content>

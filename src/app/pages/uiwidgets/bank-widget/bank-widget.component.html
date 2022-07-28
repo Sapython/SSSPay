@@ -1,10 +1,4 @@
 <div class="container">
-  <div class="box">
-    <ion-avatar>
-
-      <img src={{image}} alt="" />
-    </ion-avatar>
-
-    <p>{{ name }}</p>
-  </div>
+  <img [src]="image" [alt]="name" #img (error)="img.src = defaultImage" />
+  <p>{{ name }}</p>
 </div>

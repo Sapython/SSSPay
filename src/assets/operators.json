@@ -1,0 +1,160 @@
+{
+    "response_code": 1,
+    "status": true,
+    "data": [
+      {
+        "id": "314",
+        "name": "Axis Bank",
+        "category": "Fastag",
+        "viewbill": "1",
+        "regex": null,
+        "displayname": "Vehicle Registration Number",
+        "ad1_regex": "17"
+      },
+      {
+        "id": "310",
+        "name": "Bank Of Baroda",
+        "category": "Fastag",
+        "viewbill": "1",
+        "regex": null,
+        "displayname": "Vehicle Registration Number",
+        "ad1_regex": "13"
+      },
+      {
+        "id": "316",
+        "name": "Equitas FASTag Recharge",
+        "category": "Fastag",
+        "viewbill": "1",
+        "regex": null,
+        "displayname": "Vehicle Registration Number",
+        "ad1_regex": "19"
+      },
+      {
+        "id": "320",
+        "name": "Federal Bank - FASTag",
+        "category": "Fastag",
+        "viewbill": "1",
+        "regex": null,
+        "displayname": "Vehicle Registration Number",
+        "ad1_regex": "23"
+      },
+      {
+        "id": "312",
+        "name": "HDFC Bank",
+        "category": "Fastag",
+        "viewbill": "1",
+        "regex": null,
+        "displayname": "Vehicle Registration Number",
+        "ad1_regex": "15"
+      },
+      {
+        "id": "311",
+        "name": "ICICI Bank",
+        "category": "Fastag",
+        "viewbill": "1",
+        "regex": null,
+        "displayname": "Vehicle Registration Number",
+        "ad1_regex": "14"
+      },
+      {
+        "id": "321",
+        "name": "IDBI Bank FASTag",
+        "category": "Fastag",
+        "viewbill": "1",
+        "regex": null,
+        "displayname": "Vehicle Registration Number",
+        "ad1_regex": "24"
+      },
+      {
+        "id": "313",
+        "name": "IDFC FIRST Bank - FasTag",
+        "category": "Fastag",
+        "viewbill": "1",
+        "regex": null,
+        "displayname": "Vehicle Registration Number",
+        "ad1_regex": "16"
+      },
+      {
+        "id": "308",
+        "name": "Indian Highways Management Company Ltd-Indusind FASTag",
+        "category": "Fastag",
+        "viewbill": "1",
+        "regex": null,
+        "displayname": "Vehicle Registration Number",
+        "ad1_regex": "11"
+      },
+      {
+        "id": "309",
+        "name": "Indusind Bank",
+        "category": "Fastag",
+        "viewbill": "1",
+        "regex": null,
+        "displayname": "Vehicle Registration Number",
+        "ad1_regex": "12"
+      },
+      {
+        "id": "324",
+        "name": "IOB FASTag",
+        "category": "Fastag",
+        "viewbill": "1",
+        "regex": null,
+        "displayname": "Vehicle Registration Number",
+        "ad1_regex": "27"
+      },
+      {
+        "id": "319",
+        "name": "Jammu and Kashmir Bank Fastag",
+        "category": "Fastag",
+        "viewbill": "1",
+        "regex": null,
+        "displayname": "Vehicle Registration Number",
+        "ad1_regex": "22"
+      },
+      {
+        "id": "315",
+        "name": "Kotak Mahindra Bank",
+        "category": "Fastag",
+        "viewbill": "1",
+        "regex": null,
+        "displayname": "Vehicle Registration Number",
+        "ad1_regex": "18"
+      },
+      {
+        "id": "318",
+        "name": "Paul Merchants",
+        "category": "Fastag",
+        "viewbill": "1",
+        "regex": null,
+        "displayname": "Vehicle Registration Number",
+        "ad1_regex": "21"
+      },
+      {
+        "id": "317",
+        "name": "Paytm Payments Bank FASTag",
+        "category": "Fastag",
+        "viewbill": "1",
+        "regex": null,
+        "displayname": "Vehicle Registration Number",
+        "ad1_regex": "20"
+      },
+      {
+        "id": "323",
+        "name": "Transaction Analyst FASTag",
+        "category": "Fastag",
+        "viewbill": "1",
+        "regex": null,
+        "displayname": "Vehicle Registration Number",
+        "ad1_regex": "26"
+      },
+      {
+        "id": "322",
+        "name": "UCO Bank FASTag",
+        "category": "Fastag",
+        "viewbill": "1",
+        "regex": null,
+        "displayname": "Vehicle Registration Number",
+        "ad1_regex": "25"
+      }
+    ],
+    "message": "Operator List Fetched"
+  }
