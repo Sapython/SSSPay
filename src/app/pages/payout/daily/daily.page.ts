@@ -124,6 +124,7 @@ export class DailyPage implements OnInit {
         ...this.payoutForm.value,
         customerId: this.dataProvider.userData.userId,
         accountType: this.payoutForm.value.account.accountType,
+        paymentType:'UPI'
       },
     };
     this.transactionService.addTransaction(transaction).then(async (docRef) => {

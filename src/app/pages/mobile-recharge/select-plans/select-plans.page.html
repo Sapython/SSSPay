@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-button slot="start" (click)="modalController.dismiss()" expand="block" fill="clear" shape="round">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-button>
+    <ion-title>Select Plans</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="selector">
+    <ion-segment scrollable (ionChange)="segmentChanged($event)">
+      <ion-segment-button *ngFor="let item of plansName" [value]="item">
+        <ion-label>{{item}}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+  <ion-list>
+    <ion-card *ngFor="let plan of selectedPlan" (click)="continueRecharge(plan)">
+      <ion-card-header>
+        <ion-card-subtitle>
+          Validity
+          <ion-chip color="primary" mode="ios" outline="true">
+            <ion-label>{{plan.validity}}</ion-label>
+          </ion-chip>
+        </ion-card-subtitle>
+        <ion-card-title color="primary">&#8377;{{plan.rs}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        {{plan.desc}}
+        <br>
+        <ion-chip color="warning" mode="ios" outline="true">
+          <ion-label>Last Updated: {{plan.last_update}}</ion-label>
+        </ion-chip>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+</ion-content>

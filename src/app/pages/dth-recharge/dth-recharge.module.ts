@@ -11,9 +11,9 @@ import { DthRechargePage } from './dth-recharge.page';
 
 @NgModule({
   imports: [
+    IonicModule,
     CommonModule,
     FormsModule,
-    IonicModule,
     DthRechargePageRoutingModule,
     BaseComponentsModule,
     FormsModule,

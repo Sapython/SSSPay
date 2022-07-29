@@ -42,6 +42,7 @@ export class DetailPage implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       console.log('params', params);
       if (params.id) {
+        this.transactionId = params.id;
         this.transactionSubscription = this.transactionService
           .getTransaction(params.id)
           .subscribe((data) => {

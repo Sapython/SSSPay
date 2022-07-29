@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-back-button *ngIf="backButton" slot="start" [defaultHref]="backUrl" (click)="goBack()"></ion-back-button>
+    <ion-back-button  *ngIf="backButton && !isModal" slot="start" [defaultHref]="backUrl" (click)="goBack()"></ion-back-button>
+    <ion-button *ngIf="isModal" slot="start" (click)="closeModal()" expand="block" fill="clear" shape="round">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-button>
     <ion-avatar slot="start" routerLink="/profile" *ngIf="!backButton && dataProvider.loggedIn && !onlyTitle">
       <img [src]="dataProvider.userData?.photoURL" referrerPolicy="no-referrer"/>
     </ion-avatar>

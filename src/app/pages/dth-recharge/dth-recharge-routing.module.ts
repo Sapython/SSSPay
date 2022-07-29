@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: DthRechargePage
+  },  {
+    path: 'recharge',
+    loadChildren: () => import('./recharge/recharge.module').then( m => m.RechargePageModule)
   }
+
 ];
 
 @NgModule({

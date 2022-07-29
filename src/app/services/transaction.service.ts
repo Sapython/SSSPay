@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Analytics } from '@angular/fire/analytics';
-import { doc, docData, Firestore, getDocs, where, query } from '@angular/fire/firestore';
+import { doc, docData, Firestore, getDocs, where, query, orderBy } from '@angular/fire/firestore';
 import { logEvent } from '@firebase/analytics';
 import { addDoc, collection } from '@firebase/firestore';
 import { DataProvider } from '../providers/data.provider';
@@ -20,7 +20,7 @@ export class TransactionService {
   }
 
   getAllTransactions(){
-    return getDocs(collection(this.fs,'users/'+this.dataProvider.userData.userId+'/transaction'))
+    return getDocs(query(collection(this.fs,'users/'+this.dataProvider.userData.userId+'/transaction'),orderBy('date','desc')))
   }
 
   getTransaction(transactionId:string){
@@ -30,4 +30,5 @@ export class TransactionService {
   getDTHPayments(){
     return getDocs(query(collection(this.fs,'users/'+this.dataProvider.userData.userId+'/transaction'),where('type','==','cableDth')))
   }
+
 }

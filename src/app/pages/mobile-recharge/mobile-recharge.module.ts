@@ -2,7 +2,7 @@ import { UiwidgetsModule } from './../uiwidgets/uiwidgets.module';
 import { BaseComponentsModule } from './../base-components/base-components.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -17,6 +17,7 @@ import { MobileRechargePage } from './mobile-recharge.page';
     MobileRechargePageRoutingModule,
     BaseComponentsModule,
     UiwidgetsModule,
+    ReactiveFormsModule
   ],
   declarations: [MobileRechargePage]
 })

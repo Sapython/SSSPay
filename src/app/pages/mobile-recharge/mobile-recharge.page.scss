@@ -1,56 +1,46 @@
+ion-card {
+  font-family: var(--font-family);
+  box-shadow: none;
 
-ion-card{
-    
-    font-family: var(--font-family);
-    box-shadow: none;
-    
-    ion-text{
-      
-        font-size: 18px;
-        color: black;
-       }
-       ion-input
-       {
-        margin: 20px auto;
-       }
-    ion-button{
-        box-sizing: border-box;
-        font-size: 15px;
-    }
-    ion-item{
-        margin-bottom: 20px;
-  
-        background-color: red;
-        ion-label{
-            margin: 0;
-            padding: 0;
-            width: 100%;
-        }
-    }
-    
-   
-}
-.container{
+  ion-text {
+    font-size: 18px;
+    color: black;
+  }
+  ion-button {
     box-sizing: border-box;
-   padding: 10px 10px;
-    border-radius: 10px;
-    font-family: 'Poppins',sans-serif;
-    p{
-        font-size: 18px;
-        color: black;
-        margin: 30px 10px;
-       }
-   
+    font-size: 15px;
+  }
+  ion-item {
+    margin-bottom: 20px;
+
+    background-color: red;
+    ion-label {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+    }
+  }
+}
+.container {
+  box-sizing: border-box;
+  padding: 10px 10px;
+  border-radius: 10px;
+  font-family: "Poppins", sans-serif;
+  p {
+    font-size: 18px;
+    color: black;
+    margin: 30px 10px;
+  }
 }
 
-#enter-number{
-    border: none;
-    border-bottom: 2px solid #009970;
-    background-color: #fff;
-    font-size: 16px;
-    display: block;
-    width: 100%;
-    margin: 10% auto;
-    outline: none;
-    padding: 10px 0px;
+#enter-number {
+  border: none;
+  border-bottom: 2px solid #009970;
+  background-color: #fff;
+  font-size: 16px;
+  display: block;
+  width: 100%;
+  margin: 10% auto;
+  outline: none;
+  padding: 10px 0px;
 }

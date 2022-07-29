@@ -41,6 +41,7 @@ export class ServerService {
     try {
       const requestOptions = await this.getRequestOptions();
       const mainResponse = await fetch(environment.serverBaseUrl + '/aeps/bankList', requestOptions)
+      console.log("REsponse",mainResponse)
       const result = mainResponse.json() 
       console.log(result)
       return result
@@ -91,5 +92,67 @@ export class ServerService {
       console.log(error)
       // throw error
     }
+  }
+
+  async getDthInfo(operator:string,customerId:string){
+    const requestOptions = await this.getRequestOptions(
+      {
+        operator:operator,
+        caNumber:customerId
+      }
+    );
+    console.log("requestOptions",requestOptions)
+    const mainResponse = await fetch(environment.serverBaseUrl + '/hlr/getDthInfo', requestOptions)
+    return mainResponse.json()
+  }
+
+  async recharge(transactionId:string){
+    const requestOptions = await this.getRequestOptions(
+      {
+        transactionId:transactionId
+      }
+    );
+    console.log("requestOptions",requestOptions)
+    const mainResponse = await fetch(environment.serverBaseUrl + '/recharge/doRecharge', requestOptions)
+    return mainResponse.json()
+  }
+
+  async getMobileOperators(){
+    const requestOptions =  await this.getRequestOptions();
+    const mainResponse = await fetch(environment.serverBaseUrl + '/recharge/getOperatorsList',requestOptions)
+    const data = await mainResponse.json()
+    return data.data.filter((item)=>{return item.category=='Prepaid'});
+  }
+
+  async getMobilePlans(circle:string,operator:string){
+    const requestOptions =  await this.getRequestOptions(
+      {
+        "circle":circle,
+        "operator":operator,
+      }
+    );
+    const mainResponse = await fetch(environment.serverBaseUrl + '/hlr/getMobilePlan',requestOptions)
+    const data = await mainResponse.json()
+    return data;
+  }
+
+  async getCircleAndOperator(event:any){
+    const requestOptions =  await this.getRequestOptions({number:event.detail.value,type:'mobile'});
+    const mainResponse = await fetch(environment.serverBaseUrl + '/hlr/getCustomerInfo',requestOptions)
+    const data = await mainResponse.json()
+    return data;
+  }
+  async getDistOperatorList():Promise<any[]>{
+    const requestOptions =  await this.getRequestOptions();
+    const mainResponse = await fetch(environment.serverBaseUrl + '/recharge/getOperatorsList',requestOptions)
+    const data = await mainResponse.json()
+    return data.data.filter((data)=>{return data.category=='DTH'});
+  }
+
+  async rechargeMobile(transactionId:string){
+    const requestOptions =  await this.getRequestOptions({transactionId:transactionId});
+    const mainResponse = await fetch(environment.serverBaseUrl + '/recharge/doRecharge',requestOptions)
+    const data = await mainResponse.json()
+    return data;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-mobile-recharge-widget',
@@ -10,7 +10,10 @@ export class MobileRechargeWidgetComponent implements OnInit {
   @Input() image: string = '';
   @Input() number: number = null;
   @Input() operator: string = '';
+  @Output() rechargeNext:EventEmitter<any> = new EventEmitter<any>();
   constructor() {}
-
+  submit(value:number){
+    this.rechargeNext.emit({details:{value:value}});
+  }
   ngOnInit() {}
 }

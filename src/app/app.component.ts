@@ -8,6 +8,9 @@ import { Platform } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { DataProvider } from './providers/data.provider';
+import { Contacts, PermissionStatus } from '@capacitor-community/contacts'
+import { AlertsAndNotificationsService } from './services/uiService/alerts-and-notifications.service';
+
 
 export interface RdServicePlugin {
   getDeviceInfo(): Promise<{ value: string }>;
@@ -22,13 +25,26 @@ export default RdService;
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit {
+  noHeaders = [
+    'login',
+    'register',
+    'forgot-password',
+    'reset-password',
+    'verify-email'
+  ]
+  showHeaders:boolean = false;
   constructor(
     private authService: AuthenticationService,
     private platform: Platform,
     private databaseService: DatabaseService,
     private router: Router,
-    public dataprovider:DataProvider
+    public dataProvider: DataProvider,
+    private alertify:AlertsAndNotificationsService
   ) {
+    this.router.events.subscribe((val) => {
+      this.showHeaders = !this.noHeaders.includes(window.location.pathname.replace('/', ''));
+      // console.log("changed",this.showHeaders);
+    })
     if (!this.platform.is('capacitor')) {
       this.platform.ready().then(() => {
         GoogleAuth.initialize({
@@ -37,6 +53,14 @@ export class AppComponent implements OnInit {
           scopes: ['profile', 'email'],
           grantOfflineAccess: true,
         });
+      })
+    } else if (this.platform.is('capacitor')) {
+      Contacts.getPermissions().then((permission:PermissionStatus)=>{
+        if(permission.granted){
+          this.alertify.presentToast('Permission granted');
+        }else{
+          this.alertify.presentToast('Permission denied');
+        }
       })
     }
     this.authService.user.subscribe((user) => {

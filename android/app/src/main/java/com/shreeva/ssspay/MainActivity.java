@@ -26,6 +26,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import ch.byrds.capacitor.contacts.Contacts;
+
 import com.codetrixstudio.capacitor.GoogleAuth.GoogleAuth;
 
 public class MainActivity extends BridgeActivity {
@@ -45,6 +47,7 @@ public class MainActivity extends BridgeActivity {
       {
         add(GoogleAuth.class);
         add(BiometricAuth.class);
+        add(Contacts.class);
       }
     });
   }

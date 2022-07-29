@@ -4,19 +4,27 @@
     <ion-row>
       <ion-col>
         <ion-card class="ion-padding">
-          <ion-text>Mobile Recharge</ion-text>
-          <ion-input type="number" placeholder="Enter Number" id="enter-number" ></ion-input>
-          <ion-item> <ion-label>Select operator</ion-label>
-            <ion-select >
-           
-              <ion-select-option *ngFor="let operator of operators">{{operator.name}}</ion-select-option>
-              
-            </ion-select>
-          </ion-item>
-          
-          <ion-button expand="block" routerLink="/select-recharge-plan"
-            >Confirm</ion-button
-          >
+          <form [formGroup]="mobileRechargeForm" (ngSubmit)="getPlans(mobileRechargeForm.value)">
+            <ion-item>
+              <ion-label position="floating">Phone Number</ion-label>
+              <ion-input type="number" placeholder="Enter Number" [debounce]="2000" (ionChange)="!showOperatorAndCircle ? getCircleAndOperator($event) : ''" formControlName="mobileNumber" ></ion-input>
+            </ion-item>
+            <ng-container *ngIf="showOperatorAndCircle">
+              <ion-item>
+                <ion-label>Select operator</ion-label>
+                <ion-select formControlName="operator">
+                  <ion-select-option [value]="operator.id" *ngFor="let operator of operators">{{operator.name}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item>
+                <ion-label>Select operator</ion-label>
+                <ion-select formControlName="circle">
+                  <ion-select-option [value]="circle" *ngFor="let circle of circles">{{circle}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-button type="submit" expand="block" [disabled]="!mobileRechargeForm.valid" routerLink="/select-recharge-plan">Get Plans</ion-button>
+            </ng-container>
+          </form>
         </ion-card>
       </ion-col>
     </ion-row>
@@ -25,23 +33,13 @@
         <ion-card>
           <div class="container">
             <p id="heading">All Contacts</p>
-            <ion-searchbar
-              color="ion-text-color"
-              [(ngModel)]="searchVall"
-              placeholder="Search"
-            ></ion-searchbar>
-            <app-mobile-recharge-widget
-              *ngFor="let contact of contacts"
-              [image]="contact.image"
-              [number]="contact.number"
-              [name]="contact.name"
-              [operator]="contact.operator"
-              routerLink="/select-recharge-plan"
-            ></app-mobile-recharge-widget>
+            <ion-searchbar color="ion-text-color" [(ngModel)]="searchVall" placeholder="Search"></ion-searchbar>
+            <app-mobile-recharge-widget *ngFor="let contact of contacts" [image]="contact.photoThumbnail"
+              [number]="contact.phoneNumbers" [name]="contact.displayName"
+              (rechargeNext)="getCircleAndOperator($event)"></app-mobile-recharge-widget>
           </div>
         </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
-

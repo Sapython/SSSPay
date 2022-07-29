@@ -124,11 +124,13 @@ export class ExpressPage implements OnInit {
         ...this.payoutForm.value,
         customerId: this.dataProvider.userData.userId,
         accountType: this.payoutForm.value.account.accountType,
+        paymentType:'UPI'
       },
     };
     this.transactionService.addTransaction(transaction).then(async (docRef) => {
       console.log('transactionAdded',docRef.id,docRef);
-      await this.serverService.makeExpressPayout(docRef.id);
+      const response = await this.serverService.makeExpressPayout(docRef.id);
+      console.log('response  => ',response);
       this.router.navigate(['../../history/detail/'+docRef.id]);
     });
   }

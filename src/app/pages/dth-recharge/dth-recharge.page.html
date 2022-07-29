@@ -6,16 +6,12 @@
       <ion-item>
         <ion-label>Select Operator</ion-label>
         <ion-select formControlName="operator" value="Airteldth" multiple="false" placeholder="Select Operator">
-          <ion-select-option value="Airteldth">Airtel DTH</ion-select-option>
-          <ion-select-option value="TataSky">Tata Sky</ion-select-option>
-          <ion-select-option value="Videocon">Videocon</ion-select-option>
-          <ion-select-option value="Sundirect">Sundirect</ion-select-option>
-          <ion-select-option value="Dishtv">Dishtv</ion-select-option>
+          <ion-select-option [value]="item.id" *ngFor="let item of operators">{{item.name}}</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>
         <ion-label position="floating" class="font">Customer ID</ion-label>
-        <ion-input formControlName="customerID"></ion-input>
+        <ion-input formControlName="caNumber"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating" class="font">Recharge Amount</ion-label>

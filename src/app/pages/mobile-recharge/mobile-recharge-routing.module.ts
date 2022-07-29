@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: MobileRechargePage
+  },  {
+    path: 'select-plans',
+    loadChildren: () => import('./select-plans/select-plans.module').then( m => m.SelectPlansPageModule)
   }
+
 ];
 
 @NgModule({

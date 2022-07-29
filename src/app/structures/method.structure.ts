@@ -147,4 +147,5 @@ export type Transaction = {
     status:'started'|'pending'|'success'|'error'|'unknown';
     error:string;
     extraData:any;
+    successData?:any;
 }
