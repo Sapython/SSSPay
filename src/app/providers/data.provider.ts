@@ -17,6 +17,7 @@ export class DataProvider{
     public sits:any;
     public wallet:any;
     public userData:UserData | undefined;
+    public gotUserData:boolean = false;
     public loggedIn:boolean = false;
     public gettingUserData = new Subject();;
     public userID:string | undefined;

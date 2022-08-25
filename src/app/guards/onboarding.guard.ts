@@ -27,6 +27,9 @@ export class OnboardingGuard implements CanActivate {
       } else if (!this.dataProvider.userData.onboardingSteps.locationDone){
         this.router.navigate(['./onboarding/location']);
         this.alertify.presentToast('Please complete your location onboarding process');
+      } else if (!this.dataProvider.userData.onboardingSteps.photosDone) {
+        this.router.navigate(['./onboarding/photo']);
+        this.alertify.presentToast('Your KYC request is not complete. Please add images to proceed.');
       } else if (this.dataProvider.userData.kycStatus==='pending') {
         this.router.navigate(['./onboarding/verification-request-sent']);
         this.alertify.presentToast('Your KYC request is pending. Please wait for the admin to approve it.');

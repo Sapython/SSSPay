@@ -138,11 +138,11 @@ export type Transaction = {
     title?:string;
     receiver:string;
     date:any;
-    type:'aeps'|'cableDth'|'fastTag'|'gas'|'recharge'|'expressPayout'|'dailyPayout';
+    type:'aeps'|'bbps'|'qr'|'lic'|'cableDth'|'fastTag'|'gas'|'recharge'|'expressPayout'|'dailyPayout';
     amount:number;
     description:string;
     balance:number;
-    idempotencyKey:string;
+    idempotencyKey?:string;
     completed:boolean;
     status:'started'|'pending'|'success'|'error'|'unknown';
     error:string;

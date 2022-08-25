@@ -17,7 +17,7 @@ import { HomepagePage } from './homepage.page';
     IonicModule,
     HomepagePageRoutingModule,
     UiwidgetsModule,
-    BaseComponentsModule
+    BaseComponentsModule,
   ],
   declarations: [HomepagePage]
 })

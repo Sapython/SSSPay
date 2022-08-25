@@ -2,7 +2,7 @@
 
 <ion-content>
     <ion-toolbar>
-        <ion-item>
+        <ion-item *ngIf="!addingAccount && dataProvider.userData.payoutDetailsCompleted">
             <ion-label>Actions</ion-label>
             <ion-button (click)="addingAccount=true">
                 <ion-icon name="add-outline"></ion-icon>
@@ -12,8 +12,8 @@
         </ion-item>
     </ion-toolbar>
     <div *ngIf="!dataProvider.userData.payoutDetailsCompleted || addingAccount">
-        <h2>Please fill the details to get a payout</h2>
         <form [formGroup]="addPayoutDetailForm" (ngSubmit)="submitForm()">
+            <h2>Please create an account first.</h2>
             <ion-item>
                 <ion-label position="floating">Display Name</ion-label>
                 <ion-input type="text" formControlName="name" placeholder="Display Name"></ion-input>
@@ -68,6 +68,7 @@
         </form>
     </div>
     <div *ngIf="dataProvider.userData?.payoutDetailsCompleted">
+        <h2>Please select an account to get payout.</h2>
         <form [formGroup]="payoutForm">
             <ion-item>
                 <ion-label position="floating">Select Account</ion-label>

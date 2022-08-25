@@ -1,14 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { Geolocation, Position } from '@capacitor/geolocation';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LocationService {
-  constructor(private geolocation: Geolocation) {}
+  // constructor(private geolocation: Geolocation) {
+    
+  // }
 
   async getLatitudeAndLongitude(): Promise<any> {
-    const position = await this.geolocation.getCurrentPosition();
+    window.navigator.geolocation.getCurrentPosition((position) => {
+      console.log("getCurrentPosition",position.coords.latitude,position.coords.longitude);
+    });
+    const position:Position = await Geolocation.getCurrentPosition();
     if (position) {
       return {
         status: true,
@@ -22,5 +27,6 @@ export class LocationService {
         message: 'Error getting location',
       };
     }
+    
   }
 }

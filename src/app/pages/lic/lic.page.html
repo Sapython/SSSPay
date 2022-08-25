@@ -1,0 +1,41 @@
+<app-header [backButton]="true" pageName="LIC" backUrl="../homepage"></app-header>
+<ion-content>
+    <div *ngIf="!billFetched">
+        <ion-text>
+            <h3>Upload your PAN Card</h3>
+        </ion-text>
+        <form (ngSubmit)="fetchLicBill()" [formGroup]="licBillForm">
+            <ion-item>
+                <ion-label position="floating">Customer Access Number</ion-label>
+                <ion-input formControlName="caNumber"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Customer Email</ion-label>
+                <ion-input formControlName="email" type="email"></ion-input>
+            </ion-item>
+            <ion-button type="submit" [disabled]="!licBillForm.valid" expand="block" id="upload-button">Fetch Bill
+            </ion-button>
+        </form>
+    </div>
+    <ion-card-content *ngIf="billFetched">
+        <ion-item>
+            <ion-label>Amount</ion-label>
+            <ion-chip color="primary">{{bill.amount}}</ion-chip>
+        </ion-item>
+        <ion-item>
+            <ion-label>Due Date</ion-label>
+            <ion-chip color="primary">{{bill.duedate}}</ion-chip>
+        </ion-item>
+        <ion-item>
+            <ion-label>Name</ion-label>
+            <ion-chip color="primary">{{bill.name}}</ion-chip>
+        </ion-item>
+        <ion-item>
+            <ion-label>Message</ion-label>
+            <ion-chip>{{bill.message}}</ion-chip>
+        </ion-item>
+        <ion-button (click)="payBill()" expand="block" fill="solid" shape="round">
+            Pay Bill
+        </ion-button>
+    </ion-card-content>
+</ion-content>

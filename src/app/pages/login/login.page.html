@@ -10,14 +10,14 @@
         <ion-col size="11" offset="0.5">
           <form size="11" offset="0.5" [formGroup]="signInForm" (ngSubmit)="login()">
             <ion-card>
-              <ion-input placeholder="Username" autocomplete="off" autocorrect="off" autofocus="true" name="username"
+              <ion-input placeholder="Email" autocomplete="off" autocorrect="off" autofocus="true" name="email"
                 [formControl]="emailControl">
               </ion-input>
             </ion-card>
             <ion-card>
               <ion-input [formControl]="passwordControl" [type]="showPassword === false ? 'password' : 'text'"
                 class="input-reverse ion-no-border" autocomplete="off" placeholder="Password" autocorrect="off"
-                autofocus="true" color="dark" name="password" pattern="email">
+                autofocus="true" color="dark" name="password">
                 <button class="ion-float-end pwd-icon-box" (click)="togglePassword('p')">
                   <ion-icon class="show-option" [hidden]="!showPassword" name="eye-off-outline"></ion-icon>
                   <ion-icon class="hide-option" [hidden]="showPassword" name="eye-outline"></ion-icon>
@@ -55,3 +55,6 @@
     </ion-grid>
   </section>
 </ion-content>
+<div class="overlay" *ngIf="dataProvider?.pageSetting.blur">
+  <ion-spinner name="crescent" color="primary"></ion-spinner>
+</div>

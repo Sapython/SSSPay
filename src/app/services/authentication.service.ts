@@ -31,6 +31,8 @@ import { setDoc, updateDoc } from 'firebase/firestore';
 import { Analytics, logEvent } from '@angular/fire/analytics';
 import { httpsCallable, Functions } from '@angular/fire/functions';
 import { signInWithRedirect } from 'firebase/auth';
+import { UserData } from '../structures/user.structure';
+import { ServerService } from './server.service';
 
 @Injectable({
   providedIn: 'root',
@@ -39,6 +41,7 @@ export class AuthenticationService {
   userDoc: DocumentReference | undefined;
   checkerUserDoc: DocumentReference | undefined;
   allowedStatuses: string[] = ['active', 'inactive'];
+  triggeredOnboarding: boolean = false;
   private loggedIn: boolean = false;
   constructor(
     private auth: Auth,
@@ -49,7 +52,8 @@ export class AuthenticationService {
     private router: Router,
     private platform: Platform,
     private dataProvider: DataProvider,
-    private functions: Functions
+    private functions: Functions,
+    private serverService:ServerService
   ) {
     if (auth) {
       // GoogleAuth.signIn();
@@ -150,10 +154,13 @@ export class AuthenticationService {
       const googleAuthProvider = new GoogleAuthProvider();
       signInWithRedirect(this.auth, googleAuthProvider).then(
         (credentials: UserCredential) => {
+          this.dataProvider.pageSetting.blur = true;
           getDoc(doc(this.firestore, 'users/' + credentials.user.uid))
             .then((userDocument: any) => {
+              this.dataProvider.pageSetting.blur = true;
               if (!userDocument.exists()) {
                 this.userData.setUserData(credentials.user).then(() => {
+                  this.dataProvider.pageSetting.blur = false;
                   this.router.navigate(['']);
                 });
               } else {
@@ -187,17 +194,17 @@ export class AuthenticationService {
 
   public async loginEmailPassword(email: string, password: string) {
     this.dataProvider.pageSetting.blur = true;
-    this.dataProvider.pageSetting.lastRedirect = '';
     let data = await signInWithEmailAndPassword(this.auth, email, password)
       .then((credentials: UserCredential) => {
         logEvent(this.analytics, 'Logged_In');
         this.router.navigate(['']);
       })
       .catch((error) => {
-        this.dataProvider.pageSetting.blur = false;
         this.alertify.presentToast(error.message, 'error', 5000);
+      })
+      .finally(() => {
+        this.dataProvider.pageSetting.blur = false;
       });
-    this.dataProvider.pageSetting.blur = false;
   }
   public signUpWithEmailAndPassword(
     email: string,
@@ -210,7 +217,7 @@ export class AuthenticationService {
     createUserWithEmailAndPassword(this.auth, email, password)
       .then(async (credentials: UserCredential) => {
         logEvent(this.analytics, 'Signed_Up');
-        await this.userData.setUserData(credentials.user);
+        await this.userData.setUserData(credentials.user,username);
       })
       .catch((error) => {
         this.dataProvider.pageSetting.blur = false;
@@ -242,40 +249,66 @@ export class AuthenticationService {
             ''
           );
         }
+      }).finally(()=>{
+        this.dataProvider.pageSetting.blur = false;
       });
   }
   // Sign in functions end
   // Sign out functions start
   public async logout() {
-    await signOut(this.auth);
-    logEvent(this.analytics, 'Logged_Out');
-    this.router.navigate(['../login']);
+    if (confirm('Are you sure you want to logout?')) {
+      await signOut(this.auth);
+      logEvent(this.analytics, 'Logged_Out');
+      this.router.navigate(['../login']);
+    }
   }
 
   private async setDataObserver(user: Observable<User | null>) {
-    console.log('Starting data observer');
+    // console.log('Starting data observer');
+    this.dataProvider.gotUserData = false;
     if (user) {
-      console.log('Setting data observer');
+      // console.log('Setting data observer');
       user.subscribe(async (u: User) => {
-        console.log('USer ', user);
+        // console.log('USer ', user);
+        this.dataProvider.gotUserData = true;
+        
         if (u) {
           this.dataProvider.userInstance = u;
           this.dataProvider.loggedIn = true;
           this.dataProvider.userID = u.uid;
           // alert(this.dataProvider.userID);
-          console.log('User is Logged In');
+          // console.log('User is Logged In');
           this.userDoc = doc(this.firestore, 'users/' + u.uid);
-          console.log('User data from auth', u);
+          // console.log('User data from auth', u);
           if (this.userServerSubscription != undefined) {
             this.userServerSubscription.unsubscribe();
           }
           // this.logout();
-          this.userWalletSubscription = docData(doc(this.firestore, 'users/' + u.uid+'/wallet/wallet')).subscribe((walletData:any)=>{
+          this.userWalletSubscription = docData(
+            doc(this.firestore, 'users/' + u.uid + '/wallet/wallet')
+          ).subscribe((walletData: any) => {
             this.dataProvider.wallet = walletData;
-            console.log('Wallet Data', walletData);
-          })
+            // console.log('Wallet Data', walletData);
+          });
           this.userServerSubscription = docData(this.userDoc).subscribe(
-            async (data: any) => {
+            async (data: UserData) => {
+              this.dataProvider.userData = data;
+              if(!this.triggeredOnboarding){
+                // alert('Onboarding now')
+                // this.serverService.onboardingForAepsKyc()
+                this.triggeredOnboarding = true;
+              }
+              if (
+                data.onboardingSteps.aadhaarDone == true &&
+                data.onboardingSteps.locationDone == true &&
+                data.onboardingSteps.panDone == true &&
+                data.onboardingSteps.photosDone == true &&
+                data.onboardingSteps.phoneDobDone == true &&
+                data.kycStatus == 'incomplete'
+              ) {
+                updateDoc(this.userDoc, { kycStatus: 'pending' });
+                this.serverService.onboardingForAepsKyc()
+              }
               console.log('Received new data', data);
               if (data.status) {
                 if (!this.allowedStatuses.includes(data.status.access)) {
@@ -293,14 +326,13 @@ export class AuthenticationService {
                   status: { access: 'active', isOnline: true },
                 });
               }
-              this.dataProvider.userData = data;
               this.dataProvider.gettingUserData.next('completed');
               // this.setMissingFields();
             }
           );
         } else {
           this.router.navigate(['../login']);
-          console.log('User is Logged Out');
+          // console.log('User is Logged Out');
         }
       });
     } else {

@@ -4,6 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { DataProvider } from 'src/app/providers/data.provider';
 import { ServerService } from 'src/app/services/server.service';
 import { TransactionService } from 'src/app/services/transaction.service';
+import { AlertsAndNotificationsService } from 'src/app/services/uiService/alerts-and-notifications.service';
 import { Transaction } from 'src/app/structures/method.structure';
 
 @Component({
@@ -14,7 +15,7 @@ import { Transaction } from 'src/app/structures/method.structure';
 export class RechargePage implements OnInit {
   @Input() rechargeData:any;
   @Input() formData:any;
-  constructor(public dataProvider: DataProvider,private transactionService:TransactionService,private serverService:ServerService,private router:Router,private modalController:ModalController) { }
+  constructor(public dataProvider: DataProvider,private transactionService:TransactionService,private serverService:ServerService,private router:Router,private modalController:ModalController,private alertify:AlertsAndNotificationsService) { }
   activeId:string = '';
   recharges:any[] = []
   isModalOpen = false;
@@ -57,12 +58,22 @@ export class RechargePage implements OnInit {
         customerId: this.dataProvider.userData.userId,
       },
     }
+    this.dataProvider.pageSetting.blur = true;
     this.transactionService.addTransaction(transaction).then(async (docRef) => {
       console.log('transactionAdded',docRef.id,docRef);
-      const response = await this.serverService.recharge(docRef.id);
-      console.log('response From recharge',response);
-      this.modalController.dismiss()
-      this.router.navigate(['../../history/detail/'+docRef.id]);
+      this.serverService.recharge(docRef.id).then((response:any) => {
+        this.dataProvider.pageSetting.blur = true;
+        console.log('response From recharge',response);
+        this.modalController.dismiss()
+        this.router.navigate(['../../history/detail/'+docRef.id]);
+      }).catch((err) => {
+        console.log(err);
+        this.alertify.presentToast('Something went wrong','error');
+      }).finally(() => {
+        this.dataProvider.pageSetting.blur = false;
+      })
+    }).catch((err) => {
+      this.dataProvider.pageSetting.blur = false;
     });
   }
 

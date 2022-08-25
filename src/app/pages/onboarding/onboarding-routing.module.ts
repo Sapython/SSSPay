@@ -1,18 +1,20 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { OnboardingGuard } from 'src/app/guards/onboarding.guard';
 
 import { OnboardingPage } from './onboarding.page';
 
 const routes: Routes = [
   {
     path: '',
+    // canActivate:[OnboardingGuard],
     component: OnboardingPage,
     children:[
-      {
-        path: '',
-        redirectTo: 'aadhaar',
-        pathMatch: 'full'
-      },
+      // {
+      //   path: '',
+      //   redirectTo: 'aadhaar',
+      //   pathMatch: 'full'
+      // },
       {
         path:'aadhaar',
         loadChildren:()=>import('./aadhaar/aadhaar.module').then(m=>m.AadhaarPageModule)
@@ -40,6 +42,10 @@ const routes: Routes = [
       {
         path: 'rejected',
         loadChildren: () => import('./rejected/rejected.module').then( m => m.RejectedPageModule)
+      },
+      {
+        path: 'photo',
+        loadChildren: () => import('./photo/photo.module').then( m => m.PhotoPageModule)
       },
     ]
   },

@@ -24,7 +24,7 @@ export class LoginguardGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-      console.log('LoginguardGuard',this.dataProvider.loggedIn);
+      // console.log('LoginguardGuard',this.dataProvider.loggedIn);
     if(this.dataProvider.loggedIn){
       return true;
     } else {

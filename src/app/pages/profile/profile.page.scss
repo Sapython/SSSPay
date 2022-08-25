@@ -66,26 +66,26 @@
     box-sizing: border-box;
   }
 }
-.item {
-  width: 95%;
-  margin: auto;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  background-color: white;
-  justify-content: space-between;
-  border-bottom: 0.5px solid var(--ion-text-grey);
-  padding-right: 20px;
-  color: black;
-  margin-bottom: 20px;
-  ion-text {
-    font-size: 18px;
-  }
-  ion-icon {
-    color: var(--ion-btn-color);
-    font-size: 20px;
-  }
-}
+// .item {
+//   width: 95%;
+//   margin: auto;
+//   height: 50px;
+//   display: flex;
+//   align-items: center;
+//   background-color: white;
+//   justify-content: space-between;
+//   border-bottom: 0.5px solid var(--ion-text-grey);
+//   padding-right: 20px;
+//   color: black;
+//   margin-bottom: 20px;
+//   ion-text {
+//     font-size: 18px;
+//   }
+//   ion-icon {
+//     color: var(--ion-btn-color);
+//     font-size: 20px;
+//   }
+// }
 
 .card {
   width: 95%;

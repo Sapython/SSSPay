@@ -12,14 +12,16 @@ import { OnboardingGuard } from './guards/onboarding.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'homepage',
+    redirectTo: 'splashscreen',
     pathMatch: 'full',
   },
   {
     path: 'recharge',
-    canActivate: [LoginguardGuard,OnboardingGuard],
+    canActivate: [LoginguardGuard, OnboardingGuard],
     loadChildren: () =>
-      import('./pages/recharge/recharge.module').then((m) => m.RechargePageModule),
+      import('./pages/recharge/recharge.module').then(
+        (m) => m.RechargePageModule
+      ),
   },
   {
     path: 'login',
@@ -44,7 +46,9 @@ const routes: Routes = [
     path: 'homepage',
     canActivate: [LoginguardGuard],
     loadChildren: () =>
-      import('./pages/homepage/homepage.module').then((m) => m.HomepagePageModule),
+      import('./pages/homepage/homepage.module').then(
+        (m) => m.HomepagePageModule
+      ),
   },
   {
     path: 'notifications',
@@ -62,7 +66,7 @@ const routes: Routes = [
   },
   {
     path: 'wallet',
-    canActivate: [LoginguardGuard,OnboardingGuard],
+    canActivate: [LoginguardGuard, OnboardingGuard],
     loadChildren: () =>
       import('./pages/wallet/wallet.module').then((m) => m.WalletPageModule),
   },
@@ -76,9 +80,11 @@ const routes: Routes = [
   },
   {
     path: 'recharge',
-    canActivate: [LoginguardGuard,OnboardingGuard],
+    canActivate: [LoginguardGuard, OnboardingGuard],
     loadChildren: () =>
-      import('./pages/recharge/recharge.module').then((m) => m.RechargePageModule),
+      import('./pages/recharge/recharge.module').then(
+        (m) => m.RechargePageModule
+      ),
   },
   {
     path: 'reset-password',
@@ -89,13 +95,13 @@ const routes: Routes = [
   },
   {
     path: 'aeps',
-    canActivate: [LoginguardGuard,OnboardingGuard],
+    canActivate: [LoginguardGuard, OnboardingGuard],
     loadChildren: () =>
       import('./pages/aeps/aeps.module').then((m) => m.AepsPageModule),
   },
   {
     path: 'card-details',
-    canActivate: [LoginguardGuard,OnboardingGuard],
+    canActivate: [LoginguardGuard, OnboardingGuard],
     loadChildren: () =>
       import('./pages/card-details/card-details.module').then(
         (m) => m.CardDetailsPageModule
@@ -103,7 +109,7 @@ const routes: Routes = [
   },
   {
     path: 'transfer-to-mobile',
-    canActivate: [LoginguardGuard,OnboardingGuard],
+    canActivate: [LoginguardGuard, OnboardingGuard],
     loadChildren: () =>
       import('./pages/transfer-to-mobile/transfer-to-mobile.module').then(
         (m) => m.TransferToMobilePageModule
@@ -111,12 +117,13 @@ const routes: Routes = [
   },
   {
     path: 'qr',
-    canActivate: [LoginguardGuard,OnboardingGuard],
-    loadChildren: () => import('./pages/qr/qr.module').then((m) => m.QRPageModule),
+    canActivate: [LoginguardGuard, OnboardingGuard],
+    loadChildren: () =>
+      import('./pages/qr/qr.module').then((m) => m.QRPageModule),
   },
   {
     path: 'dth-recharge',
-    canActivate: [LoginguardGuard,OnboardingGuard],
+    canActivate: [LoginguardGuard, OnboardingGuard],
     loadChildren: () =>
       import('./pages/dth-recharge/dth-recharge.module').then(
         (m) => m.DthRechargePageModule
@@ -127,18 +134,20 @@ const routes: Routes = [
     path: 'languages',
     canActivate: [LoginguardGuard],
     loadChildren: () =>
-      import('./pages/languages/languages.module').then((m) => m.LanguagesPageModule),
+      import('./pages/languages/languages.module').then(
+        (m) => m.LanguagesPageModule
+      ),
   },
 
   {
     path: 'tv-dth',
-    canActivate: [LoginguardGuard,OnboardingGuard],
+    canActivate: [LoginguardGuard, OnboardingGuard],
     loadChildren: () =>
       import('./pages/tv-dth/tv-dth.module').then((m) => m.TvDthPageModule),
   },
   {
     path: 'mobile-recharge',
-    canActivate: [LoginguardGuard,OnboardingGuard],
+    canActivate: [LoginguardGuard, OnboardingGuard],
     loadChildren: () =>
       import('./pages/mobile-recharge/mobile-recharge.module').then(
         (m) => m.MobileRechargePageModule
@@ -146,7 +155,7 @@ const routes: Routes = [
   },
   {
     path: 'view-balance',
-    canActivate: [LoginguardGuard,OnboardingGuard],
+    canActivate: [LoginguardGuard, OnboardingGuard],
     loadChildren: () =>
       import('./pages/view-balance/view-balance.module').then(
         (m) => m.ViewBalancePageModule
@@ -154,19 +163,19 @@ const routes: Routes = [
   },
   {
     path: 'upi-pin',
-    canActivate: [LoginguardGuard,OnboardingGuard],
+    canActivate: [LoginguardGuard, OnboardingGuard],
     loadChildren: () =>
       import('./pages/upi-pin/upi-pin.module').then((m) => m.UpiPinPageModule),
   },
   {
     path: 'qr-scan',
-    canActivate: [LoginguardGuard,OnboardingGuard],
+    canActivate: [LoginguardGuard, OnboardingGuard],
     loadChildren: () =>
       import('./pages/qr-scan/qr-scan.module').then((m) => m.QrScanPageModule),
   },
   {
     path: 'payment-status',
-    canActivate: [LoginguardGuard,OnboardingGuard],
+    canActivate: [LoginguardGuard, OnboardingGuard],
     loadChildren: () =>
       import('./pages/payment-status/payment-status.module').then(
         (m) => m.PaymentStatusPageModule
@@ -182,7 +191,7 @@ const routes: Routes = [
   },
   {
     path: 'bank-transfer',
-    canActivate: [LoginguardGuard,OnboardingGuard],
+    canActivate: [LoginguardGuard, OnboardingGuard],
     loadChildren: () =>
       import('./pages/bank-transfer/bank-transfer.module').then(
         (m) => m.BankTransferPageModule
@@ -198,7 +207,7 @@ const routes: Routes = [
   },
   {
     path: 'fast-tag-recharge',
-    canActivate: [LoginguardGuard,OnboardingGuard],
+    canActivate: [LoginguardGuard, OnboardingGuard],
     loadChildren: () =>
       import('./pages/fast-tag-recharge/fast-tag-recharge.module').then(
         (m) => m.FastTagRechargePageModule
@@ -206,7 +215,7 @@ const routes: Routes = [
   },
   {
     path: 'gas-bill-pay',
-    canActivate: [LoginguardGuard,OnboardingGuard],
+    canActivate: [LoginguardGuard, OnboardingGuard],
     loadChildren: () =>
       import('./pages/gas-bill-pay/gas-bill-pay.module').then(
         (m) => m.GasBillPayPageModule
@@ -214,31 +223,31 @@ const routes: Routes = [
   },
   {
     path: 'rewards',
-    canActivate: [LoginguardGuard,OnboardingGuard],
+    canActivate: [LoginguardGuard, OnboardingGuard],
     loadChildren: () =>
       import('./pages/rewards/rewards.module').then((m) => m.RewardsPageModule),
   },
   {
     path: 'offers',
-    canActivate: [LoginguardGuard,OnboardingGuard],
+    canActivate: [LoginguardGuard, OnboardingGuard],
     loadChildren: () =>
       import('./pages/offers/offers.module').then((m) => m.OffersPageModule),
   },
   {
     path: 'invite',
-    canActivate: [LoginguardGuard,OnboardingGuard],
+    canActivate: [LoginguardGuard, OnboardingGuard],
     loadChildren: () =>
       import('./pages/invite/invite.module').then((m) => m.InvitePageModule),
   },
   {
     path: 'profile',
-    canActivate: [LoginguardGuard,OnboardingGuard],
+    canActivate: [LoginguardGuard],
     loadChildren: () =>
       import('./pages/profile/profile.module').then((m) => m.ProfilePageModule),
   },
   {
     path: 'select-recharge-plan',
-    canActivate: [LoginguardGuard,OnboardingGuard],
+    canActivate: [LoginguardGuard, OnboardingGuard],
     loadChildren: () =>
       import('./pages/select-recharge-plan/select-recharge-plan.module').then(
         (m) => m.SelectRechargePlanPageModule
@@ -259,15 +268,63 @@ const routes: Routes = [
       import('./pages/onboarding/onboarding.module').then(
         (m) => m.OnboardingPageModule
       ),
-  },  {
-    path: 'payout',
-    loadChildren: () => import('./pages/payout/payout.module').then( m => m.PayoutPageModule)
   },
+  {
+    path: 'payout',
+    loadChildren: () =>
+      import('./pages/payout/payout.module').then((m) => m.PayoutPageModule),
+      canActivate: [LoginguardGuard, OnboardingGuard],
+  },
+  {
+    path: 'lic',
+    loadChildren: () =>
+      import('./pages/lic/lic.module').then((m) => m.LicPageModule),
+      canActivate: [LoginguardGuard, OnboardingGuard],
+  },
+  {
+    path: 'digitalAccount',
+    loadChildren: () =>
+      import('./pages/digital-account/digital-account.module').then(
+        (m) => m.DigitalAccountPageModule
+      ),
+      canActivate: [LoginguardGuard, OnboardingGuard],
+  },
+  {
+    path: 'pancard',
+    loadChildren: () =>
+      import('./pages/pancard/pancard.module').then((m) => m.PancardPageModule),
+      canActivate: [LoginguardGuard, OnboardingGuard],
+  },
+  {
+    path: 'documentation',
+    loadChildren: () =>
+      import('./pages/documentation/documentation.module').then(
+        (m) => m.DocumentationPageModule
+      ),
+      canActivate: [LoginguardGuard, OnboardingGuard],
+  },
+  {
+    path: 'bill-payment',
+    loadChildren: () => import('./pages/bill-payment/bill-payment.module').then( m => m.BillPaymentPageModule),
+    canActivate: [LoginguardGuard, OnboardingGuard],
+  },
+  {
+    path: 'error-page',
+    loadChildren: () => import('./pages/error-page/error-page.module').then( m => m.ErrorPagePageModule)
+  },
+  {
+    path: 'splashscreen',
+    loadChildren: () => import('./splashscreen/splashscreen.module').then( m => m.SplashscreenPageModule)
+  },  {
+    path: 'manage-members',
+    loadChildren: () => import('./pages/manage-members/manage-members.module').then( m => m.ManageMembersPageModule)
+  },
+
 
 ];
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
+    RouterModule.forRoot(routes),
   ],
   exports: [RouterModule],
 })

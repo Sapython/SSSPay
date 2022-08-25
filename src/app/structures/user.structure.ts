@@ -3,7 +3,7 @@ export type UserData = {
     displayName:string;
     email:string;
     phoneNumber?:string;
-    dob:Date;
+    dob:any;
     photoURL:string;
     gender:'male' | 'female' | 'other' | 'not-specified';
     emailVerified:boolean;
@@ -17,17 +17,25 @@ export type UserData = {
     aadhaarNumber:string;
     tutorialCompleted:boolean;
     panCardNumber:string;
+    qrCode:string;
     onboardingDone:boolean;
     payoutDetailsCompleted:boolean;
     primaryPayoutAccount:FundAccount | null;
     payoutFundAccount:FundAccount[];
-    kycStatus:'pending' | 'approved' | 'rejected';
+    selfieImage:string;
+    shopImage:string;
+    memberAssigned:boolean;
+    kycStatus:'pending' | 'approved' | 'rejected' | 'incomplete';
     onboardingSteps:{
         phoneDobDone:boolean;
         panDone:boolean;
         locationDone:boolean;
         aadhaarDone:boolean;
-    }
+        photosDone:boolean;
+    },
+    messageToken?:string;
+    merchantSetupCompleted?:boolean;
+    merchantData?:any;
 }
 export type FundAccount = {
     name:string;
@@ -87,7 +95,13 @@ export type Discount={
 }
 
 export type UserAccess={
-    access:'admin'|'guest'|'worker'|'supervisor';
+    access:
+    | 'admin'
+    | 'superDistributor'
+    | 'masterDistributor'
+    | 'distributor'
+    | 'retailer'
+    | 'guest';
 }
 export type Order={
     orderId:string;

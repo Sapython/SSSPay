@@ -22,7 +22,7 @@ export class SignupPage implements OnInit {
     password: this.passwordControl,
     confirmPassword:this.confirmPasswordControl,
   });
-  constructor(public authService:AuthenticationService,public alertify:AlertsAndNotificationsService,private dataProvider:DataProvider) { }
+  constructor(public authService:AuthenticationService,public alertify:AlertsAndNotificationsService,public dataProvider:DataProvider) { }
   ngOnInit() {
   }
   signup():void{

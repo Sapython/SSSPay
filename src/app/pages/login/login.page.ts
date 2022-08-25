@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { DataProvider } from '../../providers/data.provider';
 import { AuthenticationService } from '../../services/authentication.service';
 import { AlertsAndNotificationsService } from '../../services/uiService/alerts-and-notifications.service';
@@ -13,28 +17,44 @@ export class LoginPage implements OnInit {
   showPassword = false;
   showCnfPwd = false;
 
-  constructor(public authService:AuthenticationService,public alertify:AlertsAndNotificationsService,private dataProvider:DataProvider) { }
-emailControl:UntypedFormControl = new UntypedFormControl('',[Validators.required,Validators.email])
-  passwordControl:UntypedFormControl = new UntypedFormControl('',[Validators.required,Validators.minLength(8),Validators.maxLength(50)])
-  signInForm:UntypedFormGroup = new UntypedFormGroup({
+  constructor(
+    public authService: AuthenticationService,
+    public alertify: AlertsAndNotificationsService,
+    public dataProvider: DataProvider
+  ) {}
+  emailControl: FormControl = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
+  passwordControl: FormControl = new FormControl('', [
+    Validators.required,
+    Validators.minLength(6),
+    Validators.maxLength(50),
+  ]);
+  signInForm: FormGroup = new FormGroup({
     email: this.emailControl,
     password: this.passwordControl,
   });
-  ngOnInit() {
-  }
-  login():void{
+  ngOnInit() {}
+  login(): void {
     console.log(this.signInForm);
-    if (this.signInForm.status === 'VALID'){
-      this.authService.loginEmailPassword(this.emailControl.value,this.passwordControl.value);
+    if (this.signInForm.valid) {
+      this.authService.loginEmailPassword(
+        this.emailControl.value,
+        this.passwordControl.value
+      );
     } else {
-      this.alertify.presentToast('Please fill all the fields correctly','error',3000);
+      this.alertify.presentToast(
+        'Please fill all the fields correctly',
+        'error',
+        3000
+      );
     }
   }
-  togglePassword(type){
-    if(type === 'p'){
+  togglePassword(type) {
+    if (type === 'p') {
       this.showPassword = !this.showPassword;
-    }
-    else if(type === 'c'){
+    } else if (type === 'c') {
       this.showCnfPwd = !this.showCnfPwd;
     }
   }

@@ -1,10 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DatabaseService } from '../../services/database.service';
-import {
-  Contact,
-  Contacts,
-  PermissionStatus,
-} from '@capacitor-community/contacts';
+
 import { AlertsAndNotificationsService } from 'src/app/services/uiService/alerts-and-notifications.service';
 import { ModalController, Platform } from '@ionic/angular';
 import { ServerService } from 'src/app/services/server.service';
@@ -67,19 +63,19 @@ export class MobileRechargePage implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (this.platform.is('capacitor')) {
-      Contacts.getPermissions().then((permission: PermissionStatus) => {
-        if (permission.granted) {
-          this.alertify.presentToast('Permission granted');
-          Contacts.getContacts().then((contacts: { contacts: Contact[] }) => {
-            this.contacts = contacts.contacts;
-            contacts.contacts.forEach((contact: Contact) => {
-              console.log('contact', contact);
-            });
-          });
-        } else {
-          this.alertify.presentToast('Permission denied');
-        }
-      });
+      // Contacts.getPermissions().then((permission: PermissionStatus) => {
+      //   if (permission.granted) {
+      //     this.alertify.presentToast('Permission granted');
+      //     Contacts.getContacts().then((contacts: { contacts: Contact[] }) => {
+      //       this.contacts = contacts.contacts;
+      //       contacts.contacts.forEach((contact: Contact) => {
+      //         console.log('contact', contact);
+      //       });
+      //     });
+      //   } else {
+      //     this.alertify.presentToast('Permission denied');
+      //   }
+      // });
     }
     this.databaseService.getOperators().then((docs) => {
       this.operators = [];

@@ -1,6 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormControl, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DataProvider } from 'src/app/providers/data.provider';
+import { ServerService } from 'src/app/services/server.service';
+import { TransactionService } from 'src/app/services/transaction.service';
+import { Transaction } from 'src/app/structures/method.structure';
 import { environment } from 'src/environments/environment';
 import { AuthenticationService } from '../../services/authentication.service';
 import { LocationService } from '../../services/location.service';
@@ -15,29 +19,29 @@ export class GasBillPayPage implements OnInit {
   operators: any[];
   @ViewChild('operatorSelect') operatorSelect: ElementRef;
   operator: any;
-  customerName: any;
-  amount: any;
-  lpgFormSubmitted: boolean = false;
+  bill:any;
+  fields:any[] = [];
   latitude: number;
   longitude: number;
-
+  operatorFetched: boolean = false;
+  billFetched: boolean = false;
   lpgForm: UntypedFormGroup = new UntypedFormGroup({
+    type: new FormControl('', [Validators.required]),
     operator: new UntypedFormControl('', [Validators.required]),
-    canumber: new UntypedFormControl('', [Validators.required]),
-    ad1: new UntypedFormControl(null),
-    ad2: new UntypedFormControl(null),
-    ad3: new UntypedFormControl(null),
   });
 
   constructor(
     private alertService: AlertsAndNotificationsService,
     private router: Router,
-    private authService: AuthenticationService,
-    private locationService: LocationService
+    private dataProvider: DataProvider,
+    private locationService: LocationService,
+    private serverService:ServerService,
+    private transactionService:TransactionService
   ) {}
 
   ngOnInit() {
     // Get location
+
     this.locationService.getLatitudeAndLongitude().then((response) => {
       if (response.status) {
         this.latitude = response.latitude;
@@ -48,151 +52,134 @@ export class GasBillPayPage implements OnInit {
       }
     });
 
-    // Get Operators
-    this.authService.user.subscribe((user) => {
-      if (user) {
-        this.authService.getIdToken(user).then((userToken) => {
-          var myHeaders = new Headers();
-          myHeaders.append('Content-Type', 'application/json');
-          let data = JSON.stringify({
-            token: userToken,
-            uid: user.uid,
-          });
-          var requestOptions: RequestInit = {
-            method: 'POST',
-            headers: myHeaders,
-            body: data,
-            redirect: 'follow',
-          };
-          fetch(environment.serverBaseUrl + '/getLpgOperators', requestOptions)
-            .then((response) => {
-              return response.json();
-            })
-            .then((json) => {
-              if (json.response_code == 1) {
-                this.operators = json.data;
-                this.operators.sort((a, b) => {
-                  return a.name.localeCompare(b.name);
-                });
-              } else {
-                this.alertService.presentToast(json.message);
-                this.router.navigate(['/homepage']);
-              }
-            })
-            .catch((error) => console.log('error', error));
-        });
-      }
-    });
   }
 
-  onOperatorSelect(event: Event) {
-    const operatorId = event.target['value'];
-    if (operatorId) {
-      this.operator = this.operators.find((op) => op.id === operatorId);
-      if (this.operator) {
-        // Set RegExp validator in canumber
-        if (this.operator.regex) {
-          const regex = new RegExp(this.operator.regex);
-          this.lpgForm.controls.canumber.setValidators([
-            Validators.required,
-            Validators.pattern(regex),
-          ]);
-          this.lpgForm.controls.canumber.updateValueAndValidity();
-        }
+  getLpgOperators() {
+    this.dataProvider.pageSetting.blur = true;
+    this.serverService.getLpgOperatorList().then((data)=>{
+      console.log("OPERATORS",data);
+    }).catch((error)=>{
+      console.log("ERROR",error);
+    }).finally(()=>{
+      this.dataProvider.pageSetting.blur = false;
+    })
+  }
 
-        // If additional details' regex is given, set that
-        for (var i = 1; i <= 3; i++) {
-          if (this.operator[`ad${i}_regex`]) {
-            const regex = new RegExp(this.operator[`ad${i}_regex`]);
-            this.lpgForm.controls[`ad${i}`].setValidators([
-              Validators.required,
-              Validators.pattern(regex),
-            ]);
-          } else {
-            this.lpgForm.controls[`ad${i}`].setValidators(null);
-          }
-          this.lpgForm.controls[`ad${i}`].updateValueAndValidity();
-        }
-      }
+  getGasOperators(){
+    this.dataProvider.pageSetting.blur = true;
+    this.serverService.getGasOperatorList().then((data)=>{
+      console.log("OPERATORS",data);
+      this.operators = data;
+    }).catch((error)=>{
+      console.log("ERROR",error);
+    }).finally(()=>{
+      this.dataProvider.pageSetting.blur = false;
+    })
+  }
+
+  fetchOperators(event){
+    if (event.detail.value=='LPG'){
+      this.getLpgOperators();
+    } else {
+      this.getGasOperators();
     }
   }
 
-  async submitLpgForm() {
-    this.authService.user.subscribe((user) => {
-      if (user) {
-        this.authService.getIdToken(user).then((userToken) => {
-          var myHeaders = new Headers();
-          myHeaders.append('Content-Type', 'application/json');
-          let data = JSON.stringify({
-            token: userToken,
-            uid: user.uid,
-            customerNumber: this.lpgForm.get('canumber').value,
-            operatorNumber: this.lpgForm.get('operator').value,
-          });
-          var requestOptions: RequestInit = {
-            method: 'POST',
-            headers: myHeaders,
-            body: data,
-            redirect: 'follow',
-          };
-          fetch(environment.serverBaseUrl + '/fetchLpgDetails', requestOptions)
-            .then((response) => {
-              return response.json();
-            })
-            .then((json) => {
-              if (json.response_code == 1) {
-                this.lpgFormSubmitted = true;
-                this.customerName = json.name;
-                this.amount = json.amount;
-              } else {
-                this.alertService.presentToast(json.message);
-                this.router.navigate(['/homepage']);
-              }
-            })
-            .catch((error) => console.log('error', error));
-        });
-      }
+  async getCoordinates(){
+    const response = await this.locationService.getLatitudeAndLongitude();
+    if (response.status){
+      return response;
+    } else {
+      return null;
+    }
+  }
+  
+  operatorSelected(event){
+    const operatorId = event.detail.value;
+    this.operator = this.operators.find((operator)=>{
+      return operator.id == operatorId;
     });
+    let fields = []
+    var counter = 0
+    var fieldName = ''
+    while (fieldName != null){
+      const field = {}
+      counter += 1
+      fieldName = this.operator['ad'+counter+'_d_name']
+      if (typeof fieldName == 'string'){
+        field['name'] = fieldName
+        
+        const regexp = RegExp(this.operator['ad'+counter+'_regex'])
+        console.log("REGEXP",regexp)
+        const control = new FormControl('', [Validators.required,Validators.pattern(regexp)])
+        this.lpgForm.addControl(this.operator['ad'+counter+'_name'], control)
+        this.fields.push(this.operator['ad'+counter+'_name'])
+        field['control'] = control
+        fields.push(field)
+      }
+    }
+    this.operator['fields'] = fields
+    const control = new FormControl('', [Validators.required,Validators.pattern(RegExp(this.operator.regex))])
+    this.lpgForm.addControl(this.operator.displayname, control)
+    this.operator['mainField'] = {
+      'name':this.operator.displayname,
+      control:control
+    }
+    console.log("OPERATOR",this.operator)
+    this.operatorFetched = true;
   }
 
-  recharge() {
-    this.authService.user.subscribe((user) => {
-      if (user) {
-        this.authService.getIdToken(user).then((userToken) => {
-          var myHeaders = new Headers();
-          myHeaders.append('Content-Type', 'application/json');
-          let data = JSON.stringify({
-            token: userToken,
-            uid: user.uid,
-            customerNumber: this.lpgForm.get('canumber').value,
-            operatorNumber: this.lpgForm.get('operator').value,
-            amount: this.amount,
-            ad1: this.lpgForm.get('ad1').value,
-            ad2: this.lpgForm.get('ad2').value,
-            ad3: this.lpgForm.get('ad3').value,
-            referenceId:
-              this.operator.id +
-              new Date().getTime() +
-              Math.floor(Math.random() * 100),
-            latitude: this.latitude,
-            longitude: this.longitude,
-          });
-          var requestOptions: RequestInit = {
-            method: 'POST',
-            headers: myHeaders,
-            body: data,
-            redirect: 'follow',
-          };
-          fetch(environment.serverBaseUrl + '/lpgRecharge', requestOptions)
-            .then((response) => {
-              return response.json();
-            })
-            .then((json) => {
-              console.log(json);
-            })
-            .catch((error) => console.log('error', error));
-        });
+  async fetchBill(customerNo){
+    const response = await this.serverService.fetchLpgGasBill(customerNo,this.operator.id) 
+    if (response.response_code == 1){
+      this.billFetched = true;
+      this.bill = response;
+    }
+  }
+
+  async payLpgGasBill(){
+    const coordinates = await this.getCoordinates()
+    if (coordinates == null){
+      this.alertService.presentToast("Could not get your location. Please try again later.")
+      return;
+    }
+    const transaction:Transaction = {
+      amount:this.bill.amount < 9 ? 10 : this.bill.amount,
+      title:'LPG Gas Bill Payment',
+      description:'LPG Gas Bill Payment for '+this.bill.name + ' for amount '+this.bill.amount,
+      receiver:this.operator.name,
+      date:new Date(),
+      type:'gas',
+      balance:this.dataProvider.wallet.balance,
+      idempotencyKey:Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
+      completed:false,
+      status:'started',
+      error:null,
+      extraData:{
+        ...this.lpgForm.value,
+        latitude:coordinates.latitude,
+        longitude:coordinates.longitude,
+        customerNumber:this.operator['mainField'].control.value,
+        fields:this.fields,
+        customerId:this.dataProvider.userData.userId,
       }
-    });
+    }
+    this.dataProvider.pageSetting.blur = true;
+    this.transactionService.addTransaction(transaction).then((transaction)=>{
+      this.serverService.payLpgGasBill(transaction.id).then((response)=>{
+        console.log("RESPONSE BILL PAY",response)
+        this.alertService.presentToast("Transaction started. Please wait for the transaction to complete.")
+        this.router.navigate(['../history/detail/'+transaction.id]);
+      }).catch((error)=>{
+        console.log("ERROR BILL PAY",error)
+        this.alertService.presentToast("Could not start transaction. Please try again later.")
+      }).finally(()=>{
+        this.dataProvider.pageSetting.blur = false;
+      })
+    }).catch((error)=>{
+      console.log("ERROR",error)
+      this.alertService.presentToast("Could not start transaction. Please try again later.")
+      this.dataProvider.pageSetting.blur = false;
+    })
   }
 }

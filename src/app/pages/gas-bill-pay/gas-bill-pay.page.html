@@ -1,77 +1,48 @@
-<app-header [backButton]="true" pageName="Gas & LPG Service"></app-header>
+<app-header [backButton]="true" backUrl="../homepage" pageName="Gas & LPG Service"></app-header>
 <ion-content>
-  <ng-container *ngIf="!lpgFormSubmitted">
+  <ng-container>
     <ion-text>
       <h1>Enter your details</h1>
     </ion-text>
-    <form [formGroup]="lpgForm" (ngSubmit)="submitLpgForm()">
+    <form [formGroup]="lpgForm" (ngSubmit)="payLpgGasBill()">
       <ion-item>
         <ion-label position="floating">Select Type</ion-label>
-        <ion-select interface="popover" (ionChange)="operatorSelect.value = null" #type>
-          <ion-select-option>Gas</ion-select-option>
-          <ion-select-option>LPG</ion-select-option>
+        <ion-select interface="popover" formControlName="type" (ionChange)="fetchOperators($event)" #type>
+          <ion-select-option value="Gas">Gas</ion-select-option>
+          <ion-select-option value="LPG">LPG</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Select Operator</ion-label>
-        <ion-select interface="alert" formControlName="operator" [disabled]="!type.value"
-          (ionChange)="onOperatorSelect($event)" #operatorSelect>
+        <ion-select interface="alert" formControlName="operator" (ionChange)="operatorSelected($event)" [disabled]="!type.value" #operatorSelect>
           <ng-container *ngFor="let op of operators">
-            <ion-select-option *ngIf="op.category == type.value" [value]="op.id">{{ op.name }}</ion-select-option>
+            <ion-select-option [value]="op.id">{{ op.name }}</ion-select-option>
           </ng-container>
         </ion-select>
       </ion-item>
-      <ng-container *ngIf="operatorSelect.value">
-        <ion-item>
-          <ion-label position="floating">{{ operator['displayname'] }}</ion-label>
-          <ion-input type="text" formControlName="canumber"></ion-input>
-        </ion-item>
-        <ion-item *ngIf="operator['ad1_d_name']">
-          <ion-label position="floating">{{ operator['ad1_d_name'] }}</ion-label>
-          <ion-input type="text" formControlName="ad1"></ion-input>
-        </ion-item>
-        <ion-item *ngIf="operator['ad2_d_name']">
-          <ion-label position="floating">{{ operator['ad2_d_name'] }}</ion-label>
-          <ion-input type="text" formControlName="ad2"></ion-input>
-        </ion-item>
-        <ion-item *ngIf="operator['ad3_d_name']">
-          <ion-label position="floating">{{ operator['ad3_d_name'] }}</ion-label>
-          <ion-input type="text" formControlName="ad3"></ion-input>
-        </ion-item>
+      <ng-container *ngIf="operator">
+        <ng-container *ngIf="operatorFetched">
+          <ion-item>
+            <ion-label>{{operator.mainField.name}} <ion-text color="danger">*</ion-text></ion-label>
+            <ion-input required [formControl]="operator.mainField.control" #customerNumber></ion-input>
+            <ion-button (click)="fetchBill(customerNumber.value)">
+              <ion-icon slot="icon-only" name="chevron-forward"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </ng-container>
+        <ng-container *ngIf="billFetched">
+          <ion-text color="primary">
+            <h5>{{operator.name}}</h5>
+            <h6>{{operator.category}}</h6>
+            <hr>
+          </ion-text>
+          <ion-item *ngFor="let field of operator.fields">
+            <ion-label position="floating">{{ field.name }}</ion-label>
+            <ion-input type="text" [formControl]="field.control"></ion-input>
+          </ion-item>
+        </ng-container>
       </ng-container>
-      <ion-button type="submit" expand="block" [disabled]="!lpgForm.valid">Next</ion-button>
+      <ion-button type="submit" expand="block" [disabled]="!lpgForm.valid">Recharge</ion-button>
     </form>
-  </ng-container>
-  <ng-container *ngIf="lpgFormSubmitted">
-    <div id="lpg-details">
-      <img [src]="'assets/gas-images/' + operator.id  + '.png'" id="gas-image" #gasImage
-        (error)="gasImage.src = 'assets/gas-images/default-gas.png'" />
-      <h2>{{ operator.name}}</h2>
-      <div class="detail">
-        <h3>Customer ID</h3>
-        <p>{{ lpgForm.get('canumber').value }}</p>
-      </div>
-      <div class="detail">
-        <h3>Customer Name</h3>
-        <p>{{ customerName }}</p>
-      </div>
-      <div *ngIf="lpgForm.get('ad1').value" class="detail">
-        <h3>{{ operator.ad1_d_name }}</h3>
-        <p>{{ lpgForm.get('ad1').value }}</p>
-      </div>
-      <div *ngIf="lpgForm.get('ad2').value" class="detail">
-        <h3>{{ operator.ad2_d_name }}</h3>
-        <p>{{ lpgForm.get('ad2').value }}</p>
-      </div>
-      <div *ngIf="lpgForm.get('ad3').value" class="detail">
-        <h3>{{ operator.ad3_d_name }}</h3>
-        <p>{{ lpgForm.get('ad3').value }}</p>
-      </div>
-      <div class="detail">
-        <h3>Payable Amount</h3>
-        <p>₹{{ amount }}</p>
-      </div>
-    </div>
-    <ion-button expand="block" (click)="recharge()">Pay ₹{{ amount }}</ion-button>
   </ng-container>
 </ion-content>

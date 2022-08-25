@@ -1,5 +1,13 @@
 [
 	{
+		"pkg": "@capacitor-community/contacts",
+		"classpath": "ch.byrds.capacitor.contacts.Contacts"
+	},
+	{
+		"pkg": "@capacitor-community/fcm",
+		"classpath": "com.getcapacitor.community.fcm.FCMPlugin"
+	},
+	{
 		"pkg": "@capacitor-community/native-audio",
 		"classpath": "com.getcapacitor.community.audio.NativeAudio"
 	},
@@ -8,8 +16,16 @@
 		"classpath": "com.capacitorjs.plugins.app.AppPlugin"
 	},
 	{
+		"pkg": "@capacitor/browser",
+		"classpath": "com.capacitorjs.plugins.browser.BrowserPlugin"
+	},
+	{
 		"pkg": "@capacitor/camera",
 		"classpath": "com.capacitorjs.plugins.camera.CameraPlugin"
+	},
+	{
+		"pkg": "@capacitor/geolocation",
+		"classpath": "com.capacitorjs.plugins.geolocation.GeolocationPlugin"
 	},
 	{
 		"pkg": "@capacitor/haptics",
@@ -18,6 +34,10 @@
 	{
 		"pkg": "@capacitor/keyboard",
 		"classpath": "com.capacitorjs.plugins.keyboard.KeyboardPlugin"
+	},
+	{
+		"pkg": "@capacitor/push-notifications",
+		"classpath": "com.capacitorjs.plugins.pushnotifications.PushNotificationsPlugin"
 	},
 	{
 		"pkg": "@capacitor/splash-screen",

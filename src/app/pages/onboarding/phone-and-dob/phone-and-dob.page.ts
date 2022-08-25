@@ -31,7 +31,7 @@ export class PhoneAndDobPage implements OnInit {
 
   submit(): void {
     this.loaderService.start('Setting up...');
-    this.onboardingService.setPhoneAndDobDetails(this.phoneAndDobForm.value.mobileNumber,this.phoneAndDobForm.value.dob).then(() => {
+    this.onboardingService.setPhoneAndDobDetails(this.phoneAndDobForm.value.mobileNumber,new Date(this.phoneAndDobForm.value.dob)).then(() => {
       this.alertService.presentToast(
         'Phone and DOB added successfully.',
         'info'

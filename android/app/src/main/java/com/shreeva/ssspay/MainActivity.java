@@ -2,7 +2,6 @@ package com.shreeva.ssspay;
 
 import static com.shreeva.ssspay.RdIntegration.sendData;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,13 +15,18 @@ import com.ahm.capacitor.biometric.BiometricAuth;
 
 import org.chromium.base.Promise;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -48,6 +52,7 @@ public class MainActivity extends BridgeActivity {
         add(GoogleAuth.class);
         add(BiometricAuth.class);
         add(Contacts.class);
+        add(com.capacitorjs.plugins.camera.CameraPlugin.class);
       }
     });
   }
@@ -116,14 +121,29 @@ public class MainActivity extends BridgeActivity {
     toast.show();
   }
 
-  void getFingerPrint() {
-    showLogInfoDialog("DBXL Starting finger capture", "Now");
-    Intent intent = new Intent("in.gov.uidai.rdservice.fp.CAPTURE");
-    intent.setPackage("com.scl.rdservice");
-    String responseXml = "<?xml version=\"1.0\"?><PidOptions ver=\"2.0\"><Opts fCount=\"1\" fType=\"2\" iCount=\"0\" pCount=\"0\" format=\"0\" pidVer=\"2.0\" timeout=\"10000\" env=\"P\" /><CustOpts></CustOpts></PidOptions>";
-    intent.putExtra("PID_OPTIONS", responseXml);
-    startActivityForResult(intent, 2);
-    showLogInfoDialog("DBXL Started finger capture", "Now");
+  void getFingerPrint(String type) {
+    Context context = getApplicationContext();
+    CharSequence text = type;
+    int duration = Toast.LENGTH_LONG;
+    Toast toast = Toast.makeText(context, text, duration);
+    toast.show();
+    if (Objects.equals(type, "morpho")){
+      System.out.println("RDTYPE "+type);
+      Intent intent = new Intent("in.gov.uidai.rdservice.fp.CAPTURE");
+      intent.setPackage("com.scl.rdservice");
+      String responseXml = "<?xml version=\"1.0\"?><PidOptions ver=\"2.0\"><Opts fCount=\"1\" fType=\"2\" iCount=\"0\" pCount=\"0\" format=\"0\" pidVer=\"2.0\" timeout=\"10000\" env=\"P\" /><CustOpts></CustOpts></PidOptions>";
+      intent.putExtra("PID_OPTIONS", responseXml);
+      startActivityForResult(intent, 2);
+    } else if (Objects.equals(type, "mantra")) {
+      System.out.println("RDTYPE "+type);
+      Intent intent = new Intent("in.gov.uidai.rdservice.fp.CAPTURE");
+      intent.setPackage("com.mantra.rdservice");
+      String responseXml = "<?xml version=\"1.0\"?><PidOptions ver=\"2.0\"><Opts fCount=\"1\" fType=\"2\" iCount=\"0\" pCount=\"0\" format=\"0\" pidVer=\"2.0\" timeout=\"10000\" env=\"P\" /><CustOpts></CustOpts></PidOptions>";
+      intent.putExtra("PID_OPTIONS", responseXml);
+      startActivityForResult(intent, 2);
+    } else {
+      System.out.println("RDTYPE None "+type);
+    }
   }
 
   public void getDevicesInfo() {
@@ -180,15 +200,5 @@ public class MainActivity extends BridgeActivity {
     }
     return "FAILED";
   }
-
-  // public String getFingerPrint() {
-  // try {
-  // deviceInfo();
-  // } catch (Exception e) {
-  // e.printStackTrace();
-  // return "RD services not available";
-  // }
-  // return "FAILED";
-  // }
 
 }

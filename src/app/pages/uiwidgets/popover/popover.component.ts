@@ -7,13 +7,12 @@ import { PopoverController } from '@ionic/angular';
   styleUrls: ['./popover.component.scss'],
 })
 export class PopoverComponent implements OnInit {
-
-  constructor(private popovercntrl:PopoverController) { }
+  constructor(private popoverController: PopoverController) {}
 
   ngOnInit() {}
-  dismis(item:string){
-this.popovercntrl.dismiss({
-  "status":item
-})
+  dismiss(item: string) {
+    this.popoverController.dismiss({
+      status: 'delete',
+    });
   }
 }

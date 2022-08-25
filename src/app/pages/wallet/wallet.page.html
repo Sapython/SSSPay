@@ -2,16 +2,24 @@
 <ion-content color="light">
   <ion-card class="container">
     <div class="inner-container">
-      <ion-label>Total Assets</ion-label>
-      <p id="amount">{{currency}}{{' '}}{{amount}}</p>
+      <ion-label>{{dataProvider.wallet ? 'Total Assets' : 'No Wallet Found'}}</ion-label>
+      <p id="amount" *ngIf="dataProvider.wallet">{{currency}}{{' '}}{{dataProvider.wallet.balance}}</p>
+      <ion-button *ngIf="!dataProvider.wallet" (click)="createWallet()" expand="block" fill="solid" shape="round" color="light">
+        Create Wallet
+      </ion-button>
+      <ion-button *ngIf="dataProvider.wallet" (click)="addMoney()" expand="block" fill="solid" shape="round" color="light">
+        Add Money
+      </ion-button>
     </div>
-    <ion-icon name="refresh-circle-outline"></ion-icon>
+    <ion-icon name="wallet"></ion-icon>
   </ion-card>
   <p id="amount">Transactions</p>
-  <app-transaction-widget *ngFor=" let transaction of transactions" [image]="transaction.image"
-    [time]="transaction.time" [purpose]="transaction.purpose" [amount]="transaction.amount"
-    [status]="transaction.status" [sign]="transaction.sign" [name]="transaction.name"
-    routerLink="../transaction-status">
-  </app-transaction-widget>
-  
+  <app-history-component routerLink="detail/{{transaction.id}}" *ngFor="let transaction of transactions" [status]="transaction.title"
+      [date]="transaction.date.toDate()" [receiver]="transaction.receiver" [paymentStatus]="transaction.status" [description]="transaction.description" [type]="transaction.type" [amount]="transaction.amount"></app-history-component>
+  <ng-container *ngIf="transactions.length == 0">
+    <img src="/assets/no-notification.svg" alt="No Transactions Found">
+    <ion-text color="medium">
+      <h2 class="ion-text-center">No Transactions Found</h2>
+    </ion-text>
+  </ng-container>
 </ion-content>

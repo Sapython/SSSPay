@@ -11,6 +11,9 @@ import {
   updateDoc,
   arrayUnion,
   arrayRemove,
+  deleteDoc,
+  setDoc,
+  increment,
 } from '@angular/fire/firestore';
 import {
   getDownloadURL,
@@ -21,6 +24,7 @@ import {
 import { DataProvider } from '../providers/data.provider';
 import { Analytics, logEvent } from '@angular/fire/analytics';
 import { AlertsAndNotificationsService } from './uiService/alerts-and-notifications.service';
+import { UserData } from '../structures/user.structure';
 
 @Injectable({
   providedIn: 'root',
@@ -145,20 +149,76 @@ export class DatabaseService {
   setAsPrimaryAccount(data) {
     return updateDoc(doc(this.fs, '/users/' + this.dataProvider.userID), {
       primaryPayoutAccount: data,
-      payoutDetailsCompleted:this.dataProvider.userData.payoutFundAccount?.length > 0 ? true:false
+      payoutDetailsCompleted:
+        this.dataProvider.userData.payoutFundAccount?.length > 0 ? true : false,
     });
   }
 
   addFundAccount(data) {
     return updateDoc(doc(this.fs, '/users/' + this.dataProvider.userID), {
       payoutFundAccount: arrayUnion(data),
-      payoutDetailsCompleted:true
+      payoutDetailsCompleted: true,
     });
   }
   removeFundAccount(data) {
     return updateDoc(doc(this.fs, '/users/' + this.dataProvider.userID), {
       payoutFundAccount: arrayRemove(data),
-      payoutDetailsCompleted:this.dataProvider.userData.payoutFundAccount?.length > 0 ? true:false
+      payoutDetailsCompleted:
+        this.dataProvider.userData.payoutFundAccount?.length > 0 ? true : false,
     });
+  }
+  updateUserData(userdata: UserData) {
+    return updateDoc(
+      doc(this.fs, '/users/' + this.dataProvider.userID),
+      userdata
+    );
+  }
+
+  getNotifications() {
+    return getDocs(
+      query(
+        collection(
+          this.fs,
+          'users/' + this.dataProvider.userData.userId + '/notifications'
+        ),
+        orderBy('time', 'desc')
+      )
+    );
+  }
+
+  deleteNotification(id) {
+    return deleteDoc(
+      doc(
+        this.fs,
+        'users/' + this.dataProvider.userData.userId + '/notifications/' + id
+      )
+    );
+  }
+  createWallet() {
+    return setDoc(
+      doc(
+        this.fs,
+        'users/' + this.dataProvider.userData.userId + '/wallet/wallet'
+      ),
+      {
+        balance: 0,
+      }
+    );
+  }
+
+  addTestMoney() {
+    return updateDoc(
+      doc(
+        this.fs,
+        '/users/' + this.dataProvider.userData.userId + '/wallet/wallet'
+      ),
+      {
+        balance: increment(5000),
+      }
+    );
+  }
+
+  getLog() {
+    return getDoc(doc(this.fs, '/logs/qwJbZ7EheiaEp23cDY3l'));
   }
 }

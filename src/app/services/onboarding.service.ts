@@ -67,7 +67,7 @@ export class OnboardingService {
       return error;
     }
   }
-  setPhoneAndDobDetails(phone: number, dob: string) {
+  setPhoneAndDobDetails(phone: number, dob: Date) {
     return setDoc(
       doc(this.fs, `users/${this.dataProvider.userData.userId}`),
       {
@@ -96,5 +96,13 @@ export class OnboardingService {
       },
       { merge: true }
     );
+  }
+  
+  photoDone(selfieImage:string,shopImage:string){
+    return updateDoc(doc(this.fs, '/users/' + this.dataProvider.userID), {
+      selfieImage:selfieImage,
+      shopImage:shopImage,
+      onboardingSteps: {...this.dataProvider.userData.onboardingSteps,photosDone:true}
+    });
   }
 }

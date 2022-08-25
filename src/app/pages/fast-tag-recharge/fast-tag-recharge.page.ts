@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DataProvider } from 'src/app/providers/data.provider';
+import { LocationService } from 'src/app/services/location.service';
+import { ServerService } from 'src/app/services/server.service';
+import { TransactionService } from 'src/app/services/transaction.service';
+import { AlertsAndNotificationsService } from 'src/app/services/uiService/alerts-and-notifications.service';
 
 @Component({
   selector: 'app-fast-tag-recharge',
@@ -6,63 +12,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./fast-tag-recharge.page.scss'],
 })
 export class FastTagRechargePage implements OnInit {
-public banks=[
-  {
-    id:1,
-    name:'Axic bank Fastag',
-    Image:'../../../assets/banks/axisbank.svg'
-  },
-  {
-    id:2,
-    name:'Bank of Baroda',
-    Image:'../../../assets/banks/BOB.svg'
-  },
-  {
-    id:3,
-    name:'HDFC Bank',
-    Image:'../../../assets/banks/hdfc.svg'
-  },
-  {
-    id:4,
-    name:'State Bank Of India',
-    Image:'../../../assets/banks/sbi.svg'
-  },
-  {
-    id:5,
-    name:'UCO Bank',
-    Image:'https://www.logotaglines.com/wp-content/uploads/2016/08/UCO-Bank-Logo.jpg'
-  },
-  {
-    id:6,
-    name:'Syndicate Bank',
-    Image:'https://www.logotaglines.com/wp-content/uploads/2016/08/Syndicate-Bank-Loog.png'
-  },
-  {
-    id:7,
-    name:'Punjab National Bank ',
-    Image:'https://static.toiimg.com/photo/msid-74887573/74887573.jpg'
-  },
-  {
-    id:8,
-    name:'Canara Bank',
-    Image:'https://www.logotaglines.com/wp-content/uploads/2016/08/wp-1470410546498.jpg'
-  }
-
-]
-  constructor() { }
+public banks=[]
+  constructor(
+    private alertService: AlertsAndNotificationsService,
+    private router: Router,
+    private dataProvider: DataProvider,
+    private locationService: LocationService,
+    private serverService:ServerService,
+    private transactionService:TransactionService
+  ) { }
 
   ngOnInit() {
+    
   }
 
 }
-
-
-
-// <app-bank-widget class="ion-text-center" [name]="'ICICI bank'" [image]="'../../../assets/banks/icici.svg'" routerLink="../payment-status"></app-bank-widget>
-// <app-bank-widget class="ion-text-center" [name]="'Bank of Boroda'" [image]="'../../../assets/banks/BOB.svg'" routerLink="../payment-status"></app-bank-widget>
-// <app-bank-widget class="ion-text-center" [name]="'HDFC Bank - Fastag'" [image]="'../../../assets/banks/hdfc.svg'"></app-bank-widget>
-// <app-bank-widget class="ion-text-center" [name]="'State bank of india'" [image]="'../../../assets/banks/sbi.svg'"></app-bank-widget>
-// <app-bank-widget class="ion-text-center" [name]="'kanad bank'" [image]="'../../../assets/banks/icici.svg'"></app-bank-widget>
-// <app-bank-widget class="ion-text-center" [name]="'HDFC Bank - Fastag'" [image]="'../../../assets/banks/hdfc.svg'"></app-bank-widget>
-// <app-bank-widget class="ion-text-center" [name]="'State bank of india'" [image]="'../../../assets/banks/sbi.svg'"></app-bank-widget>
-// <app-bank-widget class="ion-text-center" [name]="'kanad bank'" [image]="'../../../assets/banks/icici.svg'"></app-bank-widget>

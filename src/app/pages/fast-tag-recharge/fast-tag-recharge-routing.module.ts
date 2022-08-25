@@ -15,14 +15,9 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'enter-canumber',
-    loadChildren: () => import('./enter-canumber/enter-canumber.module').then( m => m.EnterCanumberPageModule)
-  },  {
-    path: 'details',
-    loadChildren: () => import('./details/details.module').then( m => m.DetailsPageModule)
+    path: 'pay-bill',
+    loadChildren: () => import('./pay-bill/pay-bill.module').then( m => m.PayBillPageModule)
   },
-
-
 ];
 
 @NgModule({

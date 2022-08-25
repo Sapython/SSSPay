@@ -1,5 +1,4 @@
 .container{
-    background-color: #ebf7f4;
     padding: 02%;
 }
 .box p{
@@ -11,4 +10,10 @@
 ion-content{
     margin: 0;
     padding: 0;
+}
+.topBar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }

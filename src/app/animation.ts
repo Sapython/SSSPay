@@ -1,7 +1,7 @@
 import { AnimationController, Animation, createAnimation } from '@ionic/angular';
 
 export const enterAnimation = (baseEl: HTMLElement, opts?: any): Animation => {
-  const DURATION = 1000;
+  const DURATION = 500;
   const animationCtrl = new AnimationController();
   if (opts.direction === 'forward') {
     return animationCtrl
@@ -10,34 +10,25 @@ export const enterAnimation = (baseEl: HTMLElement, opts?: any): Animation => {
       .duration(DURATION)
       .easing('ease-in-out')
       .fromTo('transform', "translateX(100%)", "translateX(0%)")
-    //   .fromTo('offset', 0, 1)
-    //   .fromTo('z-index', 99999,999999)
       .fromTo('opacity',0,1)
-    //   .fromTo('position', 'absolute', 'absolute')
-    //   .fromTo('left', "-100px", "0px");
   } else {
     const rootAnimation = animationCtrl
       .create()
       .addElement(opts.enteringEl)
       .duration(DURATION)
+      .fromTo('position', 'fixed', 'fixed')
       .fromTo('transform', "translateX(100%)", "translateX(0%)")
       .fromTo('offset', 0, 1)
-      .fromTo('z-index', 99999,999999)
+      .fromTo('z-index', 999999,999999)
       .fromTo('opacity',0,1)
-    // .fromTo('position', 'absolute', 'absolute')
-    //   .fromTo('left', "-100px", "0px");
     const leavingAnimation = animationCtrl
       .create()
       .addElement(opts.leavingEl)
       .duration(DURATION)
       .fromTo('transform', "translateX(+)", "translateX(0%)")
       .fromTo('offset', 0, 1)
-      .fromTo('z-index', 99999,999999)
+      .fromTo('z-index', 999999,999999)
       .fromTo('opacity',0,1)
-    //   .fromTo('transform', "translateX(0%)", "translateX(-200%)");
-    // .fromTo('position', 'absolute', 'absolute')
-    //   .fromTo('left', "0px", "-100px");
-
     return animationCtrl.create().addAnimation([leavingAnimation,rootAnimation]);
   }
 };

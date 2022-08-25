@@ -27,11 +27,14 @@ import { providePerformance, getPerformance } from '@angular/fire/performance';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ServerService } from './services/server.service';
 import { enterAnimation, pageTransition } from './animation';
-@NgModule({
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { NotificationService } from './services/notification.service';
+import { MemberManagementService } from './services/member-management.service';
+@NgModule({   
     declarations: [AppComponent],
     imports: [
         BrowserModule,
-        IonicModule.forRoot({ animated: true, navAnimation: pageTransition }),
+        IonicModule.forRoot({ animated: true,navAnimation: pageTransition }),
         AppRoutingModule,
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         provideAnalytics(() => getAnalytics()),
@@ -41,6 +44,12 @@ import { enterAnimation, pageTransition } from './animation';
         provideStorage(() => getStorage()),
         provideMessaging(() => getMessaging()),
         providePerformance(() => getPerformance()),
+        ServiceWorkerModule.register('firebase-messaging-sw.js', {
+          enabled: true,
+          // Register the ServiceWorker as soon as the application is stable
+          // or after 30 seconds (whichever comes first).
+          registrationStrategy: 'registerWhenStable:3000'
+        }),
     ],
     providers: [
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
@@ -53,6 +62,8 @@ import { enterAnimation, pageTransition } from './animation';
         AlertsAndNotificationsService,
         Geolocation,
         ServerService,
+        NotificationService,
+        MemberManagementService
     ],
     bootstrap: [AppComponent]
 })

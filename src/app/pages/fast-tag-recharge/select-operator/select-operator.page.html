@@ -1,12 +1,22 @@
 <app-header page="FASTag Recharge"></app-header>
 <ion-content color="light">
-  <h1>Select FASTag Operator</h1>
-  <app-bank-widget
-    *ngFor="let operator of operators"
-    [name]="operator.name"
-    [image]="'assets/fastag-operators/' + operator.id + '.png'"
-    defaultImage="assets/fastag-operators/default.png"
-    routerLink="../enter-canumber"
-    (click)="fastagService.operatorSelected = operator"
-  ></app-bank-widget>
+  <div class="container">
+    <div class="sticky">
+      <div class="ion-padding">
+        <ion-text color="primary">
+          <h1>FasTag</h1>
+        </ion-text>
+      </div>
+      <ion-item>
+        <ion-label>Customer Number <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input type="text" required #caNumber></ion-input>
+      </ion-item>
+    </div>
+    <ion-list *ngIf="caNumber.value != ''">
+      <h6><b>Select your fast tag provider name</b></h6>
+      <ion-item detail *ngFor="let item of operators" button (click)="bankSelected(item,caNumber.value)">
+        <ion-label>{{item.name}}</ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>

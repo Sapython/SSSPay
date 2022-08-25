@@ -1,0 +1,65 @@
+<ion-content>
+  <form [formGroup]="addNewMemberForm" (ngSubmit)="submit()">
+    <ion-list class="ion-padding">
+      <ion-item>
+        <ion-label position="floating">Display Picture</ion-label>
+        <ion-input type="file" (change)="photo = $event" formControlName="displayName" placeholder="Display Picture"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Name</ion-label>
+        <ion-input type="text" formControlName="displayName" placeholder="Full Name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" formControlName="email" placeholder="Email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Phone Number</ion-label>
+        <ion-input type="phone" formControlName="phoneNumber" placeholder="Phone Number"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Date of Birth</ion-label>
+        <ion-input type="date" formControlName="dob" placeholder="Date Of Birth"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Gender</ion-label>
+        <ion-select value="male" formControlName="gender" multiple="false" placeholder="Select gender">
+          <ion-select-option value="male">Male</ion-select-option>
+          <ion-select-option value="female">Female</ion-select-option>
+          <ion-select-option value="other">Other</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Access</ion-label>
+        <ion-select multiple="false" formControlName="access" placeholder="Select Access">
+          <ion-select-option [value]="access" *ngFor="let access of allowedAccess()">{{access}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">State</ion-label>
+        <ion-input type="text" formControlName="state" placeholder="State"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">City</ion-label>
+        <ion-input type="text" formControlName="city" placeholder="City"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Pin Code</ion-label>
+        <ion-input type="text" formControlName="pincode" placeholder="Pin Code"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Address</ion-label>
+        <ion-input type="text" formControlName="address" placeholder="Address"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="text" formControlName="password" placeholder="Password"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Confirm Password</ion-label>
+        <ion-input type="text" formControlName="confirmPassword" placeholder="Confirm Password"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-button expand="block" type="submit" color="primary" class="ion-margin-top">Add Member</ion-button>
+  </form>
+</ion-content>

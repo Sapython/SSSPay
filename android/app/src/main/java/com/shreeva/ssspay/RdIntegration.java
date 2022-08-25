@@ -24,16 +24,16 @@ public class RdIntegration extends Plugin {
 
   @PluginMethod()
   public void getFingerPrint(PluginCall call) throws InterruptedException {
+    String type = call.getString("value");
     mainCall = call;
-    String value = call.getString("fingerprint");
+    String value = call.getString("type");
     // ((MainActivity) getActivity()).getDevicesInfo();
-    ((MainActivity)getActivity()).getFingerPrint();
+    ((MainActivity)getActivity()).getFingerPrint(value);
     call.setKeepAlive(true);
   }
 
   public static void sendData(String data) {
     JSObject ret = new JSObject();
-    ret.put("value", data);
     ret.put("fingerprint", data);
     mainCall.resolve(ret);
   }

@@ -18,13 +18,11 @@ export class UserDataService {
     this.usersDoc = collection(this.firestore,'users');
   }
 
-  public async setUserData(user:User){
-    this.dataProvider.pageSetting.blur = true;
-    this.dataProvider.pageSetting.lastRedirect = '';
+  public async setUserData(user:User,name?:string){
     let data:UserData = {
       userId: user.uid,
         email: user.email || '',
-        displayName: user.displayName || '',
+        displayName: name || user.displayName || '',
         photoURL: user.photoURL || this.getRandomImage(),
         phoneNumber: '',
         dob: new Date(),
@@ -43,22 +41,27 @@ export class UserDataService {
         state:'',
         panCardNumber:'',
         onboardingDone:false,
-        kycStatus:'pending',
+        selfieImage: '',
+        shopImage: '',
+        kycStatus:'incomplete',
+        qrCode:'',
+        memberAssigned:false,
         onboardingSteps: {
           phoneDobDone: false,
           panDone: false,
           locationDone: false,
           aadhaarDone: false,
+          photosDone: false,
         },
         payoutDetailsCompleted:false,
         primaryPayoutAccount:null,
         payoutFundAccount:[],
+        
     }
     this.userDoc  = doc(this.firestore,'users/'+user.uid);
     await setDoc(this.userDoc,data).then(()=>{
       this.alertify.presentToast('User data set successfully')
     });
-    this.dataProvider.pageSetting.blur = false;
   }
 
   getRandomImage():string{

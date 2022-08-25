@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, NavController, Platform } from '@ionic/angular';
 import { DataProvider } from 'src/app/providers/data.provider';
@@ -14,10 +14,17 @@ export class HeaderComponent implements OnInit {
   @Input() backButton:boolean = false;
   @Input() onlyTitle:boolean = false;
   @Input() isModal:boolean = false;
+  @Input() backButtonAction:any;
+  @Output() back:EventEmitter<any> = new EventEmitter();
   @ViewChild('cam') camera: any;
-  
+  access = [
+    'admin',
+    'superDistributor',
+    'masterDistributor',
+    'distributor'
+  ];
   constructor(private platform: Platform, private route: Router,public dataProvider:DataProvider,private navController: NavController,private modalController:ModalController) {}
-
+  allowMemberAccess(){return this.access.includes(this.dataProvider.userData?.access.access)}
   ngOnInit() {
     // if(!this.pageName){
     //   alert('Page name is not provided')
@@ -29,6 +36,7 @@ export class HeaderComponent implements OnInit {
     this.modalController.dismiss()
   }
   goBack() {
+    this.back.emit()
     this.navController.setDirection('back');
     console.log(window.location.pathname);
     if (window.location.pathname.startsWith('/history/detail/')){

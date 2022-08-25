@@ -14,6 +14,7 @@ export const environment = {
   },
   production: false,
   serverBaseUrl: 'http://localhost:8081',
+  // serverBaseUrl: 'https://ssspay-proxy-server-76zqkqboia-em.a.run.app',
 };
 
 /*

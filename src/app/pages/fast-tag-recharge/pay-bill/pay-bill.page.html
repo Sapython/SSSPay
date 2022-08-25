@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-button slot="start" (click)="modalController.dismiss()" expand="block" fill="clear" shape="round">
+    <ion-icon color="contrast" name="arrow-back-outline"></ion-icon>
+  </ion-button>
+  <ion-toolbar color="primary">
+    <ion-title>Pay Bill</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>{{billData.name}}</ion-card-subtitle>
+      <ion-card-title>{{billData.amount}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>Accept Part Pay</ion-label>
+          <ion-chip color="primary" mode="ios" outline="true">
+            <ion-label>{{billData.bill_fetch.acceptPartPay}}</ion-label>
+          </ion-chip>
+        </ion-item>
+        <ion-item>
+          <ion-label>Payment Allowed</ion-label>
+          <ion-chip color="primary" mode="ios" outline="true">
+            <ion-label>{{billData.bill_fetch.acceptPayment}}</ion-label>
+          </ion-chip>
+        </ion-item>
+        <ion-item>
+          <ion-label>Bill Amount</ion-label>
+          <ion-chip color="primary" mode="ios" outline="true">
+            <ion-label>{{billData.bill_fetch.billAmount}}</ion-label>
+          </ion-chip>
+        </ion-item>
+        <ion-item>
+          <ion-label>Cell Number</ion-label>
+          <ion-chip color="primary" mode="ios" outline="true">
+            <ion-label>{{billData.bill_fetch.cellNumber}}</ion-label>
+          </ion-chip>
+        </ion-item>
+        <ion-item>
+          <ion-label>Due Date</ion-label>
+          <ion-chip color="primary" mode="ios" outline="true">
+            <ion-label>{{billData.bill_fetch.dueDate}}</ion-label>
+          </ion-chip>
+        </ion-item>
+        <ion-item>
+          <ion-label>Max Bill Amount</ion-label>
+          <ion-chip color="primary" mode="ios" outline="true">
+            <ion-label>{{billData.bill_fetch.maxBillAmount}}</ion-label>
+          </ion-chip>
+        </ion-item>
+        <ion-item>
+          <ion-label>User Name</ion-label>
+          <ion-chip color="primary" mode="ios" outline="true">
+            <ion-label>{{billData.bill_fetch.userName}}</ion-label>
+          </ion-chip>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+    <ion-button (click)="payBill()" expand="full" fill="solid" shape="round">
+      Pay Bill
+    </ion-button>
+  </ion-card>
+</ion-content>

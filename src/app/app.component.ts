@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { AuthenticationService } from './services/authentication.service';
 import { DatabaseService } from './services/database.service';
 import { SplashScreen } from '@capacitor/splash-screen';
@@ -8,9 +8,9 @@ import { Platform } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { DataProvider } from './providers/data.provider';
-import { Contacts, PermissionStatus } from '@capacitor-community/contacts'
 import { AlertsAndNotificationsService } from './services/uiService/alerts-and-notifications.service';
-
+import { NotificationService } from './services/notification.service';
+import { App, URLOpenListenerEvent } from '@capacitor/app';
 
 export interface RdServicePlugin {
   getDeviceInfo(): Promise<{ value: string }>;
@@ -30,7 +30,8 @@ export class AppComponent implements OnInit {
     'register',
     'forgot-password',
     'reset-password',
-    'verify-email'
+    'verify-email',
+    'splashscreen'
   ]
   showHeaders:boolean = false;
   constructor(
@@ -39,8 +40,14 @@ export class AppComponent implements OnInit {
     private databaseService: DatabaseService,
     private router: Router,
     public dataProvider: DataProvider,
-    private alertify:AlertsAndNotificationsService
+    private alertify:AlertsAndNotificationsService,
+    private notificationService:NotificationService,
+    private zone:NgZone
   ) {
+    this.initializeApp();
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register("/serviceworker.js");
+    }
     this.router.events.subscribe((val) => {
       this.showHeaders = !this.noHeaders.includes(window.location.pathname.replace('/', ''));
       // console.log("changed",this.showHeaders);
@@ -55,22 +62,27 @@ export class AppComponent implements OnInit {
         });
       })
     } else if (this.platform.is('capacitor')) {
-      Contacts.getPermissions().then((permission:PermissionStatus)=>{
-        if(permission.granted){
-          this.alertify.presentToast('Permission granted');
-        }else{
-          this.alertify.presentToast('Permission denied');
-        }
-      })
+      // Contacts.getPermissions().then((permission:PermissionStatus)=>{
+      //   alert(permission.granted) 
+      //   if(permission.granted){
+      //     this.alertify.presentToast('Permission granted');
+      //   }else{
+      //     this.alertify.presentToast('Permission denied');
+      //   }
+      // })
     }
+    // alert('Started getting user data')
     this.authService.user.subscribe((user) => {
+      // alert('Got user data')
       if (user) {
         this.databaseService.getUser(user.uid).then((user) => {
-          SplashScreen.hide();
           this.router.navigate(['homepage']);
+          // if (user.data().messageToken == undefined){
+          //   this.notificationService.startNotificationService();
+          // }
+          this.notificationService.startNotificationService();
         });
-      } else {
-        SplashScreen.hide();
+      } else if (dataProvider.gotUserData) {
         if (environment.production){
           this.router.navigate(['login']);
         } else {
@@ -78,6 +90,18 @@ export class AppComponent implements OnInit {
         }
       }
     });
+  }
+  initializeApp(){
+    App.addListener('appUrlOpen', (event: URLOpenListenerEvent) => {
+      this.zone.run(() => {
+          const slug = event.url.split(".app").pop();
+          if (slug) {
+              this.router.navigateByUrl(slug);
+          }
+          // If no match, do nothing - let regular routing
+          // logic take over
+      });
+  });
   }
   async ngOnInit() {
     // if (this.platform.is('capacitor')) {

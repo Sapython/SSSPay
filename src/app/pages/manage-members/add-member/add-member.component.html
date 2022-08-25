@@ -1,0 +1,32 @@
+<ion-content class="ion-padding">
+  <ion-searchbar placeholder="Filter Users" inputmode="search" type="search" (ionChange)="searchUser($event)"
+    [debounce]="250" showCancelButton="focus"></ion-searchbar>
+  <ion-list>
+    <ion-item button (click)="selected(user)" detail
+      *ngFor="let user of filteredMembers.length > 0 ? filteredMembers : members">
+      <ion-avatar slot="start">
+        <img [src]="user.photoURL" />
+      </ion-avatar>
+      <ion-label>{{user.displayName}}</ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-popover [isOpen]="isOpen" trigger="context-menu-trigger" triggerAction="context-menu">
+    <ng-template>
+      <div class="ion-padding">
+      <ion-text color="primary">
+        <p>Because your access level is {{dataProvider.userData.access.access}} so you can only select lower access level</p>
+      </ion-text>
+      <ion-item>
+        <ion-label>Select Access Level</ion-label>
+        <ion-select multiple="false" placeholder="Access Level" (ionChange)="accessSelected($event)">
+          <ion-select-option *ngFor="let access of allowedAccess()" [value]="access">{{access}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+        
+      <!-- <ion-item class="ion-padding" *ngFor="let access of allowedAccess()" button (click)="accessSelected(access)">
+        {{access | titlecase}}</ion-item> -->
+      </div>
+    </ng-template>
+  </ion-popover>
+
+</ion-content>

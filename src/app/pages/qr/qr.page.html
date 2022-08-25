@@ -1,7 +1,20 @@
-<app-header pageName="Scan QR" backUrl="../homepage"></app-header>
+<app-header pageName="My QR" backUrl="../homepage"></app-header>
 <ion-content>
-  <input type="text" placeholder="Enter Your Number">
-  <img src="assets/qr.png" alt="">
-  <button>Generate</button>
+  <ion-item>
+    <ion-avatar slot="start">
+      <img [src]="dataProvider.userData?.photoURL" />
+    </ion-avatar>
+    <ion-label>{{dataProvider.userData?.displayName}}</ion-label>
+  </ion-item>
+  <img [src]="dataProvider.userData?.qrCode" *ngIf="dataProvider.userData?.qrCode" alt="Qr">
+  <img class="noQr" src="assets/noQr.svg" alt="No qr code found please register one to continue">
+  <!-- <h6>No qr code found please register one to continue</h6> -->
+  <ion-item>
+    <ion-label>Amount</ion-label>
+    <ion-input type="number" [(ngModel)]="amount"></ion-input>
+  </ion-item>
+  <ion-button (click)="registerQrCode()" [disabled]="" expand="full" fill="solid">
+    Request QR code
+  </ion-button>
 </ion-content>
 
