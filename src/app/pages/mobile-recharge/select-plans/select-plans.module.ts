@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { SelectPlansPageRoutingModule } from './select-plans-routing.module';
 
-import { SelectPlansPage } from './select-plans.page';
+// import { SelectPlansPage } from './select-plans.page';
 
 @NgModule({
   imports: [
@@ -15,6 +15,6 @@ import { SelectPlansPage } from './select-plans.page';
     IonicModule,
     SelectPlansPageRoutingModule
   ],
-  declarations: [SelectPlansPage]
+  declarations: []
 })
 export class SelectPlansPageModule {}

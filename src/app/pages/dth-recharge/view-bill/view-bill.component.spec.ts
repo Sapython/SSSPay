@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { RechargePage } from './recharge.page';
+import { ViewBillComponent } from './view-bill.component';
 
-describe('RechargePage', () => {
-  let component: RechargePage;
-  let fixture: ComponentFixture<RechargePage>;
+describe('ViewBillComponent', () => {
+  let component: ViewBillComponent;
+  let fixture: ComponentFixture<ViewBillComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ RechargePage ],
+      declarations: [ ViewBillComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(RechargePage);
+    fixture = TestBed.createComponent(ViewBillComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

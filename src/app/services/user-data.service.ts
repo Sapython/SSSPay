@@ -46,6 +46,7 @@ export class UserDataService {
         kycStatus:'incomplete',
         qrCode:'',
         memberAssigned:false,
+        dailyPayoutLeft:1,
         onboardingSteps: {
           phoneDobDone: false,
           panDone: false,

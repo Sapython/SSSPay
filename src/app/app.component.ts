@@ -12,6 +12,11 @@ import { AlertsAndNotificationsService } from './services/uiService/alerts-and-n
 import { NotificationService } from './services/notification.service';
 import { App, URLOpenListenerEvent } from '@capacitor/app';
 
+import {
+  FirebaseDynamicLinks,
+  LinkConfig,
+} from '@pantrist/capacitor-firebase-dynamic-links';
+
 export interface RdServicePlugin {
   getDeviceInfo(): Promise<{ value: string }>;
   getFingerPrint(): Promise<{ fingerprint: string }>;
@@ -31,27 +36,28 @@ export class AppComponent implements OnInit {
     'forgot-password',
     'reset-password',
     'verify-email',
-    'splashscreen'
-  ]
-  showHeaders:boolean = false;
+    'splashscreen',
+  ];
+  showHeaders: boolean = false;
   constructor(
     private authService: AuthenticationService,
     private platform: Platform,
     private databaseService: DatabaseService,
     private router: Router,
     public dataProvider: DataProvider,
-    private alertify:AlertsAndNotificationsService,
-    private notificationService:NotificationService,
-    private zone:NgZone
+    private alertify: AlertsAndNotificationsService,
+    private notificationService: NotificationService,
+    private zone: NgZone
   ) {
-    this.initializeApp();
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register("/serviceworker.js");
+      navigator.serviceWorker.register('/serviceworker.js');
     }
     this.router.events.subscribe((val) => {
-      this.showHeaders = !this.noHeaders.includes(window.location.pathname.replace('/', ''));
+      this.showHeaders = !this.noHeaders.includes(
+        window.location.pathname.replace('/', '')
+      );
       // console.log("changed",this.showHeaders);
-    })
+    });
     if (!this.platform.is('capacitor')) {
       this.platform.ready().then(() => {
         GoogleAuth.initialize({
@@ -60,10 +66,10 @@ export class AppComponent implements OnInit {
           scopes: ['profile', 'email'],
           grantOfflineAccess: true,
         });
-      })
+      });
     } else if (this.platform.is('capacitor')) {
       // Contacts.getPermissions().then((permission:PermissionStatus)=>{
-      //   alert(permission.granted) 
+      //   alert(permission.granted)
       //   if(permission.granted){
       //     this.alertify.presentToast('Permission granted');
       //   }else{
@@ -83,7 +89,7 @@ export class AppComponent implements OnInit {
           this.notificationService.startNotificationService();
         });
       } else if (dataProvider.gotUserData) {
-        if (environment.production){
+        if (environment.production) {
           this.router.navigate(['login']);
         } else {
           this.router.navigate(['homepage']);
@@ -91,17 +97,17 @@ export class AppComponent implements OnInit {
       }
     });
   }
-  initializeApp(){
+  initializeApp() {
     App.addListener('appUrlOpen', (event: URLOpenListenerEvent) => {
       this.zone.run(() => {
-          const slug = event.url.split(".app").pop();
-          if (slug) {
-              this.router.navigateByUrl(slug);
-          }
-          // If no match, do nothing - let regular routing
-          // logic take over
+        const slug = event.url.split('.app').pop();
+        if (slug) {
+          this.router.navigateByUrl(slug);
+        }
+        // If no match, do nothing - let regular routing
+        // logic take over
       });
-  });
+    });
   }
   async ngOnInit() {
     // if (this.platform.is('capacitor')) {
@@ -116,5 +122,19 @@ export class AppComponent implements OnInit {
     //     },5000)
     //   }, 5000);
     // }
+  }
+  createShortLink(): Promise<string> {
+    const config: LinkConfig = {
+      domainUriPrefix: 'https://ssspay.page.link',
+      uri: 'https://ssspay.page.link/upiPaymentComplete',
+    };
+    return FirebaseDynamicLinks.createDynamicShortLink(config).then(
+      (link) => link.value
+    );
+  }
+  listenToDeepLinkOpen() {
+    FirebaseDynamicLinks.addListener('deepLinkOpen', (data) => {
+      console.log("deepLinkOpen",data);
+    });
   }
 }

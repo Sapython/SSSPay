@@ -322,6 +322,42 @@ export class ServerService {
     }
   }
 
+  async aepsCashWithdrawal(transactionId){
+    const requestOptions =  await this.getRequestOptions({transactionId:transactionId});
+    const mainResponse = await fetch(environment.serverBaseUrl + '/aeps/cashWithdrawal',requestOptions)
+    const data = await mainResponse.json()
+    if (data.response_code == 1){
+      console.log("Aeps data ",data)
+      return data
+    } else {
+      throw data
+    }
+  }
+
+  async aepsMiniStatement(transactionId){
+    const requestOptions =  await this.getRequestOptions({transactionId:transactionId});
+    const mainResponse = await fetch(environment.serverBaseUrl + '/aeps/miniStatement',requestOptions)
+    const data = await mainResponse.json()
+    if (data.response_code == 1){
+      console.log("Aeps data ",data)
+      return data
+    } else {
+      throw data
+    }
+  }
+
+  async aepsAadhaarPay(transactionId){
+    const requestOptions =  await this.getRequestOptions({transactionId:transactionId});
+    const mainResponse = await fetch(environment.serverBaseUrl + '/aeps/aadhaarPay',requestOptions)
+    const data = await mainResponse.json()
+    if (data.response_code == 1){
+      console.log("Aeps data ",data)
+      return data
+    } else {
+      throw data
+    }
+  }
+
   async registerQr(){
     const requestOptions =  await this.getRequestOptions({storeName:this.dataProvider.userData.displayName});
     const mainResponse = await fetch(environment.serverBaseUrl + '/qr/registerQr',requestOptions)

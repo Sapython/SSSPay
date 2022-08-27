@@ -16,11 +16,11 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'recharge',
+    path: 'mobile-recharge',
     canActivate: [LoginguardGuard, OnboardingGuard],
     loadChildren: () =>
-      import('./pages/recharge/recharge.module').then(
-        (m) => m.RechargePageModule
+      import('./pages/mobile-recharge/mobile-recharge.module').then(
+        (m) => m.MobileRechargePageModule
       ),
   },
   {
@@ -76,14 +76,6 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/transac-history/transac-history.module').then(
         (m) => m.TransacHistoryPageModule
-      ),
-  },
-  {
-    path: 'recharge',
-    canActivate: [LoginguardGuard, OnboardingGuard],
-    loadChildren: () =>
-      import('./pages/recharge/recharge.module').then(
-        (m) => m.RechargePageModule
       ),
   },
   {
@@ -144,14 +136,6 @@ const routes: Routes = [
     canActivate: [LoginguardGuard, OnboardingGuard],
     loadChildren: () =>
       import('./pages/tv-dth/tv-dth.module').then((m) => m.TvDthPageModule),
-  },
-  {
-    path: 'mobile-recharge',
-    canActivate: [LoginguardGuard, OnboardingGuard],
-    loadChildren: () =>
-      import('./pages/mobile-recharge/mobile-recharge.module').then(
-        (m) => m.MobileRechargePageModule
-      ),
   },
   {
     path: 'view-balance',
@@ -246,14 +230,6 @@ const routes: Routes = [
       import('./pages/profile/profile.module').then((m) => m.ProfilePageModule),
   },
   {
-    path: 'select-recharge-plan',
-    canActivate: [LoginguardGuard, OnboardingGuard],
-    loadChildren: () =>
-      import('./pages/select-recharge-plan/select-recharge-plan.module').then(
-        (m) => m.SelectRechargePlanPageModule
-      ),
-  },
-  {
     path: 'pan-verified',
     canActivate: [LoginguardGuard],
     loadChildren: () =>
@@ -315,7 +291,8 @@ const routes: Routes = [
   {
     path: 'splashscreen',
     loadChildren: () => import('./splashscreen/splashscreen.module').then( m => m.SplashscreenPageModule)
-  },  {
+  },
+  {
     path: 'manage-members',
     loadChildren: () => import('./pages/manage-members/manage-members.module').then( m => m.ManageMembersPageModule)
   },

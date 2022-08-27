@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { DthRechargePageRoutingModule } from './dth-recharge-routing.module';
 
 import { DthRechargePage } from './dth-recharge.page';
+import { ViewBillComponent } from './view-bill/view-bill.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,6 @@ import { DthRechargePage } from './dth-recharge.page';
     FormsModule,
     ReactiveFormsModule,
   ],
-  declarations: [DthRechargePage],
+  declarations: [DthRechargePage,ViewBillComponent],
 })
 export class DthRechargePageModule {}

@@ -8,17 +8,17 @@ import { AlertsAndNotificationsService } from 'src/app/services/uiService/alerts
 import { Transaction } from 'src/app/structures/method.structure';
 
 @Component({
-  selector: 'app-recharge',
-  templateUrl: './recharge.page.html',
-  styleUrls: ['./recharge.page.scss'],
+  selector: 'app-view-bill',
+  templateUrl: './view-bill.component.html',
+  styleUrls: ['./view-bill.component.scss'],
 })
-export class RechargePage implements OnInit {
+export class ViewBillComponent implements OnInit {
   @Input() rechargeData:any;
   @Input() formData:any;
   constructor(public dataProvider: DataProvider,private transactionService:TransactionService,private serverService:ServerService,private router:Router,private modalController:ModalController,private alertify:AlertsAndNotificationsService) { }
   activeId:string = '';
   recharges:any[] = []
-  isModalOpen = false;
+  isModalOpen = true;
   ngOnInit() {
     console.log(this.rechargeData);
     this.rechargeData.info.forEach((element:any) => {

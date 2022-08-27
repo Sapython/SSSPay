@@ -14,43 +14,6 @@ import { Transaction } from 'src/app/structures/method.structure';
   styleUrls: ['./express.page.scss'],
 })
 export class ExpressPage implements OnInit {
-  addPayoutDetailForm: UntypedFormGroup = new UntypedFormGroup({
-    name: new UntypedFormControl(
-      this.dataProvider.userData.primaryPayoutAccount?.name ||
-        this.dataProvider.userData.displayName,
-      [Validators.required]
-    ),
-    email: new UntypedFormControl(
-      this.dataProvider.userData.primaryPayoutAccount?.email ||
-        this.dataProvider.userData.email,
-      [Validators.required]
-    ),
-    contact: new UntypedFormControl(
-      this.dataProvider.userData.primaryPayoutAccount?.contact ||
-        this.dataProvider.userData.phoneNumber,
-      [Validators.required]
-    ),
-    accountType: new UntypedFormControl(
-      this.dataProvider.userData.primaryPayoutAccount?.accountType,
-      [Validators.required]
-    ),
-    bankAccountName: new UntypedFormControl(
-      this.dataProvider.userData.primaryPayoutAccount?.bankAccountName
-    ),
-    accountNumber: new UntypedFormControl(
-      this.dataProvider.userData.primaryPayoutAccount?.accountNumber
-    ),
-    ifsc: new UntypedFormControl(
-      this.dataProvider.userData.primaryPayoutAccount?.ifsc
-    ),
-    vpa: new UntypedFormControl(this.dataProvider.userData.primaryPayoutAccount?.vpa),
-    cardNumber: new UntypedFormControl(
-      this.dataProvider.userData.primaryPayoutAccount?.cardNumber
-    ),
-    cardName: new UntypedFormControl(
-      this.dataProvider.userData.primaryPayoutAccount?.cardName
-    ),
-  });
   addingAccount: boolean = false;
   payoutForm: UntypedFormGroup = new UntypedFormGroup({
     amount: new UntypedFormControl(null, [
@@ -58,9 +21,18 @@ export class ExpressPage implements OnInit {
       Validators.max(this.dataProvider.wallet.balance),
       Validators.min(0),
     ]),
-    account: new UntypedFormControl(null, [Validators.required]),
     description: new UntypedFormControl(null, [Validators.required]),
+    name: new UntypedFormControl(null, [Validators.required]),
+    email: new UntypedFormControl(null, [Validators.required]),
+    contact: new UntypedFormControl(null, [Validators.required]),
+    accountType: new UntypedFormControl(null, [Validators.required]),
+    bankAccountName: new UntypedFormControl(null),
+    accountNumber: new UntypedFormControl(null),
     paymentType: new UntypedFormControl(null),
+    ifsc: new UntypedFormControl(null),
+    vpa: new UntypedFormControl(null),
+    cardNumber: new UntypedFormControl(null),
+    cardName: new UntypedFormControl(null),
   });
   fundAccounts = [];
   constructor(
@@ -75,24 +47,57 @@ export class ExpressPage implements OnInit {
   ngOnInit() {
     this.fundAccounts = [];
     this.fundAccounts = this.dataProvider.userData.payoutFundAccount;
+    this.payoutForm.patchValue(
+      {
+        "amount": 50,
+        "description": "test",
+        "name": "test",
+        "email": "saptampro2003@gmail.com",
+        "contact": "9517457296",
+        "accountType": "vpa",
+        "bankAccountName": null,
+        "accountNumber": null,
+        "ifsc": null,
+        "vpa": "saptampro2003@gmail",
+        "cardNumber": null,
+        "cardName": null
+      }
+    )
+  }
+
+  checkErrors(){
+    // get errors
+    let errors = []
+    Object.keys(this.payoutForm.controls).forEach(key => {
+      const control = this.payoutForm.get(key);
+      if (control.errors) {
+        errors.push(key);
+      }
+    })
+    if (errors.length > 0) {
+      this.alertify.presentToast('Problems with'+errors.join(', '));
+    } else {
+      this.alertify.presentToast('No Problems');
+    }
+    console.log(this.payoutForm.value)
   }
 
   changeControl(event) {
     if (event.detail.value == 'bank_account') {
-      this.addPayoutDetailForm
+      this.payoutForm
         .get('bankAccountName')
         .setValidators([Validators.required]);
-      this.addPayoutDetailForm
+      this.payoutForm
         .get('accountNumber')
-        .setValidators([Validators.required]);
-      this.addPayoutDetailForm.get('ifsc').setValidators([Validators.required]);
+        .setValidators([Validators.required,Validators.pattern('^\d{9,18}$')]);
+      this.payoutForm.get('ifsc').setValidators([Validators.required,Validators.pattern('^[A-Za-z]{4}\d{7}$')]);
     } else if (event.detail.value == 'vpa') {
-      this.addPayoutDetailForm.get('vpa').setValidators([Validators.required]);
+      this.payoutForm.get('vpa').setValidators([Validators.required,Validators.email]);
     } else if (event.detail.value == 'card') {
-      this.addPayoutDetailForm
+      this.payoutForm
         .get('cardNumber')
-        .setValidators([Validators.required]);
-      this.addPayoutDetailForm
+        .setValidators([Validators.required,Validators.pattern('[0-9]{16}')]);
+      this.payoutForm
         .get('cardName')
         .setValidators([Validators.required]);
     }
@@ -100,10 +105,10 @@ export class ExpressPage implements OnInit {
 
   setControls() {
     if (this.payoutForm.value.account.accountType === 'bank_account') {
-      this.payoutForm.get('paymentType').addValidators([Validators.required]);
+      this.payoutForm.get('accountType').addValidators([Validators.required]);
     } else {
       this.payoutForm
-        .get('paymentType')
+        .get('accountType')
         .removeValidators([Validators.required]);
     }
   }
@@ -122,14 +127,24 @@ export class ExpressPage implements OnInit {
       receiver:'SSSPay Payout',
       extraData: {
         ...this.payoutForm.value,
+        account:{
+          ...this.payoutForm.value,
+        },
         customerId: this.dataProvider.userData.userId,
-        accountType: this.payoutForm.value.account.accountType,
-        paymentType:'UPI'
+        accountType: this.payoutForm.value.accountType,
+        paymentType: this.payoutForm.value.paymentType,
       },
     };
     this.transactionService.addTransaction(transaction).then(async (docRef) => {
+      this.dataProvider.pageSetting.blur = true;
       console.log('transactionAdded',docRef.id,docRef);
-      const response = await this.serverService.makeExpressPayout(docRef.id);
+      const response = await this.serverService.makeExpressPayout(docRef.id).then((res)=>{
+        console.log('response',res);
+      }).catch((err)=>{
+        console.log('error',err);
+      }).finally(()=>{
+        this.dataProvider.pageSetting.blur = false;
+      })
       console.log('response  => ',response);
       this.router.navigate(['../../history/detail/'+docRef.id]);
     });
@@ -141,47 +156,6 @@ export class ExpressPage implements OnInit {
       Math.random().toString(36).substring(2, 15) +
       Math.random().toString(36).substring(2, 15)
     );
-  }
-
-  submitForm() {
-    console.log(this.addPayoutDetailForm.value);
-    if (this.addPayoutDetailForm.valid) {
-      this.dataProvider.pageSetting.blur = true;
-      const data: any = {};
-      this.addingAccount = false;
-      if (this.addPayoutDetailForm.value.accountType == 'bank_account') {
-        data['bankAccountName'] =
-          this.addPayoutDetailForm.value.bankAccountName;
-        data['accountNumber'] = this.addPayoutDetailForm.value.accountNumber;
-        data['ifsc'] = this.addPayoutDetailForm.value.ifsc;
-      } else if (this.addPayoutDetailForm.value.accountType == 'vpa') {
-        data['vpa'] = this.addPayoutDetailForm.value.vpa;
-      } else if (this.addPayoutDetailForm.value.accountType == 'card') {
-        data['cardNumber'] = this.addPayoutDetailForm.value.cardNumber;
-        data['cardName'] = this.addPayoutDetailForm.value.cardName;
-      } else {
-        this.alertify.presentToast('Please select a valid account type');
-        return;
-      }
-      data['name'] = this.addPayoutDetailForm.value.name;
-      data['email'] = this.addPayoutDetailForm.value.email;
-      data['contact'] = this.addPayoutDetailForm.value.contact;
-      data['accountType'] = this.addPayoutDetailForm.value.accountType;
-      console.log(data);
-      this.databaseService
-        .addFundAccount(data)
-        .then(() => {
-          this.ngOnInit();
-          this.alertify.presentToast('Payout account added successfully');
-          this.dataProvider.pageSetting.blur = false;
-        })
-        .catch(() => {
-          this.alertify.presentToast('Error adding payout account');
-          this.dataProvider.pageSetting.blur = false;
-        });
-    } else {
-      this.alertify.presentToast('Please fill all the required fields');
-    }
   }
 
   removeAccount() {}

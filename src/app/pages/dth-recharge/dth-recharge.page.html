@@ -10,18 +10,14 @@
         </ion-select>
       </ion-item>
       <ion-item>
-        <ion-label position="floating" class="font">Customer ID</ion-label>
+        <ion-label position="floating" type="number" class="font">Customer ID</ion-label>
         <ion-input formControlName="caNumber"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating" class="font">Recharge Amount</ion-label>
-        <ion-input type="number" formControlName="amount"></ion-input>
       </ion-item>
       <ion-button type="submit" expand="block" [disabled]="!dthForm.valid">Recharge</ion-button>
     </form>
   </div>
-  <div class="container2">
+  <!-- <div class="container2">
     <p>Recent Payments</p>
     <p *ngFor="let payment of recentPayments">{{payment.operator}}</p>
-  </div>
+  </div> -->
 </ion-content>

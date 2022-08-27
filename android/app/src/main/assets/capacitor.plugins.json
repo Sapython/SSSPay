@@ -52,6 +52,10 @@
 		"classpath": "com.codetrixstudio.capacitor.GoogleAuth.GoogleAuth"
 	},
 	{
+		"pkg": "@pantrist/capacitor-firebase-dynamic-links",
+		"classpath": "com.pantrist.firebase.dynamiclinks.CapacitorFirebaseDynamicLinks"
+	},
+	{
 		"pkg": "capacitor-biometric-auth",
 		"classpath": "com.ahm.capacitor.biometric.BiometricAuth"
 	}

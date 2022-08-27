@@ -131,6 +131,7 @@ export class MobileRechargePage implements OnInit, OnDestroy {
         mobileNumber: circleAndOperator.mobileNumber,
         operatorsId:this.operators.filter((operator)=>operator.name==circleAndOperator.operator)[0].id
       },
+      
     });
     await modal.present();
   }

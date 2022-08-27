@@ -1,7 +1,7 @@
-<app-header pageName="Express Payout" [backButton]="true" backUrl="../payout"></app-header>
+<app-header pageName="Daily Payout" [backButton]="true" backUrl="../payout"></app-header>
 
 <ion-content>
-    <ion-toolbar>
+    <ion-toolbar *ngIf="dataProvider.userData.payoutFundAccount.length < 3">
         <ion-item>
             <ion-label>Actions</ion-label>
             <ion-button (click)="addingAccount=true">
@@ -82,11 +82,13 @@
                     </ng-container>
                 </ion-select>
             </ion-item>
-            <ion-item *ngIf="accountType.value.accountType  == 'bank_account'">
+            <ion-item *ngIf="accountType.value.accountType  == 'bank_account' || accountType.value.accountType  == 'card' ">
                 <ion-label>Payment Type</ion-label>
                 <ion-select value="peperoni" formControlName="paymentType" placeholder="Select Type">
                     <ion-select-option value="IMPS">IMPS</ion-select-option>
                     <ion-select-option value="NEFT">NEFT</ion-select-option>
+                    <ion-select-option *ngIf="accountType.value.accountType  == 'card'" value="NEFT">UPI</ion-select-option>
+                    <ion-select-option *ngIf="accountType.value.accountType  == 'card'" value="NEFT">Card</ion-select-option>
                 </ion-select>
             </ion-item>
             <ion-item>
@@ -104,4 +106,5 @@
             </ion-button>
         </form>
     </div>
+    <h3 *ngIf="dataProvider.userData.dailyPayoutLeft <= 0">No more free payouts left for further payouts you will be charged standard rates.</h3>
 </ion-content>

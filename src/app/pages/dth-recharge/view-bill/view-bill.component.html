@@ -1,0 +1,54 @@
+<app-header pageName="DTH Recharge" [isModal]="true" [backButton]="true" backUrl="../homepage"></app-header>
+<ion-content>
+  <ion-card *ngFor="let rechargePlan of recharges">
+    <ion-item>
+      <ion-label>Balance:</ion-label>
+      <ion-label>{{rechargePlan.Balance}}</ion-label>
+      <ion-chip color="primary" mode="ios" outline="true">
+        <ion-label>{{rechargePlan.status}}</ion-label>
+      </ion-chip>
+      <ion-icon name="caret-down" *ngIf="activeId!=rechargePlan.id" (click)="activeId = rechargePlan.id"></ion-icon>
+      <ion-icon name="caret-up" *ngIf="activeId==rechargePlan.id" (click)="activeId = ''"></ion-icon>
+    </ion-item>
+    <ng-container *ngIf="activeId==rechargePlan.id">
+      <ion-list>
+        <ion-item>
+          <ion-label>Price/Month:</ion-label>
+          <ion-label>{{rechargePlan.MonthlyRecharge}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Next Recharge Date:</ion-label>
+          <ion-label>{{rechargePlan.NextRechargeDate}}</ion-label>
+        </ion-item>
+        <ion-modal [isOpen]="isModalOpen">
+          <ng-template>
+            <ion-header>
+              <ion-toolbar color="primary">
+                <ion-buttons slot="end">
+                  <ion-button (click)="isModalOpen = false">Close</ion-button>
+                </ion-buttons>
+                <ion-title>Channels</ion-title>
+              </ion-toolbar>
+            </ion-header>
+            <ion-content class="ion-padding">
+              <ion-list>
+                <ion-item *ngFor="let planName of rechargePlan.plans">
+                  <ion-label>{{planName.title}}</ion-label>
+                  <p class="price" color="primary">{{planName.price == 0 ? 'Free' : planName.price}}</p>
+                </ion-item>
+              </ion-list>
+            </ion-content>
+          </ng-template>
+        </ion-modal>
+        <ion-item>
+          <ion-label>Status:</ion-label>
+          <ion-chip color="warning" outline="true">{{rechargePlan.status}}</ion-chip>
+        </ion-item>
+        <ion-buttons slot="end">
+          <ion-button color="primary" fill="solid" (click)="isModalOpen = true" expand="block">Channels List</ion-button>
+          <ion-button color="primary" fill="solid" (click)="recharge(rechargePlan)" expand="block">Recharge</ion-button>
+        </ion-buttons>
+      </ion-list>
+    </ng-container>
+  </ion-card>
+</ion-content>

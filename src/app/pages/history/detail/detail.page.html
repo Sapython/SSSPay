@@ -10,8 +10,19 @@
     <ion-text color="">
       <h4>{{paymentStatus | titlecase}}</h4>
     </ion-text>
+    <img src="assets/sss-logo.svg" width="100" alt="">
   </div>
   <div class="transactionDetail">
+    <ion-item>
+      <p>Retailer Name</p>
+      <ion-label color="primary">{{retailerName}}</ion-label>
+      <ion-icon name="copy-outline" (click)="copy(transactionId)"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <p>Retailer Id</p>
+      <ion-label color="primary">{{retailerId}}</ion-label>
+      <ion-icon name="copy-outline" (click)="copy(transactionId)"></ion-icon>
+    </ion-item>
     <ion-item>
       <p>Date & Time</p>
       <ion-label color="primary">{{date | date:"medium"}}</ion-label>
@@ -35,11 +46,27 @@
         </ion-chip>
       </ion-label>
     </ion-item>
+    <ng-container *ngIf="transactionData && transactionData.successData">
+      <ion-item> 
+        <p>Acknowledgement No.</p>
+        <ion-label color="secondary">{{transactionData.successData.ackno}}</ion-label>
+        <ion-icon name="copy-outline" (click)="copy(transactionData.successData.ackno)"></ion-icon>
+      </ion-item>
+      <ion-item> 
+        <p>Operator Id</p>
+        <ion-label color="secondary">{{transactionData.successData.operatorid}}</ion-label>
+        <ion-icon name="copy-outline" (click)="copy(transactionData.successData.operatorid)"></ion-icon>
+      </ion-item>
+    </ng-container>
     <div class="actions">
       <ion-button>
         <ion-icon name="share-social"></ion-icon>
       </ion-button>
     </div>
+    <!-- <table id="print">
+      <img src="./assets/sss-logo.svg" alt="SSSPay">
+        
+    </table> -->
   </div>
   <button *ngIf="paymentStatus=='pending'">
     <ion-icon name="refresh-circle"></ion-icon>Re-Initiate

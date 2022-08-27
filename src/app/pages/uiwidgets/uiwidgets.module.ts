@@ -16,7 +16,6 @@ import { PopoverComponent } from './popover/popover.component';
 import { HistoryComponentComponent } from './history-component/history-component.component';
 import { ModalPageComponent } from './modal-page/modal-page.component';
 import { RechargePlanComponent } from './recharge-plan/recharge-plan.component';
-import { SelectRechargePlanPage } from '../select-recharge-plan/select-recharge-plan.page';
 
 
 const components = [HomeWidgetComponent,NotifyWidgetComponent,ContactsWidgetComponent,

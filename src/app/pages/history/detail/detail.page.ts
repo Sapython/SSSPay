@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { DataProvider } from 'src/app/providers/data.provider';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { AlertsAndNotificationsService } from 'src/app/services/uiService/alerts-and-notifications.service';
 
@@ -14,12 +15,16 @@ export class DetailPage implements OnInit {
   amount: number = 0;
   command: string = '';
   transactionId: string = '';
+  transactionData:any;
   date: Date = new Date();
   transactionSubscription: Subscription = Subscription.EMPTY;
+  retailerId: string = '';
+  retailerName: string = '';
   constructor(
     private activatedRoute: ActivatedRoute,
     private alertify: AlertsAndNotificationsService,
-    private transactionService: TransactionService
+    private transactionService: TransactionService,
+    private dataProvider:DataProvider
   ) {
     this.activatedRoute.queryParams.subscribe((params) => {
       console.log(params);
@@ -31,6 +36,7 @@ export class DetailPage implements OnInit {
             .getTransaction(data.id)
             .subscribe((data) => {
               console.log(data);
+              this.transactionData = data;
               this.paymentStatus = data.status;
               this.amount = data.amount;
               this.command = data.type;
@@ -51,12 +57,16 @@ export class DetailPage implements OnInit {
             this.amount = data.amount;
             this.command = data.type;
             this.date = data.date.toDate();
+            this.transactionData = data;
           });
       }
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.retailerId = this.dataProvider.userData.userId;
+    this.retailerName = this.dataProvider.userData.displayName;
+  }
   copy(text: string) {
     console.log(text);
     navigator.clipboard.writeText(text);

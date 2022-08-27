@@ -9,6 +9,7 @@ import { IonicModule } from '@ionic/angular';
 import { MobileRechargePageRoutingModule } from './mobile-recharge-routing.module';
 
 import { MobileRechargePage } from './mobile-recharge.page';
+import { SelectPlansPage } from './select-plans/select-plans.page';
 @NgModule({
   imports: [
     CommonModule,
@@ -19,6 +20,6 @@ import { MobileRechargePage } from './mobile-recharge.page';
     UiwidgetsModule,
     ReactiveFormsModule
   ],
-  declarations: [MobileRechargePage]
+  declarations: [MobileRechargePage,SelectPlansPage]
 })
 export class MobileRechargePageModule {}

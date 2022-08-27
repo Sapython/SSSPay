@@ -30,6 +30,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import com.pantrist.firebase.dynamiclinks.CapacitorFirebaseDynamicLinks;
+
 import ch.byrds.capacitor.contacts.Contacts;
 
 import com.codetrixstudio.capacitor.GoogleAuth.GoogleAuth;
@@ -47,6 +49,7 @@ public class MainActivity extends BridgeActivity {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     registerPlugin(RdIntegration.class);
+    registerPlugin(CapacitorFirebaseDynamicLinks.class);
     this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {
       {
         add(GoogleAuth.class);
@@ -138,6 +141,13 @@ public class MainActivity extends BridgeActivity {
       System.out.println("RDTYPE "+type);
       Intent intent = new Intent("in.gov.uidai.rdservice.fp.CAPTURE");
       intent.setPackage("com.mantra.rdservice");
+      String responseXml = "<?xml version=\"1.0\"?><PidOptions ver=\"2.0\"><Opts fCount=\"1\" fType=\"2\" iCount=\"0\" pCount=\"0\" format=\"0\" pidVer=\"2.0\" timeout=\"10000\" env=\"P\" /><CustOpts></CustOpts></PidOptions>";
+      intent.putExtra("PID_OPTIONS", responseXml);
+      startActivityForResult(intent, 2);
+    } else if (Object.equals(type,"startek")){
+      System.out.println("RDTYPE "+type);
+      Intent intent = new Intent("in.gov.uidai.rdservice.fp.CAPTURE");
+      intent.setPackage("com.acpl.registersdk");
       String responseXml = "<?xml version=\"1.0\"?><PidOptions ver=\"2.0\"><Opts fCount=\"1\" fType=\"2\" iCount=\"0\" pCount=\"0\" format=\"0\" pidVer=\"2.0\" timeout=\"10000\" env=\"P\" /><CustOpts></CustOpts></PidOptions>";
       intent.putExtra("PID_OPTIONS", responseXml);
       startActivityForResult(intent, 2);

@@ -20,7 +20,9 @@ import { environment } from 'src/environments/environment';
 
 export interface RdServicePlugin {
   getDeviceInfo(): Promise<{ value: string }>;
-  getFingerPrint(options: { type:'morpho' | 'mantra' | 'mantraIris'}): Promise<{ fingerprint: string }>;
+  getFingerPrint(options: {
+    type: 'morpho' | 'mantra' | 'mantraIris' | 'startek';
+  }): Promise<{ fingerprint: string }>;
 }
 const RdService = registerPlugin<RdServicePlugin>('RdService');
 export default RdService;
@@ -34,8 +36,8 @@ export class AepsPage implements OnInit {
     id: string;
     name: string;
   }[];
-  paymentType:string = ''
-  fingerPrintData:any;
+  paymentType: string = '';
+  fingerPrintData: any;
   bankId: string;
   selectedBank: any = { name: 'Select Bank', id: '' };
   aepsForm: UntypedFormGroup = new UntypedFormGroup({
@@ -45,10 +47,10 @@ export class AepsPage implements OnInit {
       Validators.required,
       Validators.pattern(/^[0-9]{12}$/),
     ]),
-    mobileNumber: new UntypedFormControl(this.dataProvider.userData.phoneNumber, [
-      Validators.required,
-      Validators.pattern(/^(0|)[1-9][0-9]{9}$/),
-    ]),
+    mobileNumber: new UntypedFormControl(
+      this.dataProvider.userData.phoneNumber,
+      [Validators.required, Validators.pattern(/^(0|)[1-9][0-9]{9}$/)]
+    ),
     amount: new UntypedFormControl('50', [
       Validators.required,
       Validators.pattern(/^(0|)[1-9][0-9]*$/),
@@ -67,26 +69,30 @@ export class AepsPage implements OnInit {
     private dataProvider: DataProvider,
     private transactionService: TransactionService,
     private platform: Platform,
-    private alertify: AlertsAndNotificationsService,
+    private alertify: AlertsAndNotificationsService
   ) {}
 
   ngOnInit() {
     // Get location
-    window.navigator.geolocation.getCurrentPosition((response) => {
-      if (response){
+    window.navigator.geolocation.getCurrentPosition(
+      (response) => {
         if (response) {
-          this.aepsForm.patchValue({
-            latitude: response.coords.latitude,
-            longitude: response.coords.longitude,
-          });
-          this.alertService.presentToast('Location Found');
-        } else {
-          this.alertService.presentToast('Location Not Found', 'error');
-          // this.alertService.presentToast(response.message);
-          this.router.navigate(['/homepage']);
+          if (response) {
+            this.aepsForm.patchValue({
+              latitude: response.coords.latitude,
+              longitude: response.coords.longitude,
+            });
+            this.alertService.presentToast('Location Found');
+          } else {
+            this.alertService.presentToast('Location Not Found', 'error');
+            // this.alertService.presentToast(response.message);
+            this.router.navigate(['/homepage']);
+          }
         }
-      }
-    }, (error) => {}, { enableHighAccuracy: true, timeout: 2000, maximumAge: 1000 });
+      },
+      (error) => {},
+      { enableHighAccuracy: true, timeout: 2000, maximumAge: 1000 }
+    );
     // Get list of banks
     this.serverService
       .getAepsBanksList()
@@ -101,19 +107,24 @@ export class AepsPage implements OnInit {
       })
       .catch((error) => {
         console.error(error);
-        this.alertService.presentToast('Something went wrong while getting bank list');
+        this.alertService.presentToast(
+          'Something went wrong while getting bank list'
+        );
       });
   }
 
   submit() {
     if (this.aepsForm.valid) {
-      if(this.fingerPrintData){
-        this.continueTransaction()
+      if (this.fingerPrintData) {
+        this.continueTransaction();
       } else {
-        this.alertService.presentToast('Please scan your finger print', 'error');
+        this.alertService.presentToast(
+          'Please scan your finger print',
+          'error'
+        );
       }
     } else {
-      this.checkValidity()
+      this.checkValidity();
     }
   }
   async openBankModal() {
@@ -140,56 +151,75 @@ export class AepsPage implements OnInit {
       return null;
     }
   }
-  
+
   async scanFingerPrint(value) {
-    if(!environment.production){
+    if (!environment.production) {
       console.log(value);
       if (confirm('Do you want to proceed with the online fingerprint ?')) {
-      const data = await this.databaseService.getLog()
-      console.log(data.data().message)
-      this.fingerPrintData = data.data().message;
-      return
+        const data = await this.databaseService.getLog();
+        console.log(data.data().message);
+        this.fingerPrintData = data.data().message;
+        return;
       } else {
-        this.fingerPrintData = prompt('Enter your fingerprint')
-        return
+        this.fingerPrintData = prompt('Enter your fingerprint');
+        return;
       }
     }
     if (value === 'morpho') {
-      const { fingerprint } = await RdService.getFingerPrint({type:'morpho'});
+      const { fingerprint } = await RdService.getFingerPrint({
+        type: 'morpho',
+      });
       // alert('Got data')
       alert(fingerprint);
       this.databaseService.logBug(fingerprint);
-      if (fingerprint){
+      if (fingerprint) {
         this.fingerPrintData = fingerprint;
       } else {
-        this.fingerPrintData = undefined
+        this.fingerPrintData = undefined;
         this.alertify.presentToast('Something went wrong');
       }
-    } else if (value=="mantra") {
-      const { fingerprint } = await RdService.getFingerPrint({type:'mantra'});
+    } else if (value == 'mantra') {
+      const { fingerprint } = await RdService.getFingerPrint({
+        type: 'mantra',
+      });
       // alert('Got data')
       alert(fingerprint);
       this.databaseService.logBug(fingerprint);
-      if (fingerprint){
+      if (fingerprint) {
         this.fingerPrintData = fingerprint;
       } else {
-        this.fingerPrintData = undefined
+        this.fingerPrintData = undefined;
         this.alertify.presentToast('Something went wrong');
       }
-    } else if (value=="mantraIris") {
-      const { fingerprint } = await RdService.getFingerPrint({type:'mantraIris'});
+    } else if (value == 'startek') {
+      const { fingerprint } = await RdService.getFingerPrint({
+        type: 'startek',
+      });
       // alert('Got data')
       alert(fingerprint);
-      if (fingerprint){
+      this.databaseService.logBug(fingerprint);
+      if (fingerprint) {
         this.fingerPrintData = fingerprint;
       } else {
-        this.fingerPrintData = undefined
+        this.fingerPrintData = undefined;
+        this.alertify.presentToast('Something went wrong');
+      }
+    } else if (value == 'mantraIris') {
+      const { fingerprint } = await RdService.getFingerPrint({
+        type: 'mantraIris',
+      });
+      // alert('Got data')
+      alert(fingerprint);
+      if (fingerprint) {
+        this.fingerPrintData = fingerprint;
+      } else {
+        this.fingerPrintData = undefined;
         this.alertify.presentToast('Something went wrong');
       }
     }
   }
 
-  async continueTransaction(){
+  async continueTransaction() {
     const data = {
       latitude: this.aepsForm.value.latitude,
       longitude: this.aepsForm.value.longitude,
@@ -217,7 +247,7 @@ export class AepsPage implements OnInit {
         date: new Date(),
         completed: false,
         extraData: {
-          merchantCode:this.dataProvider.userData?.userId,
+          merchantCode: this.dataProvider.userData?.userId,
           aepsData: data,
           latitude: this.aepsForm.value.latitude,
           longitude: this.aepsForm.value.longitude,
@@ -233,30 +263,149 @@ export class AepsPage implements OnInit {
             .then((enquiry) => {
               console.log(enquiry);
               this.alertify.presentToast('Balance Enquiry done');
-              this.router.navigate(['../history/detail/'+transaction.id]);
+              this.router.navigate(['../history/detail/' + transaction.id]);
             })
             .catch((error) => {
               console.error(error);
-              this.alertify.presentToast('Something went wrong');
+              this.alertify.presentToast(error.error);
             });
         })
         .catch((error) => {
           this.alertify.presentToast('Something went wrong');
           console.error(error);
         });
+    } else if (this.aepsForm.value.transactionType == 'CW') {
+      const transaction: Transaction = {
+        amount: this.aepsForm.value.amount,
+        title: 'Cash Withdrawal',
+        description: 'Cash Withdrawal',
+        type: 'aeps',
+        status: 'started',
+        balance: this.dataProvider.wallet.balance,
+        date: new Date(),
+        completed: false,
+        extraData: {
+          merchantCode: this.dataProvider.userData?.userId,
+          aepsData: data,
+          latitude: this.aepsForm.value.latitude,
+          longitude: this.aepsForm.value.longitude,
+        },
+        receiver: 'AEPS',
+        error: null,
+      };
+      this.transactionService
+        .addTransaction(transaction)
+        .then((transaction) => {
+          this.serverService
+            .aepsCashWithdrawal(transaction.id)
+            .then((withdrawal) => {
+              console.log(withdrawal);
+              this.alertify.presentToast('Cash Withdrawal done');
+              this.router.navigate(['../history/detail/' + transaction.id]);
+            })
+            .catch((error) => {
+              console.error(error);
+              this.alertify.presentToast(error.error);
+            });
+        })
+        .catch((error) => {
+          this.alertify.presentToast('Something went wrong');
+          console.error(error);
+        });
+    } else if (this.aepsForm.value.transactionType == 'MS') {
+      // ms = mini statement
+      const transaction: Transaction = {
+        amount: 0,
+        title: 'Mini Statement',
+        description: 'Mini Statement',
+        type: 'aeps',
+        status: 'started',
+        balance: this.dataProvider.wallet.balance,
+        date: new Date(),
+        completed: false,
+        extraData: {
+          merchantCode: this.dataProvider.userData?.userId,
+          aepsData: data,
+          latitude: this.aepsForm.value.latitude,
+          longitude: this.aepsForm.value.longitude,
+        },
+        receiver: 'AEPS',
+        error: null,
+      };
+      this.transactionService
+        .addTransaction(transaction)
+        .then((transaction) => {
+          this.serverService
+            .aepsMiniStatement(transaction.id)
+            .then((miniStatement) => {
+              console.log(miniStatement);
+              this.alertify.presentToast('Mini Statement done');
+              this.router.navigate(['../history/detail/' + transaction.id]);
+            })
+            .catch((error) => {
+              console.error(error);
+              this.alertify.presentToast(error.error);
+            });
+        })
+        .catch((error) => {
+          this.alertify.presentToast('Something went wrong');
+          console.error(error);
+        });
+    } else if (this.aepsForm.value.transactionType === 'M') {
+      // m = Aadhaar Pay
+      const transaction: Transaction = {
+        amount: this.aepsForm.value.amount,
+        title: 'Aadhaar Pay',
+        description: 'Aadhaar Pay',
+        type: 'aeps',
+        status: 'started',
+        balance: this.dataProvider.wallet.balance,
+        date: new Date(),
+        completed: false,
+        extraData: {
+          merchantCode: this.dataProvider.userData?.userId,
+          aepsData: data,
+          latitude: this.aepsForm.value.latitude,
+          longitude: this.aepsForm.value.longitude,
+        },
+        receiver: 'AEPS',
+        error: null,
+      };
+      this.transactionService
+        .addTransaction(transaction)
+        .then((transaction) => {
+          this.serverService
+            .aepsAadhaarPay(transaction.id)
+            .then((aadhaarPay) => {
+              console.log(aadhaarPay);
+              this.alertify.presentToast('Aadhaar Pay done');
+              this.router.navigate(['../history/detail/' + transaction.id]);
+            }
+            )
+            .catch((error) => {
+              console.error(error);
+              this.alertify.presentToast(error.error);
+            }
+            );
+          }).catch((error) => {
+            this.alertify.presentToast('Something went wrong');
+            console.error(error);
+          })
+    } else {
+      this.alertify.presentToast('Please select a correct transaction type');
     }
   }
 
-  checkValidity(){
-    console.log(this.aepsForm)
-    let errors:any[] = []
+  checkValidity() {
+    console.log(this.aepsForm);
+    let errors: any[] = [];
     Object.keys(this.aepsForm.controls).forEach((key) => {
-      if (!this.aepsForm.get(key).valid){
-        errors.push(key)
+      if (!this.aepsForm.get(key).valid) {
+        errors.push(key);
       }
-    })
-    console.log(errors)
-    this.alertify.presentToast("Problems With "+errors.join(', '),'error')
+    });
+    console.log(errors);
+    this.alertify.presentToast('Problems With ' + errors.join(', '), 'error');
   }
 
   // generate random id
@@ -264,13 +413,12 @@ export class AepsPage implements OnInit {
     return Math.floor(Math.random() * 1000000);
   }
 
-  checkInput(event,type:'number'|'aadhaar'){
-    console.log(event,type)
-    if (event.detail.target.value.length >= 10 && type=='number'){
-      event.target.setBlur()
-    } else if (event.detail.target.value.length >= 12 && type=='aadhaar'){
-      event.target.setBlur()
+  checkInput(event, type: 'number' | 'aadhaar') {
+    console.log(event, type);
+    if (event.detail.target.value.length >= 10 && type == 'number') {
+      event.target.setBlur();
+    } else if (event.detail.target.value.length >= 12 && type == 'aadhaar') {
+      event.target.setBlur();
     }
   }
-
 }

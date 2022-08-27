@@ -26,6 +26,7 @@ export type UserData = {
     shopImage:string;
     memberAssigned:boolean;
     kycStatus:'pending' | 'approved' | 'rejected' | 'incomplete';
+    dailyPayoutLeft:number;
     onboardingSteps:{
         phoneDobDone:boolean;
         panDone:boolean;

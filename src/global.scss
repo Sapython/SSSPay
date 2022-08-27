@@ -53,3 +53,11 @@
   z-index: 10000001;
   transform: translate(-50%, -50%);
 }
+@media print {
+  *{
+    display:none;
+  }
+  #print{
+    display:block;
+  }
+}

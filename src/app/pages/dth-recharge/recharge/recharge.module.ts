@@ -11,11 +11,11 @@ import { BaseComponentsModule } from '../../base-components/base-components.modu
 
 @NgModule({
   imports: [
+    IonicModule,
     CommonModule,
     FormsModule,
-    IonicModule,
     RechargePageRoutingModule,
-    BaseComponentsModule
+    BaseComponentsModule,
   ],
   declarations: [RechargePage]
 })
