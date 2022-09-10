@@ -24,23 +24,30 @@ export class PayBillPage implements OnInit {
     private locationService: LocationService,
     private router:Router
   ) {}
-
-  ngOnInit() {}
-  async getCoordinates() {
-    const response = await this.locationService.getLatitudeAndLongitude();
-    if (response.status) {
-      return response;
-    } else {
-      return null;
-    }
+    location:any;
+  ngOnInit() {
+    window.navigator.geolocation.getCurrentPosition(
+      (response) => {
+        if (response) {
+          if (response) {
+            this.location = {
+              latitude: response.coords.latitude,
+              longitude: response.coords.longitude,
+            };
+            this.alertify.presentToast('Location Found');
+          } else {
+            this.alertify.presentToast('Location Not Found', 'error');
+            // this.alertService.presentToast(response.message);
+            this.router.navigate(['/homepage']);
+          }
+        }
+      },
+      (error) => {},
+      { enableHighAccuracy: true, timeout: 2000, maximumAge: 1000 }
+    );
   }
 
   async payBill() {
-    const coordinates = await this.getCoordinates()
-    if (coordinates == null){
-      this.alertify.presentToast("Could not get your location. Please try again later.")
-      return;
-    }
     const transaction: Transaction = {
       title: 'Fastag Recharge',
       amount: Number(this.billData.amount),
@@ -61,8 +68,8 @@ export class PayBillPage implements OnInit {
       extraData: {
         ...this.billData,
         customerId: this.dataProvider.userData.userId,
-        latitude:coordinates.latitude,
-        longitude:coordinates.longitude,
+        latitude:this.location.latitude,
+        longitude:this.location.longitude,
       },
       balance: this.dataProvider.wallet.balance,
     };

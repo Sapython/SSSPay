@@ -34,7 +34,27 @@ export class ProviderPageComponent implements OnInit {
       Validators.pattern(RegExp(this.operator.regex)),
     ]),
   });
+  location:any;
   ngOnInit() {
+    window.navigator.geolocation.getCurrentPosition(
+      (response) => {
+        if (response) {
+          if (response) {
+            this.location = {
+              latitude: response.coords.latitude,
+              longitude: response.coords.longitude,
+            };
+            this.alertify.presentToast('Location Found');
+          } else {
+            this.alertify.presentToast('Location Not Found', 'error');
+            // this.alertService.presentToast(response.message);
+            this.router.navigate(['/homepage']);
+          }
+        }
+      },
+      (error) => {},
+      { enableHighAccuracy: true, timeout: 2000, maximumAge: 1000 }
+    );
     console.log('operator-operator ---', this.operator);
     var fields = [];
     var counter = 0;
@@ -82,13 +102,6 @@ export class ProviderPageComponent implements OnInit {
   }
 
   async payBill() {
-    const coordinates = await this.getCoordinates();
-    if (coordinates == null) {
-      this.alertify.presentToast(
-        'Could not get your location. Please try again later.'
-      );
-      return;
-    }
     const transaction: Transaction = {
       amount: this.bill.amount,
       title: 'Bill Payment',
@@ -109,8 +122,8 @@ export class ProviderPageComponent implements OnInit {
         operator: this.operator,
         fields: this.billProviderForm.value,
         customerId: this.dataProvider.userData.userId,
-        latitude: coordinates.latitude,
-        longitude: coordinates.longitude,
+        latitude: this.location.latitude,
+        longitude: this.location.longitude,
       },
     };
     this.dataProvider.pageSetting.blur = true;
@@ -142,12 +155,4 @@ export class ProviderPageComponent implements OnInit {
     })
   }
 
-  async getCoordinates() {
-    const response = await this.locationService.getLatitudeAndLongitude();
-    if (response.status) {
-      return response;
-    } else {
-      return null;
-    }
-  }
 }

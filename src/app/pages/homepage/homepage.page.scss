@@ -46,6 +46,14 @@ ion-toolbar{
     padding: 20px 5px;
     background-color: #fff;
 }
+.alert{
+    background: white;
+    border: 2px solid var(--ion-color-warning);
+    padding:20px;
+    margin:10px;
+    border-radius: 20px;
+    box-shadow: 1px 1px 20px rgba(0,0,0,0.1);
+}
 .inner{
     background-color: #fff;
     font-size: 20px;

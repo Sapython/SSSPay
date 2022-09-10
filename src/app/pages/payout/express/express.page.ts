@@ -47,22 +47,22 @@ export class ExpressPage implements OnInit {
   ngOnInit() {
     this.fundAccounts = [];
     this.fundAccounts = this.dataProvider.userData.payoutFundAccount;
-    this.payoutForm.patchValue(
-      {
-        "amount": 50,
-        "description": "test",
-        "name": "test",
-        "email": "saptampro2003@gmail.com",
-        "contact": "9517457296",
-        "accountType": "vpa",
-        "bankAccountName": null,
-        "accountNumber": null,
-        "ifsc": null,
-        "vpa": "saptampro2003@gmail",
-        "cardNumber": null,
-        "cardName": null
-      }
-    )
+    // this.payoutForm.patchValue(
+    //   {
+    //     "amount": 50,
+    //     "description": "test",
+    //     "name": "test",
+    //     "email": "saptampro2003@gmail.com",
+    //     "contact": "9517457296",
+    //     "accountType": "vpa",
+    //     "bankAccountName": null,
+    //     "accountNumber": null,
+    //     "ifsc": null,
+    //     "vpa": "saptampro2003@gmail",
+    //     "cardNumber": null,
+    //     "cardName": null
+    //   }
+    // )
   }
 
   checkErrors(){

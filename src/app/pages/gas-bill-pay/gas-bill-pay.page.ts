@@ -31,26 +31,36 @@ export class GasBillPayPage implements OnInit {
   });
 
   constructor(
-    private alertService: AlertsAndNotificationsService,
+    private alertify: AlertsAndNotificationsService,
     private router: Router,
     private dataProvider: DataProvider,
     private locationService: LocationService,
     private serverService:ServerService,
     private transactionService:TransactionService
   ) {}
-
+  location: any;
   ngOnInit() {
     // Get location
 
-    this.locationService.getLatitudeAndLongitude().then((response) => {
-      if (response.status) {
-        this.latitude = response.latitude;
-        this.longitude = response.longitude;
-      } else {
-        this.alertService.presentToast(response.message);
-        this.router.navigate(['/homepage']);
-      }
-    });
+    window.navigator.geolocation.getCurrentPosition(
+      (response) => {
+        if (response) {
+          if (response) {
+            this.location = {
+              latitude: response.coords.latitude,
+              longitude: response.coords.longitude,
+            };
+            this.alertify.presentToast('Location Found');
+          } else {
+            this.alertify.presentToast('Location Not Found', 'error');
+            // this.alertService.presentToast(response.message);
+            this.router.navigate(['/homepage']);
+          }
+        }
+      },
+      (error) => {},
+      { enableHighAccuracy: true, timeout: 2000, maximumAge: 1000 }
+    );
 
   }
 
@@ -82,15 +92,6 @@ export class GasBillPayPage implements OnInit {
       this.getLpgOperators();
     } else {
       this.getGasOperators();
-    }
-  }
-
-  async getCoordinates(){
-    const response = await this.locationService.getLatitudeAndLongitude();
-    if (response.status){
-      return response;
-    } else {
-      return null;
     }
   }
   
@@ -138,11 +139,6 @@ export class GasBillPayPage implements OnInit {
   }
 
   async payLpgGasBill(){
-    const coordinates = await this.getCoordinates()
-    if (coordinates == null){
-      this.alertService.presentToast("Could not get your location. Please try again later.")
-      return;
-    }
     const transaction:Transaction = {
       amount:this.bill.amount < 9 ? 10 : this.bill.amount,
       title:'LPG Gas Bill Payment',
@@ -157,8 +153,8 @@ export class GasBillPayPage implements OnInit {
       error:null,
       extraData:{
         ...this.lpgForm.value,
-        latitude:coordinates.latitude,
-        longitude:coordinates.longitude,
+        latitude:this.location.latitude,
+        longitude:this.location.longitude,
         customerNumber:this.operator['mainField'].control.value,
         fields:this.fields,
         customerId:this.dataProvider.userData.userId,
@@ -168,17 +164,17 @@ export class GasBillPayPage implements OnInit {
     this.transactionService.addTransaction(transaction).then((transaction)=>{
       this.serverService.payLpgGasBill(transaction.id).then((response)=>{
         console.log("RESPONSE BILL PAY",response)
-        this.alertService.presentToast("Transaction started. Please wait for the transaction to complete.")
+        this.alertify.presentToast("Transaction started. Please wait for the transaction to complete.")
         this.router.navigate(['../history/detail/'+transaction.id]);
       }).catch((error)=>{
         console.log("ERROR BILL PAY",error)
-        this.alertService.presentToast("Could not start transaction. Please try again later.")
+        this.alertify.presentToast("Could not start transaction. Please try again later.")
       }).finally(()=>{
         this.dataProvider.pageSetting.blur = false;
       })
     }).catch((error)=>{
       console.log("ERROR",error)
-      this.alertService.presentToast("Could not start transaction. Please try again later.")
+      this.alertify.presentToast("Could not start transaction. Please try again later.")
       this.dataProvider.pageSetting.blur = false;
     })
   }

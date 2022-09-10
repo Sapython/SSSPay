@@ -20,9 +20,6 @@ project(':capacitor-browser').projectDir = new File('../node_modules/@capacitor/
 include ':capacitor-camera'
 project(':capacitor-camera').projectDir = new File('../node_modules/@capacitor/camera/android')
 
-include ':capacitor-geolocation'
-project(':capacitor-geolocation').projectDir = new File('../node_modules/@capacitor/geolocation/android')
-
 include ':capacitor-haptics'
 project(':capacitor-haptics').projectDir = new File('../node_modules/@capacitor/haptics/android')
 
@@ -43,6 +40,3 @@ project(':codetrix-studio-capacitor-google-auth').projectDir = new File('../node
 
 include ':pantrist-capacitor-firebase-dynamic-links'
 project(':pantrist-capacitor-firebase-dynamic-links').projectDir = new File('../node_modules/@pantrist/capacitor-firebase-dynamic-links/android')
-
-include ':capacitor-biometric-auth'
-project(':capacitor-biometric-auth').projectDir = new File('../node_modules/capacitor-biometric-auth/android')

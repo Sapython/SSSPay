@@ -23,7 +23,6 @@ import {
 } from 'firebase/storage';
 import { DataProvider } from '../providers/data.provider';
 import { Analytics, logEvent } from '@angular/fire/analytics';
-import { AlertsAndNotificationsService } from './uiService/alerts-and-notifications.service';
 import { UserData } from '../structures/user.structure';
 
 @Injectable({
@@ -110,6 +109,7 @@ export class DatabaseService {
       query(collection(this.fs, '/banks'), orderBy('name', 'asc'))
     );
   }
+
   getOperators() {
     return getDocs(
       query(collection(this.fs, '/mobileOperators'), orderBy('name', 'asc'))
@@ -160,6 +160,7 @@ export class DatabaseService {
       payoutDetailsCompleted: true,
     });
   }
+
   removeFundAccount(data) {
     return updateDoc(doc(this.fs, '/users/' + this.dataProvider.userID), {
       payoutFundAccount: arrayRemove(data),
@@ -167,7 +168,8 @@ export class DatabaseService {
         this.dataProvider.userData.payoutFundAccount?.length > 0 ? true : false,
     });
   }
-  updateUserData(userdata: UserData) {
+
+  updateUserData(userdata: any) {
     return updateDoc(
       doc(this.fs, '/users/' + this.dataProvider.userID),
       userdata
@@ -194,6 +196,7 @@ export class DatabaseService {
       )
     );
   }
+
   createWallet() {
     return setDoc(
       doc(
@@ -220,5 +223,17 @@ export class DatabaseService {
 
   getLog() {
     return getDoc(doc(this.fs, '/logs/qwJbZ7EheiaEp23cDY3l'));
+  }
+
+  addOnboardingData(data){
+    return updateDoc(doc(this.fs, '/users/' + this.dataProvider.userID), {
+      onboardingData: data,
+    });
+  }
+
+  addOnBoardingStatusData(data){
+    return updateDoc(doc(this.fs, '/users/' + this.dataProvider.userID), {
+      onboardingStatusData: data,
+    });
   }
 }

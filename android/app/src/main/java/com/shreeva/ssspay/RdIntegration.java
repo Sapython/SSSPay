@@ -1,8 +1,5 @@
 package com.shreeva.ssspay;
 
-import android.app.Activity;
-import android.content.Intent;
-
 import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
@@ -24,12 +21,14 @@ public class RdIntegration extends Plugin {
 
   @PluginMethod()
   public void getFingerPrint(PluginCall call) throws InterruptedException {
+
     String type = call.getString("value");
     mainCall = call;
     String value = call.getString("type");
     // ((MainActivity) getActivity()).getDevicesInfo();
     ((MainActivity)getActivity()).getFingerPrint(value);
     call.setKeepAlive(true);
+//    throw new RuntimeException("Test Crash");
   }
 
   public static void sendData(String data) {

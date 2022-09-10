@@ -24,14 +24,14 @@ import { DatabaseService } from './services/database.service';
 import { AlertsAndNotificationsService } from './services/uiService/alerts-and-notifications.service';
 import { provideMessaging, getMessaging } from '@angular/fire/messaging';
 import { providePerformance, getPerformance } from '@angular/fire/performance';
-import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ServerService } from './services/server.service';
 import { enterAnimation, pageTransition } from './animation';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { NotificationService } from './services/notification.service';
 import { MemberManagementService } from './services/member-management.service';
+import { WaitForQrPaymentComponent } from './wait-for-qr-payment/wait-for-qr-payment.component';
 @NgModule({   
-    declarations: [AppComponent],
+    declarations: [AppComponent,WaitForQrPaymentComponent],
     imports: [
         BrowserModule,
         IonicModule.forRoot({ animated: true,navAnimation: pageTransition }),

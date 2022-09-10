@@ -11,15 +11,10 @@ import androidx.annotation.NonNull;
 
 import com.getcapacitor.BridgeActivity;
 import com.getcapacitor.Plugin;
-import com.ahm.capacitor.biometric.BiometricAuth;
+//import com.ahm.capacitor.biometric.BiometricAuth;
 
 import org.chromium.base.Promise;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,7 +48,7 @@ public class MainActivity extends BridgeActivity {
     this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {
       {
         add(GoogleAuth.class);
-        add(BiometricAuth.class);
+//        add(BiometricAuth.class);
         add(Contacts.class);
         add(com.capacitorjs.plugins.camera.CameraPlugin.class);
       }
@@ -144,7 +139,7 @@ public class MainActivity extends BridgeActivity {
       String responseXml = "<?xml version=\"1.0\"?><PidOptions ver=\"2.0\"><Opts fCount=\"1\" fType=\"2\" iCount=\"0\" pCount=\"0\" format=\"0\" pidVer=\"2.0\" timeout=\"10000\" env=\"P\" /><CustOpts></CustOpts></PidOptions>";
       intent.putExtra("PID_OPTIONS", responseXml);
       startActivityForResult(intent, 2);
-    } else if (Object.equals(type,"startek")){
+    } else if (Objects.equals(type,"startek")){
       System.out.println("RDTYPE "+type);
       Intent intent = new Intent("in.gov.uidai.rdservice.fp.CAPTURE");
       intent.setPackage("com.acpl.registersdk");

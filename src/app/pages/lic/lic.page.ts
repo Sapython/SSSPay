@@ -28,8 +28,28 @@ export class LicPage implements OnInit {
     private locationService: LocationService,
     private router:Router
   ) {}
-
-  ngOnInit() {}
+    location:any;
+  ngOnInit() {
+    window.navigator.geolocation.getCurrentPosition(
+      (response) => {
+        if (response) {
+          if (response) {
+            this.location = {
+              latitude: response.coords.latitude,
+              longitude: response.coords.longitude,
+            };
+            this.alertify.presentToast('Location Found');
+          } else {
+            this.alertify.presentToast('Location Not Found', 'error');
+            // this.alertService.presentToast(response.message);
+            this.router.navigate(['/homepage']);
+          }
+        }
+      },
+      (error) => {},
+      { enableHighAccuracy: true, timeout: 2000, maximumAge: 1000 }
+    );
+  }
   fetchLicBill() {
     if (this.licBillForm.valid) {
       this.dataProvider.pageSetting.blur = true;
@@ -50,20 +70,8 @@ export class LicPage implements OnInit {
       this.alertify.presentToast('Please fill all the fields', 'error');
     }
   }
-  async getCoordinates(){
-    const response = await this.locationService.getLatitudeAndLongitude();
-    if (response.status){
-      return response;
-    } else {
-      return null;
-    }
-  }
+
   async payBill() {
-    const coordinates = await this.getCoordinates()
-    if (coordinates == null){
-      this.alertify.presentToast("Could not get your location. Please try again later.")
-      return;
-    }
     let transaction: Transaction = {
       title: 'Lic Bill Payment',
       receiver: 'lic',
@@ -79,8 +87,8 @@ export class LicPage implements OnInit {
         bill: this.bill,
         formData: this.licBillForm.value,
         customerId: this.dataProvider.userData.userId,
-        latitude:coordinates.latitude,
-        longitude:coordinates.longitude,
+        latitude:this.location.latitude,
+        longitude:this.location.longitude,
       },
     };
     this.dataProvider.pageSetting.blur = true;

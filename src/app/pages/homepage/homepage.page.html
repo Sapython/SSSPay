@@ -1,12 +1,24 @@
 <app-header pageName="Home" [backButton]="false" backUrl="./"></app-header>
 <ion-content>
   <div class="container">
-    <app-home-widget routerDirection="forward" [name]="items[0].name" [service]="items[0].service" [page]="items[0].page"
-      [routerLink]="items[0].routerLink"></app-home-widget>
-    <app-home-widget routerDirection="forward" [name]="items[1].name" [service]="items[1].service" [page]="items[1].page"
-      [routerLink]="items[1].routerLink"></app-home-widget>
-    <app-home-widget routerDirection="forward" *ngIf="dataProvider.userData?.kycStatus !== 'approved'" [name]="items[2].name"
-      [service]="items[2].service" [page]="items[2].page" [routerLink]="items[2].routerLink"></app-home-widget>
+    <app-home-widget routerDirection="forward" [name]="items[0].name" [service]="items[0].service"
+      [page]="items[0].page" [routerLink]="items[0].routerLink"></app-home-widget>
+    <app-home-widget routerDirection="forward" [name]="items[1].name" [service]="items[1].service"
+      [page]="items[1].page" [routerLink]="items[1].routerLink"></app-home-widget>
+    <app-home-widget routerDirection="forward" *ngIf="dataProvider.userData?.kycStatus !== 'approved'"
+      [name]="items[2].name" [service]="items[2].service" [page]="items[2].page" [routerLink]="items[2].routerLink">
+    </app-home-widget>
+    <div class="alert"
+      *ngIf="dataProvider?.userData?.kycStatus=='approved' && dataProvider?.userData?.onboardingData && dataProvider?.userData?.onboardingStatusData?.response_code!=1">
+      <p>Onboarding is pending. Please complete the onboarding process to continue.</p>
+      <ion-button (click)="payUpiMoney()" *ngIf="!dataProvider?.userData?.kycMoneyPaid" color="warning" expand="block" fill="solid" shape="round">
+        Pay &#8377;10 to complete kyc
+      </ion-button>
+      <ion-button target="_blank" [href]="dataProvider?.userData?.onboardingData?.redirecturl" *ngIf="dataProvider?.userData?.kycMoneyPaid" expand="block" fill="solid"
+        shape="round" color="warning">
+        Complete Now
+      </ion-button> 
+    </div>
     <div class="inner">
       <div class="box">
         <p id="heading">Recharge And Pay Bills</p>
@@ -39,7 +51,8 @@
             <div class="tapRegion"><img src="assets/key-outline.png" alt=""></div>
             <p id="subtitle">Digital <br> Account</p>
           </div>
-          <div class="round-icons" routerLink="/error-page" routerDirection="forward" [queryParams]="{text:'Currently only available on website',type:''}">
+          <div class="round-icons" routerLink="/error-page" routerDirection="forward"
+            [queryParams]="{text:'Currently only available on website',type:''}">
             <div class="tapRegion"><img src="assets/card-outline.png" alt=""></div>
             <p id="subtitle">Pancard</p>
           </div>

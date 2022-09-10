@@ -15,6 +15,7 @@ export type UserData = {
     pincode?:string;
     address:string;
     aadhaarNumber:string;
+    kycMoneyPaid:boolean;
     tutorialCompleted:boolean;
     panCardNumber:string;
     qrCode:string;
@@ -34,6 +35,8 @@ export type UserData = {
         aadhaarDone:boolean;
         photosDone:boolean;
     },
+    onboardingData?:any;
+    onboardingStatusData?:any;
     messageToken?:string;
     merchantSetupCompleted?:boolean;
     merchantData?:any;

@@ -43,17 +43,17 @@ export class AepsPage implements OnInit {
   aepsForm: UntypedFormGroup = new UntypedFormGroup({
     latitude: new UntypedFormControl('', [Validators.required]),
     longitude: new UntypedFormControl('', [Validators.required]),
-    aadhaarNumber: new UntypedFormControl('433792111395', [
+    aadhaarNumber: new UntypedFormControl('', [
       Validators.required,
       Validators.pattern(/^[0-9]{12}$/),
     ]),
-    mobileNumber: new UntypedFormControl(
-      this.dataProvider.userData.phoneNumber,
+    mobileNumber: new UntypedFormControl(null,
       [Validators.required, Validators.pattern(/^(0|)[1-9][0-9]{9}$/)]
     ),
     amount: new UntypedFormControl('50', [
       Validators.required,
       Validators.pattern(/^(0|)[1-9][0-9]*$/),
+      Validators.min(50)
     ]),
     transactionType: new UntypedFormControl('', [Validators.required]),
     requestRemarks: new UntypedFormControl(''),
@@ -143,22 +143,19 @@ export class AepsPage implements OnInit {
       }
     });
   }
-  async getCoordinates() {
-    const response = await this.locationService.getLatitudeAndLongitude();
-    if (response.status) {
-      return response;
-    } else {
-      return null;
-    }
-  }
 
   async scanFingerPrint(value) {
+    const parser = new DOMParser();
     if (!environment.production) {
       console.log(value);
       if (confirm('Do you want to proceed with the online fingerprint ?')) {
         const data = await this.databaseService.getLog();
         console.log(data.data().message);
         this.fingerPrintData = data.data().message;
+        let respDoc = parser.parseFromString(this.fingerPrintData,'text/xml')
+        if (respDoc.getElementsByTagName('Resp')){
+          console.log(respDoc.getElementsByTagName('Resp')[0].textContent);
+        }
         return;
       } else {
         this.fingerPrintData = prompt('Enter your fingerprint');
@@ -169,8 +166,13 @@ export class AepsPage implements OnInit {
       const { fingerprint } = await RdService.getFingerPrint({
         type: 'morpho',
       });
-      // alert('Got data')
-      alert(fingerprint);
+      let respDoc = parser.parseFromString(fingerprint.replace('{PID=','').replace('}',''),'text/xml')
+      if (respDoc.getElementsByTagName('Resp')[0].attributes['errCode'].value != '0' ){
+        this.alertify.presentToast(respDoc.getElementsByTagName('Resp')[0].attributes['errInfo'].value,'error',5000);
+        return false;
+      } else {
+        this.alertify.presentToast('Capture Successful')
+      }
       this.databaseService.logBug(fingerprint);
       if (fingerprint) {
         this.fingerPrintData = fingerprint;
@@ -182,8 +184,13 @@ export class AepsPage implements OnInit {
       const { fingerprint } = await RdService.getFingerPrint({
         type: 'mantra',
       });
-      // alert('Got data')
-      alert(fingerprint);
+      let respDoc = parser.parseFromString(fingerprint.replace('{PID=','').replace('}',''),'text/xml')
+      if (respDoc.getElementsByTagName('Resp')[0].attributes['errCode'].value != '0' ){
+        this.alertify.presentToast(respDoc.getElementsByTagName('Resp')[0].attributes['errInfo'].value,'error',5000);
+        return false;
+      } else {
+        this.alertify.presentToast('Capture Successful')
+      }
       this.databaseService.logBug(fingerprint);
       if (fingerprint) {
         this.fingerPrintData = fingerprint;
@@ -195,8 +202,13 @@ export class AepsPage implements OnInit {
       const { fingerprint } = await RdService.getFingerPrint({
         type: 'startek',
       });
-      // alert('Got data')
-      alert(fingerprint);
+      let respDoc = parser.parseFromString(fingerprint.replace('{PID=','').replace('}',''),'text/xml')
+      if (respDoc.getElementsByTagName('Resp')[0].attributes['errCode'].value != '0' ){
+        this.alertify.presentToast(respDoc.getElementsByTagName('Resp')[0].attributes['errInfo'].value,'error',5000);
+        return false;
+      } else {
+        this.alertify.presentToast('Capture Successful')
+      }
       this.databaseService.logBug(fingerprint);
       if (fingerprint) {
         this.fingerPrintData = fingerprint;
@@ -208,6 +220,13 @@ export class AepsPage implements OnInit {
       const { fingerprint } = await RdService.getFingerPrint({
         type: 'mantraIris',
       });
+      let respDoc = parser.parseFromString(fingerprint.replace('{PID=','').replace('}',''),'text/xml')
+      if (respDoc.getElementsByTagName('Resp')[0].attributes['errCode'].value != '0' ){
+        this.alertify.presentToast(respDoc.getElementsByTagName('Resp')[0].attributes['errInfo'].value,'error',5000);
+        return false;
+      } else {
+        this.alertify.presentToast('Capture Successful')
+      }
       // alert('Got data')
       alert(fingerprint);
       if (fingerprint) {

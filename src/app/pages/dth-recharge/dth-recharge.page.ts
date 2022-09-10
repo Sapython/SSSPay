@@ -55,7 +55,7 @@ export class DthRechargePage implements OnInit {
   submitDthForm() {
     this.dataProvider.pageSetting.blur = true;
     this.serverService
-      .getDthInfo(this.dthForm.value.operator, this.dthForm.value.customerID)
+      .getDthInfo(this.dthForm.value.operator, this.dthForm.value.caNumber)
       .then(async (data: any) => {
         const modal = await this.modalController.create({
           component: ViewBillComponent,

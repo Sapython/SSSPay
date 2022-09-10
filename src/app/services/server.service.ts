@@ -3,6 +3,7 @@ import { AuthenticationService } from './authentication.service';
 import { AlertsAndNotificationsService } from './uiService/alerts-and-notifications.service';
 import { environment } from '../../environments/environment';
 import { DataProvider } from '../providers/data.provider';
+import { DatabaseService } from './database.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,8 +11,10 @@ import { DataProvider } from '../providers/data.provider';
 export class ServerService {
   constructor(
     private alertify: AlertsAndNotificationsService,
-    private dataProvider: DataProvider
-  ) {}
+    private dataProvider: DataProvider,
+    private databaseService:DatabaseService
+  ) {
+  }
 
   async getRequestOptions(extraData?:any,method?:string,){
     if (method==undefined || method === ''){
@@ -375,7 +378,7 @@ export class ServerService {
     console.log(requestOptions)
     const mainResponse = await fetch(environment.serverBaseUrl + '/upi/createPayment',requestOptions)
     const data = await mainResponse.json()
-    if (data.response_code == 1){
+    if (data.status){
       console.log("Qr data ",data)
       return data
     } else {
@@ -405,6 +408,7 @@ export class ServerService {
     const data = await mainResponse.json()
     if (data.response_code == 1){
       console.log("Qr data ",data)
+      this.databaseService.addOnboardingData(data)
       return data
     } else {
       throw data
@@ -412,15 +416,43 @@ export class ServerService {
   }
 
   async onboardingForAepsKyc(){
+    if (this.dataProvider.userData.kycStatus != 'approved'){
+      return false
+    }
     const requestOptions =  await this.getRequestOptions();
-    const mainResponse = await fetch(environment.serverBaseUrl + '/onboarding/setup',requestOptions)
-    alert('Got response')
+    try {
+      var mainResponse = await fetch(environment.serverBaseUrl + '/onboarding/setup',requestOptions)
+    } catch (error) {
+      console.log("Error kyc 33",error.message)
+      return
+    }
+    // alert('Got response')
     const data = await mainResponse.json()
+    // alert(data)
+    console.log("Onboarding ",data,JSON.stringify(data))
     if (data.response_code == 1){
       console.log("Qr data ",data)
+      this.databaseService.addOnboardingData(data)
       return data
     } else {
+      // alert('A major error has occurred your kyc verification link generation has failed. Please immediately contact our support team.')
       throw data
     }
   }
+
+  async getAepsKycStatus(){
+    if (this.dataProvider.userData.kycStatus != 'approved'){
+      return false
+    }
+    const requestOptions =  await this.getRequestOptions({mobile:this.dataProvider.userData.phoneNumber,merchantcode:this.dataProvider.userData.userId});
+    const mainResponse = await fetch(environment.serverBaseUrl + '/onboarding/status',requestOptions)
+    const data = await mainResponse.json()
+    return data
+  }
+
+  async recheckPaymentStatus(id:string){
+    const requestOptions = await this.getRequestOptions({transactionId:id});
+    return fetch(environment.serverBaseUrl + '/payment/recheckPaymentStatus',requestOptions)
+  }
+
 }

@@ -42,6 +42,7 @@ export class UserDataService {
         panCardNumber:'',
         onboardingDone:false,
         selfieImage: '',
+        kycMoneyPaid:false,
         shopImage: '',
         kycStatus:'incomplete',
         qrCode:'',

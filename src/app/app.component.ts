@@ -16,6 +16,7 @@ import {
   FirebaseDynamicLinks,
   LinkConfig,
 } from '@pantrist/capacitor-firebase-dynamic-links';
+import { ServerService } from './services/server.service';
 
 export interface RdServicePlugin {
   getDeviceInfo(): Promise<{ value: string }>;
@@ -47,7 +48,8 @@ export class AppComponent implements OnInit {
     public dataProvider: DataProvider,
     private alertify: AlertsAndNotificationsService,
     private notificationService: NotificationService,
-    private zone: NgZone
+    private zone: NgZone,
+    private serverService:ServerService
   ) {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/serviceworker.js');
@@ -86,6 +88,33 @@ export class AppComponent implements OnInit {
           // if (user.data().messageToken == undefined){
           //   this.notificationService.startNotificationService();
           // }
+          setTimeout(() => {
+            this.serverService.getAepsKycStatus().then((data)=>{
+              // alert("KYC Status"+data.toString());
+              this.databaseService.addOnBoardingStatusData(data);
+              if (data.response_code == 2 || data.status == 400){
+                // alert("Starting KYC Status");
+                this.serverService.onboardingForAepsKyc().then((data)=>{
+                }).catch((error)=>{
+                  console.log(error);
+                  this.alertify.presentToast(error.message || "When registering Onboarding for aeps kyc failed",'error')
+                }).finally(()=>{
+                  // alert("Onboarding for aeps kyc finally done")
+                })
+              } else if (data.response_code==0){
+                this.alertify.presentToast("KYC is submitted and is in review.")
+              }
+            })
+            if (this.dataProvider.userData){
+              if (!dataProvider.userData.onboardingData){
+                this.serverService.onboardingForAepsKyc().then((data)=>{
+                }).catch((error)=>{
+                  console.log("error KYC",error.message)
+                  this.alertify.presentToast(error.message || "Onboarding for aeps kyc failed",'error')
+                })
+              }
+            }
+          },1000)
           this.notificationService.startNotificationService();
         });
       } else if (dataProvider.gotUserData) {
