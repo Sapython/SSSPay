@@ -24,7 +24,7 @@ export class UserDataService {
         email: user.email || '',
         displayName: name || user.displayName || '',
         photoURL: user.photoURL || this.getRandomImage(),
-        phoneNumber: '',
+        phoneNumber: user.phoneNumber || '',
         dob: new Date(),
         access: {
           access: 'guest',

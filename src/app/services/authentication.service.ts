@@ -17,6 +17,8 @@ import {
   UserCredential,
   signInWithCredential,
   getIdToken,
+  signInWithPhoneNumber,
+  RecaptchaVerifier,
 } from '@angular/fire/auth';
 import { EMPTY, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -43,6 +45,10 @@ export class AuthenticationService {
   allowedStatuses: string[] = ['active', 'inactive'];
   triggeredOnboarding: boolean = false;
   private loggedIn: boolean = false;
+  get windowRef() {
+    return window;
+  }
+  public authInstance:any;
   constructor(
     private auth: Auth,
     private analytics: Analytics,
@@ -55,6 +61,7 @@ export class AuthenticationService {
     private functions: Functions,
     private serverService:ServerService
   ) {
+    this.authInstance = this.auth;
     if (auth) {
       // GoogleAuth.signIn();
       this.user = authState(this.auth);
@@ -352,6 +359,10 @@ export class AuthenticationService {
         this.alertify.presentToast('Invalid Phone Number', 'error', 5000);
       }
     }
+  }
+
+  public async loginWithPhone(phoneNumber: string,ref:RecaptchaVerifier) {
+    return signInWithPhoneNumber(this.auth, phoneNumber, ref)
   }
 
   public getIdToken(user: User) {

@@ -33,6 +33,7 @@ export default RdService;
 export class AppComponent implements OnInit {
   noHeaders = [
     'login',
+    'phone-login',
     'register',
     'forgot-password',
     'reset-password',
@@ -97,7 +98,7 @@ export class AppComponent implements OnInit {
                 this.serverService.onboardingForAepsKyc().then((data)=>{
                 }).catch((error)=>{
                   console.log(error);
-                  this.alertify.presentToast(error.message || "When registering Onboarding for aeps kyc failed",'error')
+                  this.alertify.presentToast(JSON.stringify(error) || "When registering Onboarding for aeps kyc failed",'error')
                 }).finally(()=>{
                   // alert("Onboarding for aeps kyc finally done")
                 })

@@ -166,6 +166,8 @@ export class AepsPage implements OnInit {
       const { fingerprint } = await RdService.getFingerPrint({
         type: 'morpho',
       });
+      alert(fingerprint);
+      window.navigator.clipboard.writeText(fingerprint);
       let respDoc = parser.parseFromString(fingerprint.replace('{PID=','').replace('}',''),'text/xml')
       if (respDoc.getElementsByTagName('Resp')[0].attributes['errCode'].value != '0' ){
         this.alertify.presentToast(respDoc.getElementsByTagName('Resp')[0].attributes['errInfo'].value,'error',5000);
@@ -184,6 +186,8 @@ export class AepsPage implements OnInit {
       const { fingerprint } = await RdService.getFingerPrint({
         type: 'mantra',
       });
+      alert(fingerprint);
+      window.navigator.clipboard.writeText(fingerprint);
       let respDoc = parser.parseFromString(fingerprint.replace('{PID=','').replace('}',''),'text/xml')
       if (respDoc.getElementsByTagName('Resp')[0].attributes['errCode'].value != '0' ){
         this.alertify.presentToast(respDoc.getElementsByTagName('Resp')[0].attributes['errInfo'].value,'error',5000);
@@ -202,6 +206,8 @@ export class AepsPage implements OnInit {
       const { fingerprint } = await RdService.getFingerPrint({
         type: 'startek',
       });
+      alert(fingerprint);
+      window.navigator.clipboard.writeText(fingerprint);
       let respDoc = parser.parseFromString(fingerprint.replace('{PID=','').replace('}',''),'text/xml')
       if (respDoc.getElementsByTagName('Resp')[0].attributes['errCode'].value != '0' ){
         this.alertify.presentToast(respDoc.getElementsByTagName('Resp')[0].attributes['errInfo'].value,'error',5000);

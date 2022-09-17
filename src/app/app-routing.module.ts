@@ -295,7 +295,11 @@ const routes: Routes = [
   {
     path: 'manage-members',
     loadChildren: () => import('./pages/manage-members/manage-members.module').then( m => m.ManageMembersPageModule)
+  },  {
+    path: 'phone-login',
+    loadChildren: () => import('./pages/phone-login/phone-login.module').then( m => m.PhoneLoginPageModule)
   },
+
 
 
 ];
