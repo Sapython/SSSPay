@@ -19,6 +19,7 @@ import {
   getIdToken,
   signInWithPhoneNumber,
   RecaptchaVerifier,
+  signInWithPopup,
 } from '@angular/fire/auth';
 import { EMPTY, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -159,7 +160,7 @@ export class AuthenticationService {
         });
     } else {
       const googleAuthProvider = new GoogleAuthProvider();
-      signInWithRedirect(this.auth, googleAuthProvider).then(
+      signInWithPopup(this.auth, googleAuthProvider).then(
         (credentials: UserCredential) => {
           this.dataProvider.pageSetting.blur = true;
           getDoc(doc(this.firestore, 'users/' + credentials.user.uid))

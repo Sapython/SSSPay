@@ -1,14 +1,17 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.firebase.crashlytics'
 
+
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
+        multiDexEnabled true
         applicationId "com.shreeva.ssspay"
         minSdkVersion 25
         compileSdkVersion 30
         targetSdkVersion 30
-        versionCode 29
+        versionCode 30
         versionName "1.4.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
@@ -32,6 +35,15 @@ repositories {
 }
 
 dependencies {
+    implementation files('libs/onboard_uat_v2.0.aar')
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
+    implementation 'com.google.code.gson:gson:2.5.2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "com.karumi:dexter:5.0.0"
+    implementation 'com.github.yalantis:ucrop:2.2.6-native'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation platform('com.google.firebase:firebase-bom:30.2.0')
     implementation 'com.google.firebase:firebase-firestore'
