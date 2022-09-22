@@ -14,7 +14,7 @@
       <ion-button (click)="payUpiMoney()" *ngIf="!dataProvider?.userData?.kycMoneyPaid" color="warning" expand="block" fill="solid" shape="round">
         Pay &#8377;10 to complete kyc
       </ion-button>
-      <ion-button [href]="dataProvider?.userData?.onboardingData?.redirecturl" *ngIf="dataProvider?.userData?.kycMoneyPaid" expand="block" fill="solid"
+      <ion-button (click)="generateLinkAndRedirectOnboarding()" *ngIf="dataProvider?.userData?.kycMoneyPaid" expand="block" fill="solid"
         shape="round" color="warning">
         Complete Now
       </ion-button> 
@@ -93,4 +93,5 @@
       </div>
     </div>
   </div>
+  <a hidden [href]="webLink" #webRef target="_blank"></a>
 </ion-content>

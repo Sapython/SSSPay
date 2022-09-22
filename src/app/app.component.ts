@@ -40,6 +40,7 @@ export class AppComponent implements OnInit {
     'verify-email',
     'splashscreen',
   ];
+  
   showHeaders: boolean = false;
   constructor(
     private authService: AuthenticationService,
@@ -92,9 +93,17 @@ export class AppComponent implements OnInit {
           setTimeout(() => {
             this.serverService.getAepsKycStatus().then((data)=>{
               // alert("KYC Status"+data.toString());
-              this.databaseService.addOnBoardingStatusData(data);
+              this.databaseService.addOnBoardingStatusData(data).then((data:any)=>{
+                console.log("Status data: "+data)
+              }).catch((err)=>{
+                console.log("Status Error: "+err)
+              }).finally(()=>{
+                alert("Fetched")
+              });
+              console.log("SAPTAM : ")
+              console.log(data)
               if (data.response_code == 2 || data.status == 400){
-                // alert("Starting KYC Status");
+                alert("Starting KYC registartion");
                 this.serverService.onboardingForAepsKyc().then((data)=>{
                 }).catch((error)=>{
                   console.log(error);

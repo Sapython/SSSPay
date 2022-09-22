@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { ServerService } from 'src/app/services/server.service';
 import { TransactionService } from 'src/app/services/transaction.service';
@@ -16,6 +16,7 @@ import { DatabaseService } from 'src/app/services/database.service';
   styleUrls: ['./homepage.page.scss'],
 })
 export class HomepagePage{
+  @ViewChild('webRef') webRef;
   constructor(public dataProvider:DataProvider,private popoverController:PopoverController,private serverService:ServerService,private transactionService:TransactionService,private alertify:AlertsAndNotificationsService,private databaseService:DatabaseService){}
   items = [
     {
@@ -45,6 +46,7 @@ export class HomepagePage{
       routerLink:'/onboarding'
     },
   ];
+  webLink:string = '';
   upiQrId:string;
   async openBalance(){
     const popOver = await this.popoverController.create({
@@ -134,4 +136,24 @@ export class HomepagePage{
     this.dataProvider.pageSetting.blur = false;
     })
   }
+
+  generateLinkAndRedirectOnboarding(){
+    this.dataProvider.pageSetting.blur  = true;
+    this.serverService.onboardingForAepsKyc().then((data)=>{
+      console.log(data);
+      // Browser.open({ url: data.data.onboarding_url});
+      this.webLink = data.redirecturl;
+      if(this.webRef){
+        console.log("webRef",this.webRef);
+        this.webRef.nativeElement.href = this.webLink;
+        this.webRef.nativeElement.click()
+      }
+    }).catch((error)=>{
+      console.log(error);
+      this.alertify.presentToast('Something went wrong, please try again later.');
+    }).finally(()=>{
+      this.dataProvider.pageSetting.blur  = false;
+    })
+  }
 }
+
