@@ -6,7 +6,6 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalController, Platform } from '@ionic/angular';
-
 import { ServerService } from 'src/app/services/server.service';
 import { DatabaseService } from '../../services/database.service';
 import { LocationService } from '../../services/location.service';
@@ -18,6 +17,7 @@ import { TransactionService } from 'src/app/services/transaction.service';
 import { Transaction } from 'src/app/structures/method.structure';
 import { DataProvider } from 'src/app/providers/data.provider';
 import { environment } from 'src/environments/environment';
+import { PromptComponent } from 'src/app/prompt/prompt.component';
 
 export interface RdServicePlugin {
   getDeviceInfo(): Promise<{ value: string }>;
@@ -159,7 +159,12 @@ export class AepsPage implements OnInit {
         }
         return;
       } else {
-        this.fingerPrintData = prompt('Enter your fingerprint');
+        const modal = await this.modalController.create({
+          component: PromptComponent,
+        })
+        await modal.present();
+        this.fingerPrintData = (await modal.onWillDismiss()).data.trim();
+        console.log(this.fingerPrintData.trim());
         return;
       }
     }

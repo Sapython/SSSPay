@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-prompt',
@@ -6,9 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./prompt.component.scss'],
 })
 export class PromptComponent implements OnInit {
-
-  constructor() { }
-
+  constructor(private modalController:ModalController) { }
+  sendData(data:string){
+    this.modalController.dismiss(data)
+  }
   ngOnInit() {}
 
 }

@@ -30,8 +30,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { NotificationService } from './services/notification.service';
 import { MemberManagementService } from './services/member-management.service';
 import { WaitForQrPaymentComponent } from './wait-for-qr-payment/wait-for-qr-payment.component';
+import { PromptComponent } from './prompt/prompt.component';
 @NgModule({   
-    declarations: [AppComponent,WaitForQrPaymentComponent],
+    declarations: [AppComponent,WaitForQrPaymentComponent,PromptComponent],
     imports: [
         BrowserModule,
         IonicModule.forRoot({ animated: true,navAnimation: pageTransition }),
