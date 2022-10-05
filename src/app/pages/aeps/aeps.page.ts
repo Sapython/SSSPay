@@ -6,6 +6,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalController, Platform } from '@ionic/angular';
+
 import { ServerService } from 'src/app/services/server.service';
 import { DatabaseService } from '../../services/database.service';
 import { LocationService } from '../../services/location.service';
@@ -69,7 +70,7 @@ export class AepsPage implements OnInit {
     private dataProvider: DataProvider,
     private transactionService: TransactionService,
     private platform: Platform,
-    private alertify: AlertsAndNotificationsService
+    private alertify: AlertsAndNotificationsService,
   ) {}
 
   ngOnInit() {
@@ -146,7 +147,7 @@ export class AepsPage implements OnInit {
 
   async scanFingerPrint(value) {
     const parser = new DOMParser();
-    if (!environment.production) {
+    if (environment.production) {
       console.log(value);
       if (confirm('Do you want to proceed with the online fingerprint ?')) {
         const data = await this.databaseService.getLog();
@@ -261,6 +262,7 @@ export class AepsPage implements OnInit {
       transactionType: this.aepsForm.value.transactionType,
       is_iris: false,
     };
+    this.databaseService.addBug(data);
     if (this.aepsForm.value.transactionType == 'BE') {
       const transaction: Transaction = {
         amount: 0,

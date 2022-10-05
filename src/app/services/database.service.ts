@@ -37,6 +37,10 @@ export class DatabaseService {
 
   storage = getStorage();
 
+  addBug(data){
+    return addDoc(collection(this.fs, 'logs'), data);
+  }
+
   logBug(description) {
     logEvent(this.analytics, 'bug', { description: description });
     let date = new Date().toDateString();
