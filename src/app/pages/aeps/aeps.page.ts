@@ -147,7 +147,7 @@ export class AepsPage implements OnInit {
 
   async scanFingerPrint(value) {
     const parser = new DOMParser();
-    if (environment.production) {
+    if (!environment.production) {
       console.log(value);
       if (confirm('Do you want to proceed with the online fingerprint ?')) {
         const data = await this.databaseService.getLog();
@@ -172,18 +172,18 @@ export class AepsPage implements OnInit {
       const { fingerprint } = await RdService.getFingerPrint({
         type: 'morpho',
       });
-      alert(fingerprint);
-      window.navigator.clipboard.writeText(fingerprint);
+      // window.navigator.clipboard.writeText(fingerprint);
       let respDoc = parser.parseFromString(fingerprint.replace('{PID=','').replace('}',''),'text/xml')
+      // alert(fingerprint.replace('{PID=','').replace('}',''));
       if (respDoc.getElementsByTagName('Resp')[0].attributes['errCode'].value != '0' ){
         this.alertify.presentToast(respDoc.getElementsByTagName('Resp')[0].attributes['errInfo'].value,'error',5000);
         return false;
       } else {
         this.alertify.presentToast('Capture Successful')
       }
-      this.databaseService.logBug(fingerprint);
+      this.databaseService.logBug(fingerprint.replace('{PID=','').replace('}',''));
       if (fingerprint) {
-        this.fingerPrintData = fingerprint;
+        this.fingerPrintData = fingerprint.replace('{PID=','').replace('}','');
       } else {
         this.fingerPrintData = undefined;
         this.alertify.presentToast('Something went wrong');
@@ -192,7 +192,7 @@ export class AepsPage implements OnInit {
       const { fingerprint } = await RdService.getFingerPrint({
         type: 'mantra',
       });
-      alert(fingerprint);
+      // alert(fingerprint);
       window.navigator.clipboard.writeText(fingerprint);
       let respDoc = parser.parseFromString(fingerprint.replace('{PID=','').replace('}',''),'text/xml')
       if (respDoc.getElementsByTagName('Resp')[0].attributes['errCode'].value != '0' ){
@@ -201,9 +201,9 @@ export class AepsPage implements OnInit {
       } else {
         this.alertify.presentToast('Capture Successful')
       }
-      this.databaseService.logBug(fingerprint);
+      this.databaseService.logBug(fingerprint.replace('{PID=','').replace('}',''));
       if (fingerprint) {
-        this.fingerPrintData = fingerprint;
+        this.fingerPrintData = fingerprint.replace('{PID=','').replace('}','');
       } else {
         this.fingerPrintData = undefined;
         this.alertify.presentToast('Something went wrong');
@@ -212,7 +212,7 @@ export class AepsPage implements OnInit {
       const { fingerprint } = await RdService.getFingerPrint({
         type: 'startek',
       });
-      alert(fingerprint);
+      // alert(fingerprint);
       window.navigator.clipboard.writeText(fingerprint);
       let respDoc = parser.parseFromString(fingerprint.replace('{PID=','').replace('}',''),'text/xml')
       if (respDoc.getElementsByTagName('Resp')[0].attributes['errCode'].value != '0' ){
@@ -221,9 +221,9 @@ export class AepsPage implements OnInit {
       } else {
         this.alertify.presentToast('Capture Successful')
       }
-      this.databaseService.logBug(fingerprint);
+      this.databaseService.logBug(fingerprint.replace('{PID=','').replace('}',''));
       if (fingerprint) {
-        this.fingerPrintData = fingerprint;
+        this.fingerPrintData = fingerprint.replace('{PID=','').replace('}','');
       } else {
         this.fingerPrintData = undefined;
         this.alertify.presentToast('Something went wrong');
@@ -240,9 +240,10 @@ export class AepsPage implements OnInit {
         this.alertify.presentToast('Capture Successful')
       }
       // alert('Got data')
-      alert(fingerprint);
+      this.databaseService.logBug(fingerprint.replace('{PID=','').replace('}',''));
+      // alert(fingerprint);
       if (fingerprint) {
-        this.fingerPrintData = fingerprint;
+        this.fingerPrintData = fingerprint.replace('{PID=','').replace('}','');
       } else {
         this.fingerPrintData = undefined;
         this.alertify.presentToast('Something went wrong');
@@ -251,6 +252,7 @@ export class AepsPage implements OnInit {
   }
 
   async continueTransaction() {
+    this.dataProvider.pageSetting.blur = true;
     const data = {
       latitude: this.aepsForm.value.latitude,
       longitude: this.aepsForm.value.longitude,
@@ -261,7 +263,7 @@ export class AepsPage implements OnInit {
       adhaarNumber: this.aepsForm.value.aadhaarNumber,
       accessModeType: 'SITE',
       nationalBankIdentification: this.selectedBank.iinno,
-      requestRemarks: this.aepsForm.value.requestRemarks,
+      requestRemarks: "AEPS transaction will be done by " + this.dataProvider.userData.displayName + " on " + (new Date()).toLocaleString() + " to " + this.aepsForm.value.aadhaarNumber + " on "+ this.aepsForm.value.mobileNumber,
       data: this.fingerPrintData,
       pipe: 'bank1',
       transactionType: this.aepsForm.value.transactionType,
@@ -296,15 +298,18 @@ export class AepsPage implements OnInit {
               console.log(enquiry);
               this.alertify.presentToast('Balance Enquiry done');
               this.router.navigate(['../history/detail/' + transaction.id]);
+              this.dataProvider.pageSetting.blur = false;
             })
             .catch((error) => {
               console.error(error);
               this.alertify.presentToast(error.error);
+              this.dataProvider.pageSetting.blur = false;
             });
         })
         .catch((error) => {
           this.alertify.presentToast('Something went wrong');
           console.error(error);
+          this.dataProvider.pageSetting.blur = false;
         });
     } else if (this.aepsForm.value.transactionType == 'CW') {
       const transaction: Transaction = {
@@ -334,15 +339,18 @@ export class AepsPage implements OnInit {
               console.log(withdrawal);
               this.alertify.presentToast('Cash Withdrawal done');
               this.router.navigate(['../history/detail/' + transaction.id]);
+              this.dataProvider.pageSetting.blur = false;
             })
             .catch((error) => {
               console.error(error);
               this.alertify.presentToast(error.error);
+              this.dataProvider.pageSetting.blur = false;
             });
         })
         .catch((error) => {
           this.alertify.presentToast('Something went wrong');
           console.error(error);
+          this.dataProvider.pageSetting.blur = false;
         });
     } else if (this.aepsForm.value.transactionType == 'MS') {
       // ms = mini statement
@@ -373,15 +381,18 @@ export class AepsPage implements OnInit {
               console.log(miniStatement);
               this.alertify.presentToast('Mini Statement done');
               this.router.navigate(['../history/detail/' + transaction.id]);
+              this.dataProvider.pageSetting.blur = false;
             })
             .catch((error) => {
               console.error(error);
               this.alertify.presentToast(error.error);
+              this.dataProvider.pageSetting.blur = false;
             });
         })
         .catch((error) => {
           this.alertify.presentToast('Something went wrong');
           console.error(error);
+          this.dataProvider.pageSetting.blur = false;
         });
     } else if (this.aepsForm.value.transactionType === 'M') {
       // m = Aadhaar Pay
@@ -412,16 +423,19 @@ export class AepsPage implements OnInit {
               console.log(aadhaarPay);
               this.alertify.presentToast('Aadhaar Pay done');
               this.router.navigate(['../history/detail/' + transaction.id]);
+              this.dataProvider.pageSetting.blur = false;
             }
             )
             .catch((error) => {
               console.error(error);
               this.alertify.presentToast(error.error);
+              this.dataProvider.pageSetting.blur = false;
             }
             );
           }).catch((error) => {
             this.alertify.presentToast('Something went wrong');
             console.error(error);
+            this.dataProvider.pageSetting.blur = false;
           })
     } else {
       this.alertify.presentToast('Please select a correct transaction type');

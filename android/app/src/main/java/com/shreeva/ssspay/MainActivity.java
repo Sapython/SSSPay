@@ -13,8 +13,6 @@ import com.getcapacitor.BridgeActivity;
 import com.getcapacitor.Plugin;
 //import com.ahm.capacitor.biometric.BiometricAuth;
 
-import org.chromium.base.Promise;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +22,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import com.pantrist.firebase.dynamiclinks.CapacitorFirebaseDynamicLinks;
 
 import ch.byrds.capacitor.contacts.Contacts;
@@ -38,13 +35,14 @@ public class MainActivity extends BridgeActivity {
   private final String SUCCESS = "SUCCESS";
   private final String FAILURE = "FAILURE";
   private String PckName = "";
-  private Promise promise;
+//  private Promise promise;
   private Map<String, Object> logging = new HashMap<>();
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     registerPlugin(RdIntegration.class);
     registerPlugin(CapacitorFirebaseDynamicLinks.class);
+
     this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {
       {
         add(GoogleAuth.class);

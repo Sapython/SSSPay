@@ -146,6 +146,7 @@ export class ServerService {
     const data = await mainResponse.json()
     return data;
   }
+  
   async getDistOperatorList():Promise<any[]>{
     const requestOptions =  await this.getRequestOptions();
     const mainResponse = await fetch(environment.serverBaseUrl + '/recharge/getOperatorsList',requestOptions)

@@ -4,7 +4,9 @@ import { Subscription } from 'rxjs';
 import { DataProvider } from 'src/app/providers/data.provider';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { AlertsAndNotificationsService } from 'src/app/services/uiService/alerts-and-notifications.service';
-
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+  
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.page.html',
@@ -20,6 +22,7 @@ export class DetailPage implements OnInit {
   transactionSubscription: Subscription = Subscription.EMPTY;
   retailerId: string = '';
   retailerName: string = '';
+  successData:any;
   constructor(
     private activatedRoute: ActivatedRoute,
     private alertify: AlertsAndNotificationsService,
@@ -41,6 +44,7 @@ export class DetailPage implements OnInit {
               this.amount = data.amount;
               this.command = data.type;
               this.date = data.date.toDate();
+              this.successData = data.successData;
             });
         }
       }
@@ -58,9 +62,14 @@ export class DetailPage implements OnInit {
             this.command = data.type;
             this.date = data.date.toDate();
             this.transactionData = data;
+            this.successData = data.successData;
           });
       }
     });
+  }
+
+  getPdf(){
+
   }
 
   ngOnInit() {
@@ -71,5 +80,10 @@ export class DetailPage implements OnInit {
     console.log(text);
     navigator.clipboard.writeText(text);
     this.alertify.presentToast('Copied to clipboard');
+  }
+
+  // generate random id
+  generateId() {
+    return Math.floor(Math.random() * 10000000);
   }
 }
