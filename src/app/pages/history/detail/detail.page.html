@@ -12,7 +12,7 @@
     </ion-text>
     <img src="assets/sss-logo.svg" width="100" alt="">
   </div>
-  <div class="transactionDetail">
+  <div class="transactionDetail" id="printer">
     <ion-item>
       <p>Retailer Name</p>
       <ion-label color="primary">{{retailerName}}</ion-label>
@@ -41,7 +41,11 @@
       <p>Type</p>
       <ion-label>
         <ion-chip color="primary" mode="ios" outline="true">
-          <ion-label>{{command}}</ion-label>
+          <ion-label *ngIf="!transactionData?.extraData?.aepsData?.transactionType">{{command | titlecase}}</ion-label>
+          <ion-label *ngIf="transactionData?.extraData?.aepsData?.transactionType=='MS'">AEPS Mini-Statement</ion-label>
+          <ion-label *ngIf="transactionData?.extraData?.aepsData?.transactionType=='BE'">AEPS Balance Enquiry</ion-label>
+          <ion-label *ngIf="transactionData?.extraData?.aepsData?.transactionType=='CW'">AEPS Cash-Withdrawal</ion-label>
+          <ion-label *ngIf="transactionData?.extraData?.aepsData?.transactionType=='M'">AEPS Aadhaar Pay</ion-label>
         </ion-chip>
       </ion-label>
     </ion-item>
@@ -94,12 +98,5 @@
         <ion-icon name="download"></ion-icon>
       </ion-button>
     </div>
-    <!-- <table id="print">
-      <img src="./assets/sss-logo.svg" alt="SSSPay">
-        
-    </table> -->
   </div>
-  <button *ngIf="paymentStatus=='pending'">
-    <ion-icon name="refresh-circle"></ion-icon>Re-Initiate
-  </button>
 </ion-content>
