@@ -2,6 +2,20 @@ import { Injectable } from '@angular/core';
 import { doc, Firestore } from '@angular/fire/firestore';
 import { setDoc, updateDoc } from '@firebase/firestore';
 import { DataProvider } from '../providers/data.provider';
+import { registerPlugin } from '@capacitor/core';
+import { Geolocation } from '@capacitor/geolocation';
+
+export interface OnboardingType {
+  startOnboarding(options: {
+    merchantCode:string,
+    mobile:string,
+    lat:string,
+    lng:string,
+    email:string,
+  }): Promise<{ value: string }>;
+}
+const Onboarding = registerPlugin<OnboardingType>('Onboarding');
+export default Onboarding;
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +44,58 @@ export class OnboardingService {
       panImageUrl: '',
     };
   }
+
+  onboardPaysprint(){
+    console.log('onboardPaysprint getting position');
+    Geolocation.checkPermissions().then((res)=>{
+      if(res.location=='granted'){
+        Geolocation.getCurrentPosition({enableHighAccuracy:true}).then((position)=>{
+          console.log('onboardPaysprint got position');
+          if (position.coords.latitude == 0 && position.coords.longitude == 0) {
+            alert('Please enable location services');
+            return;
+          }
+          if (!this.dataProvider.userData.userId) {
+            alert('Please login to continue');
+            return
+          }
+          if (!this.dataProvider.userData.phoneNumber) {
+            alert('No phone number found');
+            return
+          }
+          if (!this.dataProvider.userData.email) {
+            alert('No email found');
+            return
+          }
+          
+          console.log(position);
+          Onboarding.startOnboarding({
+            merchantCode: this.dataProvider.userData.userId,
+            mobile: this.dataProvider.userData.phoneNumber,
+            lat: position.coords.latitude.toString(),
+            lng: position.coords.longitude.toString(),
+            email: this.dataProvider.userData.email,
+          }).then((res)=>{
+            console.log(res);
+          }).catch((err)=>{
+            console.log(err);
+            alert('Something went wrong'+JSON.stringify(err))
+          })
+        }).catch((err)=>{
+          console.log(err);
+          alert('Something went wrong'+JSON.stringify(err))
+        })
+      }
+    })
+    
+    // window.navigator.geolocation.getCurrentPosition((position)=>{
+      
+    // },(err)=>{
+    //   console.log(err);
+    //   alert('Something went wrong'+JSON.stringify(err))
+    // })
+  }
+
   async setAadhaarDetails(aadhaarData: any) {
     try {
       const data = await setDoc(

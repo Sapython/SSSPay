@@ -35,7 +35,7 @@
             </ion-item>
             <ion-item *ngIf="accountType.value == 'bank_account'">
                 <ion-label position="floating">IFSC</ion-label>
-                <ion-input type="text" formControlName="ifsc" placeholder="IFSC"></ion-input>
+                <ion-input type="text" formControlName="ifsc" pattern="^[A-Za-z]{4}\d{7}$" placeholder="IFSC"></ion-input>
             </ion-item>
             <ion-item *ngIf="accountType.value == 'vpa'">
                 <ion-label position="floating">UPI Id</ion-label>
@@ -43,7 +43,7 @@
             </ion-item>
             <ion-item *ngIf="accountType.value == 'card'">
                 <ion-label position="floating">Card Number</ion-label>
-                <ion-input type="text" formControlName="cardNumber" placeholder="Card Number"></ion-input>
+                <ion-input type="text" formControlName="cardNumber" placeholder="Card Number" pattern="[0-9]{16}"></ion-input>
             </ion-item>
             <ion-item *ngIf="accountType.value == 'card'">
                 <ion-label position="floating">Card Name</ion-label>

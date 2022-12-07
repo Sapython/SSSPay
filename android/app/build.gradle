@@ -7,8 +7,8 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "com.shreeva.ssspay"
-        minSdkVersion 25
-        compileSdkVersion 30
+        minSdkVersion 26
+        compileSdkVersion 31
         targetSdkVersion 30
         versionCode 39
         versionName "1.5.2"
@@ -34,7 +34,17 @@ repositories {
 }
 
 dependencies {
+    implementation "androidx.core:core-splashscreen:$coreSplashScreenVersion"
+    implementation "androidx.coordinatorlayout:coordinatorlayout:$androidxCoordinatorLayoutVersion"
   implementation fileTree(include: ['*.jar'], dir: 'libs')
+  implementation files('libs/onboard_uat_v2.0.aar')
+  implementation "com.squareup.retrofit2:retrofit:2.9.0"
+  implementation "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
+  implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+  implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
+  implementation 'com.google.code.gson:gson:2.5.2'
+  implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+  implementation "com.karumi:dexter:5.0.0"
   implementation platform('com.google.firebase:firebase-bom:30.2.0')
     implementation 'com.google.firebase:firebase-firestore'
     implementation 'com.google.firebase:firebase-crashlytics'

@@ -19,6 +19,9 @@
         Complete Now
       </ion-button> 
     </div>
+    <ion-button (click)="startOnboarding()" expand="block" fill="outline" shape="">
+      Start Onboarding
+    </ion-button>
     <ion-card class="ion-padding" mode="ios">
       <ion-card-title mode="md" color="primary">Wallet Balance &nbsp; <strong>&#8377;{{dataProvider.wallet?.balance}}</strong></ion-card-title>
     </ion-card>

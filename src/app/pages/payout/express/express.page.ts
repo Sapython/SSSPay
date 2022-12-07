@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataProvider } from 'src/app/providers/data.provider';
 import { DatabaseService } from 'src/app/services/database.service';
@@ -16,23 +16,23 @@ import { Transaction } from 'src/app/structures/method.structure';
 export class ExpressPage implements OnInit {
   addingAccount: boolean = false;
   payoutForm: UntypedFormGroup = new UntypedFormGroup({
-    amount: new UntypedFormControl(null, [
+    amount: new FormControl(null, [
       Validators.required,
       Validators.max(this.dataProvider.wallet.balance),
       Validators.min(0),
     ]),
-    description: new UntypedFormControl(null, [Validators.required]),
-    name: new UntypedFormControl(null, [Validators.required]),
-    email: new UntypedFormControl(null, [Validators.required]),
-    contact: new UntypedFormControl(null, [Validators.required]),
-    accountType: new UntypedFormControl(null, [Validators.required]),
-    bankAccountName: new UntypedFormControl(null),
-    accountNumber: new UntypedFormControl(null),
-    paymentType: new UntypedFormControl(null),
-    ifsc: new UntypedFormControl(null),
-    vpa: new UntypedFormControl(null),
-    cardNumber: new UntypedFormControl(null),
-    cardName: new UntypedFormControl(null),
+    description: new FormControl(null, [Validators.required]),
+    name: new FormControl(null, [Validators.required]),
+    email: new FormControl(null, [Validators.required]),
+    contact: new FormControl(null, [Validators.required]),
+    accountType: new FormControl(null, [Validators.required]),
+    bankAccountName: new FormControl(null),
+    accountNumber: new FormControl(null),
+    paymentType: new FormControl(null),
+    ifsc: new FormControl(null),
+    vpa: new FormControl(null),
+    cardNumber: new FormControl(null),
+    cardName: new FormControl(null),
   });
   fundAccounts = [];
   constructor(
@@ -89,14 +89,14 @@ export class ExpressPage implements OnInit {
         .setValidators([Validators.required]);
       this.payoutForm
         .get('accountNumber')
-        .setValidators([Validators.required,Validators.pattern('^\d{9,18}$')]);
-      this.payoutForm.get('ifsc').setValidators([Validators.required,Validators.pattern('^[A-Za-z]{4}\d{7}$')]);
+        .setValidators([Validators.required,Validators.minLength(8),Validators.maxLength(18)]);
+      this.payoutForm.get('ifsc').setValidators([Validators.required]);
     } else if (event.detail.value == 'vpa') {
       this.payoutForm.get('vpa').setValidators([Validators.required,Validators.email]);
     } else if (event.detail.value == 'card') {
       this.payoutForm
         .get('cardNumber')
-        .setValidators([Validators.required,Validators.pattern('[0-9]{16}')]);
+        .setValidators([Validators.required]);
       this.payoutForm
         .get('cardName')
         .setValidators([Validators.required]);

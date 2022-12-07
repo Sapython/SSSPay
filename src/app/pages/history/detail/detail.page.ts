@@ -45,10 +45,10 @@ export class DetailPage implements OnInit {
               this.command = data.type;
               this.date = data.date.toDate();
               this.successData = data.successData;
-              alert('updated');
+              // alert('updated');
               if (data.type == 'expressPayout') {
                 if (data.newPayoutStatus) {
-                  alert(data.newPayOutStatus.event);
+                  this.alertify.presentToast(data.newPayOutStatus.event);
                   let pendingStatuses = [
                     'payout.pending',
                     'payout.queued',
@@ -85,6 +85,7 @@ export class DetailPage implements OnInit {
         this.transactionSubscription = this.transactionService
           .getTransaction(params.id)
           .subscribe((data) => {
+            alert("Updated")
             console.log(JSON.parse(JSON.stringify(data)));
             this.paymentStatus = data.status;
             this.amount = data.amount;
@@ -116,12 +117,23 @@ export class DetailPage implements OnInit {
                   'payout.reversed',
                   'payout.rejected',
                 ];
-                if (pendingStatuses.includes(event)) {
+                this.alertify.presentToast(event)
+                if (pendingStatuses.includes(event) && this.paymentStatus !='pending') {
                   this.paymentStatus = 'pending';
-                } else if (successStatuses.includes(event)) {
+                  this.transactionService.updateTransaction(params.id, {
+                    status: 'pending',
+                  })
+
+                } else if (successStatuses.includes(event) && this.paymentStatus !='success') {
                   this.paymentStatus = 'success';
-                } else if (failedStatuses.includes(event)) {
+                  this.transactionService.updateTransaction(params.id, {
+                    status: 'success',
+                  })
+                } else if (failedStatuses.includes(event) && this.paymentStatus !='error') {
                   this.paymentStatus = 'error';
+                  this.transactionService.updateTransaction(params.id, {
+                    status: 'error',
+                  })
                 }
               }
             }
@@ -131,7 +143,7 @@ export class DetailPage implements OnInit {
   }
 
   print() {
-    
+     
   }
 
   getPdf() {}
@@ -139,11 +151,11 @@ export class DetailPage implements OnInit {
   ngOnInit() {
     this.retailerId = this.dataProvider.userData.userId;
     this.retailerName = this.dataProvider.userData.displayName;
-    setTimeout(() => {
-      window.print();
-      print()
-      alert('Printed');
-    }, 3000);
+    // setTimeout(() => {
+    //   // window.print();
+    //   // print()
+    //   alert('Printed');
+    // }, 3000);
   }
   copy(text: string) {
     console.log(text);

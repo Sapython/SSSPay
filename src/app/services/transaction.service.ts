@@ -24,12 +24,20 @@ export class TransactionService {
     return getDocs(query(collection(this.fs,'users/'+this.dataProvider.userData.userId+'/transaction'),orderBy('date','desc')))
   }
 
+  getLimitedTransactions(length:number){
+    return getDocs(query(collection(this.fs,'users/'+this.dataProvider.userData.userId+'/transaction'),orderBy('date','desc'),limit(length)))
+  }
+
   getTopTransactions(length:number){
     return getDocs(query(collection(this.fs,'users/'+this.dataProvider.userData.userId+'/transaction'),orderBy('date','desc'),limit(length)))
   }
 
   getTransaction(transactionId:string){
     return docData(doc(this.fs,'users/'+this.dataProvider.userData.userId+'/transaction/'+transactionId))
+  }
+
+  updateTransaction(transactionId:string,transactionDetail:any){
+    return updateDoc(doc(this.fs,'users/'+this.dataProvider.userData.userId+'/transaction/'+transactionId),transactionDetail)
   }
 
   getDTHPayments(){
