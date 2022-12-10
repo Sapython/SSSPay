@@ -12,26 +12,25 @@
     </ion-text>
     <img src="assets/sss-logo.svg" width="100" alt="">
   </div>
-  <div class="transactionDetail">
+  <div class="transactionDetail" id="printer">
     <ion-item>
       <p>Retailer Name</p>
       <ion-label color="primary">{{retailerName}}</ion-label>
-      <ion-icon name="copy-outline" (click)="copy(transactionId)"></ion-icon>
+      <ion-icon name="copy-outline" (click)="copy(retailerName)"></ion-icon>
     </ion-item>
     <ion-item>
       <p>Retailer Id</p>
       <ion-label color="primary">{{retailerId}}</ion-label>
-      <ion-icon name="copy-outline" (click)="copy(transactionId)"></ion-icon>
+      <ion-icon name="copy-outline" (click)="copy(retailerId)"></ion-icon>
     </ion-item>
     <ion-item>
       <p>Date & Time</p>
       <ion-label color="primary">{{date | date:"medium"}}</ion-label>
-      <ion-icon name="copy-outline" (click)="copy(transactionId)"></ion-icon>
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="amount">
       <p>Amount</p>
       <ion-label color="tertiary">&#8377;{{amount}}</ion-label>
-      <ion-icon name="copy-outline" (click)="copy(transactionId)"></ion-icon>
+      <ion-icon name="copy-outline" (click)="copy(amount.toString())"></ion-icon>
     </ion-item>
     <ion-item> 
       <p>Transaction Id</p>
@@ -39,13 +38,49 @@
       <ion-icon name="copy-outline" (click)="copy(transactionId)"></ion-icon>
     </ion-item>
     <ion-item>
-      <p>Command</p>
+      <p>Type</p>
       <ion-label>
         <ion-chip color="primary" mode="ios" outline="true">
-          <ion-label>{{command}}</ion-label>
+          <ion-label *ngIf="!transactionData?.extraData?.aepsData?.transactionType">{{command | titlecase}}</ion-label>
+          <ion-label *ngIf="transactionData?.extraData?.aepsData?.transactionType=='MS'">AEPS Mini-Statement</ion-label>
+          <ion-label *ngIf="transactionData?.extraData?.aepsData?.transactionType=='BE'">AEPS Balance Enquiry</ion-label>
+          <ion-label *ngIf="transactionData?.extraData?.aepsData?.transactionType=='CW'">AEPS Cash-Withdrawal</ion-label>
+          <ion-label *ngIf="transactionData?.extraData?.aepsData?.transactionType=='M'">AEPS Aadhaar Pay</ion-label>
         </ion-chip>
       </ion-label>
     </ion-item>
+    <ng-container *ngIf="successData">
+      <ion-item *ngIf="successData.balanceamount">
+        <p>Balance: </p>
+        <ion-label color="primary">{{successData.balanceamount}}</ion-label>
+        <ion-icon name="copy-outline" (click)="copy(transactionData.successData.balanceamount)"></ion-icon>
+      </ion-item>
+      <ion-item *ngIf="successData.bankiin">
+        <p>Bank iin: </p>
+        <ion-label color="primary">{{successData.bankiin}}</ion-label>
+        <ion-icon name="copy-outline" (click)="copy(transactionData.successData.bankiin)"></ion-icon>
+      </ion-item>
+      <ion-item *ngIf="successData.bankrrn">
+        <p>Bank RRN: </p>
+        <ion-label color="primary">{{successData.bankrrn}}</ion-label>
+        <ion-icon name="copy-outline" (click)="copy(transactionData.successData.bankrrn)"></ion-icon>
+      </ion-item>
+      <ion-item *ngIf="successData.last_aadhar">
+        <p>Aadhaar: </p>
+        <ion-label color="primary">********{{successData.last_aadhar}}</ion-label>
+        <ion-icon name="copy-outline" (click)="copy(transactionData.successData.last_aadhar)"></ion-icon>
+      </ion-item>
+      <ion-item *ngIf="successData.mobile">
+        <p>Mobile No: </p>
+        <ion-label color="primary">{{successData.balanceamount}}</ion-label>
+        <ion-icon name="copy-outline" (click)="copy(transactionData.successData.balanceamount)"></ion-icon>
+      </ion-item>
+      <ion-item *ngIf="successData.clientrefno">
+        <p>Reference No: </p>
+        <ion-label color="primary">{{successData.clientrefno}}</ion-label>
+        <ion-icon name="copy-outline" (click)="copy(transactionData.successData.clientrefno)"></ion-icon>
+      </ion-item>
+    </ng-container>
     <ng-container *ngIf="transactionData && transactionData.successData">
       <ion-item> 
         <p>Acknowledgement No.</p>
@@ -59,16 +94,9 @@
       </ion-item>
     </ng-container>
     <div class="actions">
-      <ion-button>
-        <ion-icon name="share-social"></ion-icon>
+      <ion-button (click)="getPdf()">
+        <ion-icon name="download"></ion-icon>
       </ion-button>
     </div>
-    <!-- <table id="print">
-      <img src="./assets/sss-logo.svg" alt="SSSPay">
-        
-    </table> -->
   </div>
-  <button *ngIf="paymentStatus=='pending'">
-    <ion-icon name="refresh-circle"></ion-icon>Re-Initiate
-  </button>
 </ion-content>

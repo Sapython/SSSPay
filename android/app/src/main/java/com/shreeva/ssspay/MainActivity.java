@@ -9,11 +9,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.capacitorjs.plugins.geolocation.GeolocationPlugin;
 import com.getcapacitor.BridgeActivity;
 import com.getcapacitor.Plugin;
 //import com.ahm.capacitor.biometric.BiometricAuth;
-
-import org.chromium.base.Promise;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +23,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import com.pantrist.firebase.dynamiclinks.CapacitorFirebaseDynamicLinks;
 
 import ch.byrds.capacitor.contacts.Contacts;
@@ -38,21 +36,18 @@ public class MainActivity extends BridgeActivity {
   private final String SUCCESS = "SUCCESS";
   private final String FAILURE = "FAILURE";
   private String PckName = "";
-  private Promise promise;
+//  private Promise promise;
   private Map<String, Object> logging = new HashMap<>();
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     registerPlugin(RdIntegration.class);
+    registerPlugin(PaysprintOnboarding.class);
+    registerPlugin(GeolocationPlugin.class);
     registerPlugin(CapacitorFirebaseDynamicLinks.class);
-    this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {
-      {
-        add(GoogleAuth.class);
-//        add(BiometricAuth.class);
-        add(Contacts.class);
-        add(com.capacitorjs.plugins.camera.CameraPlugin.class);
-      }
-    });
+    registerPlugin(GoogleAuth.class);
+    registerPlugin(com.capacitorjs.plugins.camera.CameraPlugin.class);
+    registerPlugin(Contacts.class);
   }
 
   @Override
@@ -205,5 +200,17 @@ public class MainActivity extends BridgeActivity {
     }
     return "FAILED";
   }
-
+  public void startOnboarding(String merchantCode,String mobile,String lat, String lng,String email){
+    Intent intent = new Intent();
+    intent.putExtra("pId", "PS00716");
+    intent.putExtra("pApiKey", "UFMwMDcxNmI5YWIzN2YyZDMzZWM3NDg5YjkzYzAyOGE2ZmNmZDIw");
+    intent.putExtra("mCode", merchantCode); //merchant unique code and should not contain special character
+    intent.putExtra("mobile", mobile); // merchant mobile no.
+    intent.putExtra("lat", lat);
+    intent.putExtra("lng", lng);
+    intent.putExtra("firm", "SSSPAY");
+    intent.putExtra("email", email);
+    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+    startActivityForResult(intent, 999);
+  }
 }

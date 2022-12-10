@@ -12,7 +12,7 @@ export class HistoryPage implements OnInit {
   constructor(private transactionService:TransactionService) { }
 
   ngOnInit() {
-    this.transactionService.getAllTransactions().then((docs)=>{
+    this.transactionService.getLimitedTransactions(20).then((docs)=>{
       this.transactions = []
       docs.forEach((doc:any)=>{
         this.transactions.push({...doc.data(),id:doc.id})
@@ -21,5 +21,15 @@ export class HistoryPage implements OnInit {
   }
   str(object:any){
     return JSON.stringify(object)
+  }
+
+  refresh($event){
+    this.transactionService.getLimitedTransactions(20).then((docs)=>{
+      this.transactions = []
+      docs.forEach((doc:any)=>{
+        this.transactions.push({...doc.data(),id:doc.id})
+      })
+      $event.target.complete()
+    })
   }
 }

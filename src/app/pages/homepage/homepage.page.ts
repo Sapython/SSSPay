@@ -9,6 +9,7 @@ import { BalanceComponent } from './balance/balance.component';
 import { Browser } from '@capacitor/browser';
 import { WaitForQrPaymentComponent } from 'src/app/wait-for-qr-payment/wait-for-qr-payment.component';
 import { DatabaseService } from 'src/app/services/database.service';
+import { OnboardingService } from 'src/app/services/onboarding.service';
 
 @Component({
   selector: 'app-homepage',
@@ -17,7 +18,7 @@ import { DatabaseService } from 'src/app/services/database.service';
 })
 export class HomepagePage{
   @ViewChild('webRef') webRef;
-  constructor(public dataProvider:DataProvider,private popoverController:PopoverController,private serverService:ServerService,private transactionService:TransactionService,private alertify:AlertsAndNotificationsService,private databaseService:DatabaseService){}
+  constructor(public dataProvider:DataProvider,private popoverController:PopoverController,private serverService:ServerService,private transactionService:TransactionService,private alertify:AlertsAndNotificationsService,private databaseService:DatabaseService,private onboardingService:OnboardingService){}
   items = [
     {
       name: 'AEPS Services',
@@ -154,6 +155,10 @@ export class HomepagePage{
     }).finally(()=>{
       this.dataProvider.pageSetting.blur  = false;
     })
+  }
+
+  startOnboarding(){
+    this.onboardingService.onboardPaysprint();
   }
 }
 
