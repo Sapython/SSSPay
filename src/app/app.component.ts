@@ -98,7 +98,7 @@ export class AppComponent implements OnInit {
               }).catch((err)=>{
                 console.log("Status Error: "+err)
               }).finally(()=>{
-                alert("Fetched")
+                // alert("Fetched")
               });
               console.log("SAPTAM : ")
               console.log(data)

@@ -1,0 +1,32 @@
+div{
+    display: flex;
+    gap:20px;
+    align-items: center;
+}
+.card{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    background-color: #fff;
+    margin-bottom: 10px;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+    img{
+        width:40px;
+    }
+    div.row{
+        display: flex;
+        flex-direction: column;
+        gap:10px;
+        align-items: flex-start;
+    }
+    p,h6{
+        margin: 0px;
+    }
+    .money{
+        font-size: 20px;
+        font-weight: 600;
+    }
+}

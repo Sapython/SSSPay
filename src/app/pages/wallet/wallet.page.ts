@@ -17,10 +17,18 @@ export class WalletPage implements OnInit {
   transactions:Transaction[] = []
  
   loading:boolean = false;
-  constructor(private databaseService:DatabaseService,public dataProvider:DataProvider,private alertify:AlertsAndNotificationsService) {}
+  constructor(private databaseService:DatabaseService,public dataProvider:DataProvider,private alertify:AlertsAndNotificationsService,private transactionService:TransactionService) {}
 
   async ngOnInit() {
     this.loading = true;
+    this.transactionService.getAllTransactions().then((docs)=>{
+      this.transactions = []
+      docs.forEach((doc:any)=>{
+        if (doc.data()['status']=='success' && doc.data()['amount']>0){
+          this.transactions.push({...doc.data(),id:doc.id})
+        }
+      })
+    })
   }
 
   createWallet(){

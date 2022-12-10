@@ -16,10 +16,11 @@ import { PopoverComponent } from './popover/popover.component';
 import { HistoryComponentComponent } from './history-component/history-component.component';
 import { ModalPageComponent } from './modal-page/modal-page.component';
 import { RechargePlanComponent } from './recharge-plan/recharge-plan.component';
+import { WalletHistoryComponent } from './wallet-history/wallet-history.component';
 
 
 const components = [HomeWidgetComponent,NotifyWidgetComponent,ContactsWidgetComponent,
-MobileRechargeWidgetComponent,TransactionWidgetComponent,BankWidgetComponent,LpgGasComponentsComponent,RewardsComponentComponent,OfferComponentComponent,PopoverComponent,HistoryComponentComponent,ModalPageComponent,RechargePlanComponent]
+MobileRechargeWidgetComponent,TransactionWidgetComponent,BankWidgetComponent,LpgGasComponentsComponent,RewardsComponentComponent,OfferComponentComponent,PopoverComponent,HistoryComponentComponent,ModalPageComponent,RechargePlanComponent,WalletHistoryComponent]
 @NgModule({
   exports: [components],
   declarations: [components],

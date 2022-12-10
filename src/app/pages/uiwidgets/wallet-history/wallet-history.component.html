@@ -1,0 +1,14 @@
+<div class="card">
+  <div>
+    <div class="row">
+      <img src="assets/icons/{{service}}.svg" alt="" />
+    </div>
+    <div class="row">
+      <p>{{ date | date:'short' }}</p>
+      <h6>{{ statement | titlecase }}</h6>
+    </div>
+  </div>
+  <ion-text [color]="type == 'debit' ? 'danger' : 'primary'">
+    <p class="money">{{ type == "debit" ? "-" : "+" }} &#8377;{{ money }}</p>
+  </ion-text>
+</div>
