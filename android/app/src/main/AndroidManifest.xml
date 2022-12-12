@@ -14,7 +14,7 @@
 
         </activity>
 
-        <provider android:name="androidx.core.content.FileProvider" android:authorities="${applicationId}.fileprovider" android:exported="false" android:grantUriPermissions="true"
+        <provider android:name="androidx.core.content.FileProvider" tools:replace="android:authorities" android:authorities="${applicationId}.fileprovider" android:exported="false" android:grantUriPermissions="true"
           >
             <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths"></meta-data>
         </provider>

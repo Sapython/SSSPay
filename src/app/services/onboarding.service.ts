@@ -6,11 +6,9 @@ import { registerPlugin } from '@capacitor/core';
 
 export interface OnboardingType {
   startOnboarding(options: {
-    merchantCode:string,
-    mobile:string,
-    lat:string,
-    lng:string,
-    email:string,
+    merchantCode: string;
+    mobile: string;
+    email: string;
   }): Promise<{ value: string }>;
 }
 const Onboarding = registerPlugin<OnboardingType>('Onboarding');
@@ -44,8 +42,20 @@ export class OnboardingService {
     };
   }
 
-  onboardPaysprint(){
+  onboardPaysprint() {
     console.log('onboardPaysprint getting position');
+    Onboarding.startOnboarding({
+      merchantCode: this.dataProvider.userData.userId,
+      mobile: this.dataProvider.userData.phoneNumber,
+      email: this.dataProvider.userData.email,
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert('Something went wrong' + JSON.stringify(err));
+      });
     // Geolocation.checkPermissions().then((res)=>{
     //   if(res.location=='granted'){
     //     Geolocation.getCurrentPosition({enableHighAccuracy:true}).then((position)=>{
@@ -66,29 +76,14 @@ export class OnboardingService {
     //         alert('No email found');
     //         return
     //       }
-          
+
     //       console.log(position);
-    //       Onboarding.startOnboarding({
-    //         merchantCode: this.dataProvider.userData.userId,
-    //         mobile: this.dataProvider.userData.phoneNumber,
-    //         lat: position.coords.latitude.toString(),
-    //         lng: position.coords.longitude.toString(),
-    //         email: this.dataProvider.userData.email,
-    //       }).then((res)=>{
-    //         console.log(res);
-    //       }).catch((err)=>{
-    //         console.log(err);
-    //         alert('Something went wrong'+JSON.stringify(err))
-    //       })
-    //     }).catch((err)=>{
-    //       console.log(err);
-    //       alert('Something went wrong'+JSON.stringify(err))
-    //     })
+    //
     //   }
     // })
-    
+
     // window.navigator.geolocation.getCurrentPosition((position)=>{
-      
+
     // },(err)=>{
     //   console.log(err);
     //   alert('Something went wrong'+JSON.stringify(err))
@@ -162,12 +157,15 @@ export class OnboardingService {
       { merge: true }
     );
   }
-  
-  photoDone(selfieImage:string,shopImage:string){
+
+  photoDone(selfieImage: string, shopImage: string) {
     return updateDoc(doc(this.fs, '/users/' + this.dataProvider.userID), {
-      selfieImage:selfieImage,
-      shopImage:shopImage,
-      onboardingSteps: {...this.dataProvider.userData.onboardingSteps,photosDone:true}
+      selfieImage: selfieImage,
+      shopImage: shopImage,
+      onboardingSteps: {
+        ...this.dataProvider.userData.onboardingSteps,
+        photosDone: true,
+      },
     });
   }
 }

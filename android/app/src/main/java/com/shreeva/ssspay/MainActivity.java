@@ -2,12 +2,17 @@ package com.shreeva.ssspay;
 
 import static com.shreeva.ssspay.RdIntegration.sendData;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 
 import com.getcapacitor.BridgeActivity;
 
@@ -29,15 +34,14 @@ public class MainActivity extends BridgeActivity {
   public static final String NAME = "RdServices";
   public static final int RDINFO_CODE = 1;
   public static final int RDCAPTURE_CODE = 2;
-  private final String SUCCESS = "SUCCESS";
-  private final String FAILURE = "FAILURE";
-  private String PckName = "";
-//  private Promise promise;
-  private Map<String, Object> logging = new HashMap<>();
+  //  private Promise promise;
+  private final Map<String, Object> logging = new HashMap<>();
+  LocationManager locationManager;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    registerPlugin(PaysprintOnboarding.class);
     registerPlugin(RdIntegration.class);
     registerPlugin(CapacitorFirebaseDynamicLinks.class);
     registerPlugin(GoogleAuth.class);
@@ -48,7 +52,7 @@ public class MainActivity extends BridgeActivity {
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
-    if (requestCode != 0){
+    if (requestCode != 0) {
       if (requestCode == 2) {
         if (resultCode == RESULT_OK) {
           Bundle b = data.getExtras();
@@ -62,7 +66,7 @@ public class MainActivity extends BridgeActivity {
           }
         }
       }
-      if (requestCode == 1){
+      if (requestCode == 1) {
         if (resultCode == RESULT_OK) {
 //      showLogInfoDialog("DBXL DATA:", data.getDataString());
           Bundle b = data.getExtras();
@@ -73,10 +77,10 @@ public class MainActivity extends BridgeActivity {
             String dnr = b.getString("DNR", "");
             if (!dnc.isEmpty() || !dnr.isEmpty()) {
 //          showLogInfoDialog("DBXL Device Info", dnc + dnr + " " + deviceInfo + rdServiceInfo);
-              sendData( dnc + dnr + "|" + deviceInfo +"|"+ rdServiceInfo);
+              sendData(dnc + dnr + "|" + deviceInfo + "|" + rdServiceInfo);
             } else {
 //          showLogInfoDialog("DBXL Device Info", deviceInfo + rdServiceInfo);
-              sendData(deviceInfo +"|"+ rdServiceInfo);
+              sendData(deviceInfo + "|" + rdServiceInfo);
             }
           }
         }
@@ -86,21 +90,21 @@ public class MainActivity extends BridgeActivity {
 
   void showLogInfoDialog(String data, String dbase) {
     Map<String, Object> loggingDT = new HashMap<>();
-    loggingDT.put("data",data + dbase);
-    if (data.startsWith("DBXL Fingerprint Data")){
+    loggingDT.put("data", data + dbase);
+    if (data.startsWith("DBXL Fingerprint Data")) {
       FirebaseFirestore db = FirebaseFirestore.getInstance();
-          db.collection("cities").add(loggingDT).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-              showLogInfoDialog("DocumentSnapshot written with ID: " + documentReference.getId(),"DATA");
-            }
-          })
-              .addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                  showLogInfoDialog( "Error adding document", e.toString());
-                }
-              });
+      db.collection("cities").add(loggingDT).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+          @Override
+          public void onSuccess(DocumentReference documentReference) {
+            showLogInfoDialog("DocumentSnapshot written with ID: " + documentReference.getId(), "DATA");
+          }
+        })
+        .addOnFailureListener(new OnFailureListener() {
+          @Override
+          public void onFailure(@NonNull Exception e) {
+            showLogInfoDialog("Error adding document", e.toString());
+          }
+        });
     }
     Context context = getApplicationContext();
     CharSequence text = data + dbase;
@@ -115,29 +119,29 @@ public class MainActivity extends BridgeActivity {
     int duration = Toast.LENGTH_LONG;
     Toast toast = Toast.makeText(context, text, duration);
     toast.show();
-    if (Objects.equals(type, "morpho")){
-      System.out.println("RDTYPE "+type);
+    if (Objects.equals(type, "morpho")) {
+      System.out.println("RDTYPE " + type);
       Intent intent = new Intent("in.gov.uidai.rdservice.fp.CAPTURE");
       intent.setPackage("com.scl.rdservice");
       String responseXml = "<?xml version=\"1.0\"?><PidOptions ver=\"2.0\"><Opts fCount=\"1\" fType=\"2\" iCount=\"0\" pCount=\"0\" format=\"0\" pidVer=\"2.0\" timeout=\"10000\" env=\"P\" /><CustOpts></CustOpts></PidOptions>";
       intent.putExtra("PID_OPTIONS", responseXml);
       startActivityForResult(intent, 2);
     } else if (Objects.equals(type, "mantra")) {
-      System.out.println("RDTYPE "+type);
+      System.out.println("RDTYPE " + type);
       Intent intent = new Intent("in.gov.uidai.rdservice.fp.CAPTURE");
       intent.setPackage("com.mantra.rdservice");
       String responseXml = "<?xml version=\"1.0\"?><PidOptions ver=\"2.0\"><Opts fCount=\"1\" fType=\"2\" iCount=\"0\" pCount=\"0\" format=\"0\" pidVer=\"2.0\" timeout=\"10000\" env=\"P\" /><CustOpts></CustOpts></PidOptions>";
       intent.putExtra("PID_OPTIONS", responseXml);
       startActivityForResult(intent, 2);
-    } else if (Objects.equals(type,"startek")){
-      System.out.println("RDTYPE "+type);
+    } else if (Objects.equals(type, "startek")) {
+      System.out.println("RDTYPE " + type);
       Intent intent = new Intent("in.gov.uidai.rdservice.fp.CAPTURE");
       intent.setPackage("com.acpl.registersdk");
       String responseXml = "<?xml version=\"1.0\"?><PidOptions ver=\"2.0\"><Opts fCount=\"1\" fType=\"2\" iCount=\"0\" pCount=\"0\" format=\"0\" pidVer=\"2.0\" timeout=\"10000\" env=\"P\" /><CustOpts></CustOpts></PidOptions>";
       intent.putExtra("PID_OPTIONS", responseXml);
       startActivityForResult(intent, 2);
     } else {
-      System.out.println("RDTYPE None "+type);
+      System.out.println("RDTYPE None " + type);
     }
   }
 
@@ -171,17 +175,18 @@ public class MainActivity extends BridgeActivity {
     Intent intent = new Intent();
     intent.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
     intent.putExtra("PID_OPTIONS", pidOption);
-    if (PckName.equalsIgnoreCase("com.scl.rdservice")) {
+    String pckName = "";
+    if (pckName.equalsIgnoreCase("com.scl.rdservice")) {
       intent.setPackage("com.scl.rdservice");
-    } else if (PckName.equalsIgnoreCase("com.mantra.rdservice")) {
+    } else if (pckName.equalsIgnoreCase("com.mantra.rdservice")) {
       intent.setPackage("com.mantra.rdservice");
-    } else if (PckName.equalsIgnoreCase("com.precision.pb510.rdservice")) {
+    } else if (pckName.equalsIgnoreCase("com.precision.pb510.rdservice")) {
       intent.setPackage("com.precision.pb510.rdservice");
-    } else if (PckName.equalsIgnoreCase("com.secugen.rdservice")) {
+    } else if (pckName.equalsIgnoreCase("com.secugen.rdservice")) {
       intent.setPackage("com.secugen.rdservice");
-    } else if (PckName.equalsIgnoreCase("com.acpl.registersdk")) {
+    } else if (pckName.equalsIgnoreCase("com.acpl.registersdk")) {
       intent.setPackage("com.acpl.registersdk");
-    } else if (PckName.equalsIgnoreCase("co.aratek.asix_gms.rdservice")) {
+    } else if (pckName.equalsIgnoreCase("co.aratek.asix_gms.rdservice")) {
       intent.setPackage("co.aratek.asix_gms.rdservice");
     } else {
       return "RD services Package not found";
@@ -196,17 +201,48 @@ public class MainActivity extends BridgeActivity {
     return "FAILED";
   }
 
+  private Location getLastBestLocation() {
+
+    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+      ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
+    }
+    Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+    Location locationNet = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+    long GPSLocationTime = 0;
+    if (null != locationGPS) { GPSLocationTime = locationGPS.getTime(); }
+
+    long NetLocationTime = 0;
+
+    if (null != locationNet) {
+      NetLocationTime = locationNet.getTime();
+    }
+
+    if ( 0 < GPSLocationTime - NetLocationTime ) {
+      return locationGPS;
+    }
+    else {
+      return locationNet;
+    }
+  }
+
   public void startOnboarding(String merchantCode,String mobile,String lat, String lng,String email){
-    Intent intent = new Intent();
-    intent.putExtra("pId", "PS00716");
-    intent.putExtra("pApiKey", "UFMwMDcxNmI5YWIzN2YyZDMzZWM3NDg5YjkzYzAyOGE2ZmNmZDIw");
-    intent.putExtra("mCode", merchantCode); //merchant unique code and should not contain special character
-    intent.putExtra("mobile", mobile); // merchant mobile no.
-    intent.putExtra("lat", lat);
-    intent.putExtra("lng", lng);
-    intent.putExtra("firm", "SSSPAY");
-    intent.putExtra("email", email);
-    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-    startActivityForResult(intent, 999);
+    var location = getLastBestLocation();
+    if(location.getLatitude() != 0){
+      Intent intent = new Intent();
+      intent.putExtra("pId", "PS00716");
+      intent.putExtra("pApiKey", "UFMwMDcxNmI5YWIzN2YyZDMzZWM3NDg5YjkzYzAyOGE2ZmNmZDIw");
+      intent.putExtra("mCode", merchantCode); //merchant unique code and should not contain special character
+      intent.putExtra("mobile", mobile); // merchant mobile no.
+      intent.putExtra("lat", String.valueOf(location.getLatitude()));
+      intent.putExtra("lng", String.valueOf(location.getLatitude()));
+      intent.putExtra("firm", "SSSPAY");
+      intent.putExtra("email", email);
+      intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+      startActivityForResult(intent, 999);
+    } else {
+      Toast toast = Toast.makeText(this, "Cannot get location", Toast.LENGTH_LONG);
+      toast.show();
+    }
   }
 }

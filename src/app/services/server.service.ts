@@ -539,6 +539,7 @@ export class ServerService {
     );
     console.log('mainResponse', mainResponse);
     const data = await mainResponse.json();
+    console.log('json response', data);
     if (data.response_code == 1) {
       console.log('Qr data ', data);
       this.databaseService.addOnboardingData(data);

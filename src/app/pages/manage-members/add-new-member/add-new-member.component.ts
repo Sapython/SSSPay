@@ -51,17 +51,8 @@ export class AddNewMemberComponent implements OnInit {
   async submit() {
     console.log('Form Data', this.addNewMemberForm);
     console.log('Photo', this.photo);
-    if (this.addNewMemberForm.valid && this.photo) {
+    if (this.addNewMemberForm.valid) {
       this.dataProvider.pageSetting.blur = true;
-      this.addNewMemberForm.controls.photoURL.setValue(
-        await this.databaseService.upload(
-          'users/' +
-            this.dataProvider.userData.userId +
-            '/' +
-            this.generateRandomId(),
-          this.photo.target.files[0]
-        )
-      );
       console.log('Valid Form Data', this.addNewMemberForm);
       this.serverService
         .createNewUser(this.addNewMemberForm.value)
