@@ -19,16 +19,15 @@ export class AddNewMemberComponent implements OnInit {
     displayName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),
+    aadhaarNumber: new FormControl('', [Validators.required]),
+    panNumber: new FormControl('', [Validators.required]),
     dob: new FormControl('', [Validators.required]),
-    photoURL: new FormControl(''),
     gender: new FormControl('', [Validators.required]),
     access: new FormControl(''),
     state: new FormControl(''),
     city: new FormControl(''),
     pincode: new FormControl(''),
     address: new FormControl(''),
-    password: new FormControl('', [Validators.required]),
-    confirmPassword: new FormControl('', [Validators.required]),
   });
   constructor(
     private serverService: ServerService,

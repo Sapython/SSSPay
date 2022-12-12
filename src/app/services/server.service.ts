@@ -522,15 +522,15 @@ export class ServerService {
       email: userData['email'],
       phoneNumber: userData['phoneNumber'],
       dob: userData['dob'],
-      photoURL: userData['photoURL'],
+      photoURL: "https://firebasestorage.googleapis.com/v0/b/sit-manager.appspot.com/o/users%2Fdefault%2Fuser.png?alt=media&token=f7502ba7-275f-40a8-92bd-7df725bc7786",
       gender: userData['gender'],
       access: userData['access'],
       state: userData['state'],
       city: userData['city'],
       pincode: userData['pincode'],
       address: userData['address'],
-      password: userData['password'],
-      confirmPassword: userData['confirmPassword'],
+      aadhaarNumber: userData['aadhaarNumber'],
+      panNumber: userData['panNumber']
     });
     console.log('requestOptions', requestOptions);
     const mainResponse = await fetch(

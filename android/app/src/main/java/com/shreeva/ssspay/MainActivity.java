@@ -9,12 +9,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.capacitorjs.plugins.geolocation.GeolocationPlugin;
 import com.getcapacitor.BridgeActivity;
-import com.getcapacitor.Plugin;
-//import com.ahm.capacitor.biometric.BiometricAuth;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -38,12 +34,11 @@ public class MainActivity extends BridgeActivity {
   private String PckName = "";
 //  private Promise promise;
   private Map<String, Object> logging = new HashMap<>();
+
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     registerPlugin(RdIntegration.class);
-    registerPlugin(PaysprintOnboarding.class);
-    registerPlugin(GeolocationPlugin.class);
     registerPlugin(CapacitorFirebaseDynamicLinks.class);
     registerPlugin(GoogleAuth.class);
     registerPlugin(com.capacitorjs.plugins.camera.CameraPlugin.class);
@@ -200,6 +195,7 @@ public class MainActivity extends BridgeActivity {
     }
     return "FAILED";
   }
+
   public void startOnboarding(String merchantCode,String mobile,String lat, String lng,String email){
     Intent intent = new Intent();
     intent.putExtra("pId", "PS00716");

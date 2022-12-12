@@ -48,7 +48,7 @@ export class DetailPage implements OnInit {
               // alert('updated');
               if (data.type == 'expressPayout') {
                 if (data.newPayoutStatus) {
-                  this.alertify.presentToast(data.newPayOutStatus.event);
+                  // this.alertify.presentToast(data.newPayOutStatus.event);
                   let pendingStatuses = [
                     'payout.pending',
                     'payout.queued',
@@ -85,7 +85,7 @@ export class DetailPage implements OnInit {
         this.transactionSubscription = this.transactionService
           .getTransaction(params.id)
           .subscribe((data) => {
-            alert("Updated")
+            // alert("Updated")
             console.log(JSON.parse(JSON.stringify(data)));
             this.paymentStatus = data.status;
             this.amount = data.amount;
@@ -117,7 +117,7 @@ export class DetailPage implements OnInit {
                   'payout.reversed',
                   'payout.rejected',
                 ];
-                this.alertify.presentToast(event)
+                // this.alertify.presentToast(event)
                 if (pendingStatuses.includes(event) && this.paymentStatus !='pending') {
                   this.paymentStatus = 'pending';
                   this.transactionService.updateTransaction(params.id, {

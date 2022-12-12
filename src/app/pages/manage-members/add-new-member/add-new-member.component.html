@@ -2,10 +2,6 @@
   <form [formGroup]="addNewMemberForm" (ngSubmit)="submit()">
     <ion-list class="ion-padding">
       <ion-item>
-        <ion-label position="floating">Display Picture</ion-label>
-        <ion-input type="file" (change)="photo = $event" formControlName="displayName" placeholder="Display Picture"></ion-input>
-      </ion-item>
-      <ion-item>
         <ion-label position="floating">Name</ion-label>
         <ion-input type="text" formControlName="displayName" placeholder="Full Name"></ion-input>
       </ion-item>
