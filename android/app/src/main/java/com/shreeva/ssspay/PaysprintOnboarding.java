@@ -1,5 +1,7 @@
 package com.shreeva.ssspay;
 
+import android.widget.Toast;
+
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
@@ -11,14 +13,15 @@ public class PaysprintOnboarding extends Plugin {
 
   @PluginMethod()
   public void startOnboarding(PluginCall call) throws InterruptedException {
-    PluginCall mainCall = call;
-    String value = call.getString("value");
+    mainCall = call;
+    var phone = call.getString("phone");
+    var email = call.getString("email");
+    var uid = call.getString("merchantCode");
+    Toast.makeText((MainActivity) getActivity(),"Phone"+phone,Toast.LENGTH_LONG).show();
     ((MainActivity) getActivity()).startOnboarding(
-     call.getString("merchantCode"),
-     call.getString("mobile"),
-     call.getString("lat"),
-     call.getString("lng"),
-     call.getString("email")
+     uid,
+     phone,
+     email
     );
     call.setKeepAlive(true);
   }

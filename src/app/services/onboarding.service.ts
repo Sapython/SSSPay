@@ -7,7 +7,7 @@ import { registerPlugin } from '@capacitor/core';
 export interface OnboardingType {
   startOnboarding(options: {
     merchantCode: string;
-    mobile: string;
+    phone: string;
     email: string;
   }): Promise<{ value: string }>;
 }
@@ -43,10 +43,15 @@ export class OnboardingService {
   }
 
   onboardPaysprint() {
-    console.log('onboardPaysprint getting position');
+    console.log('onboardPaysprint getting position',this.dataProvider.userData.phoneNumber);
+    alert('onboardPaysprint getting position'+JSON.stringify({
+      merchantCode: this.dataProvider.userData.userId,
+      phone: this.dataProvider.userData.phoneNumber,
+      email: this.dataProvider.userData.email,
+    }));
     Onboarding.startOnboarding({
       merchantCode: this.dataProvider.userData.userId,
-      mobile: this.dataProvider.userData.phoneNumber,
+      phone: this.dataProvider.userData.phoneNumber.toString(),
       email: this.dataProvider.userData.email,
     })
       .then((res) => {

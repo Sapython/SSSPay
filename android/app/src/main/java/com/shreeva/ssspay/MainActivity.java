@@ -3,6 +3,7 @@ package com.shreeva.ssspay;
 import static com.shreeva.ssspay.RdIntegration.sendData;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -29,6 +30,7 @@ import com.pantrist.firebase.dynamiclinks.CapacitorFirebaseDynamicLinks;
 import ch.byrds.capacitor.contacts.Contacts;
 
 import com.codetrixstudio.capacitor.GoogleAuth.GoogleAuth;
+import com.paysprint.onboardinglib.activities.HostActivity;
 
 public class MainActivity extends BridgeActivity {
   public static final String NAME = "RdServices";
@@ -84,6 +86,13 @@ public class MainActivity extends BridgeActivity {
             }
           }
         }
+      }
+      if (requestCode == 999 && resultCode == -1) {
+        Boolean status = data != null ? data.getBooleanExtra("status", false) : null;
+        Integer response = data != null ? data.getIntExtra("response", 0) : null;
+        String message = data != null ? data.getStringExtra("message") : null;
+        String detailedResponse = "Status: " + status + ",  " + "Response: " + response + ", " + "Message: " + message + ' ';
+        Toast.makeText(this,detailedResponse,Toast.LENGTH_LONG).show();
       }
     }
   }
@@ -226,23 +235,19 @@ public class MainActivity extends BridgeActivity {
     }
   }
 
-  public void startOnboarding(String merchantCode,String mobile,String lat, String lng,String email){
-    var location = getLastBestLocation();
-    if(location.getLatitude() != 0){
-      Intent intent = new Intent();
-      intent.putExtra("pId", "PS00716");
-      intent.putExtra("pApiKey", "UFMwMDcxNmI5YWIzN2YyZDMzZWM3NDg5YjkzYzAyOGE2ZmNmZDIw");
-      intent.putExtra("mCode", merchantCode); //merchant unique code and should not contain special character
-      intent.putExtra("mobile", mobile); // merchant mobile no.
-      intent.putExtra("lat", String.valueOf(location.getLatitude()));
-      intent.putExtra("lng", String.valueOf(location.getLatitude()));
-      intent.putExtra("firm", "SSSPAY");
-      intent.putExtra("email", email);
-      intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-      startActivityForResult(intent, 999);
-    } else {
-      Toast toast = Toast.makeText(this, "Cannot get location", Toast.LENGTH_LONG);
-      toast.show();
-    }
+  public void startOnboarding(String merchantCode,String mobile,String email){
+    var message = "MC:"+merchantCode+" Mobile:'"+mobile+"' Email:"+email;
+    Toast.makeText(this,message,Toast.LENGTH_LONG).show();
+    Intent intent = new Intent(MainActivity.this.getApplicationContext(), HostActivity.class);
+    intent.putExtra("pId", "PS001619");
+    intent.putExtra("pApiKey", "UFMwMDcxNmI5YWIzN2YyZDMzZWM3NDg5YjkzYzAyOGE2ZmNmZDIw");
+    intent.putExtra("mCode", merchantCode); //merchant unique code and should not contain special character
+    intent.putExtra("mobile", mobile); // merchant mobile no.
+    intent.putExtra("lat", "25.423688");
+    intent.putExtra("lng", "81.911513");
+    intent.putExtra("firm", "SSSPAY");
+    intent.putExtra("email", email);
+    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+    startActivityForResult(intent, 999);
   }
 }
