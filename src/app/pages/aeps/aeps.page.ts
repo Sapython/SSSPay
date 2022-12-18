@@ -18,7 +18,7 @@ import { Transaction } from 'src/app/structures/method.structure';
 import { DataProvider } from 'src/app/providers/data.provider';
 import { environment } from 'src/environments/environment';
 import { PromptComponent } from 'src/app/prompt/prompt.component';
-
+import { Geolocation } from '@capacitor/geolocation';
 export interface RdServicePlugin {
   getDeviceInfo(): Promise<{ value: string }>;
   getFingerPrint(options: {
@@ -73,8 +73,10 @@ export class AepsPage implements OnInit {
     private alertify: AlertsAndNotificationsService,
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     // Get location
+    const coordinates = await Geolocation.getCurrentPosition();
+    alert(JSON.stringify(coordinates));
     window.navigator.geolocation.getCurrentPosition(
       (response) => {
         if (response) {

@@ -240,12 +240,12 @@ public class MainActivity extends BridgeActivity {
     Toast.makeText(this,message,Toast.LENGTH_LONG).show();
     Intent intent = new Intent(MainActivity.this.getApplicationContext(), HostActivity.class);
     intent.putExtra("pId", "PS001619");
-    intent.putExtra("pApiKey", "UFMwMDcxNmI5YWIzN2YyZDMzZWM3NDg5YjkzYzAyOGE2ZmNmZDIw");
+    intent.putExtra("pApiKey", "UFMwMDE2MTk1NjNkNThkNjM1NDAyYjRkMjg3M2Q3MmRjNDAyYjAwYg==");
     intent.putExtra("mCode", merchantCode); //merchant unique code and should not contain special character
     intent.putExtra("mobile", mobile); // merchant mobile no.
     intent.putExtra("lat", "25.423688");
     intent.putExtra("lng", "81.911513");
-    intent.putExtra("firm", "SSSPAY");
+    intent.putExtra("firm", "SSSPAY Service Private Limited");
     intent.putExtra("email", email);
     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
     startActivityForResult(intent, 999);

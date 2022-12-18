@@ -75,12 +75,13 @@ export class AddNewMemberComponent implements OnInit {
             });
         })
         .catch((error) => {
-          this.dataProvider.pageSetting.blur = true;
-          if (error.message) {
-            this.alertify.presentToast(error.message, 'error');
+          console.log("errorRecieved",error);
+          if (error.error) {
+            this.alertify.presentToast(error.error, 'error');
           } else {
             this.alertify.presentToast(error, 'error');
           }
+          this.dataProvider.pageSetting.blur = false;
         });
     } else {
       console.log('invalid', this.addNewMemberForm);

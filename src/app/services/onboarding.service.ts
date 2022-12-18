@@ -9,6 +9,7 @@ export interface OnboardingType {
     merchantCode: string;
     phone: string;
     email: string;
+  
   }): Promise<{ value: string }>;
 }
 const Onboarding = registerPlugin<OnboardingType>('Onboarding');
