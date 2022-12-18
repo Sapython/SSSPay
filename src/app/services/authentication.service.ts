@@ -5,6 +5,11 @@ import {
   doc,
   getDoc,
   docData,
+  collectionChanges,
+  collection,
+  collectionData,
+  query,
+  orderBy,
 } from '@angular/fire/firestore';
 import {
   Auth,
@@ -80,6 +85,7 @@ export class AuthenticationService {
   public createNewUser = httpsCallable(this.functions, 'createUser');
   private userServerSubscription: Subscription | undefined = undefined;
   private userWalletSubscription: Subscription = Subscription.EMPTY;
+  private transactionsSubscription: Subscription = Subscription.EMPTY;
   private readonly userDisposable: Subscription | undefined;
   public readonly user: Observable<User | null> = EMPTY;
 
@@ -338,6 +344,11 @@ export class AuthenticationService {
               // this.setMissingFields();
             }
           );
+          this.transactionsSubscription = collectionData(query(collection(this.firestore, 'users/' + u.uid + '/transaction'),orderBy('date','desc')),{idField:'id'}).subscribe((transactions: any) => {
+            this.dataProvider.transactionsUpdated.next(transactions);
+            this.dataProvider.transactions = transactions;
+            console.log('Transactions', transactions);
+          })
         } else {
           this.router.navigate(['../login']);
           // console.log('User is Logged Out');

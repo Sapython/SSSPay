@@ -1,6 +1,5 @@
 import { Component, Input,OnInit } from '@angular/core';
-import { DatabaseService } from 'src/app/services/database.service';
-import { TransactionService } from 'src/app/services/transaction.service';
+import { DataProvider } from 'src/app/providers/data.provider';
 import { Transaction } from 'src/app/structures/method.structure';
 @Component({
   selector: 'app-history',
@@ -9,27 +8,13 @@ import { Transaction } from 'src/app/structures/method.structure';
 })
 export class HistoryPage implements OnInit {
   transactions:Transaction[] = []
-  constructor(private transactionService:TransactionService) { }
+  constructor(public dataProvider:DataProvider) { }
 
   ngOnInit() {
-    this.transactionService.getLimitedTransactions(20).then((docs)=>{
-      this.transactions = []
-      docs.forEach((doc:any)=>{
-        this.transactions.push({...doc.data(),id:doc.id})
-      })
-    })
+    
   }
   str(object:any){
     return JSON.stringify(object)
   }
 
-  refresh($event){
-    this.transactionService.getLimitedTransactions(20).then((docs)=>{
-      this.transactions = []
-      docs.forEach((doc:any)=>{
-        this.transactions.push({...doc.data(),id:doc.id})
-      })
-      $event.target.complete()
-    })
-  }
 }

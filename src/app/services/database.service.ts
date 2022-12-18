@@ -240,4 +240,20 @@ export class DatabaseService {
       onboardingStatusData: data,
     });
   }
+
+  savePayoutDetail(data){
+    return addDoc(collection(this.fs, '/users/' + this.dataProvider.userID+'/payOutDetails'),data);
+  }
+
+  getPayoutDetails(){
+    return getDocs(
+      query(
+        collection(
+          this.fs,
+          'users/' + this.dataProvider.userID + '/payOutDetails'
+        ),
+        orderBy('date', 'desc')
+      )
+    );
+  }
 }

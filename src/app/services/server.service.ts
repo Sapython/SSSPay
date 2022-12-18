@@ -13,9 +13,7 @@ export class ServerService {
     private alertify: AlertsAndNotificationsService,
     private dataProvider: DataProvider,
     private databaseService: DatabaseService
-  ) {
-     
-  }
+  ) {}
 
   async getRequestOptions(extraData?: any, method?: string) {
     if (method == undefined || method === '') {
@@ -137,10 +135,21 @@ export class ServerService {
       environment.serverBaseUrl + '/recharge/getOperatorsList',
       requestOptions
     );
-    const data = await mainResponse.json();
-    return data.data.filter((item) => {
-      return item.category == 'Prepaid';
-    });
+    try {
+      const data = await mainResponse.json();
+      console.log('dat', data);
+      if (data.data) {
+        return data.data.filter((item) => {
+          return item.category == 'Prepaid';
+        });
+      } else {
+        this.alertify.presentToast(data.error);
+        return [];
+      }
+    } catch (error) {
+      this.alertify.presentToast("Can't fetch operators list");
+      return [];
+    }
   }
 
   async getMobilePlans(circle: string, operator: string) {
@@ -156,9 +165,9 @@ export class ServerService {
     return data;
   }
 
-  async getCircleAndOperator(event: any) {
+  async getCircleAndOperator(mobileNumber: any) {
     const requestOptions = await this.getRequestOptions({
-      number: event.detail.value,
+      number: mobileNumber,
       type: 'mobile',
     });
     const mainResponse = await fetch(
@@ -522,7 +531,8 @@ export class ServerService {
       email: userData['email'],
       phoneNumber: userData['phoneNumber'],
       dob: userData['dob'],
-      photoURL: "https://firebasestorage.googleapis.com/v0/b/sit-manager.appspot.com/o/users%2Fdefault%2Fuser.png?alt=media&token=f7502ba7-275f-40a8-92bd-7df725bc7786",
+      photoURL:
+        'https://firebasestorage.googleapis.com/v0/b/sit-manager.appspot.com/o/users%2Fdefault%2Fuser.png?alt=media&token=f7502ba7-275f-40a8-92bd-7df725bc7786',
       gender: userData['gender'],
       access: userData['access'],
       state: userData['state'],
@@ -530,7 +540,7 @@ export class ServerService {
       pincode: userData['pincode'],
       address: userData['address'],
       aadhaarNumber: userData['aadhaarNumber'],
-      panNumber: userData['panNumber']
+      panNumber: userData['panNumber'],
     });
     console.log('requestOptions', requestOptions);
     const mainResponse = await fetch(

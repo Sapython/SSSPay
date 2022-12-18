@@ -30,7 +30,7 @@ export class SelectPlansPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.circle, this.operator);
+    console.log("this.circle",this.circle, this.operator);
     this.dataProvider.pageSetting.blur = true;
     this.serverService
       .getMobilePlans(this.circle, this.operator)

@@ -2,101 +2,102 @@
 
 <ion-content>
   <div class="status">
-    <ion-icon color="danger" name="alert-outline" *ngIf="paymentStatus=='error'"></ion-icon>
-    <ion-icon color="warning" name="time" *ngIf="paymentStatus=='started'"></ion-icon>
-    <ion-icon color="warning" name="hourglass" *ngIf="paymentStatus=='pending'"></ion-icon>
-    <ion-icon color="success" name="checkmark-done-outline" *ngIf="paymentStatus=='success'"></ion-icon>
-    <ion-icon color="tertiary" name="help-circle" *ngIf="paymentStatus=='unknown'"></ion-icon>
-    <ion-text color="">
-      <h4>{{paymentStatus | titlecase}}</h4>
+    <img src="assets/it_logo.png" width="100" alt="">
+    <ion-text [color]="paymentStatus=='error' ? 'danger' : ((paymentStatus=='started' || paymentStatus=='pending') ? 'warning' : (paymentStatus=='success' ? 'success' : (paymentStatus=='unknown' ? 'tertiary' : '')))">
+      <h6>{{paymentStatus | titlecase}}</h6>
     </ion-text>
-    <img src="assets/sss-logo.svg" width="100" alt="">
+    <img src="assets/fino.jpg" width="100" alt="">
+    <img src="assets/icici.jpg" width="100" alt="">
   </div>
   <div class="transactionDetail" id="printer">
-    <ion-item>
-      <p>Retailer Name</p>
-      <ion-label color="primary">{{retailerName}}</ion-label>
-      <ion-icon name="copy-outline" (click)="copy(retailerName)"></ion-icon>
-    </ion-item>
-    <ion-item>
+    <span class="item">
+      <p>From</p>
+      <p color="primary">{{retailerName}}</p>
+    </span>
+    <span class="item">
       <p>Retailer Id</p>
-      <ion-label color="primary">{{retailerId}}</ion-label>
+      <p color="primary">{{clip(retailerId)}}</p>
       <ion-icon name="copy-outline" (click)="copy(retailerId)"></ion-icon>
-    </ion-item>
-    <ion-item>
+    </span>
+    <span class="item">
       <p>Date & Time</p>
-      <ion-label color="primary">{{date | date:"medium"}}</ion-label>
-    </ion-item>
-    <ion-item *ngIf="amount">
+      <p>{{date | date:'short'}}</p>
+    </span>
+    <span class="item" *ngIf="amount">
       <p>Amount</p>
-      <ion-label color="tertiary">&#8377;{{amount}}</ion-label>
-      <ion-icon name="copy-outline" (click)="copy(amount.toString())"></ion-icon>
-    </ion-item>
-    <ion-item> 
+      <p color="tertiary">&#8377;{{amount}}</p>
+    </span>
+    <span class="item"> 
       <p>Transaction Id</p>
-      <ion-label color="secondary">{{transactionId}}</ion-label>
+      <p color="secondary">{{clip(transactionId)}}</p>
       <ion-icon name="copy-outline" (click)="copy(transactionId)"></ion-icon>
-    </ion-item>
-    <ion-item>
+    </span>
+    <span class="item">
       <p>Type</p>
-      <ion-label>
+      <p>
         <ion-chip color="primary" mode="ios" outline="true">
-          <ion-label *ngIf="!transactionData?.extraData?.aepsData?.transactionType">{{command | titlecase}}</ion-label>
-          <ion-label *ngIf="transactionData?.extraData?.aepsData?.transactionType=='MS'">AEPS Mini-Statement</ion-label>
-          <ion-label *ngIf="transactionData?.extraData?.aepsData?.transactionType=='BE'">AEPS Balance Enquiry</ion-label>
-          <ion-label *ngIf="transactionData?.extraData?.aepsData?.transactionType=='CW'">AEPS Cash-Withdrawal</ion-label>
-          <ion-label *ngIf="transactionData?.extraData?.aepsData?.transactionType=='M'">AEPS Aadhaar Pay</ion-label>
+          <p *ngIf="!transactionData?.extraData?.aepsData?.transactionType">{{command | titlecase}}</p>
+          <p *ngIf="transactionData?.extraData?.aepsData?.transactionType=='MS'">AEPS Mini-Statement</p>
+          <p *ngIf="transactionData?.extraData?.aepsData?.transactionType=='BE'">AEPS Balance Enquiry</p>
+          <p *ngIf="transactionData?.extraData?.aepsData?.transactionType=='CW'">AEPS Cash-Withdrawal</p>
+          <p *ngIf="transactionData?.extraData?.aepsData?.transactionType=='M'">AEPS Aadhaar Pay</p>
         </ion-chip>
-      </ion-label>
-    </ion-item>
-    <ng-container *ngIf="successData">
-      <ion-item *ngIf="successData.balanceamount">
+      </p>
+    </span>
+    <ng-container *ngIf="successData && transactionData.type == 'aeps'">
+      <span class="item" *ngIf="successData.balanceamount">
         <p>Balance: </p>
-        <ion-label color="primary">{{successData.balanceamount}}</ion-label>
-        <ion-icon name="copy-outline" (click)="copy(transactionData.successData.balanceamount)"></ion-icon>
-      </ion-item>
-      <ion-item *ngIf="successData.bankiin">
+        <p color="primary">{{successData.balanceamount}}</p>
+      </span>
+      <span class="item" *ngIf="successData.bankiin">
         <p>Bank iin: </p>
-        <ion-label color="primary">{{successData.bankiin}}</ion-label>
+        <p color="primary">{{successData.bankiin}}</p>
         <ion-icon name="copy-outline" (click)="copy(transactionData.successData.bankiin)"></ion-icon>
-      </ion-item>
-      <ion-item *ngIf="successData.bankrrn">
+      </span>
+      <span class="item" *ngIf="successData.bankrrn">
         <p>Bank RRN: </p>
-        <ion-label color="primary">{{successData.bankrrn}}</ion-label>
+        <p color="primary">{{successData.bankrrn}}</p>
         <ion-icon name="copy-outline" (click)="copy(transactionData.successData.bankrrn)"></ion-icon>
-      </ion-item>
-      <ion-item *ngIf="successData.last_aadhar">
+      </span>
+      <span class="item" *ngIf="successData.last_aadhar">
         <p>Aadhaar: </p>
-        <ion-label color="primary">********{{successData.last_aadhar}}</ion-label>
+        <p color="primary">********{{successData.last_aadhar}}</p>
         <ion-icon name="copy-outline" (click)="copy(transactionData.successData.last_aadhar)"></ion-icon>
-      </ion-item>
-      <ion-item *ngIf="successData.mobile">
+      </span>
+      <span class="item" *ngIf="successData.mobile">
         <p>Mobile No: </p>
-        <ion-label color="primary">{{successData.balanceamount}}</ion-label>
+        <p color="primary">{{successData.mobile}}</p>
         <ion-icon name="copy-outline" (click)="copy(transactionData.successData.balanceamount)"></ion-icon>
-      </ion-item>
-      <ion-item *ngIf="successData.clientrefno">
+      </span>
+      <span class="item" *ngIf="successData.clientrefno">
         <p>Reference No: </p>
-        <ion-label color="primary">{{successData.clientrefno}}</ion-label>
+        <p color="primary">{{successData.clientrefno}}</p>
         <ion-icon name="copy-outline" (click)="copy(transactionData.successData.clientrefno)"></ion-icon>
-      </ion-item>
+      </span>
     </ng-container>
-    <ng-container *ngIf="transactionData && transactionData.successData">
-      <ion-item> 
+    <ng-container *ngIf="transactionData && transactionData.successData && transactionData.type == 'recharge'">
+      <span class="item"> 
         <p>Acknowledgement No.</p>
-        <ion-label color="secondary">{{transactionData.successData.ackno}}</ion-label>
+        <p color="secondary">{{transactionData.successData.ackno}}</p>
         <ion-icon name="copy-outline" (click)="copy(transactionData.successData.ackno)"></ion-icon>
-      </ion-item>
-      <ion-item> 
+      </span>
+      <span class="item"> 
         <p>Operator Id</p>
-        <ion-label color="secondary">{{transactionData.successData.operatorid}}</ion-label>
-        <ion-icon name="copy-outline" (click)="copy(transactionData.successData.operatorid)"></ion-icon>
-      </ion-item>
+        <p color="secondary">{{transactionData.successData.operatorid}}</p>
+      </span>
+      <span class="item"> 
+        <p>Circle</p>
+        <p color="secondary">{{transactionData.extraData.circle}}</p>
+      </span>
+      <span class="item"> 
+        <p>Plan</p>
+        <p color="secondary">{{transactionData.extraData.plan.desc}}</p>
+      </span>
     </ng-container>
-    <div class="actions">
-      <ion-button (click)="getPdf()">
-        <ion-icon name="download"></ion-icon>
-      </ion-button>
-    </div>
+  </div>
+  <div class="actions">
+    <ion-button (click)="getPdf()" expand="block" fill="solid" shape="round">
+      Receipt <ion-icon name="download"></ion-icon>
+    </ion-button>
   </div>
 </ion-content>

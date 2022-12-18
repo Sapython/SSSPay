@@ -5,9 +5,13 @@
       <ion-row>
         <ion-col size="12">
           <ion-card id="profile-card">
-            <ion-avatar>
-              <ion-img [src]="dataProvider.userData?.photoURL"> </ion-img>
-            </ion-avatar>
+            <input type="file" #changeProfile (change)="uploadImage($event)" hidden>
+            <div class="avatar">
+              <ion-avatar (click)="changeProfile.click()">
+                <ion-img [src]="dataProvider.userData?.photoURL"> </ion-img>
+              </ion-avatar>
+              <p>Click to change</p>
+            </div>
             <div class="profile_desc">
               <b>{{dataProvider.userData.displayName}}</b>
               <span>{{dataProvider.userData.phoneNumber}}</span>

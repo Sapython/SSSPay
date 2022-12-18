@@ -15,6 +15,7 @@ import { Transaction } from 'src/app/structures/method.structure';
 })
 export class ExpressPage implements OnInit {
   addingAccount: boolean = false;
+  usingData: boolean = false;
   payoutForm: UntypedFormGroup = new UntypedFormGroup({
     amount: new FormControl(null, [
       Validators.required,
@@ -35,6 +36,7 @@ export class ExpressPage implements OnInit {
     cardName: new FormControl(null),
   });
   fundAccounts = [];
+  previousDetails: any[] = [];
   constructor(
     public dataProvider: DataProvider,
     private databaseService: DatabaseService,
@@ -47,22 +49,21 @@ export class ExpressPage implements OnInit {
   ngOnInit() {
     this.fundAccounts = [];
     this.fundAccounts = this.dataProvider.userData.payoutFundAccount;
-    // this.payoutForm.patchValue(
-    //   {
-    //     "amount": 50,
-    //     "description": "test",
-    //     "name": "test",
-    //     "email": "saptampro2003@gmail.com",
-    //     "contact": "9517457296",
-    //     "accountType": "vpa",
-    //     "bankAccountName": null,
-    //     "accountNumber": null,
-    //     "ifsc": null,
-    //     "vpa": "saptampro2003@gmail",
-    //     "cardNumber": null,
-    //     "cardName": null
-    //   }
-    // )
+    this.payoutForm.valueChanges.subscribe((value) => {
+      this.usingData = false;
+    })
+    this.databaseService.getPayoutDetails().then((res)=>{
+      this.previousDetails = []
+      res.forEach((doc)=>{
+        this.previousDetails.push({...doc.data(),id:doc.id})
+      })
+      console.log(this.previousDetails)
+    })
+  }
+
+  async saveDetail(){
+    this.payoutForm.value.date = new Date();
+    await this.databaseService.savePayoutDetail(this.payoutForm.value)
   }
 
   checkErrors(){
@@ -103,6 +104,11 @@ export class ExpressPage implements OnInit {
     }
   }
 
+  setValue(val:string){
+    this.payoutForm.patchValue({paymentType:'upi'})
+    console.log(this.payoutForm.value)
+  }
+
   setControls() {
     if (this.payoutForm.value.account.accountType === 'bank_account') {
       this.payoutForm.get('accountType').addValidators([Validators.required]);
@@ -113,7 +119,11 @@ export class ExpressPage implements OnInit {
     }
   }
 
-  makePayout() {
+  async makePayout() {
+    if(this.usingData){
+      this.payoutForm.value.date = new Date();
+      await this.databaseService.savePayoutDetail(this.payoutForm.value)
+    }
     const transaction: Transaction = {
       amount: Number(this.payoutForm.get('amount').value),
       date: new Date(),
@@ -158,5 +168,21 @@ export class ExpressPage implements OnInit {
     );
   }
 
-  removeAccount() {}
+  loadDetails(data){
+    let dirty = false;
+    Object.keys(this.payoutForm.value).forEach(key => {
+      if(this.payoutForm.value[key] != null){
+        dirty = true;
+      }
+    })
+    if(dirty){
+      if(confirm('Are you sure you want to load new details?')){
+        this.payoutForm.patchValue(data);
+        this.alertify.presentToast('Details loaded');
+      }
+    } else {
+      this.payoutForm.patchValue(data);
+      this.alertify.presentToast('Details loaded');
+    }
+  }
 }

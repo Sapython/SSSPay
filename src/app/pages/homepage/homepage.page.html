@@ -5,23 +5,18 @@
       [page]="items[0].page" [routerLink]="items[0].routerLink"></app-home-widget>
     <app-home-widget routerDirection="forward" [name]="items[1].name" [service]="items[1].service"
       [page]="items[1].page" [routerLink]="items[1].routerLink"></app-home-widget>
+    <app-home-widget routerDirection="forward" [name]="items[2].name" [service]="items[2].service"
+      [page]="items[2].page" [routerLink]="items[2].routerLink"></app-home-widget>
     <app-home-widget routerDirection="forward" *ngIf="dataProvider.userData?.kycStatus !== 'approved'"
-      [name]="items[2].name" [service]="items[2].service" [page]="items[2].page" [routerLink]="items[2].routerLink">
+      [name]="items[3].name" [service]="items[3].service" [page]="items[3].page" [routerLink]="items[3].routerLink">
     </app-home-widget>
     <div class="alert"
-      *ngIf="dataProvider?.userData?.kycStatus=='approved' && dataProvider?.userData?.onboardingData && dataProvider?.userData?.onboardingStatusData?.response_code!=1">
+      *ngIf="dataProvider?.userData?.kycStatus=='approved' && !dataProvider?.userData?.paysprintOnboardingDone">
       <p>Onboarding is pending. Please complete the onboarding process to continue.</p>
-      <ion-button (click)="payUpiMoney()" *ngIf="!dataProvider?.userData?.kycMoneyPaid" color="warning" expand="block" fill="solid" shape="round">
-        Pay &#8377;10 to complete kyc
-      </ion-button>
-      <ion-button (click)="generateLinkAndRedirectOnboarding()" *ngIf="dataProvider?.userData?.kycMoneyPaid" expand="block" fill="solid"
-        shape="round" color="warning">
+      <ion-button (click)="startOnboarding()" expand="block" fill="solid" shape="round" color="warning">
         Complete Now
       </ion-button> 
     </div>
-    <ion-button (click)="startOnboarding()" expand="block" fill="outline" shape="">
-      Start Onboarding
-    </ion-button>
     <ion-card class="ion-padding" mode="ios">
       <ion-card-title mode="md" color="primary">Wallet Balance &nbsp; <strong>&#8377;{{dataProvider.wallet?.balance}}</strong></ion-card-title>
     </ion-card>

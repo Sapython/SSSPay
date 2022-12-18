@@ -27,18 +27,17 @@ export class HomepagePage{
       routerLink:'/aeps'
     },
     {
-      name: 'Payout',
+      name: 'Daily Payout',
       service: 'bank',
       page: 'aeps',
-      routerLink:'/payout'
+      routerLink:'/payout/daily'
     },
-    // {
-    //   name: 'Pay Your Bills',
-    //   service: 'bills',
-    //   page: 'aeps',
-      
-    //   routerLink:'/mobile-recharge'
-    // },
+    {
+      name: 'DMT',
+      service: 'bank',
+      page: 'aeps',
+      routerLink:'/payout/express'
+    },
     {
       name: 'Onboarding',
       service: 'PAN',

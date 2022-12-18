@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import com.getcapacitor.JSObject;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
@@ -92,7 +93,13 @@ public class MainActivity extends BridgeActivity {
         Integer response = data != null ? data.getIntExtra("response", 0) : null;
         String message = data != null ? data.getStringExtra("message") : null;
         String detailedResponse = "Status: " + status + ",  " + "Response: " + response + ", " + "Message: " + message + ' ';
-        Toast.makeText(this,detailedResponse,Toast.LENGTH_LONG).show();
+//        Toast.makeText(this,detailedResponse,Toast.LENGTH_LONG).show();
+        JSObject object = new JSObject();
+        object.put("status",status);
+        object.put("response",response);
+        object.put("message",message);
+        PaysprintOnboarding onboarding = new PaysprintOnboarding();
+        onboarding.finishOnboarding(object);
       }
     }
   }
@@ -237,7 +244,7 @@ public class MainActivity extends BridgeActivity {
 
   public void startOnboarding(String merchantCode,String mobile,String email){
     var message = "MC:"+merchantCode+" Mobile:'"+mobile+"' Email:"+email;
-    Toast.makeText(this,message,Toast.LENGTH_LONG).show();
+//    Toast.makeText(this,message,Toast.LENGTH_LONG).show();
     Intent intent = new Intent(MainActivity.this.getApplicationContext(), HostActivity.class);
     intent.putExtra("pId", "PS001619");
     intent.putExtra("pApiKey", "UFMwMDE2MTk1NjNkNThkNjM1NDAyYjRkMjg3M2Q3MmRjNDAyYjAwYg==");

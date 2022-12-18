@@ -1,41 +1,49 @@
 ion-content{
     --ion-background-color: #eee;
     div.status{
-        height: 25vh;
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
-        flex-direction: column;
-        // color:white;
         background-color: white;
         border-bottom-left-radius: 20px;
         border-bottom-right-radius: 20px;
         box-shadow: 5px 5px 30px rgba(0,0,0,0.15);
-        ion-icon{
-            font-size: 30px;
+        h6{
+            margin: 0px;
+        }
+        img{
+            height: 40px;
+            width: auto;
         }
     }
     div.transactionDetail{
         --ion-background-color:white;
         margin: 10px;
         background: white;
-        padding:5px;
+        padding:10px;
         border:2px solid rgb(218, 218, 218);
         border-radius: 20px;
         
-        ion-item{
+        .item{
+            display: flex;
+            padding: 5px 0px;
+            border-bottom: 2px solid rgb(246, 246, 246);
             p{
-                margin-right: 20px;
+                margin: 0px;
+                font-size: 15px;
+                font-weight: 400;
+                text-align: left;
+            }
+            p:nth-child(2){
+                flex: 2;
+                text-align: right;
+                color:var(--ion-color-primary);
+                width: 180px;
+                text-overflow: clip;
+                overflow: hidden;
             }
             ion-icon{
-                font-size: 20px;
-            }
-            ion-icon:active{
-                color: #00a65a;
-            }
-            ion-label{
-                flex: 2;
-                text-align: center;
+                color:rgb(103, 103, 103);
             }
         }
         div.actions{

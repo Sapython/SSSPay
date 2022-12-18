@@ -15,7 +15,7 @@ export type UserData = {
     pincode?:string;
     address:string;
     aadhaarNumber:string;
-    kycMoneyPaid:boolean;
+    paysprintOnboardingDone:boolean;
     tutorialCompleted:boolean;
     panCardNumber:string;
     qrCode:string;

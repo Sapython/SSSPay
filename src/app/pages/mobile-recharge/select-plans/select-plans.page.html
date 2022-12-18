@@ -16,7 +16,7 @@
     </ion-segment>
   </div>
   <ion-list>
-    <ion-card *ngFor="let plan of selectedPlan" (click)="continueRecharge(plan)">
+    <ion-card *ngFor="let plan of selectedPlan">
       <ion-card-header>
         <ion-card-subtitle>
           Validity
@@ -32,6 +32,9 @@
         <ion-chip color="warning" mode="ios" outline="true">
           <ion-label>Last Updated: {{plan.last_update}}</ion-label>
         </ion-chip>
+        <ion-button (click)="continueRecharge(plan)" expand="block" fill="solid" shape="round">
+          Recharge
+        </ion-button>
       </ion-card-content>
     </ion-card>
   </ion-list>

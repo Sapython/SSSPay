@@ -41,6 +41,40 @@ export class AepsPage implements OnInit {
   fingerPrintData: any;
   bankId: string;
   selectedBank: any = { name: 'Select Bank', id: '' };
+  definedBanks:any[] = [
+    {
+      "aadharpayiino": null,
+      "activeFlag": "1",
+      "bankName": "State Bank of India",
+      "id": "85",
+      "image":"assets/bankLogos/sbi.png",
+      "iinno": "607094"
+    },
+    {
+      "aadharpayiino": null,
+      "activeFlag": "1",
+      "bankName": "Punjab National Bank",
+      "id": "65",
+      "image":"assets/bankLogos/pnbBank.png",
+      "iinno": "607027"
+    },
+    {
+      "aadharpayiino": null,
+      "activeFlag": "1",
+      "bankName": "Bank Of Baroda",
+      "id": "13",
+      "image":"assets/bankLogos/bankOfBaroda.png",
+      "iinno": "606985"
+    },
+    {
+      "aadharpayiino": null,
+      "activeFlag": "1",
+      "bankName": "Bank of India",
+      "id": "14",
+      "image":"assets/bankLogos/bankOfIndia.jpg",
+      "iinno": "508505"
+    }
+  ]
   aepsForm: UntypedFormGroup = new UntypedFormGroup({
     latitude: new UntypedFormControl('', [Validators.required]),
     longitude: new UntypedFormControl('', [Validators.required]),
@@ -76,7 +110,6 @@ export class AepsPage implements OnInit {
   async ngOnInit() {
     // Get location
     const coordinates = await Geolocation.getCurrentPosition();
-    alert(JSON.stringify(coordinates));
     window.navigator.geolocation.getCurrentPosition(
       (response) => {
         if (response) {
@@ -145,6 +178,15 @@ export class AepsPage implements OnInit {
         this.selectedBank = data.data;
       }
     });
+  }
+
+  setValue(value){
+    this.selectedBank = value
+    console.log(this.selectedBank);
+  }
+
+  log(radio){
+    console.log(radio);
   }
 
   async scanFingerPrint(value) {

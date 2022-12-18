@@ -46,10 +46,11 @@ export class MobileRechargePage implements OnInit, OnDestroy {
     'West Bengal',
   ];
   showOperatorAndCircle: boolean = false;
+  searchingOperator: boolean = false;
   mobileRechargeForm: FormGroup = new FormGroup({
     mobileNumber: new FormControl('', [Validators.required]),
-    operator: new FormControl(''),
-    circle: new FormControl(''),
+    operator: new FormControl('',Validators.required),
+    circle: new FormControl('',Validators.required),
   });
 
   constructor(
@@ -62,21 +63,6 @@ export class MobileRechargePage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    if (this.platform.is('capacitor')) {
-      // Contacts.getPermissions().then((permission: PermissionStatus) => {
-      //   if (permission.granted) {
-      //     this.alertify.presentToast('Permission granted');
-      //     Contacts.getContacts().then((contacts: { contacts: Contact[] }) => {
-      //       this.contacts = contacts.contacts;
-      //       contacts.contacts.forEach((contact: Contact) => {
-      //         console.log('contact', contact);
-      //       });
-      //     });
-      //   } else {
-      //     this.alertify.presentToast('Permission denied');
-      //   }
-      // });
-    }
     this.databaseService.getOperators().then((docs) => {
       this.operators = [];
       docs.forEach((doc) => {
@@ -85,53 +71,34 @@ export class MobileRechargePage implements OnInit, OnDestroy {
           name: doc.data().name,
         });
       });
-    });
+    })
     this.serverService.getMobileOperators().then((data) => {
       this.operators = data;
       console.log('getMobileOperators', this.operators);
     });
   }
-  getCircleAndOperator($event) {
-    console.log('getCircleAndOperator', $event);
-    if (this.mobileRechargeForm.valid) {
-      this.dataProvider.pageSetting.blur = true;
-      this.serverService
-        .getCircleAndOperator($event)
-        .then(async (circleAndOperator) => {
-          console.log('getCircleAndOperator-data', circleAndOperator);
-          if (circleAndOperator['response_code'] == 1) {
-            this.showOperatorAndCircle = false;
-            circleAndOperator.info['mobileNumber'] = this.mobileRechargeForm.get('mobileNumber').value;
-            this.getPlans(circleAndOperator.info);
-          } else {
-            this.mobileRechargeForm
-              .get('circle')
-              .addValidators([Validators.required]);
-            this.mobileRechargeForm
-              .get('operator')
-              .addValidators([Validators.required]);
-            this.alertify.presentToast(
-              'Cannot fetch operators and circles. Please add them manually'
-            );
-            this.showOperatorAndCircle = true;
-          }
-        })
-        .finally(() => {
-          this.dataProvider.pageSetting.blur = false;
-        });
-    }
+
+  getCircleAndOperator(event) {
+    console.log('getCircleAndOperator', event);
+    this.searchingOperator = true;
+    this.serverService.getCircleAndOperator(event.detail.value).then(async (circleAndOperator) => {
+      console.log('getCircleAndOperator-data', circleAndOperator);
+    }).finally(() => {
+      this.searchingOperator = false;
+    });
   }
-  async getPlans(circleAndOperator) {
-    console.log('getPlans =====', circleAndOperator);
+
+
+  async getPlans() {
+    console.log(this.mobileRechargeForm.value)
     const modal = await this.modalController.create({
       component: SelectPlansPage,
       componentProps: {
-        circle: circleAndOperator.circle,
-        operator: circleAndOperator.operator,
-        mobileNumber: circleAndOperator.mobileNumber,
-        operatorsId:this.operators.filter((operator)=>operator.name==circleAndOperator.operator)[0].id
+        circle: this.mobileRechargeForm.value.circle,
+        operator: this.mobileRechargeForm.value.operator.name,
+        mobileNumber: this.mobileRechargeForm.value.mobileNumber,
+        operatorsId: this.mobileRechargeForm.value.operator.id,
       },
-      
     });
     await modal.present();
   }

@@ -26,6 +26,25 @@ export class ProfilePage implements OnInit {
   ngOnInit() {
     
   }
+
+  async uploadImage(event){
+    console.log(event);
+    var file = event.target.files[0]
+    // check if file is image and is less than 1 mb
+    if(file.type.split('/')[0] !== 'image'){
+      alert('Only images are allowed')
+      return;
+    }
+    if(file.size > 1000000){
+      alert('Image size should be less than 1 MB')
+      return;
+    }
+    this.dataProvider.pageSetting.blur = true;
+    let url = await this.databaseService.upload('users/'+this.dataProvider.userData.userId+'/profileImage',file)
+    this.databaseService.updateUserData({photoURL:url})
+    this.dataProvider.pageSetting.blur = false;
+  }
+
   submit(){
     this.databaseService.updateUserData(this.userDataForm.value)
   }

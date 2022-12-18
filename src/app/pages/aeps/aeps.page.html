@@ -1,10 +1,14 @@
-<app-header pageName="AEPS Service" [backButton]="true" backUrl="homepage"></app-header>
+<app-header
+  pageName="AEPS Service"
+  [backButton]="true"
+  backUrl="homepage"
+></app-header>
 <ion-content>
   <ion-text>
     <h1>Enter Customer details</h1>
   </ion-text>
   <form [formGroup]="aepsForm" (ngSubmit)="submit()">
-    <ion-item>
+    <!-- <ion-item>
       <ion-label>Transaction Type</ion-label>
       <ion-select formControlName="transactionType" (ionChange)="paymentType = aepsForm.value.transactionType" value="CW" multiple="false" placeholder="Transaction Type" #tnscType>
         <ion-select-option value="CW">Cash Withdrawal</ion-select-option>
@@ -12,18 +16,57 @@
         <ion-select-option value="MS">Mini Statement</ion-select-option>
         <ion-select-option value="M">Aadhaar Pay</ion-select-option>
       </ion-select>
-    </ion-item>
+    </ion-item> -->
+    <ion-card>
+      <ion-radio-group formControlName="transactionType" (ionChange)="paymentType = aepsForm.value.transactionType" class="type" name="auto" #tnscType>
+        <ion-item>
+          <ion-label>Withdrawal</ion-label>
+          <ion-radio value="CW"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Enquiry</ion-label>
+          <ion-radio value="BE"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Statement</ion-label>
+          <ion-radio value="MS"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Aadhaar Pay</ion-label>
+          <ion-radio value="M"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-card>
     <ion-item button (click)="openBankModal()">
       <ion-label>Select bank</ion-label>
       <ion-label>{{selectedBank.bankName}}</ion-label>
     </ion-item>
+    <ion-radio-group
+      class="row"
+      name="bank"
+      #bank
+      (ionChange)="setValue(bank.value);"
+    >
+      <div class="chip" *ngFor="let bank of definedBanks" (click)="log(radio)">
+        <ion-radio [value]="bank" #radio></ion-radio>
+        <img [src]="bank.image" alt="SBI" />
+      </div>
+    </ion-radio-group>
     <ion-item>
       <ion-label position="floating">Aadhaar Number</ion-label>
-      <ion-input (ionInput)="checkInput($event,'aadhaar')" type="number" formControlName="aadhaarNumber"></ion-input>
+      <ion-input
+        (ionInput)="checkInput($event,'aadhaar')"
+        type="number"
+        formControlName="aadhaarNumber"
+      ></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Mobile Number</ion-label>
-      <ion-input (ionInput)="checkInput($event,'number')" type="number" formControlName="mobileNumber"></ion-input>
+      <ion-input
+        (ionInput)="checkInput($event,'number')"
+        type="number"
+        formControlName="mobileNumber"
+      ></ion-input>
     </ion-item>
     <ion-item *ngIf="tnscType.value == 'M' || tnscType.value == 'CW'">
       <ion-label position="floating">Amount</ion-label>
@@ -44,9 +87,19 @@
       <ion-label position="floating">Remarks (optional)</ion-label>
       <ion-input type="text" formControlName="requestRemarks"></ion-input>
     </ion-item> -->
-    <ion-button (click)="checkValidity()" expand="block" fill="clear" shape="round">
+    <ion-button
+      (click)="checkValidity()"
+      expand="block"
+      fill="clear"
+      shape="round"
+    >
       Check Validity
     </ion-button>
-    <ion-button type="submit" expand="block" [disabled]="!aepsForm.valid && selectedBank.id">Next</ion-button>
+    <ion-button
+      type="submit"
+      expand="block"
+      [disabled]="!aepsForm.valid && selectedBank.id"
+      >Next</ion-button
+    >
   </form>
 </ion-content>

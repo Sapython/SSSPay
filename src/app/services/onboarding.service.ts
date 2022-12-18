@@ -10,7 +10,7 @@ export interface OnboardingType {
     phone: string;
     email: string;
   
-  }): Promise<{ value: string }>;
+  }): Promise<{status:boolean,response:string,message:string}>;
 }
 const Onboarding = registerPlugin<OnboardingType>('Onboarding');
 export default Onboarding;
@@ -45,11 +45,11 @@ export class OnboardingService {
 
   onboardPaysprint() {
     console.log('onboardPaysprint getting position',this.dataProvider.userData.phoneNumber);
-    alert('onboardPaysprint getting position'+JSON.stringify({
-      merchantCode: this.dataProvider.userData.userId,
-      phone: this.dataProvider.userData.phoneNumber,
-      email: this.dataProvider.userData.email,
-    }));
+    // alert('onboardPaysprint getting position'+JSON.stringify({
+    //   merchantCode: this.dataProvider.userData.userId,
+    //   phone: this.dataProvider.userData.phoneNumber,
+    //   email: this.dataProvider.userData.email,
+    // }));
     Onboarding.startOnboarding({
       merchantCode: this.dataProvider.userData.userId,
       phone: this.dataProvider.userData.phoneNumber.toString(),
@@ -57,6 +57,10 @@ export class OnboardingService {
     })
       .then((res) => {
         console.log(res);
+        alert("Return res:"+JSON.stringify(res))
+        if (res.status == true){
+          this.completePaysprintOnboarding(res);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -173,5 +177,15 @@ export class OnboardingService {
         photosDone: true,
       },
     });
+  }
+  completePaysprintOnboarding(res){
+    if (res.status){
+      this.dataProvider.pageSetting.blur = true;
+      updateDoc(doc(this.fs, 'users/' + this.dataProvider.userData.userId), {
+        paysprintOnboardingDone: true
+      }).finally(() => {
+        this.dataProvider.pageSetting.blur = false;
+      })
+    }
   }
 }

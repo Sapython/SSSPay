@@ -4,20 +4,23 @@
     <ion-row>
       <ion-col>
         <ion-card class="ion-padding">
-          <form [formGroup]="mobileRechargeForm" (ngSubmit)="getPlans(mobileRechargeForm.value)">
-            <ion-item>
-              <ion-label position="floating">Phone Number</ion-label>
-              <ion-input type="number" placeholder="Enter Number" [debounce]="2000" (ionChange)="!showOperatorAndCircle ? getCircleAndOperator($event) : ''" formControlName="mobileNumber" ></ion-input>
-            </ion-item>
-            <ng-container *ngIf="showOperatorAndCircle">
+          <form [formGroup]="mobileRechargeForm" (ngSubmit)="getPlans()">
+            <div class="row">
               <ion-item>
-                <ion-label>Select operator</ion-label>
+                <ion-label position="floating">Phone Number</ion-label>
+                <ion-input type="number" placeholder="Enter Number" (ionChange)="getCircleAndOperator($event)" [debounce]="2000" formControlName="mobileNumber" ></ion-input>
+              </ion-item>
+              <ion-spinner name="crescent" *ngIf="searchingOperator" color="primary"></ion-spinner>
+            </div>
+            <ng-container>
+              <ion-item>
+                <ion-label>Operator</ion-label>
                 <ion-select formControlName="operator">
-                  <ion-select-option [value]="operator.id" *ngFor="let operator of operators">{{operator.name}}</ion-select-option>
+                  <ion-select-option [value]="operator" *ngFor="let operator of operators">{{operator.name}}</ion-select-option>
                 </ion-select>
               </ion-item>
               <ion-item>
-                <ion-label>Select operator</ion-label>
+                <ion-label>Circle</ion-label>
                 <ion-select formControlName="circle">
                   <ion-select-option [value]="circle" *ngFor="let circle of circles">{{circle}}</ion-select-option>
                 </ion-select>
@@ -28,7 +31,7 @@
         </ion-card>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <!-- <ion-row>
       <ion-col>
         <ion-card>
           <div class="container">
@@ -40,6 +43,6 @@
           </div>
         </ion-card>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
   </ion-grid>
 </ion-content>

@@ -21,11 +21,16 @@ export class WalletPage implements OnInit {
 
   async ngOnInit() {
     this.loading = true;
-    this.transactionService.getAllTransactions().then((docs)=>{
+    this.dataProvider.transactions.forEach((doc:any)=>{
+      if (doc['status']=='success' && doc['amount']>0){
+        this.transactions.push({...doc,id:doc.id})
+      }
+    })
+    this.dataProvider.transactionsUpdated.subscribe((docs)=>{
       this.transactions = []
       docs.forEach((doc:any)=>{
-        if (doc.data()['status']=='success' && doc.data()['amount']>0){
-          this.transactions.push({...doc.data(),id:doc.id})
+        if (doc['status']=='success' && doc['amount']>0){
+          this.transactions.push({...doc,id:doc.id})
         }
       })
     })

@@ -12,10 +12,8 @@ import { AlertsAndNotificationsService } from './uiService/alerts-and-notificati
   providedIn: 'root'
 })
 export class UserDataService {
-  usersDoc:CollectionReference;
   userDoc:DocumentReference| undefined;
-  constructor(private firestore: Firestore,private router:Router ,private alertify:AlertsAndNotificationsService, private dataProvider:DataProvider) {
-    this.usersDoc = collection(this.firestore,'users');
+  constructor(private firestore: Firestore,private alertify:AlertsAndNotificationsService) {
   }
 
   public async setUserData(user:User,name?:string){
@@ -42,7 +40,7 @@ export class UserDataService {
         panCardNumber:'',
         onboardingDone:false,
         selfieImage: '',
-        kycMoneyPaid:false,
+        paysprintOnboardingDone:false,
         shopImage: '',
         kycStatus:'incomplete',
         qrCode:'',

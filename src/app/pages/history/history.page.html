@@ -1,11 +1,8 @@
-<app-header pageName="Payment History" backUrl="../homepage"></app-header>
+<app-header pageName="History" backUrl="../homepage"></app-header>
 <ion-content>
-  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)" pullFactor="0.8" pullMin="60" pullMax="120">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
   <ion-card class="ion-padding card">
     <ion-text id="history-details">Transaction History</ion-text>
-    <app-history-component routerLink="detail/{{transaction.id}}" *ngFor="let transaction of transactions" [status]="transaction.title"
+    <app-history-component routerLink="detail/{{transaction.id}}" *ngFor="let transaction of dataProvider.transactions" [status]="transaction.title"
       [date]="transaction.date.toDate()" [receiver]="transaction.receiver" [paymentStatus]="transaction.status" [description]="transaction.description" [type]="transaction.type" [amount]="transaction.amount"></app-history-component>
   </ion-card>
   <ng-container *ngIf="transactions.length == 0">

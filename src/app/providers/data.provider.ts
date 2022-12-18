@@ -16,6 +16,8 @@ export class DataProvider{
     };
     public sits:any;
     public wallet:any;
+    public transactions:any[] = [];
+    public transactionsUpdated:Subject<any[]> = new Subject<any[]>();
     public userData:UserData | undefined;
     public gotUserData:boolean = false;
     public loggedIn:boolean = false;
