@@ -26,7 +26,8 @@ export class OnboardingService {
     city: string;
     address: string;
     pincode: string;
-    aadhaarImageUrl: any;
+    aadhaarFrontImageUrl: any;
+    aadhaarBackImageUrl: any;
     panImageUrl: any;
   };
 
@@ -38,7 +39,8 @@ export class OnboardingService {
       city: '',
       address: '',
       pincode: '',
-      aadhaarImageUrl: '',
+      aadhaarFrontImageUrl: '',
+      aadhaarBackImageUrl: '',
       panImageUrl: '',
     };
   }
@@ -109,7 +111,7 @@ export class OnboardingService {
       );
       await updateDoc(
         doc(this.fs, `users/${this.dataProvider.userData.userId}`),
-        { onboardingSteps: { aadhaarDone: true } }
+        { onboardingSteps: { aadhaarDone: true }, aadhaarBackImageUrl: aadhaarData.aadhaarBackImageUrl, aadhaarFrontImageUrl: aadhaarData.aadhaarFrontImageUrl }
       );
       return data;
     } catch (error) {

@@ -35,6 +35,17 @@ export class MemberManagementService {
       )
     );
   }
+
+  getGroups(){
+    return getDocs(
+      collection(
+        this.fs,
+        'groups'
+      )
+    );
+  }
+
+
   async getUnassignedMembers(assignedUsers: string[]) {
     const users = await getDocs(collection(this.fs, 'users'));
     return users.docs.filter((doc) => {

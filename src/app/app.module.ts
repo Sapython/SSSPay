@@ -31,10 +31,14 @@ import { NotificationService } from './services/notification.service';
 import { MemberManagementService } from './services/member-management.service';
 import { WaitForQrPaymentComponent } from './wait-for-qr-payment/wait-for-qr-payment.component';
 import { PromptComponent } from './prompt/prompt.component';
+import { AddNewMemberComponent } from './pages/add-new-member/add-new-member.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({   
-    declarations: [AppComponent,WaitForQrPaymentComponent,PromptComponent],
+    declarations: [AppComponent,WaitForQrPaymentComponent,PromptComponent,AddNewMemberComponent],
     imports: [
         BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
         IonicModule.forRoot({ animated: true,navAnimation: pageTransition }),
         AppRoutingModule,
         provideFirebaseApp(() => initializeApp(environment.firebase)),

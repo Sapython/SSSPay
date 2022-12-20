@@ -77,7 +77,7 @@ export class PanPage implements OnInit {
         .then((url) => {
           this.loaderService.stop();
           if (typeof url === 'string' || url instanceof String) {
-            this.onboardingService.details.aadhaarImageUrl = url;
+            this.onboardingService.details.panImageUrl = url;
             this.uploadPanForm.value['panImage'] = url;
             this.onboardingService.setPanDetails(this.uploadPanForm.value).then(() => {
               this.alertService.presentToast(

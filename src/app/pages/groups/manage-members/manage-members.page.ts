@@ -7,7 +7,7 @@ import { AlertsAndNotificationsService } from 'src/app/services/uiService/alerts
 import { UserAccess } from 'src/app/structures/user.structure';
 import { AddMemberComponent } from './add-member/add-member.component';
 import Fuse from 'fuse.js';
-import { AddNewMemberComponent } from './add-new-member/add-new-member.component';
+import { AddNewMemberComponent } from '../../add-new-member/add-new-member.component';
 
 @Component({
   selector: 'app-manage-members',

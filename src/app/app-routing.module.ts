@@ -293,11 +293,12 @@ const routes: Routes = [
     loadChildren: () => import('./splashscreen/splashscreen.module').then( m => m.SplashscreenPageModule)
   },
   {
-    path: 'manage-members',
-    loadChildren: () => import('./pages/manage-members/manage-members.module').then( m => m.ManageMembersPageModule)
-  },  {
     path: 'phone-login',
     loadChildren: () => import('./pages/phone-login/phone-login.module').then( m => m.PhoneLoginPageModule)
+  },
+  {
+    path: 'groups',
+    loadChildren: () => import('./pages/groups/groups.module').then( m => m.GroupsPageModule)
   },
 
 

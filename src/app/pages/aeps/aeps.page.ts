@@ -109,7 +109,12 @@ export class AepsPage implements OnInit {
 
   async ngOnInit() {
     // Get location
-    const coordinates = await Geolocation.getCurrentPosition();
+    try{
+      const coordinates = await Geolocation.getCurrentPosition();
+    } catch (e) {
+      console.log(e);
+      this.alertify.presentToast('Location Not Found', 'error');
+    }
     window.navigator.geolocation.getCurrentPosition(
       (response) => {
         if (response) {
