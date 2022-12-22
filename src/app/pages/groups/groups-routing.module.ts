@@ -6,7 +6,10 @@ import { GroupsPage } from './groups.page';
 const routes: Routes = [
   {
     path: '',
-    component: GroupsPage
+    component: GroupsPage,
+    children:[
+      
+    ]
   },
   {
     path: 'manage-group',

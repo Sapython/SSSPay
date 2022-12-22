@@ -5,7 +5,7 @@ import { ManageMembersPage } from './manage-members.page';
 
 const routes: Routes = [
   {
-    path: '',
+    path: ':groupId',
     component: ManageMembersPage
   }
 ];

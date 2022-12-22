@@ -23,7 +23,7 @@ export class ManageMembersPage implements OnInit {
   constructor(
     private memberService: MemberManagementService,
     private alertify: AlertsAndNotificationsService,
-    private dataProvider: DataProvider,
+    public dataProvider: DataProvider,
     private modalController: ModalController,
     private popupController: PopoverController
   ) {}
@@ -40,20 +40,20 @@ export class ManageMembersPage implements OnInit {
     });
   }
   async getMembers() {
-    console.log('Getting Members');
-    this.members = [];
-    try {
-      this.gettingData = true;
-      const members = await this.memberService.getMembers();
-      members.docs.forEach((doc) => {
-        this.members.push({ ...doc.data(), id: doc.id } as Member);
-      });
-      this.gettingData = false;
-      console.log('members', this.members);
-    } catch (error) {
-      console.log(error);
-      this.alertify.presentToast(error, 'error');
-    }
+    // console.log('Getting Members');
+    // this.members = [];
+    // try {
+    //   this.gettingData = true;
+    //   const members = await this.memberService.getGroupMembers();
+    //   members.docs.forEach((doc) => {
+    //     this.members.push({ ...doc.data(), id: doc.id } as Member);
+    //   });
+    //   this.gettingData = false;
+    //   console.log('members', this.members);
+    // } catch (error) {
+    //   console.log(error);
+    //   this.alertify.presentToast(error, 'error');
+    // }
   }
   searchMember(event) {
     console.log('Search', event);
@@ -111,7 +111,8 @@ export class ManageMembersPage implements OnInit {
           .assignMember(
             this.dataProvider.userData,
             data.data.user,
-            data.data.access
+            data.data.access,
+            this.dataProvider.dataOne.id
           )
           .then((doc) => {
             console.log(doc.id);

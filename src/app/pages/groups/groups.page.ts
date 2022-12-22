@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { DataProvider } from 'src/app/providers/data.provider';
 import { MemberManagementService } from 'src/app/services/member-management.service';
+import { AlertsAndNotificationsService } from 'src/app/services/uiService/alerts-and-notifications.service';
 import { AddNewMemberComponent } from '../add-new-member/add-new-member.component';
 import { AddMemberComponent } from './manage-members/add-member/add-member.component';
 
@@ -17,9 +18,14 @@ export class GroupsPage implements OnInit {
     name:new FormControl('',Validators.required),
     description:new FormControl('',Validators.required)
   });
-  constructor(private memberService:MemberManagementService,private modalController:ModalController,private dataProvider:DataProvider) { }
+  newGroupModalOpen:boolean = false;
+  constructor(private memberService:MemberManagementService,private modalController:ModalController,public dataProvider:DataProvider,private alertify:AlertsAndNotificationsService) { }
 
   ngOnInit() {
+    this.getGroups()
+  }
+
+  getGroups(event?:any){
     this.memberService.getGroups().then((groups)=>{
       this.groups = groups.docs.map((group)=>{
         return {
@@ -27,6 +33,22 @@ export class GroupsPage implements OnInit {
           id:group.id
         }
       });
+    }).catch((err)=>{
+      this.alertify.presentToast("Error fetching groups");
+    }).finally(()=>{
+      if(event){
+        event.target.complete();
+      }
+    })
+  }
+
+  createGroup(){
+    this.memberService.createGroup(this.newGroupForm.value).then((group)=>{
+      this.alertify.presentToast("Group created successfully");
+      this.newGroupModalOpen = false;
+      this.getGroups();
+    }).catch((err)=>{
+      this.alertify.presentToast("Error creating group");
     })
   }
 

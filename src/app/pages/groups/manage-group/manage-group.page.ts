@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { DataProvider } from 'src/app/providers/data.provider';
 
 @Component({
   selector: 'app-manage-group',
@@ -6,10 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./manage-group.page.scss'],
 })
 export class ManageGroupPage implements OnInit {
-
-  constructor() { }
+  memberId: string;
+  constructor(private activatedRoute:ActivatedRoute,public dataProvider:DataProvider) {
+    this.activatedRoute.params.subscribe(params => {
+      console.log(params);
+      this.memberId = params['groupId'];
+    })
+  }
 
   ngOnInit() {
+    
   }
 
 }

@@ -10,7 +10,7 @@ import {
   where,
 } from '@angular/fire/firestore';
 import { collection } from '@firebase/firestore';
-import { Member } from '../pages/manage-members/manage-members.page';
+import { Member } from '../pages/groups/manage-members/manage-members.page';
 import { DataProvider } from '../providers/data.provider';
 import { UserData } from '../structures/user.structure';
 
@@ -18,6 +18,7 @@ import { UserData } from '../structures/user.structure';
   providedIn: 'root',
 })
 export class MemberManagementService {
+  
   access = [
     'superDistributor',
     'masterDistributor',
@@ -64,10 +65,11 @@ export class MemberManagementService {
     return this.access.slice(this.access.indexOf(access)+1);
   }
 
-  async assignMember(user: UserData, member: UserData,access:string) {
+  async assignMember(user: UserData, member: UserData,access:string,groupId:string) {
     try {
       await updateDoc(doc(this.fs, 'users/' + member.userId), {
         memberAssigned: true,
+        groupId:groupId,
         access:{
           access:access
         }
@@ -110,4 +112,8 @@ export class MemberManagementService {
   }
 
   updateMember(member: Member) {}
+
+  createGroup(value: any) {
+    return addDoc(collection(this.fs, 'groups'), value);
+  }
 }
