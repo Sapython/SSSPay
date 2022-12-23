@@ -44,6 +44,8 @@ export class ViewBillComponent implements OnInit {
   recharge(rechargePlan:any){
     console.log(rechargePlan);
     const transaction:Transaction = {
+      groupId:this.dataProvider.userData?.groupId,
+      serviceType:'other',
       amount: Number(rechargePlan.MonthlyRecharge),
       date: new Date(),
       type:'cableDth',

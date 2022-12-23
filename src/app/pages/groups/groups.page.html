@@ -1,6 +1,12 @@
 <app-header title="Groups"></app-header>
 <ion-content>
-  <ion-refresher slot="fixed" (ionRefresh)="getGroups($event)" pullFactor="0.8" pullMin="60" pullMax="120">
+  <ion-refresher
+    slot="fixed"
+    (ionRefresh)="getGroups($event)"
+    pullFactor="0.8"
+    pullMin="60"
+    pullMax="120"
+  >
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <ion-list>
@@ -29,11 +35,16 @@
       <ion-content>
         <form [formGroup]="newGroupForm" (ngSubmit)="createGroup()">
           <ion-item>
-            <ion-label position="floating">Group Name <ion-text color="danger">*</ion-text></ion-label>
+            <ion-label position="floating"
+              >Group Name <ion-text color="danger">*</ion-text></ion-label
+            >
             <ion-input formControlName="name" required></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label position="floating">Group Description <ion-text color="danger">*</ion-text></ion-label>
+            <ion-label position="floating"
+              >Group Description
+              <ion-text color="danger">*</ion-text></ion-label
+            >
             <ion-input formControlName="description" required></ion-input>
           </ion-item>
           <ion-button type="submit" expand="block" fill="solid">
@@ -43,13 +54,4 @@
       </ion-content>
     </ng-template>
   </ion-modal>
-  <!-- <ion-modal #modal trigger="open-modal" [initialBreakpoint]="0.25" [breakpoints]="[0, 0.25, 0.5, 0.75]">
-    <ng-template>
-      <ion-content>
-        
-      </ion-content>
-    </ng-template>
-  </ion-modal> -->
 </ion-content>
-
-

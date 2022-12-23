@@ -79,6 +79,10 @@ export class ManageMembersPage implements OnInit {
     });
   }
 
+  seeTransactions(){
+    
+  }
+
   deleteMember(member: Member) {
     if (confirm('Are you sure you want to delete ' + member.displayName)) {
       this.memberService

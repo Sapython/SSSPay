@@ -49,6 +49,8 @@ export class PayBillPage implements OnInit {
 
   async payBill() {
     const transaction: Transaction = {
+      groupId:this.dataProvider.userData?.groupId,
+      serviceType:'other',
       title: 'Fastag Recharge',
       amount: Number(this.billData.amount),
       receiver: this.billData.name,

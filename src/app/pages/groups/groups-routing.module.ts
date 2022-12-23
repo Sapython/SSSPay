@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: 'manage-member',
     loadChildren: () => import('./manage-members/manage-members.module').then( m => m.ManageMembersPageModule)
+  },
+  {
+    path: 'transactions',
+    loadChildren: () => import('./transactions/transactions.module').then( m => m.TransactionsPageModule)
   }
 ];
 

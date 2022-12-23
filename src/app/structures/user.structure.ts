@@ -4,7 +4,9 @@ export type UserData = {
     email:string;
     phoneNumber?:string;
     dob:any;
+    dailyPayoutTime?:string;
     photoURL:string;
+    groupId?:string;
     gender:'male' | 'female' | 'other' | 'not-specified';
     emailVerified:boolean;
     access:UserAccess;

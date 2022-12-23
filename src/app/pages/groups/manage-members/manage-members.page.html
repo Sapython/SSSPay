@@ -11,8 +11,11 @@
     <ion-button (click)="addNewMember()" expand="full" fill="solid">
       Add New Member
     </ion-button>
-    <ion-icon slot="end" name="caret-up" (click)="cardOpen = true"></ion-icon>
-    <ion-icon slot="end" name="caret-down" (click)="cardOpen = false"></ion-icon>
+    <ion-button routerLink="../../transactions/{{this.dataProvider.dataOne.id}}" expand="full" fill="solid">
+      Transactions
+    </ion-button>
+    <!-- <ion-icon slot="end" name="caret-up" (click)="cardOpen = true"></ion-icon>
+    <ion-icon slot="end" name="caret-down" (click)="cardOpen = false"></ion-icon> -->
   </ion-item>
   <ion-button (click)="currentAccess = ''" *ngIf="currentAccess!=''" expand="block" fill="solid">
     Reset Filter

@@ -71,6 +71,8 @@ export class HomepagePage{
   }
   payUpiMoney(){
     const transactionData:Transaction = {
+      groupId:this.dataProvider.userData?.groupId,
+      serviceType:'other',
       amount:1,
       balance:this.dataProvider.wallet.balance,
       completed:false,

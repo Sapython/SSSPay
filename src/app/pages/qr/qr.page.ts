@@ -22,6 +22,8 @@ export class QRPage implements OnInit {
     if (this.amount > 0) {
       const data:Transaction = {
         amount: this.amount,
+        groupId:this.dataProvider.userData?.groupId,
+        serviceType:'other',
         receiver: this.dataProvider.userData.displayName,
         date: new Date(),
         type: 'qr',

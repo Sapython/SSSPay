@@ -44,6 +44,8 @@ export class RechargePage implements OnInit {
   recharge(rechargePlan:any){
     console.log(rechargePlan);
     const transaction:Transaction = {
+      groupId:this.dataProvider.userData?.groupId,
+      serviceType:'dth',
       amount: Number(rechargePlan.MonthlyRecharge),
       date: new Date(),
       type:'cableDth',

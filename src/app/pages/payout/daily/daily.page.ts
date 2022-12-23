@@ -110,6 +110,8 @@ export class DailyPage implements OnInit {
 
   makePayout() {
     const transaction: Transaction = {
+      groupId:this.dataProvider.userData?.groupId,
+      serviceType:this.payoutForm.value.paymentType =='vpa'? 'payoutUPI' : 'payoutImps',
       amount: Number(this.payoutForm.get('amount').value),
       date: new Date(),
       type: 'expressPayout',

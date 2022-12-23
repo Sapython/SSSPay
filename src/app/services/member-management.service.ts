@@ -69,7 +69,7 @@ export class MemberManagementService {
     return this.access.slice(this.access.indexOf(access)+1);
   }
 
-  async assignMember(user: UserData, member: UserData,access:string,groupId:string) {
+  async assignMember(user: UserData, member: UserData,access:any,groupId:string) {
     try {
       await updateDoc(doc(this.fs, 'users/' + member.userId), {
         memberAssigned: true,
@@ -85,7 +85,7 @@ export class MemberManagementService {
         userId: member.userId,
         phoneNumber: member.phoneNumber,
         photoURL: member.photoURL,
-        access: member.access,
+        access: {access:access},
         ownerId: this.dataProvider.userData?.userId,
         joining: new Date(),
       };
