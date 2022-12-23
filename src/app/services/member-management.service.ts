@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import {
   addDoc,
+  arrayRemove,
+  arrayUnion,
   deleteDoc,
   doc,
   Firestore,
+  getDoc,
   getDocs,
   query,
+  setDoc,
   updateDoc,
   where,
 } from '@angular/fire/firestore';
@@ -85,29 +89,50 @@ export class MemberManagementService {
         ownerId: this.dataProvider.userData?.userId,
         joining: new Date(),
       };
-      console.log('newMember', 'users/' + user.userId + '/members', newMember);
-      return addDoc(
-        collection(this.fs, 'users/' + user.userId + '/members'),
-        newMember
-      );
+      return updateDoc(doc(this.fs,'groups/'+groupId),{
+        members:arrayUnion(newMember)
+      })
+      //  setDoc(doc(this.fs, 'groups/'+groupId + '/members', member.userId), newMember)
     } catch (error) {
       console.log(error);
       return error;
     }
   }
 
-  async deleteMember(id: string,userId:string) {
+  async getGroupMembers(groupId:string){
+    return getDoc(
+      doc(
+        this.fs,
+        'groups/' + groupId
+      )
+    );
+    // let members = []
+    // res.data().members.forEach(async (memberId:string) => {
+    //   const member = await getDoc(
+    //     doc(
+    //       this.fs,
+    //       'users/' + memberId
+    //     )
+    //   );
+    //   members.push(member.data())
+    // })
+  }
+
+  async deleteMember(userId:string,groupId:string,member) {
     await updateDoc(doc(this.fs, 'users/' + userId), {
       memberAssigned: false,
       access:{
         access:"guest"
       }
     });
-    return deleteDoc(
+    return updateDoc(
       doc(
         this.fs,
-        'users/' + this.dataProvider.userData?.userId + '/members/' + id
-      )
+        'groups/' + groupId
+      ),
+      {
+        members:arrayRemove(member)
+      }
     );
   }
 

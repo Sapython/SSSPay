@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { DataProvider } from 'src/app/providers/data.provider';
@@ -14,6 +14,7 @@ import { AlertsAndNotificationsService } from 'src/app/services/uiService/alerts
 })
 export class AddNewMemberComponent implements OnInit {
   // allowedAccess:string[] = []
+  @Input() id: string;
   photo: any;
   addNewMemberForm: FormGroup = new FormGroup({
     displayName: new FormControl('', [Validators.required]),
@@ -59,7 +60,7 @@ export class AddNewMemberComponent implements OnInit {
         .then((res) => {
           this.alertify.presentToast('User Created Successfully');
           this.memberService
-            .assignMember(this.dataProvider.userData, res.newUser, res.newUser.access.access)
+            .assignMember(this.dataProvider.userData, res.newUser, res.newUser.access.access,this.id)
             .then((doc) => {
               console.log(doc.id);
               this.alertify.presentToast(

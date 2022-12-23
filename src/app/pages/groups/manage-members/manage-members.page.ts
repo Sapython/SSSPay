@@ -15,7 +15,7 @@ import { AddNewMemberComponent } from '../../add-new-member/add-new-member.compo
   styleUrls: ['./manage-members.page.scss'],
 })
 export class ManageMembersPage implements OnInit {
-  members: Member[] = [];
+  members: any[] = [];
   gettingData: boolean = false;
   filteredMembers: Member[] = [];
   cardOpen: boolean = false;
@@ -40,20 +40,20 @@ export class ManageMembersPage implements OnInit {
     });
   }
   async getMembers() {
-    // console.log('Getting Members');
-    // this.members = [];
-    // try {
-    //   this.gettingData = true;
-    //   const members = await this.memberService.getGroupMembers();
-    //   members.docs.forEach((doc) => {
-    //     this.members.push({ ...doc.data(), id: doc.id } as Member);
-    //   });
-    //   this.gettingData = false;
-    //   console.log('members', this.members);
-    // } catch (error) {
-    //   console.log(error);
-    //   this.alertify.presentToast(error, 'error');
-    // }
+    console.log('Getting Members');
+    this.members = [];
+    try {
+      this.gettingData = true;
+      const members = await this.memberService.getGroupMembers(this.dataProvider.dataOne.id);
+      members.data()['members'].forEach((doc) => {
+        this.members.push(doc);
+      });
+      this.gettingData = false;
+      console.log('members', this.members);
+    } catch (error) {
+      console.log(error);
+      this.alertify.presentToast(error, 'error');
+    }
   }
   searchMember(event) {
     console.log('Search', event);
@@ -82,14 +82,16 @@ export class ManageMembersPage implements OnInit {
   deleteMember(member: Member) {
     if (confirm('Are you sure you want to delete ' + member.displayName)) {
       this.memberService
-        .deleteMember(member.id, member.userId)
+        .deleteMember(member.userId, this.dataProvider.dataOne.id,member)
         .then(() => {
           this.alertify.presentToast(member.displayName + ' deleted');
           this.getMembers();
         })
         .catch((error) => {
           this.alertify.presentToast(error, 'error');
-        });
+        }).finally(()=>{
+          alert("finally")
+        })
     }
   }
   async addMember() {
@@ -135,6 +137,9 @@ export class ManageMembersPage implements OnInit {
     const modal = await this.modalController
       .create({
         component: AddNewMemberComponent,
+        componentProps:{
+          id:this.dataProvider.dataOne.id
+        },
         swipeToClose: true,
         breakpoints: [0.25, 0.99],
         initialBreakpoint: 0.99,
