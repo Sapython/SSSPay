@@ -9,6 +9,6 @@
     </div>
   </div>
   <ion-text [color]="type == 'debit' ? 'danger' : 'primary'">
-    <p class="money">{{ type == "debit" ? "-" : "+" }} &#8377;{{ money }}</p>
+    <p class="money">{{ type == "debit" ? "-" : "+" }} {{ money | currency:'INR'}}</p>
   </ion-text>
 </div>

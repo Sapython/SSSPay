@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { TransactionsPageRoutingModule } from './transactions-routing.module';
 
 import { TransactionsPage } from './transactions.page';
+import { UiwidgetsModule } from '../../uiwidgets/uiwidgets.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TransactionsPageRoutingModule
+    TransactionsPageRoutingModule,
+    UiwidgetsModule
   ],
   declarations: [TransactionsPage]
 })

@@ -23,6 +23,7 @@ import { UserData } from '../structures/user.structure';
 })
 export class MemberManagementService {
   
+  
   access = [
     'superDistributor',
     'masterDistributor',
@@ -140,5 +141,9 @@ export class MemberManagementService {
 
   createGroup(value: any) {
     return addDoc(collection(this.fs, 'groups'), value);
+  }
+
+  getTransactions(groupId: string) {
+    return getDocs(collection(this.fs, 'groups/' + groupId + '/transactions'));
   }
 }

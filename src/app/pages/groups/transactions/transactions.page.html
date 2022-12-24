@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>transactions</ion-title>
+    <ion-title>Transactions</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <app-wallet-history *ngFor="let history of transactions" [service]="history.type" [statement]="history.description" [date]="history.transactionTime" [money]="history.exchangeAmount" [type]="history.transactionType"></app-wallet-history>
 </ion-content>
