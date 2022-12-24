@@ -25,6 +25,7 @@ import {
   signInWithPhoneNumber,
   RecaptchaVerifier,
   signInWithPopup,
+  sendPasswordResetEmail,
 } from '@angular/fire/auth';
 import { EMPTY, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -371,6 +372,15 @@ export class AuthenticationService {
         this.alertify.presentToast('Invalid Phone Number', 'error', 5000);
       }
     }
+  }
+
+  resetPasswordWithEmail(email){
+    if(!email){
+      return
+    }
+    sendPasswordResetEmail(this.auth, email).then(()=>{
+      this.alertify.presentToast('Password reset link sent to your email');
+    })
   }
 
   public async loginWithPhone(phoneNumber: string,ref:RecaptchaVerifier) {

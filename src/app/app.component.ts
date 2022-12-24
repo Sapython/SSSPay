@@ -36,6 +36,7 @@ export class AppComponent implements OnInit {
     'phone-login',
     'register',
     'forgot-password',
+    'forget-password',
     'reset-password',
     'verify-email',
     'splashscreen',

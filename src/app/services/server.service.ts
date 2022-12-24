@@ -15,19 +15,25 @@ export class ServerService {
     private databaseService: DatabaseService
   ) {}
 
-  async getRequestOptions(extraData?: any, method?: string) {
+  async getRequestOptions(extraData?: any, method?: string,loggedIn:boolean = true) {
     if (method == undefined || method === '') {
       method = 'POST';
     }
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
     console.log('extraData', extraData);
-    const userToken = await this.dataProvider.userInstance.getIdToken();
-    let data = JSON.stringify({
-      token: userToken,
-      uid: this.dataProvider.userID,
-      ...extraData,
-    });
+    if (loggedIn){
+      const userToken = await this.dataProvider.userInstance.getIdToken();
+      var data = JSON.stringify({
+        token: userToken,
+        uid: this.dataProvider.userID,
+        ...extraData,
+      });
+    } else {
+      var data = JSON.stringify({
+        ...extraData,
+      });
+    }
     console.log('request data', data);
     var requestOptions: RequestInit = {
       method: method,
@@ -609,5 +615,63 @@ export class ServerService {
       environment.serverBaseUrl + '/payment/recheckPaymentStatus',
       requestOptions
     );
+  }
+
+  async getResetPasswordOtp(mobile) {
+    const requestOptions = await this.getRequestOptions({ mobile:mobile},undefined,false);
+    const response = await fetch(
+      environment.serverBaseUrl + '/resetPassword/generateOtp',
+      requestOptions
+    );
+    const data = await response.json();
+    if (Object.keys(data).length == 0 || Object.keys(data).includes('error')) {
+      throw data;
+    }
+    return data
+  }
+
+  async verifyOtp(otp: string,mobile:string) {
+    const requestOptions = await this.getRequestOptions({ otp:otp, mobile:mobile},undefined,false);
+    const response = await fetch(
+      environment.serverBaseUrl + '/resetPassword/verifyOtp',
+      requestOptions
+    );
+    const data = await response.json();
+    if (Object.keys(data).length == 0 || Object.keys(data).includes('error')) {
+      throw data;
+    }
+    return data
+  }
+
+  async verifyDetail(mobile?:string,email?:string) {
+    var requestData={}
+    if (mobile){
+      requestData={ mobile:mobile }
+    } else {
+      requestData={ email: email}
+    }
+    const requestOptions = await this.getRequestOptions(requestData,undefined,false);
+    const response = await fetch(
+      environment.serverBaseUrl + '/resetPassword/checkEmailPhone',
+      requestOptions
+    );
+    const data = await response.json();
+    if (Object.keys(data).length == 0 || Object.keys(data).includes('error')) {
+      throw data;
+    }
+    return data
+  }
+
+  async resetPassword(password: string, userId:string) {
+    const requestOptions = await this.getRequestOptions({ password:password, uid:userId},undefined,false);
+    const response = await fetch(
+      environment.serverBaseUrl + '/resetPassword',
+      requestOptions
+    );
+    const data = await response.json();
+    if (Object.keys(data).length == 0 || Object.keys(data).includes('error')) {
+      throw data;
+    }
+    return data
   }
 }
