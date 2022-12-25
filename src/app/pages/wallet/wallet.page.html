@@ -11,7 +11,7 @@
     <ion-icon name="wallet"></ion-icon>
   </ion-card>
   <p id="amount">Transactions</p>
-  <app-wallet-history *ngFor="let history of transactions" [service]="history.type" [statement]="history.description" [date]="history.date.toDate()" [money]="history.amount" [type]="history.type == 'aeps' ? 'credit' : 'debit'"></app-wallet-history>
+  <app-wallet-history *ngFor="let history of transactions" [service]="history.type" [statement]="clip(history.description,25)" [date]="history.date.toDate()" [money]="history.amount" [type]="history.type == 'aeps' ? 'credit' : 'debit'"></app-wallet-history>
   <ng-container *ngIf="transactions.length == 0">
     <img src="/assets/no-notification.svg" alt="No Transactions Found">
     <ion-text color="medium">

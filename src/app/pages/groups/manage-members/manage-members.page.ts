@@ -48,7 +48,9 @@ export class ManageMembersPage implements OnInit {
         this.dataProvider.dataOne.id
       );
       members.data()['members'].forEach((doc) => {
-        this.members.push(doc);
+        if (this.access.slice(this.access.indexOf(this.dataProvider.userData.access.access)).includes(doc.access.access)){
+          this.members.push(doc);
+        }
       });
       this.gettingData = false;
       console.log('members', this.members);
