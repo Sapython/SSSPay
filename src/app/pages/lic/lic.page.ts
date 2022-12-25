@@ -73,7 +73,7 @@ export class LicPage implements OnInit {
 
   async payBill() {
     let transaction: Transaction = {
-      groupId:this.dataProvider.userData?.groupId,
+      groupId:this.dataProvider.userData?.groupId || null,
       serviceType:'other',
       title: 'Lic Bill Payment',
       receiver: 'lic',

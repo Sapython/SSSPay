@@ -25,6 +25,7 @@ export class MemberManagementService {
   
   
   access = [
+    'admin',
     'superDistributor',
     'masterDistributor',
     'distributor',
@@ -51,18 +52,12 @@ export class MemberManagementService {
     );
   }
 
-
   async getUnassignedMembers(assignedUsers: string[]) {
-    const users = await getDocs(collection(this.fs, 'users'));
+    console.log("access.access",this.allowedAccess(this.dataProvider.userData.access.access));
+    const users = await getDocs(query(collection(this.fs, 'users'),where('access.access','in',this.allowedAccess(this.dataProvider.userData.access.access))));
     return users.docs.filter((doc) => {
-      const condition =
-        (doc.data().memberAssigned == undefined ||
-          doc.data().memberAssigned == false ||
-          doc.data().memberAssigned == null) &&
-        doc.id != this.dataProvider.userData?.userId;
-      const allowed = this.allowedAccess(this.dataProvider.userData.access.access)
-      console.log("🚀 ~ file: member-management.service.ts ~ line 48 ~ MemberManagementService ~ returnusers.docs.filter ~ allowed", allowed,doc.data().access.access)
-      return condition && (allowed.indexOf(doc.data().access.access) != -1 && !assignedUsers.includes(doc.id));
+      console.log(doc.data().userId,doc.data().displayName);
+      return (!doc.data().groupId);
     });
   }
 
@@ -90,6 +85,7 @@ export class MemberManagementService {
         ownerId: this.dataProvider.userData?.userId,
         joining: new Date(),
       };
+      console.log("newMember",newMember,groupId);
       return updateDoc(doc(this.fs,'groups/'+groupId),{
         members:arrayUnion(newMember)
       })

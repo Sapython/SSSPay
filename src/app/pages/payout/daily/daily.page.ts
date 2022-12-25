@@ -110,7 +110,7 @@ export class DailyPage implements OnInit {
 
   makePayout() {
     const transaction: Transaction = {
-      groupId:this.dataProvider.userData?.groupId,
+      groupId:this.dataProvider.userData?.groupId || null,
       serviceType:this.payoutForm.value.paymentType =='vpa'? 'payoutUPI' : 'payoutImps',
       amount: Number(this.payoutForm.get('amount').value),
       date: new Date(),
@@ -126,7 +126,8 @@ export class DailyPage implements OnInit {
         ...this.payoutForm.value,
         customerId: this.dataProvider.userData.userId,
         accountType: this.payoutForm.value.account.accountType,
-        paymentType:'UPI'
+        paymentType:'UPI',
+        dailyPayoutTime:this.dataProvider.userData.dailyPayoutTime || null
       },
     };
     this.transactionService.addTransaction(transaction).then(async (docRef) => {

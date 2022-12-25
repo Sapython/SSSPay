@@ -16,7 +16,7 @@ import { OnboardingService } from 'src/app/services/onboarding.service';
   templateUrl: './homepage.page.html',
   styleUrls: ['./homepage.page.scss'],
 })
-export class HomepagePage{
+export class HomepagePage implements OnInit {
   @ViewChild('webRef') webRef;
   constructor(public dataProvider:DataProvider,private popoverController:PopoverController,private serverService:ServerService,private transactionService:TransactionService,private alertify:AlertsAndNotificationsService,private databaseService:DatabaseService,private onboardingService:OnboardingService){}
   items = [
@@ -48,6 +48,13 @@ export class HomepagePage{
   ];
   webLink:string = '';
   upiQrId:string;
+  todayTime:string = "";
+
+  ngOnInit() {
+    let a = new Date()
+    this.todayTime = a.getDate() + "/" + (a.getMonth() + 1) + "/" + a.getFullYear();
+  }
+
   async openBalance(){
     const popOver = await this.popoverController.create({
       component:BalanceComponent,
@@ -71,7 +78,7 @@ export class HomepagePage{
   }
   payUpiMoney(){
     const transactionData:Transaction = {
-      groupId:this.dataProvider.userData?.groupId,
+      groupId:this.dataProvider.userData?.groupId || null,
       serviceType:'other',
       amount:1,
       balance:this.dataProvider.wallet.balance,

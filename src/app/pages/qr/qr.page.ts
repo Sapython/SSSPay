@@ -22,7 +22,7 @@ export class QRPage implements OnInit {
     if (this.amount > 0) {
       const data:Transaction = {
         amount: this.amount,
-        groupId:this.dataProvider.userData?.groupId,
+        groupId:this.dataProvider.userData?.groupId || null,
         serviceType:'other',
         receiver: this.dataProvider.userData.displayName,
         date: new Date(),

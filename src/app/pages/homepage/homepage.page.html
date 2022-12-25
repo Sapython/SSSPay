@@ -3,7 +3,7 @@
   <div class="container">
     <app-home-widget routerDirection="forward" [name]="items[0].name" [service]="items[0].service"
       [page]="items[0].page" [routerLink]="items[0].routerLink"></app-home-widget>
-    <app-home-widget routerDirection="forward" [name]="items[1].name" [service]="items[1].service"
+    <app-home-widget routerDirection="forward" [name]="this.dataProvider.userData?.dailyPayoutTime!=todayTime ? 'Free Daily Payout' : 'Daily Payout'" [service]="items[1].service"
       [page]="items[1].page" [routerLink]="items[1].routerLink"></app-home-widget>
     <app-home-widget routerDirection="forward" [name]="items[2].name" [service]="items[2].service"
       [page]="items[2].page" [routerLink]="items[2].routerLink"></app-home-widget>

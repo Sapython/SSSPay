@@ -14,6 +14,10 @@ export class TransactionService {
   constructor(private fs:Firestore,private dataProvider:DataProvider,private analytics:Analytics) { }
   
   async addTransaction(transactionDetail:Transaction){
+    if (!transactionDetail.groupId){
+      alert("You are not a part of a group.");
+      throw new Error("You are not a part of a group.");
+    }
     logEvent(this.analytics,transactionDetail.type);
     console.log("TransactionService",transactionDetail)
     await setDoc(doc(this.fs,'counter/counter'),{totalTransactions:increment(1)},{merge:true})

@@ -111,11 +111,11 @@ export class ForgetPasswordPage implements OnInit {
   }
 
   resetPassword(){
-    if(this.password != this.confirmPassword){
+    if(this.password == this.confirmPassword){
       this.dataProvider.pageSetting.blur = true;
       this.serverService.resetPassword(this.password,this.userId).then((res:any)=>{
         console.log(res)
-        this.alertify.presentToast(res.status)
+        this.alertify.presentToast(res.message)
         this.router.navigate(['/login'])
       }).catch((err:any)=>{
         this.alertify.presentToast(err.error)

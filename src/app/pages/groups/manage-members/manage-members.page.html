@@ -14,6 +14,9 @@
     <ion-button routerLink="../../transactions/{{this.dataProvider.dataOne.id}}" expand="full" fill="solid">
       Transactions
     </ion-button>
+    <ion-button (click)="switchGroup()" expand="full" fill="solid">
+      Switch Group
+    </ion-button>
     <!-- <ion-icon slot="end" name="caret-up" (click)="cardOpen = true"></ion-icon>
     <ion-icon slot="end" name="caret-down" (click)="cardOpen = false"></ion-icon> -->
   </ion-item>
@@ -32,9 +35,15 @@
             <ion-label>
               <p><b>{{member.displayName}}</b><ion-chip color="primary" (click)="currentAccess = member.access.access">{{member.access.access | titlecase}}</ion-chip></p>
               <p>{{member.email}}</p>
+              <!-- <ion-chip color="primary" mode="ios" outline="true">
+                <p class="button">Transactions</p>
+              </ion-chip> -->
             </ion-label>
             <ion-button fill="clear" (click)="deleteMember(member)">
               <ion-icon name="trash" color="danger"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" (click)="this.dataProvider.dataTwo=member" routerLink="../../transactions/{{this.dataProvider.dataOne.id}}">
+              <ion-icon name="arrow-forward-outline" color="primary"></ion-icon>
             </ion-button>
             <ion-icon (click)="checker.checked = !checker.checked" [name]="checker.checked ? 'caret-up' : 'caret-down'" ></ion-icon>
           </div>

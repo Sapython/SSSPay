@@ -56,7 +56,7 @@ export class SelectPlansPage implements OnInit {
   continueRecharge(plan:any){
     if (confirm('Are you sure you want to recharge?')) {
       const transaction:Transaction = {
-        groupId:this.dataProvider.userData?.groupId,
+        groupId:this.dataProvider.userData?.groupId || null,
         serviceType:'mobile_recharge',
         title:'Mobile recharge of Rs. '+plan.rs + ' for validity' + plan.validity,
         date:new Date(),

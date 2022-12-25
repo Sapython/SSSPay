@@ -187,7 +187,7 @@ public class MainActivity extends BridgeActivity {
   }
 
   public String captureData() {
-    String pidOption = "<?xml version=\"1.0\"?><PidOptions ver=\"1.0\"><Opts fCount=\"1\" fType=\"0\" iCount=\"0\" pCount=\"0\" format=\"0\" pidVer=\"2.0\" timeout=\"10000\" posh=\"UNKNOWN\" env=\"P\" /><CustOpts></CustOpts></PidOptions>";
+    String pidOption = "<?xml version=\"1.0\"?><PidOptions ver=\"1.0\"><Opts fCount=\"1\" fType=\"2\" iCount=\"0\" pCount=\"0\" format=\"0\" pidVer=\"2.0\" timeout=\"10000\" posh=\"UNKNOWN\" env=\"P\" /><CustOpts></CustOpts></PidOptions>";
     Intent intent = new Intent();
     intent.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
     intent.putExtra("PID_OPTIONS", pidOption);

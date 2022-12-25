@@ -140,7 +140,7 @@ export class GasBillPayPage implements OnInit {
 
   async payLpgGasBill(){
     const transaction:Transaction = {
-      groupId:this.dataProvider.userData?.groupId,
+      groupId:this.dataProvider.userData?.groupId || null,
       serviceType:'other',
       amount:this.bill.amount < 9 ? 10 : this.bill.amount,
       title:'LPG Gas Bill Payment',

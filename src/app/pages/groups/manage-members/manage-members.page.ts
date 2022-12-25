@@ -44,7 +44,9 @@ export class ManageMembersPage implements OnInit {
     this.members = [];
     try {
       this.gettingData = true;
-      const members = await this.memberService.getGroupMembers(this.dataProvider.dataOne.id);
+      const members = await this.memberService.getGroupMembers(
+        this.dataProvider.dataOne.id
+      );
       members.data()['members'].forEach((doc) => {
         this.members.push(doc);
       });
@@ -79,30 +81,29 @@ export class ManageMembersPage implements OnInit {
     });
   }
 
-  seeTransactions(){
-    
-  }
+  seeTransactions() {}
 
   deleteMember(member: Member) {
     if (confirm('Are you sure you want to delete ' + member.displayName)) {
       this.memberService
-        .deleteMember(member.userId, this.dataProvider.dataOne.id,member)
+        .deleteMember(member.userId, this.dataProvider.dataOne.id, member)
         .then(() => {
           this.alertify.presentToast(member.displayName + ' deleted');
           this.getMembers();
         })
         .catch((error) => {
           this.alertify.presentToast(error, 'error');
-        }).finally(()=>{
-          alert("finally")
         })
+        .finally(() => {
+          alert('finally');
+        });
     }
   }
   async addMember() {
     const modal = await this.modalController.create({
       component: AddMemberComponent,
       swipeToClose: true,
-      breakpoints: [0.25, 0.75, 0.9],
+      breakpoints: [0.25, 0.75, 1],
       initialBreakpoint: 0.25,
       componentProps: {
         accessLevel: this.dataProvider.userData.access.access,
@@ -121,10 +122,12 @@ export class ManageMembersPage implements OnInit {
             this.dataProvider.dataOne.id
           )
           .then((doc) => {
-            console.log(doc.id);
+            console.log(doc);
             this.getMembers();
             this.alertify.presentToast(
-              data.data.user.displayName + ' assigned as member'
+              (data.data.user?.displayName ||
+                data.data.user?.phoneNumber ||
+                data.data.user?.email) + ' assigned as member'
             );
           })
           .catch((error) => {
@@ -137,23 +140,50 @@ export class ManageMembersPage implements OnInit {
     });
   }
 
-  async addNewMember() {
-    const modal = await this.modalController
-      .create({
-        component: AddNewMemberComponent,
-        componentProps:{
-          id:this.dataProvider.dataOne.id
-        },
-        swipeToClose: true,
-        breakpoints: [0.25, 0.99],
-        initialBreakpoint: 0.99,
-        canDismiss:true
+  switchGroup() {
+    this.dataProvider.pageSetting.blur = true;
+    this.memberService
+      .assignMember(
+        this.dataProvider.userData,
+        this.dataProvider.userData,
+        this.dataProvider.userData.access.access,
+        this.dataProvider.dataOne.id
+      )
+      .then((doc) => {
+        console.log(doc);
+        this.getMembers();
+        this.alertify.presentToast(
+          (this.dataProvider.userData?.displayName ||
+            this.dataProvider.userData?.phoneNumber ||
+            this.dataProvider.userData?.email) + ' assigned as member'
+        );
       })
+      .catch((error) => {
+        console.log(error);
+        
+        this.alertify.presentToast(error, 'error');
+      })
+      .finally(() => {
+        this.dataProvider.pageSetting.blur = false;
+      });
+  }
+
+  async addNewMember() {
+    const modal = await this.modalController.create({
+      component: AddNewMemberComponent,
+      componentProps: {
+        id: this.dataProvider.dataOne.id,
+      },
+      swipeToClose: true,
+      breakpoints: [0.25, 0.99],
+      initialBreakpoint: 0.99,
+      canDismiss: true,
+    });
     await modal.present();
     modal.onDidDismiss().then((data) => {
       console.log(data);
       this.getMembers();
-    })
+    });
   }
 }
 

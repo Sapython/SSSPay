@@ -125,7 +125,7 @@ export class ExpressPage implements OnInit {
       await this.databaseService.savePayoutDetail(this.payoutForm.value)
     }
     const transaction: Transaction = {
-      groupId:this.dataProvider.userData?.groupId,
+      groupId:this.dataProvider.userData?.groupId || null,
       serviceType:this.payoutForm.value.paymentType =='vpa'? 'expressPayoutUpi' : 'expressPayoutImps',
       amount: Number(this.payoutForm.get('amount').value),
       date: new Date(),
@@ -145,6 +145,7 @@ export class ExpressPage implements OnInit {
         customerId: this.dataProvider.userData.userId,
         accountType: this.payoutForm.value.accountType,
         paymentType: this.payoutForm.value.paymentType,
+        dailyPayoutTime: this.dataProvider.userData.dailyPayoutTime || null,
       },
     };
     this.transactionService.addTransaction(transaction).then(async (docRef) => {

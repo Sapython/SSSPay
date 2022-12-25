@@ -11,6 +11,7 @@ import { MemberManagementService } from 'src/app/services/member-management.serv
 })
 export class TransactionsPage implements OnInit {
   groupId: string;
+  filterId:string = "";
   constructor(private activatedRoute:ActivatedRoute,public dataProvider:DataProvider,public memberService:MemberManagementService) {
     this.activatedRoute.params.subscribe(params => {
       console.log(params);
@@ -27,6 +28,15 @@ export class TransactionsPage implements OnInit {
       this.transactions.sort((a,b)=>{
         return b.transactionTime.getTime() - a.transactionTime.getTime();
       })
+      if (this.dataProvider.dataTwo && this.dataProvider.dataTwo.userId){
+        this.filterId = this.dataProvider.dataTwo.userId;
+        console.log("this.filterId",this.filterId);
+        // filter by user id
+        this.transactions = this.transactions.filter((transaction)=>{
+          console.log(transaction.ownerId,this.filterId,transaction.ownerId == this.filterId);
+          return transaction.ownerId == this.filterId;
+        })
+      }
       console.log("this.transactions",this.transactions);
     })
     
