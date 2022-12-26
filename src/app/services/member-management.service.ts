@@ -53,7 +53,7 @@ export class MemberManagementService {
   }
 
   async getUnassignedMembers(assignedUsers: string[]) {
-    console.log("access.access",this.allowedAccess(this.dataProvider.userData.access.access));
+    console.log("access.access",this.allowedAccess(this.dataProvider.userData.access.access+1));
     const users = await getDocs(query(collection(this.fs, 'users'),where('access.access','in',this.allowedAccess(this.dataProvider.userData.access.access))));
     return users.docs.filter((doc) => {
       console.log(doc.data().userId,doc.data().displayName);

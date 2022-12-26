@@ -58,4 +58,8 @@ export class WalletPage implements OnInit {
     })
     this.alertify.presentToast('You can add money using UPI and AEPS only.');
   }
+
+  clip(text:string,length:number){
+    return text.substring(0,length)
+  }
 }
