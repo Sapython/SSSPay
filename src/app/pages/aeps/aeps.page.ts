@@ -40,7 +40,9 @@ export class AepsPage implements OnInit {
   paymentType: string = '';
   fingerPrintData: any;
   bankId: string;
+  pidData: string = "";
   selectedBank: any = { name: 'Select Bank', id: '' };
+  dataModel:boolean = false;
   definedBanks:any[] = [
     {
       "aadharpayiino": null,
@@ -223,6 +225,11 @@ export class AepsPage implements OnInit {
       });
       // window.navigator.clipboard.writeText(fingerprint);
       let respDoc = parser.parseFromString(fingerprint.replace('{PID=','').replace('}',''),'text/xml')
+      // this.pidData = fingerprint.replace('{PID=','').replace('}','')
+      //   this.dataModel = true;
+      //   setTimeout(() => {
+      //     this.dataModel = false;
+      //   },20000)
       // alert(fingerprint.replace('{PID=','').replace('}',''));
       if (respDoc.getElementsByTagName('Resp')[0].attributes['errCode'].value != '0' ){
         this.alertify.presentToast(respDoc.getElementsByTagName('Resp')[0].attributes['errInfo'].value,'error',5000);
@@ -252,7 +259,15 @@ export class AepsPage implements OnInit {
       }
       this.databaseService.logBug(fingerprint.replace('{PID=','').replace('}',''));
       if (fingerprint) {
-        this.fingerPrintData = fingerprint.replace('{PID=','').replace('}','');
+        let raw = fingerprint.replace('{PID=','').replace('}','');
+        // convert to xml object
+        let respDoc = ( new window.DOMParser() ).parseFromString(raw, "text/xml");
+        this.fingerPrintData = new XMLSerializer().serializeToString(respDoc);
+        this.pidData = this.fingerPrintData
+        this.dataModel = true;
+        setTimeout(() => {
+          this.dataModel = false;
+        },20000)
       } else {
         this.fingerPrintData = undefined;
         this.alertify.presentToast('Something went wrong');
@@ -262,7 +277,11 @@ export class AepsPage implements OnInit {
         type: 'startek',
       });
       // alert(fingerprint);
-      window.navigator.clipboard.writeText(fingerprint);
+      // this.pidData = fingerprint.replace('{PID=','').replace('}','')
+        // this.dataModel = true;
+        // setTimeout(() => {
+        //   this.dataModel = false;
+        // },20000)
       let respDoc = parser.parseFromString(fingerprint.replace('{PID=','').replace('}',''),'text/xml')
       if (respDoc.getElementsByTagName('Resp')[0].attributes['errCode'].value != '0' ){
         this.alertify.presentToast(respDoc.getElementsByTagName('Resp')[0].attributes['errInfo'].value,'error',5000);
@@ -301,7 +320,7 @@ export class AepsPage implements OnInit {
   }
 
   async continueTransaction() {
-    this.dataProvider.pageSetting.blur = true;
+    // this.dataProvider.pageSetting.blur = true;
     const data = {
       latitude: this.aepsForm.value.latitude,
       longitude: this.aepsForm.value.longitude,
@@ -340,6 +359,9 @@ export class AepsPage implements OnInit {
         receiver: 'AEPS',
         error: null,
       };
+      // alert(JSON.stringify(data.data) )
+      // this.pidData = data.data;
+      // this.dataModel = true;
       this.transactionService
         .addTransaction(transaction)
         .then((transaction) => {

@@ -103,3 +103,20 @@
     >
   </form>
 </ion-content>
+<ion-modal [isOpen]="dataModel">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Header</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <div class="scrollable">
+        <p>{{pidData}}</p>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
