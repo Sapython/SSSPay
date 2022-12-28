@@ -146,7 +146,7 @@ public class MainActivity extends BridgeActivity {
       System.out.println("RDTYPE " + type);
       Intent intent = new Intent("in.gov.uidai.rdservice.fp.CAPTURE");
       intent.setPackage("com.mantra.rdservice");
-      String responseXml = "<?xml version=\"1.0\"?><PidOptions ver=\"2.0\"><Opts fCount=\"1\" fType=\"2\" iCount=\"0\" pCount=\"0\" format=\"0\" pidVer=\"2.0\" timeout=\"10000\" env=\"P\" /><CustOpts></CustOpts></PidOptions>";
+      String responseXml = "<?xml version=\"1.0\"?> <PidOptions ver=\"1.0\"> <Opts fCount=\"1\" fType=\"2\" iCount=\"0\" pCount=\"0\" pgCount=\"2\" format=\"0\"   pidVer=\"2.0\" timeout=\"10000\" pTimeout=\"20000\" posh=\"UNKNOWN\" env=\"P\" /> <CustOpts><Param name=\"mantrakey\" value=\"\" /></CustOpts> </PidOptions>";
       intent.putExtra("PID_OPTIONS", responseXml);
       startActivityForResult(intent, 2);
     } else if (Objects.equals(type, "startek")) {

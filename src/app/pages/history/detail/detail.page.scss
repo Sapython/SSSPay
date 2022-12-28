@@ -84,3 +84,27 @@ ion-content{
         transform: translateX(-50%);
     }
 }
+table{
+    width: 100%;
+    thead{
+        tr{
+            th{
+                text-align: center;
+                padding: 10px;
+                font-size: 17px;
+                font-weight: 700;
+            }
+        }
+    }
+    tbody{
+        tr{
+            border-bottom: 2px solid rgb(246, 246, 246);
+            td{
+                text-align: center;
+                padding: 6px;
+                font-size: 14px;
+                font-weight: 400;
+            }
+        }
+    }
+}

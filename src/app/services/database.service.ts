@@ -212,19 +212,7 @@ export class DatabaseService {
       }
     );
   }
-
-  addTestMoney() {
-    return updateDoc(
-      doc(
-        this.fs,
-        '/users/' + this.dataProvider.userData.userId + '/wallet/wallet'
-      ),
-      {
-        balance: increment(5000),
-      }
-    );
-  }
-
+  
   getLog() {
     return getDoc(doc(this.fs, '/logs/qwJbZ7EheiaEp23cDY3l'));
   }

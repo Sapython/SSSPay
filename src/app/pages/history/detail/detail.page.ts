@@ -32,55 +32,6 @@ export class DetailPage implements OnInit {
     private transactionService: TransactionService,
     private dataProvider: DataProvider,
   ) {
-    this.activatedRoute.queryParams.subscribe((params) => {
-      console.log(params);
-      if (params.data) {
-        const data = JSON.parse(params.data);
-        this.transactionId = data.id;
-        if (data.id) {
-          this.transactionSubscription.unsubscribe();
-          this.transactionSubscription = this.transactionService
-            .getTransaction(data.id)
-            .subscribe((data:any) => {
-              console.log(data);
-              this.transactionData = data;
-              this.paymentStatus = data.status;
-              this.amount = data.amount;
-              this.command = data.type;
-              this.date = data.date.toDate();
-              this.successData = data.successData;
-              // alert('updated');
-              if (data.type == 'expressPayout') {
-                if (data.newPayoutStatus) {
-                  // this.alertify.presentToast(data.newPayOutStatus.event);
-                  let pendingStatuses = [
-                    'payout.pending',
-                    'payout.queued',
-                    'payout.initiated',
-                  ];
-                  let successStatuses = ['payout.processed'];
-                  let failedStatuses = [
-                    'payout.failed',
-                    'payout.reversed',
-                    'payout.rejected',
-                  ];
-                  if (pendingStatuses.includes(data.newPayOutStatus.event)) {
-                    this.paymentStatus = 'pending';
-                  } else if (
-                    successStatuses.includes(data.newPayOutStatus.event)
-                  ) {
-                    this.paymentStatus = 'success';
-                  } else if (
-                    failedStatuses.includes(data.newPayOutStatus.event)
-                  ) {
-                    this.paymentStatus = 'error';
-                  }
-                }
-              }
-            });
-        }
-      }
-    });
     this.activatedRoute.params.subscribe((params) => {
       console.log('params', params);
       if (params.id) {
@@ -97,8 +48,9 @@ export class DetailPage implements OnInit {
             this.date = data.date.toDate();
             this.transactionData = data;
             this.successData = data.successData;
-            if (data.type == 'expressPayout') {
-              let event = '';
+            if (data.type == 'expressPayout' || data.type == "dailyPayout") {
+              if (data.newPayoutStatus){
+                let event = '';
               try {
                 event = data.newPayoutStatus['event'];
               } catch (error) {
@@ -139,6 +91,7 @@ export class DetailPage implements OnInit {
                     status: 'error',
                   })
                 }
+              }
               }
             }
           });

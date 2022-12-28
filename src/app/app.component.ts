@@ -40,6 +40,7 @@ export class AppComponent implements OnInit {
     'reset-password',
     'verify-email',
     'splashscreen',
+    'signup-not-allowed'
   ];
   
   showHeaders: boolean = false;

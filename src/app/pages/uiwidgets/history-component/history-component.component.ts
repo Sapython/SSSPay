@@ -13,6 +13,7 @@ export class HistoryComponentComponent implements OnInit {
   @Input() receiver:string = 'Ranvijay Sinha'
   @Input() paymentStatus:string;
   @Input() description:string = ''
+  @Input() serviceType:string = ''
   
   constructor() { }
 

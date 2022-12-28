@@ -1,7 +1,7 @@
 <app-header pageName="Daily Payout" [backButton]="true" backUrl="../homepage"></app-header>
 
 <ion-content>
-    <ion-toolbar *ngIf="dataProvider.userData.payoutFundAccount.length < 3">
+    <ion-toolbar *ngIf="dataProvider.userData.payoutFundAccount.length < 5">
         <ion-item>
             <ion-label>Actions</ion-label>
             <ion-button (click)="addingAccount=true">
@@ -71,13 +71,13 @@
         <form [formGroup]="payoutForm">
             <ion-item>
                 <ion-label position="floating">Select Account</ion-label>
-                <ion-select placeholder="Select Account" (ionChange)="setControls()" formControlName="account"
+                <ion-select placeholder="Select Account" (ionChange)="setControls()" interface="action-sheet" formControlName="account"
                     #accountType>
                     <ng-container *ngFor="let account of fundAccounts">
                         <ion-select-option [value]="account" *ngIf="account.accountType == 'vpa'">Type:
-                            {{account.accountType}}:{{account.vpa}} </ion-select-option>
+                            UPI: {{account.vpa}} </ion-select-option>
                         <ion-select-option [value]="account" *ngIf="account.accountType == 'bank_account'">Type:
-                            {{account.accountType}}:{{account.bankAccountName}}</ion-select-option>
+                            Account: {{account.bankAccountName}}</ion-select-option>
                         <!-- <ion-select-option [value]="account" *ngIf="account.accountType == 'card'">Type: {{account.accountType}}:{{account.cardNumber}}</ion-select-option> -->
                     </ng-container>
                 </ion-select>

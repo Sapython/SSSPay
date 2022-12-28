@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataProvider } from 'src/app/providers/data.provider';
 import { DatabaseService } from 'src/app/services/database.service';
@@ -16,7 +16,7 @@ import { Transaction } from 'src/app/structures/method.structure';
 export class ExpressPage implements OnInit {
   addingAccount: boolean = false;
   usingData: boolean = false;
-  payoutForm: UntypedFormGroup = new UntypedFormGroup({
+  payoutForm: FormGroup = new FormGroup({
     amount: new FormControl(null, [
       Validators.required,
       Validators.max(this.dataProvider.wallet.balance),
@@ -49,6 +49,8 @@ export class ExpressPage implements OnInit {
   ngOnInit() {
     this.fundAccounts = [];
     this.fundAccounts = this.dataProvider.userData.payoutFundAccount;
+    console.log(this.fundAccounts);
+    
     this.payoutForm.valueChanges.subscribe((value) => {
       this.usingData = false;
     })
@@ -187,5 +189,10 @@ export class ExpressPage implements OnInit {
       this.payoutForm.patchValue(data);
       this.alertify.presentToast('Details loaded');
     }
+  }
+
+
+  transactionType(event){
+
   }
 }

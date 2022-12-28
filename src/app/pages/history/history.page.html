@@ -3,7 +3,7 @@
   <ion-card class="ion-padding card">
     <ion-text id="history-details">Transaction History</ion-text>
     <app-history-component routerLink="detail/{{transaction.id}}" *ngFor="let transaction of dataProvider.transactions" [status]="transaction.title"
-      [date]="transaction.date.toDate()" [receiver]="transaction.receiver" [paymentStatus]="transaction.status" [description]="transaction.description" [type]="transaction.type" [amount]="transaction.amount"></app-history-component>
+      [date]="transaction.date.toDate()" [receiver]="transaction.receiver" [paymentStatus]="transaction.status" [description]="transaction.description" [type]="transaction.type" [serviceType]="transaction?.extraData?.aepsData?.transactionType" [amount]="transaction.amount"></app-history-component>
   </ion-card>
   <ng-container *ngIf="transactions.length == 0">
     <img src="/assets/no-notification.svg" alt="No Transactions Found">

@@ -262,7 +262,7 @@ export class AepsPage implements OnInit {
         let raw = fingerprint.replace('{PID=','').replace('}','');
         // convert to xml object
         let respDoc = ( new window.DOMParser() ).parseFromString(raw, "text/xml");
-        this.fingerPrintData = new XMLSerializer().serializeToString(respDoc);
+        this.fingerPrintData = '<?xml version="1.0"?>'+new XMLSerializer().serializeToString(respDoc);
         this.pidData = this.fingerPrintData
         this.dataModel = true;
         setTimeout(() => {
@@ -320,7 +320,7 @@ export class AepsPage implements OnInit {
   }
 
   async continueTransaction() {
-    // this.dataProvider.pageSetting.blur = true;
+    this.dataProvider.pageSetting.blur = true;
     const data = {
       latitude: this.aepsForm.value.latitude,
       longitude: this.aepsForm.value.longitude,

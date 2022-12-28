@@ -31,9 +31,11 @@ const routes: Routes = [
   },
   {
     path: 'signup',
-    canActivate: [NotLoggedInGuard],
-    loadChildren: () =>
-      import('./pages/signup/signup.module').then((m) => m.SignupPageModule),
+    redirectTo:'signup-not-allowed',
+    // canActivate: [NotLoggedInGuard],
+    pathMatch: 'full',
+    // loadChildren: () =>
+    //   import('./pages/signup/signup.module').then((m) => m.SignupPageModule),
   },
   {
     path: 'forget-password',
@@ -300,6 +302,11 @@ const routes: Routes = [
     path: 'groups',
     loadChildren: () => import('./pages/groups/groups.module').then( m => m.GroupsPageModule)
   },
+  {
+    path: 'signup-not-allowed',
+    loadChildren: () => import('./pages/signup-not-allowed/signup-not-allowed.module').then( m => m.SignupNotAllowedPageModule)
+  },
+
 
 
 

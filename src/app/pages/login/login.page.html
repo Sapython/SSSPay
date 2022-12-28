@@ -18,9 +18,9 @@
               <ion-input [formControl]="passwordControl" [type]="showPassword === false ? 'password' : 'text'"
                 class="input-reverse ion-no-border" autocomplete="off" placeholder="Password" autocorrect="off"
                 autofocus="true" color="dark" name="password">
-                <button class="ion-float-end pwd-icon-box" (click)="togglePassword('p')">
-                  <ion-icon class="show-option" [hidden]="!showPassword" name="eye-off-outline"></ion-icon>
-                  <ion-icon class="hide-option" [hidden]="showPassword" name="eye-outline"></ion-icon>
+                <button type="button" class="ion-float-end pwd-icon-box" (click)="showPassword=!showPassword">
+                  <ion-icon class="show-option" [hidden]="showPassword" name="eye-off-outline"></ion-icon>
+                  <ion-icon class="hide-option" [hidden]="!showPassword" name="eye-outline"></ion-icon>
                 </button>
               </ion-input>
             </ion-card>

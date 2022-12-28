@@ -147,7 +147,7 @@ export type Transaction = {
     idempotencyKey?:string;
     completed:boolean;
     status:'started'|'pending'|'success'|'error'|'unknown';
-    error:string;
+    error:any;
     extraData:any;
     successData?:any;
 }

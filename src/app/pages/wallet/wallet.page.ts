@@ -46,19 +46,7 @@ export class WalletPage implements OnInit {
       this.dataProvider.pageSetting.blur = false;
     })
   }
-
-  addMoney(){
-    this.dataProvider.pageSetting.blur = true;
-    this.databaseService.addTestMoney().then((res)=>{
-      this.alertify.presentToast('Money added successfully');
-    }).catch(()=>{
-      this.alertify.presentToast('Money addition failed');
-    }).finally(()=>{
-      this.dataProvider.pageSetting.blur = false;
-    })
-    this.alertify.presentToast('You can add money using UPI and AEPS only.');
-  }
-
+  
   clip(text:string,length:number){
     return text.substring(0,length)
   }

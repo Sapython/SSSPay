@@ -101,20 +101,26 @@ export class DailyPage implements OnInit {
   setControls() {
     if (this.payoutForm.value.account.accountType === 'bank_account') {
       this.payoutForm.get('paymentType').addValidators([Validators.required]);
+      this.payoutForm.value.paymentType = 'imps';
     } else {
       this.payoutForm
-        .get('paymentType')
-        .removeValidators([Validators.required]);
+      .get('paymentType')
+      .removeValidators([Validators.required]);
+      this.payoutForm.value.paymentType = 'vpa';
     }
+    alert(this.payoutForm.value.paymentType)
+    alert(this.payoutForm.value.paymentType =='vpa'? 'payoutUPI' : 'payoutImps')
+    return
   }
 
   makePayout() {
+    
     const transaction: Transaction = {
       groupId:this.dataProvider.userData?.groupId || null,
       serviceType:this.payoutForm.value.paymentType =='vpa'? 'payoutUPI' : 'payoutImps',
       amount: Number(this.payoutForm.get('amount').value),
       date: new Date(),
-      type: 'expressPayout',
+      type: 'dailyPayout',
       description: 'Payout: ' + this.payoutForm.value.description,
       balance: this.dataProvider.wallet.balance,
       idempotencyKey: this.generateIdemPotencyKey(),
@@ -175,6 +181,7 @@ export class DailyPage implements OnInit {
         .then(() => {
           this.ngOnInit();
           this.alertify.presentToast('Payout account added successfully');
+          this.addingAccount = false;
         })
         .catch(() => {
           this.alertify.presentToast('Error adding payout account');
