@@ -1,4 +1,4 @@
-<app-header [backButton]="true" [pageName]="this.dataProvider.dataOne.name" backUrl="../groups"></app-header>
+<app-header [backButton]="true" [pageName]="this.dataProvider.dataOne?.name" [backUrl]="this.dataProvider.userData?.access?.access=='admin' ? '../groups' : '../homepage'"></app-header>
 <ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
@@ -11,9 +11,9 @@
     <ion-button (click)="addNewMember()" expand="full" fill="solid">
       Add New Member
     </ion-button>
-    <ion-button routerLink="../../transactions/{{this.dataProvider.dataOne.id}}" expand="full" fill="solid">
+    <!-- <ion-button routerLink="../../transactions/{{this.dataProvider.dataOne?.id}}" expand="full" fill="solid">
       Transactions
-    </ion-button>
+    </ion-button> -->
     <ion-button *ngIf="dataProvider.userData.access.access == 'admin'" (click)="switchGroup()" expand="full" fill="solid">
       Switch Group
     </ion-button>
@@ -62,7 +62,7 @@
               <ion-label color="primary">Join Date:</ion-label>
               <ion-label>{{member.joining.toDate() | date}}</ion-label>
             </ion-item>
-            <ion-button fill="solid" (click)="this.dataProvider.dataTwo=member" routerLink="../../transactions/{{this.dataProvider.dataOne.id}}">
+            <ion-button fill="solid" (click)="this.dataProvider.dataTwo=member" routerLink="../../transactions/{{this.dataProvider.dataOne?.id}}">
               See Transactions
               <ion-icon name="arrow-forward-outline" color="primary"></ion-icon>
             </ion-button>

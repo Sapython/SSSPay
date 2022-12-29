@@ -52,6 +52,10 @@ export class MemberManagementService {
     );
   }
 
+  getGroup(groupId: string) {
+    return getDoc(doc(this.fs, 'groups/' + groupId));
+  } 
+
   async getUnassignedMembers(assignedUsers: string[]) {
     console.log("access.access",this.allowedAccess(this.dataProvider.userData.access.access+1));
     const users = await getDocs(query(collection(this.fs, 'users'),where('access.access','in',this.allowedAccess(this.dataProvider.userData.access.access))));

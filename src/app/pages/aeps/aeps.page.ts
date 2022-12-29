@@ -263,11 +263,11 @@ export class AepsPage implements OnInit {
         // convert to xml object
         let respDoc = ( new window.DOMParser() ).parseFromString(raw, "text/xml");
         this.fingerPrintData = '<?xml version="1.0"?>'+new XMLSerializer().serializeToString(respDoc);
-        this.pidData = this.fingerPrintData
-        this.dataModel = true;
-        setTimeout(() => {
-          this.dataModel = false;
-        },20000)
+        // this.pidData = this.fingerPrintData
+        // this.dataModel = true;
+        // setTimeout(() => {
+        //   this.dataModel = false;
+        // },20000)
       } else {
         this.fingerPrintData = undefined;
         this.alertify.presentToast('Something went wrong');

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { GroupGuardGuard } from './group-guard.guard';
 
 import { GroupsPage } from './groups.page';
 
@@ -7,9 +8,7 @@ const routes: Routes = [
   {
     path: '',
     component: GroupsPage,
-    children:[
-      
-    ]
+    canActivate: [GroupGuardGuard],
   },
   {
     path: 'manage-group',

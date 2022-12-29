@@ -22,14 +22,14 @@ export class ExpressPage implements OnInit {
       Validators.max(this.dataProvider.wallet.balance),
       Validators.min(0),
     ]),
-    description: new FormControl(null, [Validators.required]),
+    description: new FormControl(null),
     name: new FormControl(null, [Validators.required]),
     email: new FormControl(null, [Validators.required]),
     contact: new FormControl(null, [Validators.required]),
     accountType: new FormControl(null, [Validators.required]),
     bankAccountName: new FormControl(null),
     accountNumber: new FormControl(null),
-    paymentType: new FormControl(null),
+    paymentType: new FormControl(null,[Validators.required]),
     ifsc: new FormControl(null),
     vpa: new FormControl(null),
     cardNumber: new FormControl(null),
@@ -107,7 +107,7 @@ export class ExpressPage implements OnInit {
   }
 
   setValue(val:string){
-    this.payoutForm.patchValue({paymentType:'upi'})
+    this.payoutForm.patchValue({paymentType:val})
     console.log(this.payoutForm.value)
   }
 
@@ -146,7 +146,7 @@ export class ExpressPage implements OnInit {
         },
         customerId: this.dataProvider.userData.userId,
         accountType: this.payoutForm.value.accountType,
-        paymentType: this.payoutForm.value.paymentType,
+        paymentType: this.payoutForm.value.paymentType =='vpa'? 'UPI' :this.payoutForm.value.paymentType,
         dailyPayoutTime: this.dataProvider.userData.dailyPayoutTime || null,
       },
     };
@@ -183,10 +183,16 @@ export class ExpressPage implements OnInit {
     if(dirty){
       if(confirm('Are you sure you want to load new details?')){
         this.payoutForm.patchValue(data);
+        if (data.paymentType=='bacnk_account'){
+          this.payoutForm.controls['paymentType'].reset()
+        }
         this.alertify.presentToast('Details loaded');
       }
     } else {
       this.payoutForm.patchValue(data);
+      if (data.paymentType=='bacnk_account'){
+        this.payoutForm.controls['paymentType'].reset()
+      }
       this.alertify.presentToast('Details loaded');
     }
   }

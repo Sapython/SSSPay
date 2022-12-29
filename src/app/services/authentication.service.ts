@@ -9,10 +9,11 @@ import {
   collection,
   collectionData,
   query,
-  orderBy,
+  orderBy, 
 } from '@angular/fire/firestore';
 import {
   Auth,
+  
   authState,
   signOut,
   User,
@@ -385,6 +386,10 @@ export class AuthenticationService {
 
   public async loginWithPhone(phoneNumber: string,ref:RecaptchaVerifier) {
     return signInWithPhoneNumber(this.auth, phoneNumber, ref)
+  }
+
+  forgetPassword(email:string){
+    return sendPasswordResetEmail(this.auth,email)
   }
 
   public getIdToken(user: User) {

@@ -8,6 +8,7 @@ import { UserAccess } from 'src/app/structures/user.structure';
 import { AddMemberComponent } from './add-member/add-member.component';
 import Fuse from 'fuse.js';
 import { AddNewMemberComponent } from '../../add-new-member/add-new-member.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-manage-members',
@@ -25,8 +26,26 @@ export class ManageMembersPage implements OnInit {
     private alertify: AlertsAndNotificationsService,
     public dataProvider: DataProvider,
     private modalController: ModalController,
-    private popupController: PopoverController
-  ) {}
+    private popupController: PopoverController,
+    private activatedRoute:ActivatedRoute
+  ) {
+    this.activatedRoute.params.subscribe((params)=>{
+      console.log('Params',params);
+      if (!this.dataProvider.dataOne){
+        this.dataProvider.pageSetting.blur = true;
+        this.memberService.getGroup(params.groupId).then((group)=>{
+          this.dataProvider.dataOne = group.data();
+          this.dataProvider.dataOne.id = group.id;
+          this.getMembers();
+        }).catch((error)=>{
+          this.alertify.presentToast("Error fetching members",'error');
+        }).finally(()=>{
+          this.dataProvider.pageSetting.blur = false;
+        })
+      }
+      // this.currentAccess = params.access;
+    })
+  }
   access = [
     'superDistributor',
     'masterDistributor',
@@ -35,9 +54,11 @@ export class ManageMembersPage implements OnInit {
     'guest',
   ];
   async ngOnInit() {
-    await this.getMembers().catch((error) => {
-      console.log('Members', error);
-    });
+    if (this.dataProvider.dataOne){
+      await this.getMembers().catch((error) => {
+        console.log('Members', error);
+      });
+    }
   }
   async getMembers() {
     console.log('Getting Members');
@@ -48,7 +69,7 @@ export class ManageMembersPage implements OnInit {
         this.dataProvider.dataOne.id
       );
       members.data()['members'].forEach((doc) => {
-        if (this.access.slice(this.access.indexOf(this.dataProvider.userData.access.access)).includes(doc.access.access)){
+        if (this.access.slice(this.access.indexOf(this.dataProvider.userData.access.access)).includes(doc.access.access) && this.members.find(previousDoc => previousDoc.email == doc.email) == undefined){
           this.members.push(doc);
         }
       });

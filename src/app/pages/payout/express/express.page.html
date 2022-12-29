@@ -100,7 +100,7 @@
       </ion-item>
       <ion-item *ngIf="accountType.value  == 'bank_account'">
         <ion-label>Payment Type</ion-label>
-        <ion-select formControlName="paymentType" placeholder="Select Type">
+        <ion-select required formControlName="paymentType" placeholder="Select Type">
           <ion-select-option value="IMPS">IMPS</ion-select-option>
           <ion-select-option value="NEFT">NEFT</ion-select-option>
         </ion-select>

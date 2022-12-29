@@ -108,13 +108,10 @@ export class DailyPage implements OnInit {
       .removeValidators([Validators.required]);
       this.payoutForm.value.paymentType = 'vpa';
     }
-    alert(this.payoutForm.value.paymentType)
-    alert(this.payoutForm.value.paymentType =='vpa'? 'payoutUPI' : 'payoutImps')
     return
   }
 
   makePayout() {
-    
     const transaction: Transaction = {
       groupId:this.dataProvider.userData?.groupId || null,
       serviceType:this.payoutForm.value.paymentType =='vpa'? 'payoutUPI' : 'payoutImps',
@@ -132,7 +129,7 @@ export class DailyPage implements OnInit {
         ...this.payoutForm.value,
         customerId: this.dataProvider.userData.userId,
         accountType: this.payoutForm.value.account.accountType,
-        paymentType:'UPI',
+        paymentType:this.payoutForm.value.paymentType =='vpa'? 'UPI' :this.payoutForm.value.paymentType,
         dailyPayoutTime:this.dataProvider.userData.dailyPayoutTime || null
       },
     };

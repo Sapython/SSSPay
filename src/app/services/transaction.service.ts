@@ -5,7 +5,7 @@ import { logEvent } from '@firebase/analytics';
 import { addDoc, collection } from '@firebase/firestore';
 import { DataProvider } from '../providers/data.provider';
 import { Transaction } from '../structures/method.structure';
-
+import { App } from '@capacitor/app';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,10 +18,15 @@ export class TransactionService {
       alert("You are not a part of a group.");
       throw new Error("You are not a part of a group.");
     }
+    try{
+      var version = (await App.getInfo()).version
+    } catch{
+      var version  = "none"
+    }
     logEvent(this.analytics,transactionDetail.type);
     console.log("TransactionService",transactionDetail)
     await setDoc(doc(this.fs,'counter/counter'),{totalTransactions:increment(1)},{merge:true})
-    return addDoc(collection(this.fs,'users/'+this.dataProvider.userData.userId+'/transaction'),transactionDetail)
+    return addDoc(collection(this.fs,'users/'+this.dataProvider.userData.userId+'/transaction'),{...transactionDetail,version:version})
   }
 
   getAllTransactions(){

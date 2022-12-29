@@ -62,13 +62,13 @@ export class AddNewMemberComponent implements OnInit {
           this.memberService
             .assignMember(this.dataProvider.userData, res.newUser, res.newUser.access.access,this.id)
             .then((doc) => {
-              console.log(doc.id);
               this.alertify.presentToast(
                 res.newUser.displayName + ' assigned as member'
               );
               this.modalController.dismiss()
             })
             .catch((error) => {
+              console.error(error);
               this.alertify.presentToast(error, 'error');
             })
             .finally(() => {
