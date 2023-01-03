@@ -150,6 +150,7 @@ export class ExpressPage implements OnInit {
         dailyPayoutTime: this.dataProvider.userData.dailyPayoutTime || null,
       },
     };
+    console.log('transaction',transaction);
     this.transactionService.addTransaction(transaction).then(async (docRef) => {
       this.dataProvider.pageSetting.blur = true;
       console.log('transactionAdded',docRef.id,docRef);

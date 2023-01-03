@@ -14,6 +14,7 @@ export class HistoryComponentComponent implements OnInit {
   @Input() paymentStatus:string;
   @Input() description:string = ''
   @Input() serviceType:string = ''
+  @Input() additionalNumber:number = 0;
   
   constructor() { }
 

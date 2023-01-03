@@ -98,7 +98,8 @@ export class DailyPage implements OnInit {
     }
   }
 
-  setControls() {
+  setControls(event) {
+    console.log(event);
     if (this.payoutForm.value.account.accountType === 'bank_account') {
       this.payoutForm.get('paymentType').addValidators([Validators.required]);
       this.payoutForm.value.paymentType = 'imps';
@@ -108,10 +109,22 @@ export class DailyPage implements OnInit {
       .removeValidators([Validators.required]);
       this.payoutForm.value.paymentType = 'vpa';
     }
+    if (event.detail.value.accountType == 'vpa'){
+      this.payoutForm.value.paymentType = 'vpa';
+      console.log(this.payoutForm.value.paymentType);
+    }
     return
   }
 
   makePayout() {
+    if (this.payoutForm.value.account.accountType == 'vpa'){
+      this.payoutForm.value.paymentType = 'vpa';
+      this.payoutForm.value.account.paymentType = 'vpa';
+      console.log(" TRUE");
+    }
+    
+    console.log(this.payoutForm.value.account.accountType);
+    console.log(this.payoutForm.value.paymentType);
     const transaction: Transaction = {
       groupId:this.dataProvider.userData?.groupId || null,
       serviceType:this.payoutForm.value.paymentType =='vpa'? 'payoutUPI' : 'payoutImps',
@@ -133,6 +146,7 @@ export class DailyPage implements OnInit {
         dailyPayoutTime:this.dataProvider.userData.dailyPayoutTime || null
       },
     };
+    console.log('transaction',transaction);
     this.transactionService.addTransaction(transaction).then(async (docRef) => {
       console.log('transactionAdded',docRef.id,docRef);
       await this.serverService.makeExpressPayout(docRef.id);

@@ -9,6 +9,7 @@
   </div>
   <div>
     <b>&#8377;{{amount}}</b>
+    <p *ngIf="additionalNumber != 0" [class]="'additional ' + (additionalNumber < 0 ? 'negative' : 'positive')">&#8377;{{additionalNumber}}</p>
     <p>
       <ion-icon color="danger" name="alert-outline" *ngIf="paymentStatus=='error'"></ion-icon>
       <ion-icon color="warning" name="time" *ngIf="paymentStatus=='started'"></ion-icon>

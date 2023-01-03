@@ -46,6 +46,12 @@ div.card{
             font-size: 16px;
             color:var(--ion-color-primary);
         }
+        p.negative{
+            color:var(--ion-color-danger);
+        }
+        p.positive{
+            color:var(--ion-color-success);
+        }
         p{
             display: flex;
             align-items: center;

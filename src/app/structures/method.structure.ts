@@ -137,7 +137,8 @@ export type Transaction = {
     id?:string;
     title?:string;
     receiver:string;
-    groupId:string,
+    groupId:string;
+    additionalAmount?:number;
     serviceType:'aeps'|'dth'|'mobile_recharge'|'expressPayoutUpi'|'expressPayoutImps'|'payoutImps'|'payoutUPI'|'other';
     date:any;
     type:'aeps'|'bbps'|'qr'|'lic'|'cableDth'|'fastTag'|'gas'|'recharge'|'expressPayout'|'dailyPayout';

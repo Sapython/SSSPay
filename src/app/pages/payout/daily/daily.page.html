@@ -33,7 +33,7 @@
                     (ionChange)="changeControl($event)" #accountType>
                     <ion-select-option value="bank_account">Bank Account</ion-select-option>
                     <ion-select-option value="card">Card</ion-select-option>
-                    <ion-select-option value="vpa">VPA</ion-select-option>
+                    <ion-select-option value="vpa">UPI</ion-select-option>
                 </ion-select>
             </ion-item>
             <ion-item *ngIf="accountType.value == 'bank_account'">
@@ -49,7 +49,7 @@
                 <ion-input type="text" formControlName="ifsc" placeholder="IFSC"></ion-input>
             </ion-item>
             <ion-item *ngIf="accountType.value == 'vpa'">
-                <ion-label position="floating">VPA</ion-label>
+                <ion-label position="floating">UPI</ion-label>
                 <ion-input type="text" formControlName="vpa" placeholder="VPA Id"></ion-input>
             </ion-item>
             <ion-item *ngIf="accountType.value == 'card'">
@@ -71,7 +71,7 @@
         <form [formGroup]="payoutForm">
             <ion-item>
                 <ion-label position="floating">Select Account</ion-label>
-                <ion-select placeholder="Select Account" (ionChange)="setControls()" interface="action-sheet" formControlName="account"
+                <ion-select placeholder="Select Account" (ionChange)="setControls($event)" interface="action-sheet" formControlName="account"
                     #accountType>
                     <ng-container *ngFor="let account of fundAccounts">
                         <ion-select-option [value]="account" *ngIf="account.accountType == 'vpa'">Type:
