@@ -56,7 +56,7 @@ export class DailyPage implements OnInit {
     amount: new UntypedFormControl(null, [
       Validators.required,
       Validators.max(this.dataProvider.wallet.balance),
-      Validators.min(0),
+      Validators.min(10),
     ]),
     account: new UntypedFormControl(null, [Validators.required]),
     description: new UntypedFormControl(null, [Validators.required]),

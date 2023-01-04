@@ -98,7 +98,7 @@
             <ion-item>
                 <ion-label position="floating">Amount <ion-text color="danger">*</ion-text>
                 </ion-label>
-                <ion-input formControlName="amount" [max]="dataProvider.wallet?.balance" required type="number">
+                <ion-input formControlName="amount" [min]="10" [max]="dataProvider.wallet?.balance" required type="number">
                 </ion-input>
             </ion-item>
             <ion-button (click)="makePayout()" [disabled]="!payoutForm.valid" expand="block" fill="solid">

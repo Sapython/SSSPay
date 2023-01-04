@@ -121,6 +121,7 @@
         <ion-input
           formControlName="amount"
           [max]="dataProvider.wallet?.balance"
+          [min]="10"
           required
           type="number"
         >

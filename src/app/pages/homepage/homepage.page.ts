@@ -52,7 +52,11 @@ export class HomepagePage implements OnInit {
 
   ngOnInit() {
     let a = new Date()
-    this.todayTime = a.getDate() + "/" + (a.getMonth() + 1) + "/" + a.getFullYear();
+    this.todayTime = (a.getDate() < 10 ? "0"+a.getDate() : a.getDate()) + "/" + ((a.getMonth() + 1) < 10 ? '0'+(a.getMonth() + 1) : (a.getMonth() + 1)) + "/" + a.getFullYear();
+    console.log(this.todayTime);
+    setTimeout(() => {
+      console.log(this.dataProvider.userData?.dailyPayoutTime,this.todayTime);
+    },6000)
   }
 
   async openBalance(){

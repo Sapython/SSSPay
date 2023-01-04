@@ -27,6 +27,10 @@
       <p color="tertiary">&#8377;{{amount}}</p>
     </span>
     <span class="item"> 
+      <p>Charges & Commission</p>
+        <p><ion-text color="danger">{{transactionData?.additionalAmount}}</ion-text></p>
+    </span>
+    <span class="item"> 
       <p>Transaction Id</p>
       <p color="secondary">{{clip(transactionId)}}</p>
       <ion-icon name="copy-outline" (click)="copy(transactionId)"></ion-icon>

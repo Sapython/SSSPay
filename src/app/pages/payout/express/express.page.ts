@@ -20,7 +20,7 @@ export class ExpressPage implements OnInit {
     amount: new FormControl(null, [
       Validators.required,
       Validators.max(this.dataProvider.wallet.balance),
-      Validators.min(0),
+      Validators.min(10),
     ]),
     description: new FormControl(null),
     name: new FormControl(null, [Validators.required]),
