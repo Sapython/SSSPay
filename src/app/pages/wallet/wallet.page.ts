@@ -14,7 +14,7 @@ import { Transaction } from 'src/app/structures/method.structure';
 export class WalletPage implements OnInit {
   @Input() amount: string = '';
   @Input() currency: string = '₹';
-  transactions:Transaction[] = []
+  transactions:any[] = []
  
   loading:boolean = false;
   constructor(private databaseService:DatabaseService,public dataProvider:DataProvider,private alertify:AlertsAndNotificationsService,private transactionService:TransactionService) {}
@@ -44,11 +44,11 @@ export class WalletPage implements OnInit {
       console.log("Getting commission",res,res.docs);
       res.forEach((doc:any)=>{
         console.log("commission",doc.data());
-        // this.transactions.push({...doc,id:doc.id})
+        this.transactions.push({...doc.data(),id:doc.id,isCommission:true})
       })
-      // this.transactions.sort((a,b)=>{
-      //   return b.date.toDate()-a.date.toDate()
-      // })
+      this.transactions.sort((a,b)=>{
+        return b.date.toDate()-a.date.toDate()
+      })
     })
     // sort transactions
     

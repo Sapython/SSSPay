@@ -136,6 +136,7 @@ export type BasicUser = {
 export type Transaction = {
     id?:string;
     title?:string;
+    isCommission?:any;
     receiver:string;
     groupId:string;
     additionalAmount?:number;

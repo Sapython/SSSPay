@@ -89,6 +89,7 @@ export class ProviderPageComponent implements OnInit {
       Number(this.billProviderForm.value.mainField),
       this.operator.id
     );
+    this.dataProvider.pageSetting.blur = true;
     this.serverService
       .fetchBillPayment(
         Number(this.operator.id),
@@ -98,6 +99,15 @@ export class ProviderPageComponent implements OnInit {
         console.log('response =>', res);
         this.billFetched = true;
         this.bill = res;
+      }).catch((err)=>{
+        // console.log("Error 1",err);
+        if (err.message){
+          this.alertify.presentToast(err.message, 'error');
+        } else {
+          this.alertify.presentToast('Something went wrong', 'error');
+        }
+      }).finally(()=>{
+        this.dataProvider.pageSetting.blur = false;
       });
   }
 
