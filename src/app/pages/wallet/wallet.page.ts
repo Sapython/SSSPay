@@ -25,6 +25,9 @@ export class WalletPage implements OnInit {
       if (doc['status']=='success' && doc['amount']>0){
         this.transactions.push({...doc,id:doc.id})
       }
+      this.transactions.sort((a,b)=>{
+        return b.date.toDate()-a.date.toDate()
+      })
     })
     this.dataProvider.transactionsUpdated.subscribe((docs)=>{
       this.transactions = []
@@ -33,7 +36,22 @@ export class WalletPage implements OnInit {
           this.transactions.push({...doc,id:doc.id})
         }
       })
+      this.transactions.sort((a,b)=>{
+        return b.date.toDate()-a.date.toDate()
+      })
     })
+    this.databaseService.getCommissionsHistory().then((res)=>{
+      console.log("Getting commission",res,res.docs);
+      res.forEach((doc:any)=>{
+        console.log("commission",doc.data());
+        // this.transactions.push({...doc,id:doc.id})
+      })
+      // this.transactions.sort((a,b)=>{
+      //   return b.date.toDate()-a.date.toDate()
+      // })
+    })
+    // sort transactions
+    
   }
 
   createWallet(){

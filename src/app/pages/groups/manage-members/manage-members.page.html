@@ -33,7 +33,7 @@
               <img [src]="member.photoURL" />
             </ion-avatar>
             <ion-label>
-              <p><b>{{member.displayName}}</b><ion-chip color="primary" (click)="currentAccess = member.access.access">{{member.access.access | titlecase}}</ion-chip></p>
+              <p><b>{{member.displayName || member.phoneNumber || member.email}}</b><ion-chip color="primary" (click)="currentAccess = member.access.access">{{member.access.access | titlecase}}</ion-chip></p>
               <p>{{member.email}}</p>
             </ion-label>
             <ion-button fill="clear" (click)="deleteMember(member)">

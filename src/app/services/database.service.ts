@@ -244,4 +244,16 @@ export class DatabaseService {
       )
     );
   }
+
+  getCommissionsHistory(){
+    return getDocs(
+      query(
+        collection(
+          this.fs,
+          'users/' + this.dataProvider.userID + '/commissions'
+        ),
+        orderBy('date', 'desc')
+      )
+    );
+  }
 }

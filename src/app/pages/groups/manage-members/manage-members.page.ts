@@ -47,6 +47,7 @@ export class ManageMembersPage implements OnInit {
     })
   }
   access = [
+    'admin',
     'superDistributor',
     'masterDistributor',
     'distributor',
@@ -62,6 +63,7 @@ export class ManageMembersPage implements OnInit {
   }
   async getMembers() {
     console.log('Getting Members');
+    console.log(this.access.slice(this.access.indexOf(this.dataProvider.userData.access.access)),);
     this.members = [];
     try {
       this.gettingData = true;
@@ -69,12 +71,23 @@ export class ManageMembersPage implements OnInit {
         this.dataProvider.dataOne.id
       );
       members.data()['members'].forEach((doc) => {
-        if (this.access.slice(this.access.indexOf(this.dataProvider.userData.access.access)).includes(doc.access.access) && this.members.find(previousDoc => previousDoc.email == doc.email) == undefined){
+        if (this.access.slice(this.access.indexOf(this.dataProvider.userData.access.access)+1).includes(doc.access.access)){
           this.members.push(doc);
         }
       });
       this.gettingData = false;
       console.log('members', this.members);
+      // sort members
+      this.members.sort((a, b) => {
+        // use localeCompare
+        if (a.displayName < b.displayName) {
+          return -1;
+        } else if (a.displayName > b.displayName) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
     } catch (error) {
       console.log(error);
       this.alertify.presentToast(error, 'error');
