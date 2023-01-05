@@ -15,7 +15,8 @@ export class WalletPage implements OnInit {
   @Input() amount: string = '';
   @Input() currency: string = '₹';
   transactions:any[] = []
- 
+  commissions:any[] = []
+  switchTab:boolean = false;
   loading:boolean = false;
   constructor(private databaseService:DatabaseService,public dataProvider:DataProvider,private alertify:AlertsAndNotificationsService,private transactionService:TransactionService) {}
 
@@ -44,9 +45,9 @@ export class WalletPage implements OnInit {
       console.log("Getting commission",res,res.docs);
       res.forEach((doc:any)=>{
         console.log("commission",doc.data());
-        this.transactions.push({...doc.data(),id:doc.id,isCommission:true})
+        this.commissions.push({...doc.data(),id:doc.id,isCommission:true})
       })
-      this.transactions.sort((a,b)=>{
+      this.commissions.sort((a,b)=>{
         return b.date.toDate()-a.date.toDate()
       })
     })
