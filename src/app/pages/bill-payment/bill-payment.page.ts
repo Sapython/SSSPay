@@ -30,14 +30,14 @@ export class BillPaymentPage implements OnInit,OnDestroy {
       console.log(this.operatorCategories)
       // sort operators in categories
     }).catch((err)=>{
-      console.log(err)
+      console.log("err",err)
     }).finally(()=>{
       this.dataProvider.pageSetting.blur = false;
     })
   }
 
   async openBillProvider(operator:any){
-    console.log(operator)
+    console.log("operator",operator)
     const modal = await this.modalController.create({
       component: ProviderPageComponent,
       componentProps: {

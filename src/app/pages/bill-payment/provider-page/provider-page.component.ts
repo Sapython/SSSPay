@@ -100,10 +100,12 @@ export class ProviderPageComponent implements OnInit {
         this.billFetched = true;
         this.bill = res;
       }).catch((err)=>{
-        // console.log("Error 1",err);
+        console.log("Error 1",err);
         if (err.message){
           this.alertify.presentToast(err.message, 'error');
-        } else {
+        } else if (err[0].message) {
+          this.alertify.presentToast(err[0].message, 'error');
+        }else {
           this.alertify.presentToast('Something went wrong', 'error');
         }
       }).finally(()=>{

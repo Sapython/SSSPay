@@ -352,11 +352,13 @@ export class ServerService {
       requestOptions
     );
     const data = await mainResponse.json();
-    if (data.response_code == 1) {
+    if ((Array.isArray(data) && data[0].response_code==1)) {
       console.log('Bill Payment data ', data);
+      return data[0];
+    } else if (data.response_code == 1) {
       return data;
     } else {
-      throw data.message;
+      return data
     }
   }
 

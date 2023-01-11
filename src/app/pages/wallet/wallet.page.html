@@ -3,7 +3,7 @@
   <ion-card class="container">
     <div class="inner-container">
       <ion-label>{{dataProvider.wallet ? 'Total Assets' : 'No Wallet Found'}}</ion-label>
-      <p id="amount" *ngIf="dataProvider.wallet">{{currency}}{{' '}}{{dataProvider.wallet.balance | number:'1.2.2'}}</p>
+      <p id="amount" *ngIf="dataProvider.wallet">{{currency}}{{' '}}{{dataProvider.wallet.balance | number:'1.2-2'}}</p>
       <ion-button *ngIf="!dataProvider.wallet" (click)="createWallet()" expand="block" fill="solid" shape="round" color="light">
         Create Wallet
       </ion-button>
