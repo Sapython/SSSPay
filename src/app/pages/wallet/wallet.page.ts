@@ -22,36 +22,44 @@ export class WalletPage implements OnInit {
 
   async ngOnInit() {
     this.loading = true;
-    this.dataProvider.transactions.forEach((doc:any)=>{
-      if (doc['status']=='success' && doc['amount']>0){
-        this.transactions.push({...doc,id:doc.id})
-      }
-      this.transactions.sort((a,b)=>{
-        return b.date.toDate()-a.date.toDate()
-      })
-    })
-    this.dataProvider.transactionsUpdated.subscribe((docs)=>{
-      this.transactions = []
-      docs.forEach((doc:any)=>{
-        if (doc['status']=='success' && doc['amount']>0){
-          this.transactions.push({...doc,id:doc.id})
-        }
-      })
-      this.transactions.sort((a,b)=>{
-        return b.date.toDate()-a.date.toDate()
-      })
-    })
-    this.databaseService.getCommissionsHistory().then((res)=>{
-      console.log("Getting commission",res,res.docs);
-      res.forEach((doc:any)=>{
-        console.log("commission",doc.data());
-        this.commissions.push({...doc.data(),id:doc.id,isCommission:true})
-      })
-      this.commissions.sort((a,b)=>{
-        return b.date.toDate()-a.date.toDate()
-      })
-    })
+    // this.dataProvider.transactions.forEach((doc:any)=>{
+    //   if (doc['status']=='success' && doc['amount']>0){
+    //     this.transactions.push({...doc,id:doc.id})
+    //   }
+    //   this.transactions.sort((a,b)=>{
+    //     return b.date.toDate()-a.date.toDate()
+    //   })
+    // })
+    // this.dataProvider.transactionsUpdated.subscribe((docs)=>{
+    //   this.transactions = []
+    //   docs.forEach((doc:any)=>{
+    //     if (doc['status']=='success' && doc['amount']>0){
+    //       this.transactions.push({...doc,id:doc.id})
+    //     }
+    //   })
+    //   this.transactions.sort((a,b)=>{
+    //     return b.date.toDate()-a.date.toDate()
+    //   })
+    // })
+    // this.databaseService.getCommissionsHistory().then((res)=>{
+    //   console.log("Getting commission",res,res.docs);
+    //   res.forEach((doc:any)=>{
+    //     console.log("commission",doc.data());
+    //     this.commissions.push({...doc.data(),id:doc.id,isCommission:true})
+    //   })
+    //   this.commissions.sort((a,b)=>{
+    //     return b.date.toDate()-a.date.toDate()
+    //   })
+    // })
     // sort transactions
+
+    this.databaseService.getWalletNarration().then((data)=>{
+      this.commissions = []
+      data.forEach((doc:any)=>{
+        this.commissions.push({...doc.data(),id:doc.id})
+      });
+    })
+
     
   }
 

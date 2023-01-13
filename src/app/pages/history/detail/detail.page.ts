@@ -159,6 +159,7 @@ export class DetailPage implements OnInit {
     //   alert('Printed');
     // }, 3000);
   }
+  
   async copy(text: string) {
     navigator.clipboard.writeText(text);
     await Clipboard.write({string: text});

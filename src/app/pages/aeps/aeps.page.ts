@@ -355,6 +355,7 @@ export class AepsPage implements OnInit {
           aepsData: data,
           latitude: this.aepsForm.value.latitude,
           longitude: this.aepsForm.value.longitude,
+          bankName:this.selectedBank?.bankName
         },
         receiver: 'AEPS',
         error: null,
@@ -401,6 +402,7 @@ export class AepsPage implements OnInit {
           aepsData: data,
           latitude: this.aepsForm.value.latitude,
           longitude: this.aepsForm.value.longitude,
+          bankName:this.selectedBank?.bankName
         },
         receiver: 'AEPS',
         error: null,
@@ -445,6 +447,7 @@ export class AepsPage implements OnInit {
           aepsData: data,
           latitude: this.aepsForm.value.latitude,
           longitude: this.aepsForm.value.longitude,
+          bankName:this.selectedBank?.bankName
         },
         receiver: 'AEPS',
         error: null,
@@ -489,6 +492,7 @@ export class AepsPage implements OnInit {
           aepsData: data,
           latitude: this.aepsForm.value.latitude,
           longitude: this.aepsForm.value.longitude,
+          bankName:this.selectedBank?.bankName
         },
         receiver: 'AEPS',
         error: null,

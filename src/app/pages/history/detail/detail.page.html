@@ -53,6 +53,16 @@
         <p>{{transactionData?.error.message}}</p>
       </ion-text>
     </span>
+    <ng-container *ngIf="paymentStatus=='error' && transactionData?.type == 'dailyPayout'">
+      <span class="item">
+        <p>Error</p>
+        <p color="tertiary">{{transactionData.error.error ? transactionData.error.error.description : transactionData.error}}</p>
+      </span>
+      <span class="item">
+        <p>Refund</p>
+        <p color="tertiary">{{transactionData.error.error.refundAmount ? transactionData.error.error.refundAmount : 'No Refund'}}</p>
+      </span>
+    </ng-container>
     <ng-container *ngIf="transactionData?.type == 'aeps' && transactionData?.extraData?.aepsData?.transactionType=='MS'">
       <table>
         <thead>
@@ -100,6 +110,10 @@
         <p>Bank iin: </p>
         <p color="primary">{{successData.bankiin}}</p>
         <ion-icon name="copy-outline" (click)="copy(transactionData?.successData.bankiin)"></ion-icon>
+      </span>
+      <span class="item" *ngIf="successData.bankiin">
+        <p>Bank Name: </p>
+        <p color="primary">{{transactionData?.extraData.bankName}}</p>
       </span>
       <span class="item" *ngIf="successData.bankrrn">
         <p>Bank RRN: </p>

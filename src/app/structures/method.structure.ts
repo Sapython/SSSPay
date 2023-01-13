@@ -152,4 +152,5 @@ export type Transaction = {
     error:any;
     extraData:any;
     successData?:any;
+    refunded?:boolean;
 }

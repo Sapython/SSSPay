@@ -10,16 +10,16 @@
     </div>
     <ion-icon name="wallet"></ion-icon>
   </ion-card>
-  <p id="amount">Transactions</p>
-  <ion-segment value="pizza" (ionChange)="switchTab=!switchTab">
+  <p id="amount">Wallet Updates</p>
+  <!-- <ion-segment value="pizza" (ionChange)="switchTab=!switchTab">
     <ion-segment-button value="pizza">
       <ion-label>Transactions</ion-label>
     </ion-segment-button>
     <ion-segment-button value="pasta">
       <ion-label>Commissions</ion-label>
     </ion-segment-button>
-  </ion-segment>
-  <ng-container *ngIf="!switchTab">
+  </ion-segment> -->
+  <!-- <ng-container *ngIf="!switchTab">
     <ng-container *ngFor="let history of transactions" >
       <app-wallet-history [service]="history.type" [statement]="clip(history.description,25)" [date]="history.date.toDate()" [money]="history.amount" [type]="history.type == 'aeps' ? 'credit' : 'debit'"></app-wallet-history>
     </ng-container>
@@ -31,14 +31,15 @@
     </ng-container>
   </ng-container>
   <ng-container *ngIf="switchTab">
-    <ng-container *ngFor="let history of commissions" >
-      <app-wallet-history [service]="history.type" [statement]="'Commission from '+ history.name " [date]="history.date.toDate()" [money]="history.exchangeAmount" type="credit"></app-wallet-history>
-    </ng-container>
-    <ng-container *ngIf="commissions.length == 0">
-      <img src="/assets/no-notification.svg" alt="No Commissions Found">
-      <ion-text color="medium">
-        <h2 class="ion-text-center">No Commissions Found</h2>
-      </ion-text>
-    </ng-container>
+    
+  </ng-container> -->
+  <ng-container *ngFor="let history of commissions" >
+    <app-wallet-history [service]="history.service" [statement]="history.narration" [date]="history.transactionTime.toDate()" [money]="history.amount" [type]="history.transactionType"></app-wallet-history>
+  </ng-container>
+  <ng-container *ngIf="commissions.length == 0">
+    <img src="/assets/no-notification.svg" alt="No Commissions Found">
+    <ion-text color="medium">
+      <h2 class="ion-text-center">No Commissions Found</h2>
+    </ion-text>
   </ng-container>
 </ion-content>

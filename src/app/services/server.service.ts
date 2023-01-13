@@ -358,7 +358,7 @@ export class ServerService {
     } else if (data.response_code == 1) {
       return data;
     } else {
-      return data
+      throw data
     }
   }
 

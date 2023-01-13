@@ -256,4 +256,16 @@ export class DatabaseService {
       )
     );
   }
+
+  getWalletNarration(){
+    return getDocs(
+      query(
+        collection(
+          this.fs,
+          'users/' + this.dataProvider.userID + '/walletNarration'
+        ),
+        orderBy('transactionTime', 'desc')
+      )
+    )
+  }
 }
