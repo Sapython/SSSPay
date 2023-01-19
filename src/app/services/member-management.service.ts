@@ -146,4 +146,8 @@ export class MemberManagementService {
   getTransactions(groupId: string) {
     return getDocs(collection(this.fs, 'groups/' + groupId + '/transactions'));
   }
+
+  getOwnerBasedUsers(userId:string){
+    return getDocs(query(collection(this.fs, 'users'),where('ownerId','==',userId)));
+  }
 }

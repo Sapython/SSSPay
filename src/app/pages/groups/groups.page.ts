@@ -40,6 +40,7 @@ export class GroupsPage implements OnInit {
         event.target.complete();
       }
     })
+    
   }
 
   createGroup(){
