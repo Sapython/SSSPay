@@ -143,8 +143,8 @@ export class MemberManagementService {
     return addDoc(collection(this.fs, 'groups'), value);
   }
 
-  getTransactions(groupId: string) {
-    return getDocs(collection(this.fs, 'groups/' + groupId + '/transactions'));
+  getTransactions(userId: string) {
+    return getDocs(collection(this.fs, 'users/' + userId + '/transactions'));
   }
 
   getOwnerBasedUsers(userId:string){

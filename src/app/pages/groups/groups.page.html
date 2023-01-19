@@ -1,28 +1,49 @@
 <app-header title="Groups"></app-header>
 <ion-content>
-  <ion-refresher
-    slot="fixed"
-    (ionRefresh)="getGroups($event)"
-    pullFactor="0.8"
-    pullMin="60"
-    pullMax="120"
-  >
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
-  <ion-list>
-    <ion-item button routerLink="super-distributor" detail>
-      <ion-label>Super Distributors</ion-label>
-    </ion-item>
-    <ion-item
-      *ngFor="let group of groups"
-      button
-      (click)="dataProvider.dataOne=group"
-      routerLink="manage-member/{{group.id}}"
-      detail
-    >
-      <ion-label>{{group.name}}</ion-label>
-    </ion-item>
-  </ion-list>
+  <ion-item lines="none">
+    <button (click)="back()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+      Back
+    </button>
+  </ion-item>
+  <ng-container *ngIf="currentLevel=='super-distributor'">
+    <ion-title>Super Distributors</ion-title>
+    <ion-list>
+      <ion-item button (click)="currentLevel = 'master-distributor';getMasterDistributors(superDistributor.userId)" detail *ngFor="let superDistributor of superDistributors">
+        <ion-label>{{superDistributor.displayName}}</ion-label>
+      </ion-item>
+    </ion-list>
+    <ion-spinner name="crescent" *ngIf="gettingSuperDistributors"></ion-spinner>
+  </ng-container>
+  <ng-container *ngIf="currentLevel=='master-distributor'">
+    <ion-title>Master Distributors</ion-title>
+    <ion-list>
+      <ion-item button (click)="currentLevel = 'distributor';getDistributors(superDistributor.userId)" detail *ngFor="let superDistributor of masterDistributors">
+        <ion-label>{{superDistributor.displayName}}</ion-label>
+      </ion-item>
+    </ion-list>
+    <ion-spinner name="crescent" *ngIf="gettingMasterDistributors"></ion-spinner>
+  </ng-container>
+  <ng-container *ngIf="currentLevel=='distributor'">
+    <ion-title>Distributors</ion-title>
+    <ion-list>
+      <ion-item button (click)="currentLevel = 'retailer';getRetailers(superDistributor.userId)" detail *ngFor="let superDistributor of distributors">
+        <ion-label>{{superDistributor.displayName}}</ion-label>
+      </ion-item>
+    </ion-list>
+    <ion-spinner name="crescent" *ngIf="gettingDistributors"></ion-spinner>
+  </ng-container>
+  <ng-container *ngIf="currentLevel=='retailer'">
+    <ion-title>Retailers</ion-title>
+    <ion-list>
+      <ion-item button (click)="currentLevel = superDistributor.access.access" routerLink="transactions/{{superDistributor.userId}}" detail *ngFor="let superDistributor of retailers">
+        <ion-label>{{superDistributor.displayName}}</ion-label>
+      </ion-item>
+    </ion-list>
+    <ion-spinner name="crescent" *ngIf="gettingRetailers"></ion-spinner>
+  </ng-container>
+
+  
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="newGroupModalOpen=true">
       <ion-icon name="add"></ion-icon>

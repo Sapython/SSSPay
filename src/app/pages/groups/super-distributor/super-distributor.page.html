@@ -6,8 +6,8 @@
 
 <ion-content>
   <ion-list>
-    <ion-item>
-      <ion-label>Name</ion-label>
+    <ion-item button routerLink="master-distributor" detail *ngFor="let user of superDistributors">
+      <ion-label>{{user.displayName}}</ion-label>
     </ion-item>
   </ion-list>
 </ion-content>
