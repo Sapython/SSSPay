@@ -11,12 +11,19 @@ export class GroupGuardGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.dataProvider.userData?.access?.access=='admin'){
+    if (this.allowMemberAccess() && (this.dataProvider.userData?.ownerId || this.dataProvider.userData?.access.access=='admin')){
       return true
     } else {
       this.router.navigate(['homepage'])
       return false
     }
   }
+  access = [
+    'admin',
+    'superDistributor',
+    'masterDistributor',
+    'distributor'
+  ];
+  allowMemberAccess(){return this.access.includes(this.dataProvider.userData?.access.access)}
   
 }

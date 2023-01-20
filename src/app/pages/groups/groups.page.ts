@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
@@ -13,7 +13,7 @@ import { AddMemberComponent } from './manage-members/add-member/add-member.compo
   templateUrl: './groups.page.html',
   styleUrls: ['./groups.page.scss'],
 })
-export class GroupsPage implements OnInit {
+export class GroupsPage implements OnInit, OnDestroy {
   groups: any[] = []
   newGroupForm:FormGroup =  new FormGroup({
     name:new FormControl('',Validators.required),
@@ -21,6 +21,9 @@ export class GroupsPage implements OnInit {
   });
   newGroupModalOpen:boolean = false;
   constructor(private memberService:MemberManagementService,private modalController:ModalController,public dataProvider:DataProvider,private router:Router,private alertify:AlertsAndNotificationsService) { }
+  ngOnDestroy(): void {
+    this.currentLevel = '';
+  }
   superDistributors: any[] = [];
   masterDistributors: any[] = [];
   distributors: any[] = [];
@@ -29,11 +32,19 @@ export class GroupsPage implements OnInit {
   gettingMasterDistributors:boolean = false;
   gettingDistributors:boolean = false;
   gettingRetailers:boolean = false;
-  public currentLevel:string = "super-distributor";
+  levels:string[] = ['admin','superDistributor','masterDistributor','distributor','retailer']
+  public currentLevel:string = '';
   ngOnInit() {
-    if (this.currentLevel == "super-distributor") {
+    this.currentLevel = '';
+    if (this.levels[this.levels.indexOf(this.dataProvider.userData.access.access)+1]){
+      this.currentLevel = this.levels[this.levels.indexOf(this.dataProvider.userData.access.access)+1]
+    } else {
+      this.alertify.presentToast('You are not authorized to access this page','error');
+      this.router.navigate(['../homepage'])
+    }
+    if (this.currentLevel == "superDistributor") {
       this.getSuperDistributors(this.dataProvider.userData.userId);
-    } else if (this.currentLevel == "master-distributor") {
+    } else if (this.currentLevel == "masterDistributor") {
       this.getMasterDistributors(this.dataProvider.userData.userId);
     } else if (this.currentLevel == "distributor") {
       this.getDistributors(this.dataProvider.userData.userId);
@@ -95,16 +106,25 @@ export class GroupsPage implements OnInit {
   }
 
   back(){
-    if (this.currentLevel == "super-distributor") {
-      this.router.navigate(['../homepage']).catch((err)=>{
-        console.log(err);
-      });
-    } else if (this.currentLevel == "master-distributor") {
-      this.currentLevel = "super-distributor";
-    } else if (this.currentLevel == "distributor") {
-      this.currentLevel = "master-distributor";
-    } else if (this.currentLevel == "retailer") {
-      this.currentLevel = "distributor";
+    // if user has access to superDistributor, then he can access masterDistributor, distributor and retailer
+    // if user has access to masterDistributor, then he can access distributor and retailer
+    // if user has access to distributor, then he can access retailer
+    // if user has access to retailer, then he can access nothing
+    if (this.levels[this.levels.indexOf(this.dataProvider.userData.access.access)+1]){
+      console.log(this.currentLevel,this.levels[this.levels.indexOf(this.dataProvider.userData.access.access)+1]);
+      if (this.currentLevel == this.levels[this.levels.indexOf(this.dataProvider.userData.access.access)+1]){
+        this.router.navigate(['../homepage'])
+      }
+      // check if they have available access
+      if (this.levels.indexOf(this.dataProvider.userData.access.access) < this.levels.indexOf(this.levels[this.levels.indexOf(this.currentLevel)-1])){
+        this.currentLevel = this.levels[this.levels.indexOf(this.currentLevel)-1]
+      } else {
+        this.router.navigate(['../homepage'])
+      }
+      console.log(this.currentLevel)
+    } else {
+      this.alertify.presentToast('You are not authorized to access this page','error');
+      this.router.navigate(['../homepage'])
     }
   }
 

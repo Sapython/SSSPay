@@ -6,16 +6,16 @@
       Back
     </button>
   </ion-item>
-  <ng-container *ngIf="currentLevel=='super-distributor'">
+  <!-- <ng-container *ngIf="currentLevel=='superDistributor'">
     <ion-title>Super Distributors</ion-title>
     <ion-list>
-      <ion-item button (click)="currentLevel = 'master-distributor';getMasterDistributors(superDistributor.userId)" detail *ngFor="let superDistributor of superDistributors">
+      <ion-item button (click)="currentLevel = 'masterDistributor';getMasterDistributors(superDistributor.userId)" detail *ngFor="let superDistributor of superDistributors">
         <ion-label>{{superDistributor.displayName}}</ion-label>
       </ion-item>
     </ion-list>
     <ion-spinner name="crescent" *ngIf="gettingSuperDistributors"></ion-spinner>
   </ng-container>
-  <ng-container *ngIf="currentLevel=='master-distributor'">
+  <ng-container *ngIf="currentLevel=='masterDistributor'">
     <ion-title>Master Distributors</ion-title>
     <ion-list>
       <ion-item button (click)="currentLevel = 'distributor';getDistributors(superDistributor.userId)" detail *ngFor="let superDistributor of masterDistributors">
@@ -41,8 +41,11 @@
       </ion-item>
     </ion-list>
     <ion-spinner name="crescent" *ngIf="gettingRetailers"></ion-spinner>
-  </ng-container>
+  </ng-container> -->
 
+  <ng-container >
+    
+  </ng-container>
   
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="newGroupModalOpen=true">

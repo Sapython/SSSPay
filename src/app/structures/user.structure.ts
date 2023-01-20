@@ -12,6 +12,7 @@ export type UserData = {
     access:UserAccess;
     status:UserStatus;
     nickName?:string;
+    ownerId?:string;
     state?:string;
     city?:string;
     pincode?:string;

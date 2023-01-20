@@ -10,8 +10,9 @@
     <ion-title color="light" slot="start">{{pageName}}</ion-title>
     <ion-buttons slot="primary" *ngIf="!backButton && !onlyTitle">
       <!-- <ion-icon name="people" *ngIf="allowMemberAccess()" routerLink="../groups"></ion-icon> -->
-      <ion-icon name="people" *ngIf="allowMemberAccess() && this.dataProvider.userData?.access?.access == 'admin'" routerLink="../groups"></ion-icon>
-      <ion-icon name="people" *ngIf="allowMemberAccess() && this.dataProvider.userData?.access?.access != 'admin' && this.dataProvider.userData?.groupId" routerLink="../groups/manage-member/{{this.dataProvider.userData?.groupId}}"></ion-icon>
+      <!-- <p>{{allowMemberAccess() }} {{ ((this.dataProvider.userData?.ownerId!=undefined && this.dataProvider.userData?.ownerId!='') || this.dataProvider.userData?.access.access=='admin')}}</p> -->
+      <ion-icon name="people" *ngIf="allowMemberAccess() && (this.dataProvider.userData?.ownerId || this.dataProvider.userData?.access.access=='admin')" routerLink="../groups"></ion-icon>
+      <!-- <ion-icon name="people" *ngIf="allowMemberAccess() && this.dataProvider.userData?.ownerId" routerLink="../groups/manage-member/{{this.dataProvider.userData?.groupId}}"></ion-icon> -->
       <ion-icon name="qr-code-outline" routerLink="../qr"></ion-icon>
       <ion-icon name="notifications" routerLink="../notifications"></ion-icon>
     </ion-buttons>
