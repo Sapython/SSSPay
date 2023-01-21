@@ -17,6 +17,7 @@ import {
   LinkConfig,
 } from '@pantrist/capacitor-firebase-dynamic-links';
 import { ServerService } from './services/server.service';
+import { UserData } from './structures/user.structure';
 
 export interface RdServicePlugin {
   getDeviceInfo(): Promise<{ value: string }>;
@@ -73,15 +74,6 @@ export class AppComponent implements OnInit {
           grantOfflineAccess: true,
         });
       });
-    } else if (this.platform.is('capacitor')) {
-      // Contacts.getPermissions().then((permission:PermissionStatus)=>{
-      //   alert(permission.granted)
-      //   if(permission.granted){
-      //     this.alertify.presentToast('Permission granted');
-      //   }else{
-      //     this.alertify.presentToast('Permission denied');
-      //   }
-      // })
     }
     // alert('Started getting user data')
     this.authService.user.subscribe((user) => {
@@ -89,44 +81,38 @@ export class AppComponent implements OnInit {
       if (user) {
         this.databaseService.getUser(user.uid).then((user) => {
           this.router.navigate(['homepage']);
-          // if (user.data().messageToken == undefined){
-          //   this.notificationService.startNotificationService();
-          // }
-          setTimeout(() => {
-            this.serverService.getAepsKycStatus().then((data)=>{
-              // alert("KYC Status"+data.toString());
-              this.databaseService.addOnBoardingStatusData(data).then((data:any)=>{
-                console.log("Status data: "+data)
-              }).catch((err)=>{
-                console.log("Status Error: "+err)
-              }).finally(()=>{
-                // alert("Fetched")
-              });
-              console.log("SAPTAM : ")
-              console.log(data)
-              if (data.response_code == 2 || data.status == 400){
-                alert("Starting KYC registartion");
-                this.serverService.onboardingForAepsKyc().then((data)=>{
-                }).catch((error)=>{
-                  console.log(error);
-                  this.alertify.presentToast(JSON.stringify(error) || "When registering Onboarding for aeps kyc failed",'error')
-                }).finally(()=>{
-                  // alert("Onboarding for aeps kyc finally done")
-                })
-              } else if (data.response_code==0){
-                this.alertify.presentToast("KYC is submitted and is in review.")
-              }
-            })
-            if (this.dataProvider.userData){
-              if (!dataProvider.userData.onboardingData){
-                this.serverService.onboardingForAepsKyc().then((data)=>{
-                }).catch((error)=>{
-                  console.log("error KYC",error.message)
-                  this.alertify.presentToast(error.message || "Onboarding for aeps kyc failed",'error')
-                })
-              }
+          this.dataProvider.userData = user.data() as UserData;
+          this.serverService.getAepsKycStatus().then((data)=>{
+            // alert("KYC Status"+data.toString());
+            this.databaseService.addOnBoardingStatusData(data).then((data:any)=>{
+              console.log("Status data: "+data)
+            }).catch((err)=>{
+              console.log("Status Error: "+err)
+            }).finally(()=>{
+              // alert("Fetched")
+            });
+            console.log("SAPTAM : ")
+            console.log(data)
+            if (data.response_code == 2 || data.status == 400){
+              alert("Starting KYC registartion");
+              this.serverService.onboardingForAepsKyc().then((data)=>{
+              }).catch((error)=>{
+                console.log(error);
+                this.alertify.presentToast(JSON.stringify(error) || "When registering Onboarding for aeps kyc failed",'error')
+              })
+            } else if (data.response_code==0){
+              this.alertify.presentToast("KYC is submitted and is in review.")
             }
-          },1000)
+          })
+          if (this.dataProvider.userData){
+            if (!dataProvider.userData.onboardingData){
+              this.serverService.onboardingForAepsKyc().then((data)=>{
+              }).catch((error)=>{
+                console.log("error KYC",error.message)
+                this.alertify.presentToast(error.message || "Onboarding for aeps kyc failed",'error')
+              })
+            }
+          }
           this.notificationService.startNotificationService();
         });
       } else if (dataProvider.gotUserData) {

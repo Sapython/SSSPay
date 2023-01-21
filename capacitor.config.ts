@@ -12,7 +12,7 @@ const config: CapacitorConfig = {
       sound: "beep.wav",
     },
     SplashScreen: {
-      launchShowDuration: 3000,
+      launchShowDuration: 500,
       launchAutoHide: true,
       backgroundColor: "#ffffffff",
       androidSplashResourceName: "splash",
