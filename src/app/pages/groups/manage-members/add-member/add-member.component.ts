@@ -26,10 +26,10 @@ export class AddMemberComponent implements OnInit {
     'retailer',
   ];
   ngOnInit() {
-    this.memberService.getUnassignedMembers(this.assignedUsers).then((data)=>{
+    this.memberService.getUnassignedMembers(this.dataProvider.userData.userId).then((data)=>{
       console.log("Members",data);
       data.forEach((doc:any)=>{
-        this.members.push(doc.data() as UserData);
+        this.members.push(doc);
       })
     });
   }

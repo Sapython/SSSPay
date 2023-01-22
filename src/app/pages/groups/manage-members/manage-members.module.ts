@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { ManageMembersPageRoutingModule } from './manage-members-routing.module';
 
 import { ManageMembersPage } from './manage-members.page';
-import { AddMemberComponent } from './add-member/add-member.component';
 import { BaseComponentsModule } from '../../base-components/base-components.module';
 
 @NgModule({
@@ -20,6 +19,6 @@ import { BaseComponentsModule } from '../../base-components/base-components.modu
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [ManageMembersPage,AddMemberComponent]
+  declarations: [ManageMembersPage]
 })
 export class ManageMembersPageModule {}

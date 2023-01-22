@@ -148,14 +148,14 @@ export class ManageMembersPage implements OnInit {
     });
     await modal.present();
     modal.onDidDismiss().then((data) => {
-      if (data.data) {
+      console.log("data.data.user",data.data.user);
+      if (data.data && data.data.user) {
         this.dataProvider.pageSetting.blur = true;
         this.memberService
           .assignMember(
-            this.dataProvider.userData,
             data.data.user,
             data.data.access,
-            this.dataProvider.dataOne.id
+            this.dataProvider.userData.userId
           )
           .then((doc) => {
             console.log(doc);
@@ -178,30 +178,30 @@ export class ManageMembersPage implements OnInit {
 
   switchGroup() {
     this.dataProvider.pageSetting.blur = true;
-    this.memberService
-      .assignMember(
-        this.dataProvider.userData,
-        this.dataProvider.userData,
-        this.dataProvider.userData.access.access,
-        this.dataProvider.dataOne.id
-      )
-      .then((doc) => {
-        console.log(doc);
-        this.getMembers();
-        this.alertify.presentToast(
-          (this.dataProvider.userData?.displayName ||
-            this.dataProvider.userData?.phoneNumber ||
-            this.dataProvider.userData?.email) + ' assigned as member'
-        );
-      })
-      .catch((error) => {
-        console.log(error);
+    // this.memberService
+    //   .assignMember(
+    //     this.dataProvider.userData,
+    //     this.dataProvider.userData,
+    //     this.dataProvider.userData.access.access,
+    //     this.dataProvider.dataOne.id
+    //   )
+    //   .then((doc) => {
+    //     console.log(doc);
+    //     this.getMembers();
+    //     this.alertify.presentToast(
+    //       (this.dataProvider.userData?.displayName ||
+    //         this.dataProvider.userData?.phoneNumber ||
+    //         this.dataProvider.userData?.email) + ' assigned as member'
+    //     );
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
         
-        this.alertify.presentToast(error, 'error');
-      })
-      .finally(() => {
-        this.dataProvider.pageSetting.blur = false;
-      });
+    //     this.alertify.presentToast(error, 'error');
+    //   })
+    //   .finally(() => {
+    //     this.dataProvider.pageSetting.blur = false;
+    //   });
   }
 
   async addNewMember() {

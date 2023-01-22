@@ -127,6 +127,16 @@ export class GroupsPage implements OnInit, OnDestroy {
       },
     });
     await modal.present();
+    modal.onDidDismiss().then((data:any) => {
+      console.log(data);
+      if (data.data.user){
+        this.memberService.assignMember(data.data.user.userId,data.data.access,this.dataProvider.userData.userId).then((res)=>{
+          this.alertify.presentToast("Member assigned successfully");
+        }).catch((err)=>{
+          this.alertify.presentToast("Error assigning member");
+        })
+      }
+    });
   }
 
   submit(){

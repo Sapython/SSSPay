@@ -8,6 +8,8 @@ import { GroupsPageRoutingModule } from './groups-routing.module';
 
 import { GroupsPage } from './groups.page';
 import { BaseComponentsModule } from '../base-components/base-components.module';
+import { ManageMembersPage } from './manage-members/manage-members.page';
+import { AddMemberComponent } from './manage-members/add-member/add-member.component';
 
 @NgModule({
   imports: [
@@ -18,6 +20,6 @@ import { BaseComponentsModule } from '../base-components/base-components.module'
     GroupsPageRoutingModule,
     BaseComponentsModule,
   ],
-  declarations: [GroupsPage]
+  declarations: [GroupsPage,AddMemberComponent]
 })
 export class GroupsPageModule {}

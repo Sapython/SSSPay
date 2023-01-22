@@ -5,7 +5,7 @@
     <ion-item button (click)="selected(user)" detail
       *ngFor="let user of filteredMembers.length > 0 ? filteredMembers : members">
       <ion-avatar slot="start">
-        <img [src]="user.photoURL" />
+        <img [src]="user.photoURL" referrerPolicy="no-referrer" />
       </ion-avatar>
       <ion-label>{{user.displayName}}</ion-label>
     </ion-item>

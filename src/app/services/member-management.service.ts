@@ -56,43 +56,27 @@ export class MemberManagementService {
     return getDoc(doc(this.fs, 'groups/' + groupId));
   } 
 
-  async getUnassignedMembers(assignedUsers: string[]) {
+  async getUnassignedMembers(currentOwnerId: string) {
     console.log("access.access",this.allowedAccess(this.dataProvider.userData.access.access+1));
     const users = await getDocs(query(collection(this.fs, 'users'),where('access.access','in',this.allowedAccess(this.dataProvider.userData.access.access))));
-    return users.docs.filter((doc) => {
-      console.log(doc.data().userId,doc.data().displayName);
-      return (!doc.data().groupId);
-    });
+    return users.docs.filter((user) => {
+      return user.data().ownerId != currentOwnerId;
+    }).map((user) => user.data());
   }
 
   allowedAccess(access: string) {
     return this.access.slice(this.access.indexOf(access)+1);
   }
 
-  async assignMember(user: UserData, member: UserData,access:any,groupId:string) {
+  async assignMember(memberId: string,access:any,ownerId:string) {
     try {
-      await updateDoc(doc(this.fs, 'users/' + member.userId), {
+      return updateDoc(doc(this.fs, 'users/' + memberId), {
         memberAssigned: true,
-        groupId:groupId,
+        ownerId:ownerId,
         access:{
           access:access
         }
       });
-      const newMember: Member = {
-        id: member.userId,
-        displayName: member.displayName,
-        email: member.email,
-        userId: member.userId,
-        phoneNumber: member.phoneNumber,
-        photoURL: member.photoURL,
-        access: {access:access},
-        ownerId: this.dataProvider.userData?.userId,
-        joining: new Date(),
-      };
-      console.log("newMember",newMember,groupId);
-      return updateDoc(doc(this.fs,'groups/'+groupId),{
-        members:arrayUnion(newMember)
-      })
       //  setDoc(doc(this.fs, 'groups/'+groupId + '/members', member.userId), newMember)
     } catch (error) {
       console.log(error);
