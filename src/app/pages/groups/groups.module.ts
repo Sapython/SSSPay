@@ -8,8 +8,7 @@ import { GroupsPageRoutingModule } from './groups-routing.module';
 
 import { GroupsPage } from './groups.page';
 import { BaseComponentsModule } from '../base-components/base-components.module';
-import { ManageMembersPage } from './manage-members/manage-members.page';
-import { AddMemberComponent } from './manage-members/add-member/add-member.component';
+import { AddMemberComponent } from './add-member/add-member.component';
 
 @NgModule({
   imports: [

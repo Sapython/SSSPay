@@ -68,15 +68,13 @@ export class MemberManagementService {
     return this.access.slice(this.access.indexOf(access)+1);
   }
 
-  async assignMember(memberId: string,access:any,ownerId:string) {
+  async assignMember(user: UserData, member: UserData,access:any) {
     try {
-      return updateDoc(doc(this.fs, 'users/' + memberId), {
+      return await updateDoc(doc(this.fs, 'users/' + member.userId),{
+        ownerId:user.userId,
         memberAssigned: true,
-        ownerId:ownerId,
-        access:{
-          access:access
-        }
-      });
+        access:{access:access}
+      })
       //  setDoc(doc(this.fs, 'groups/'+groupId + '/members', member.userId), newMember)
     } catch (error) {
       console.log(error);

@@ -34,7 +34,7 @@
     
   </ng-container> -->
   <ng-container *ngFor="let history of commissions" >
-    <app-wallet-history [service]="history.service" [statement]="history.narration" [date]="history.transactionTime.toDate()" [money]="history.amount" [type]="history.transactionType"></app-wallet-history>
+    <app-wallet-history [service]="history.service" [balance]="history.balance ? history.balance : -1" [statement]="history.narration" [date]="history.transactionTime.toDate()" [money]="history.amount" [type]="history.transactionType"></app-wallet-history>
   </ng-container>
   <ng-container *ngIf="commissions.length == 0">
     <img src="/assets/no-notification.svg" alt="No Commissions Found">

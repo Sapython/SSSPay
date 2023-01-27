@@ -7,7 +7,7 @@ import { MemberManagementService } from 'src/app/services/member-management.serv
 import { AlertsAndNotificationsService } from 'src/app/services/uiService/alerts-and-notifications.service';
 import { UserData } from 'src/app/structures/user.structure';
 import { AddNewMemberComponent } from '../add-new-member/add-new-member.component';
-import { AddMemberComponent } from './manage-members/add-member/add-member.component';
+import { AddMemberComponent } from './add-member/add-member.component';
 
 @Component({
   selector: 'app-groups',
@@ -30,11 +30,16 @@ export class GroupsPage implements OnInit, OnDestroy {
   usersData:UserData[] = []
   currentOwner:UserData |undefined;
   loading:boolean = false;
+  refresh(event:any){
+    this.getOwnerUsers(this.currentOwner).then(()=>{
+      event.target.complete();
+    })
+  }
   ngOnInit() {
     this.getOwnerUsers(this.dataProvider.userData);
   }
 
-  getOwnerUsers(owner:UserData){
+  async getOwnerUsers(owner:UserData){
     if (owner.access.access == 'retailer') {
       this.router.navigate(['transactions/'+owner.userId])
       return;
@@ -46,20 +51,23 @@ export class GroupsPage implements OnInit, OnDestroy {
       console.log(this.usersData)
     }
     this.loading = true;
-    this.memberService.getOwnerBasedUsers(owner.userId).then((users)=>{
-      this.currentUsers = users.docs.map((user)=>{
-        return {
-          ...user.data(),
-          id:user.id
-        }
-      })
-      // sort current users by name
-      this.currentUsers.sort((a,b)=>{
-        return a.displayName.localeCompare(b.displayName)
-      })
-    }).finally(()=>{
+    try {
+      let users = await this.memberService.getOwnerBasedUsers(owner.userId)
+          this.currentUsers = users.docs.map((user)=>{
+            return {
+              ...user.data(),
+              id:user.id
+            }
+          })
+          // sort current users by name
+          this.currentUsers.sort((a,b)=>{
+            return a.displayName.localeCompare(b.displayName)
+          })
+    } catch (error) {
+      this.alertify.presentToast("Error fetching users");
+    } finally {
       this.loading = false;
-    })
+    }
   }
 
 
@@ -127,8 +135,11 @@ export class GroupsPage implements OnInit, OnDestroy {
       },
     });
     await modal.present();
-    modal.onDidDismiss().then((data:any) => {
-      console.log(data);
+    modal.onDidDismiss().then((data) => {
+      console.log("ended",data);
+      if (data.data=='addNewMember'){
+        this.addNewMember();
+      }
       if (data.data.user){
         this.memberService.assignMember(data.data.user.userId,data.data.access,this.dataProvider.userData.userId).then((res)=>{
           this.alertify.presentToast("Member assigned successfully");
@@ -136,7 +147,7 @@ export class GroupsPage implements OnInit, OnDestroy {
           this.alertify.presentToast("Error assigning member");
         })
       }
-    });
+    })
   }
 
   submit(){

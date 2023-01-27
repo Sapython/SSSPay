@@ -62,4 +62,8 @@ export class AddMemberComponent implements OnInit {
       this.filteredMembers = [];
     }
   }
+
+  addNewMember(){
+    this.ctrl.dismiss('addNewMember');
+  }
 }

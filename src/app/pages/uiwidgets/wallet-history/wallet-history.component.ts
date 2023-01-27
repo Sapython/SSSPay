@@ -11,6 +11,7 @@ export class WalletHistoryComponent implements OnInit {
   @Input() money:number;
   @Input() type:'credit'|'debit' = 'credit';
   @Input() service:string;
+  @Input() balance:number;
   constructor() { }
 
   ngOnInit() {}

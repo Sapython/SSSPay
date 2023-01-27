@@ -1,14 +1,24 @@
-<div class="card">
-  <div class="texts">
-    <div class="row">
-      <img src="assets/icons/{{service}}.svg" alt="" />
+<section>
+  <div class="card">
+    <div class="texts">
+      <div class="row">
+        <img src="assets/icons/{{service}}.svg" alt="" />
+      </div>
+      <div class="row">
+        <p>{{ date | date:'short' }}</p>
+        <h6>{{ service | titlecase }}</h6>
+      </div>
     </div>
-    <div class="row">
-      <p>{{ date | date:'short' }}</p>
-      <h6>{{ statement | titlecase }}</h6>
-    </div>
+    <span>
+      <ion-text [color]="type == 'debit' ? 'danger' : 'primary'">
+        <p class="money">{{ type == "debit" ? "-" : "+" }} {{ money | currency:'INR'}}</p>
+      </ion-text>
+      <ion-text color="primary">
+        <p class="money" *ngIf="balance>=0">Balance: {{ balance | currency:'INR'}}</p>
+        <p class="balance" *ngIf="balance<0">Balance: N/A</p>
+      </ion-text>
+    </span>
   </div>
-  <ion-text [color]="type == 'debit' ? 'danger' : 'primary'">
-    <p class="money">{{ type == "debit" ? "-" : "+" }} {{ money | currency:'INR'}}</p>
-  </ion-text>
-</div>
+  <hr>
+  <p class="statement">{{ statement }}</p>
+</section>

@@ -5,7 +5,7 @@ import { DataProvider } from 'src/app/providers/data.provider';
 import { MemberManagementService } from 'src/app/services/member-management.service';
 import { AlertsAndNotificationsService } from 'src/app/services/uiService/alerts-and-notifications.service';
 import { UserAccess } from 'src/app/structures/user.structure';
-import { AddMemberComponent } from './add-member/add-member.component';
+import { AddMemberComponent } from '../add-member/add-member.component';
 import Fuse from 'fuse.js';
 import { AddNewMemberComponent } from '../../add-new-member/add-new-member.component';
 import { ActivatedRoute } from '@angular/router';
@@ -135,73 +135,71 @@ export class ManageMembersPage implements OnInit {
         });
     }
   }
-  async addMember() {
-    const modal = await this.modalController.create({
-      component: AddMemberComponent,
-      swipeToClose: true,
-      breakpoints: [0.25, 0.75, 1],
-      initialBreakpoint: 0.25,
-      componentProps: {
-        accessLevel: this.dataProvider.userData.access.access,
-        assignedUsers: this.members.map((member) => member.userId),
-      },
-    });
-    await modal.present();
-    modal.onDidDismiss().then((data) => {
-      console.log("data.data.user",data.data.user);
-      if (data.data && data.data.user) {
-        this.dataProvider.pageSetting.blur = true;
-        this.memberService
-          .assignMember(
-            data.data.user,
-            data.data.access,
-            this.dataProvider.userData.userId
-          )
-          .then((doc) => {
-            console.log(doc);
-            this.getMembers();
-            this.alertify.presentToast(
-              (data.data.user?.displayName ||
-                data.data.user?.phoneNumber ||
-                data.data.user?.email) + ' assigned as member'
-            );
-          })
-          .catch((error) => {
-            this.alertify.presentToast(error, 'error');
-          })
-          .finally(() => {
-            this.dataProvider.pageSetting.blur = false;
-          });
-      }
-    });
-  }
+  // async addMember() {
+  //   const modal = await this.modalController.create({
+  //     component: AddMemberComponent,
+  //     swipeToClose: true,
+  //     breakpoints: [0.25, 0.75, 1],
+  //     initialBreakpoint: 0.25,
+  //     componentProps: {
+  //       accessLevel: this.dataProvider.userData.access.access,
+  //       assignedUsers: this.members.map((member) => member.userId),
+  //     },
+  //   });
+  //   await modal.present();
+  //   modal.onDidDismiss().then((data) => {
+  //     if (data.data) {
+  //       this.dataProvider.pageSetting.blur = true;
+  //       this.memberService
+  //         .assignMember(
+  //           this.dataProvider.userData,
+  //           data.data.user,
+  //           data.data.access,
+  //           this.dataProvider.dataOne.id
+  //         )
+  //         .then((doc) => {
+  //           console.log(doc);
+  //           this.getMembers();
+  //           this.alertify.presentToast(
+  //             (data.data.user?.displayName ||
+  //               data.data.user?.phoneNumber ||
+  //               data.data.user?.email) + ' assigned as member'
+  //           );
+  //         })
+  //         .catch((error) => {
+  //           this.alertify.presentToast(error, 'error');
+  //         })
+  //         .finally(() => {
+  //           this.dataProvider.pageSetting.blur = false;
+  //         });
+  //     }
+  //   });
+  // }
 
   switchGroup() {
     this.dataProvider.pageSetting.blur = true;
-    // this.memberService
-    //   .assignMember(
-    //     this.dataProvider.userData,
-    //     this.dataProvider.userData,
-    //     this.dataProvider.userData.access.access,
-    //     this.dataProvider.dataOne.id
-    //   )
-    //   .then((doc) => {
-    //     console.log(doc);
-    //     this.getMembers();
-    //     this.alertify.presentToast(
-    //       (this.dataProvider.userData?.displayName ||
-    //         this.dataProvider.userData?.phoneNumber ||
-    //         this.dataProvider.userData?.email) + ' assigned as member'
-    //     );
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-        
-    //     this.alertify.presentToast(error, 'error');
-    //   })
-    //   .finally(() => {
-    //     this.dataProvider.pageSetting.blur = false;
-    //   });
+    this.memberService
+      .assignMember(
+        this.dataProvider.userData,
+        this.dataProvider.userData,
+        this.dataProvider.userData.access.access
+      )
+      .then((doc) => {
+        console.log(doc);
+        this.getMembers();
+        this.alertify.presentToast(
+          (this.dataProvider.userData?.displayName ||
+            this.dataProvider.userData?.phoneNumber ||
+            this.dataProvider.userData?.email) + ' assigned as member'
+        );
+      })
+      .catch((error) => {
+        console.log(error);    
+        this.alertify.presentToast(error, 'error');
+      })
+      .finally(() => {
+        this.dataProvider.pageSetting.blur = false;
+      });
   }
 
   async addNewMember() {
@@ -222,7 +220,6 @@ export class ManageMembersPage implements OnInit {
     });
   }
 }
-
 export type Member = {
   id?: string;
   userId: string;

@@ -60,7 +60,7 @@ export class AddNewMemberComponent implements OnInit {
         .then((res) => {
           this.alertify.presentToast('User Created Successfully');
           this.memberService
-            .assignMember(res.newUser.userId, res.newUser.access.access,this.dataProvider.userData.userId)
+            .assignMember(this.dataProvider.userData, res.newUser, res.newUser.access.access)
             .then((doc) => {
               this.alertify.presentToast(
                 res.newUser.displayName + ' assigned as member'

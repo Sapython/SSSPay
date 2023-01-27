@@ -1,14 +1,17 @@
 <app-header title="Groups"></app-header>
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)" pullFactor="0.8" pullMin="60" pullMax="120">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-item lines="none">
     <button (click)="back()">
       <ion-icon name="arrow-back-outline"></ion-icon>
       Back
     </button>
   </ion-item>
-  <ng-container >
+  <ng-container>
     <ion-title>{{currentOwner.displayName}} Users</ion-title>
-    <ion-list>
+    <ion-list> 
       <ion-item (click)="getOwnerUsers(user)" *ngFor="let user of currentUsers">
         <ion-label>{{user.displayName}}</ion-label>
         <ion-chip mode="ios" color="primary">{{user.access.access}}</ion-chip>
