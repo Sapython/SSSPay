@@ -341,7 +341,7 @@ export class AepsPage implements OnInit {
     if (this.aepsForm.value.transactionType == 'BE') {
       const transaction: Transaction = {
         amount: 0,
-        groupId:this.dataProvider.userData?.groupId || null,
+        ownerId:this.dataProvider.userData?.ownerId || null,
         serviceType:'aeps',
         title: 'Balance Enquiry',
         description: 'Balance Enquiry',
@@ -389,7 +389,7 @@ export class AepsPage implements OnInit {
       const transaction: Transaction = {
         amount: this.aepsForm.value.amount,
         title: 'Cash Withdrawal',
-        groupId:this.dataProvider.userData?.groupId || null,
+        ownerId:this.dataProvider.userData?.ownerId || null,
         serviceType:'aeps',
         description: 'Cash Withdrawal',
         type: 'aeps',
@@ -433,7 +433,7 @@ export class AepsPage implements OnInit {
       // ms = mini statement
       const transaction: Transaction = {
         amount: 0,
-        groupId:this.dataProvider.userData?.groupId || null,
+        ownerId:this.dataProvider.userData?.ownerId || null,
         serviceType:'aeps',
         title: 'Mini Statement',
         description: 'Mini Statement',
@@ -478,7 +478,7 @@ export class AepsPage implements OnInit {
       // m = Aadhaar Pay
       const transaction: Transaction = {
         amount: this.aepsForm.value.amount,
-        groupId:this.dataProvider.userData?.groupId || null,
+        ownerId:this.dataProvider.userData?.ownerId || null,
         serviceType:'aeps',
         title: 'Aadhaar Pay',
         description: 'Aadhaar Pay',

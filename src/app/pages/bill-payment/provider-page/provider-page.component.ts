@@ -116,7 +116,7 @@ export class ProviderPageComponent implements OnInit {
   async payBill() {
     const transaction: Transaction = {
       amount: this.bill.amount,
-      groupId:this.dataProvider.userData?.groupId || null,
+      ownerId:this.dataProvider.userData?.ownerId || null,
       serviceType:'other',
       title: 'Bill Payment',
       description:

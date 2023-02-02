@@ -49,7 +49,7 @@ export class PayBillPage implements OnInit {
 
   async payBill() {
     const transaction: Transaction = {
-      groupId:this.dataProvider.userData?.groupId || null,
+      ownerId:this.dataProvider.userData?.ownerId || null,
       serviceType:'other',
       title: 'Fastag Recharge',
       amount: Number(this.billData.amount),

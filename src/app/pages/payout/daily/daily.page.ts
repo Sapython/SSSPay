@@ -126,7 +126,7 @@ export class DailyPage implements OnInit {
     console.log(this.payoutForm.value.account.accountType);
     console.log(this.payoutForm.value.paymentType);
     const transaction: Transaction = {
-      groupId:this.dataProvider.userData?.groupId || null,
+      ownerId:this.dataProvider.userData?.ownerId || null,
       serviceType:this.payoutForm.value.paymentType =='vpa'? 'payoutUPI' : 'payoutImps',
       amount: Number(this.payoutForm.get('amount').value),
       date: new Date(),

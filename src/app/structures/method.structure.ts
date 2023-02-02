@@ -138,7 +138,7 @@ export type Transaction = {
     title?:string;
     isCommission?:any;
     receiver:string;
-    groupId:string;
+    ownerId:string;
     additionalAmount?:number;
     serviceType:'aeps'|'dth'|'mobile_recharge'|'expressPayoutUpi'|'expressPayoutImps'|'payoutImps'|'payoutUPI'|'other';
     date:any;

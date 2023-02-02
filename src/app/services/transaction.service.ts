@@ -14,7 +14,7 @@ export class TransactionService {
   constructor(private fs:Firestore,private dataProvider:DataProvider,private analytics:Analytics) { }
   
   async addTransaction(transactionDetail:Transaction){
-    if (!transactionDetail.groupId){
+    if (!(transactionDetail.ownerId || this.dataProvider.userData.access.access == 'admin')){
       alert("You are not a part of a group.");
       throw new Error("You are not a part of a group.");
     }

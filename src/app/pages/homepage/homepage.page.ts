@@ -82,7 +82,7 @@ export class HomepagePage implements OnInit {
   }
   payUpiMoney(){
     const transactionData:Transaction = {
-      groupId:this.dataProvider.userData?.groupId || null,
+      ownerId:this.dataProvider.userData?.ownerId || null,
       serviceType:'other',
       amount:1,
       balance:this.dataProvider.wallet.balance,
