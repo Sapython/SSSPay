@@ -46,6 +46,7 @@ export class ManageMembersPage implements OnInit {
       // this.currentAccess = params.access;
     })
   }
+  
   access = [
     'admin',
     'superDistributor',
@@ -61,6 +62,7 @@ export class ManageMembersPage implements OnInit {
       });
     }
   }
+
   async getMembers() {
     console.log('Getting Members');
     console.log(this.access.slice(this.access.indexOf(this.dataProvider.userData.access.access)),);
@@ -93,6 +95,7 @@ export class ManageMembersPage implements OnInit {
       this.alertify.presentToast(error, 'error');
     }
   }
+
   searchMember(event) {
     console.log('Search', event);
     if (event.detail.value) {
@@ -135,46 +138,6 @@ export class ManageMembersPage implements OnInit {
         });
     }
   }
-  // async addMember() {
-  //   const modal = await this.modalController.create({
-  //     component: AddMemberComponent,
-  //     swipeToClose: true,
-  //     breakpoints: [0.25, 0.75, 1],
-  //     initialBreakpoint: 0.25,
-  //     componentProps: {
-  //       accessLevel: this.dataProvider.userData.access.access,
-  //       assignedUsers: this.members.map((member) => member.userId),
-  //     },
-  //   });
-  //   await modal.present();
-  //   modal.onDidDismiss().then((data) => {
-  //     if (data.data) {
-  //       this.dataProvider.pageSetting.blur = true;
-  //       this.memberService
-  //         .assignMember(
-  //           this.dataProvider.userData,
-  //           data.data.user,
-  //           data.data.access,
-  //           this.dataProvider.dataOne.id
-  //         )
-  //         .then((doc) => {
-  //           console.log(doc);
-  //           this.getMembers();
-  //           this.alertify.presentToast(
-  //             (data.data.user?.displayName ||
-  //               data.data.user?.phoneNumber ||
-  //               data.data.user?.email) + ' assigned as member'
-  //           );
-  //         })
-  //         .catch((error) => {
-  //           this.alertify.presentToast(error, 'error');
-  //         })
-  //         .finally(() => {
-  //           this.dataProvider.pageSetting.blur = false;
-  //         });
-  //     }
-  //   });
-  // }
 
   switchGroup() {
     this.dataProvider.pageSetting.blur = true;

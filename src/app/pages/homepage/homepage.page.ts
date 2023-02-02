@@ -33,7 +33,7 @@ export class HomepagePage implements OnInit {
       routerLink:'/payout/daily'
     },
     {
-      name: 'DMT',
+      name: 'Express Payout',
       service: 'bank',
       page: 'aeps',
       routerLink:'/payout/express'
