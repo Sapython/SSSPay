@@ -1,70 +1,113 @@
 
+// section{
+//     padding: 0.4rem;
+//     border-radius: 0.5rem;
+//     background-color: #fff;
+//     margin-bottom: 10px;
+//     box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+//     div{
+//         display: flex;
+//         gap:20px;
+//         align-items: center;
+//     }
+//     .card{
+//         display: flex;
+//         flex-direction: row;
+//         justify-content: space-between;
+//         align-items: center;
+//         img{
+//             width:40px;
+//         }
+//         div.row{
+//             display: flex;
+//             flex-direction: column;
+//             gap:10px;
+//             align-items: flex-start;
+//         }
+//         div.texts{
+//             max-width: 200px;
+//         }
+//         p,h6{
+//             margin: 0px;
+//             font-size: 12px;
+//         }
+//         h6{
+//             font-size: 12px;
+//             color: gray;
+//         }
+//         span{
+//             display: flex;
+//             flex-direction: column;
+//         }
+//         ion-text{
+    
+//         }
+//         .money{
+//             font-size: 15px;
+//             font-weight: 600;
+//         }
+//         .balance{
+//             font-size: 11px;
+//             color: gray;
+//             text-align: right;
+//         }
+//     }
+//     .statement{
+//         font-size: 12px;
+//         color: gray;
+//         word-wrap: break-word;
+//         word-break: break-all;
+//         margin: 0px !important;
+//     }
+//     hr{
+//         height: 0px;
+//         border-width: 0;
+//         box-sizing: content-box;
+//         color: #eee;
+//         border: 1px solid;
+//     }
+    
+// }
+
+
 section{
-    padding: 0.4rem;
-    border-radius: 0.5rem;
-    background-color: #fff;
+    padding: 8px;
     margin-bottom: 10px;
-    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
-    div{
+    box-shadow: 0px 0px 20px rgba(0,0,0,0.1);
+    .row{
         display: flex;
-        gap:20px;
-        align-items: center;
-    }
-    .card{
-        display: flex;
-        flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        img{
-            width:40px;
-        }
-        div.row{
-            display: flex;
-            flex-direction: column;
-            gap:10px;
-            align-items: flex-start;
-        }
-        div.texts{
-            max-width: 200px;
-        }
-        p,h6{
-            margin: 0px;
-            font-size: 12px;
-        }
-        h6{
-            font-size: 12px;
-            color: gray;
-        }
         span{
             display: flex;
             flex-direction: column;
-        }
-        ion-text{
-    
-        }
-        .money{
-            font-size: 15px;
-            font-weight: 600;
-        }
-        .balance{
-            font-size: 10px;
-            color: gray;
-            text-align: right;
+            strong{
+                font-size: 14px;
+                font-weight: 700;
+            }
+            p.minText{
+                font-size: 11px;
+                color: gray;
+                margin: 0px;
+            }
         }
     }
-    .statement{
-        font-size: 12px;
-        color: gray;
-        word-wrap: break-word;
-        word-break: break-all;
-        margin: 0px !important;
+    .body{
+        display: flex;
+        gap:15px;
+        img{
+            width: 50px;
+            height: 50px;
+        }
+        .narration{
+            strong{
+                font-size: 14px;
+                font-weight: 700;
+            }
+            p{
+                font-size: 11px;
+                color: gray;
+            }
+        }
     }
-    hr{
-        height: 0px;
-        border-width: 0;
-        box-sizing: content-box;
-        color: #eee;
-        border: 1px solid;
-    }
-    
 }
