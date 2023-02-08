@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
+import { Clipboard } from '@capacitor/clipboard';
+import { AlertsAndNotificationsService } from 'src/app/services/uiService/alerts-and-notifications.service';
+
 
 @Component({
   selector: 'app-wallet-history',
@@ -15,9 +18,27 @@ export class WalletHistoryComponent implements OnInit {
   @Input() balance:number;
   @Input() transactionId:string;
   @Input() actionType:'TDS'|'Commission'|'Transaction-Credit'|'Transaction-Debit'|'Transaction-Refund';
-  constructor() { }
+  
+  serviceText:string;
+  
+  constructor(private alertify:AlertsAndNotificationsService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.serviceText = this.transformText(this.service);
+    // clip transaction id to 8 chars
+    this.transactionId = this.transactionId.substring(0,15)+'...';
+  }
+
+  transformText(text:string){
+    return text.replace('_',' ');
+  }
+
+  async copyToClipboard(text:string){
+    await Clipboard.write({
+      string: text
+    });
+    this.alertify.presentToast('Copied to clipboard');
+  }
 
 }
 type WalletNarration = {

@@ -82,8 +82,15 @@ section{
             display: flex;
             flex-direction: column;
             strong{
-                font-size: 14px;
-                font-weight: 700;
+                font-size: 12px;
+                font-weight: 500;
+                p{
+                    color:gray;
+                    margin: 0px;
+                    width: min-content;
+                    display: inline;
+                }
+                // color: darkgray;
             }
             p.minText{
                 font-size: 11px;
@@ -102,7 +109,9 @@ section{
         .narration{
             strong{
                 font-size: 14px;
-                font-weight: 700;
+                font-weight: 500;
+                // color: darkgray;
+                
             }
             p{
                 font-size: 11px;

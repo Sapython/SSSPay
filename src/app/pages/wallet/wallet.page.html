@@ -3,7 +3,7 @@
   <ion-card class="container">
     <div class="inner-container">
       <ion-label>{{dataProvider.wallet ? 'Total Assets' : 'No Wallet Found'}}</ion-label>
-      <p id="amount" *ngIf="dataProvider.wallet">{{currency}}{{' '}}{{dataProvider.wallet.balance | number:'1.2-2'}}</p>
+      <p id="amount" *ngIf="dataProvider.wallet">{{dataProvider.wallet.balance | currency:'INR'}}</p>
       <ion-button *ngIf="!dataProvider.wallet" (click)="createWallet()" expand="block" fill="solid" shape="round" color="light">
         Create Wallet
       </ion-button>
@@ -11,30 +11,13 @@
     <ion-icon name="wallet"></ion-icon>
   </ion-card>
   <p id="amount">Wallet Updates</p>
-  <!-- <ion-segment value="pizza" (ionChange)="switchTab=!switchTab">
-    <ion-segment-button value="pizza">
-      <ion-label>Transactions</ion-label>
+  <ion-segment [scrollable]="true" value="pizza" (ionChange)="switchTab($event)">
+    <ion-segment-button *ngFor="let service of services" [value]="service.code">
+      <ion-label>{{service.name}}</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="pasta">
-      <ion-label>Commissions</ion-label>
-    </ion-segment-button>
-  </ion-segment> -->
-  <!-- <ng-container *ngIf="!switchTab">
-    <ng-container *ngFor="let history of transactions" >
-      <app-wallet-history [service]="history.type" [statement]="clip(history.description,25)" [date]="history.date.toDate()" [money]="history.amount" [type]="history.type == 'aeps' ? 'credit' : 'debit'"></app-wallet-history>
-    </ng-container>
-    <ng-container *ngIf="transactions.length == 0">
-      <img src="/assets/no-notification.svg" alt="No Transactions Found">
-      <ion-text color="medium">
-        <h2 class="ion-text-center">No Transactions Found</h2>
-      </ion-text>
-    </ng-container>
-  </ng-container>
-  <ng-container *ngIf="switchTab">
-    
-  </ng-container> -->
-  <ng-container *ngFor="let history of commissions" >
-    <app-wallet-history [service]="history.service" [balance]="history.availableBalance ? history.availableBalance : -1" [statement]="history.narration" [date]="history.transactionTime.toDate()" [money]="history.amount" [type]="history.transactionType"></app-wallet-history>
+  </ion-segment>
+  <ng-container *ngFor="let history of filteredCommissions" >
+    <app-wallet-history [service]="history.service" [balance]="history.balance ? history.balance : (history.availableBalance ? history.availableBalance : -1)" [transactionTime]="history.transactionTime.toDate()" [transactionId]="history.id" [amount]="history.amount" [actionType]="history.actionType || 'N/A'" [narration]="history.narration" [type]="history.transactionType"></app-wallet-history>
   </ng-container>
   <ng-container *ngIf="commissions.length == 0">
     <img src="/assets/no-notification.svg" alt="No Commissions Found">

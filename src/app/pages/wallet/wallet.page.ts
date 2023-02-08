@@ -13,54 +13,44 @@ import { Transaction } from 'src/app/structures/method.structure';
 })
 export class WalletPage implements OnInit {
   @Input() amount: string = '';
-  @Input() currency: string = '₹';
-  transactions:any[] = []
+  filteredCommissions:any[] = []
+  currentSelectedType:string = 'all';
   commissions:any[] = []
-  switchTab:boolean = false;
+  services:{name:string,code:string}[] = []
   loading:boolean = false;
   constructor(private databaseService:DatabaseService,public dataProvider:DataProvider,private alertify:AlertsAndNotificationsService,private transactionService:TransactionService) {}
 
   async ngOnInit() {
     this.loading = true;
-    // this.dataProvider.transactions.forEach((doc:any)=>{
-    //   if (doc['status']=='success' && doc['amount']>0){
-    //     this.transactions.push({...doc,id:doc.id})
-    //   }
-    //   this.transactions.sort((a,b)=>{
-    //     return b.date.toDate()-a.date.toDate()
-    //   })
-    // })
-    // this.dataProvider.transactionsUpdated.subscribe((docs)=>{
-    //   this.transactions = []
-    //   docs.forEach((doc:any)=>{
-    //     if (doc['status']=='success' && doc['amount']>0){
-    //       this.transactions.push({...doc,id:doc.id})
-    //     }
-    //   })
-    //   this.transactions.sort((a,b)=>{
-    //     return b.date.toDate()-a.date.toDate()
-    //   })
-    // })
-    // this.databaseService.getCommissionsHistory().then((res)=>{
-    //   console.log("Getting commission",res,res.docs);
-    //   res.forEach((doc:any)=>{
-    //     console.log("commission",doc.data());
-    //     this.commissions.push({...doc.data(),id:doc.id,isCommission:true})
-    //   })
-    //   this.commissions.sort((a,b)=>{
-    //     return b.date.toDate()-a.date.toDate()
-    //   })
-    // })
-    // sort transactions
-
     this.databaseService.getWalletNarration().then((data)=>{
       this.commissions = []
       data.forEach((doc:any)=>{
         this.commissions.push({...doc.data(),id:doc.id})
       });
+      // categorize commissions on the basis of service
+      this.services = []
+      this.commissions.forEach((commission)=>{
+        if(!this.services.find((service)=>service.code == commission.service)){
+          this.services.push({name:commission.service.replace('_',' '),code:commission.service})
+        }
+      })
+      this.services.unshift({name:'All',code:'all'})
+      this.currentSelectedType = 'all';
+      this.filteredCommissions = this.commissions;
+      this.loading = false;
+    }).catch((err)=>{
+      this.loading = false;
     })
+  }
 
-    
+  switchTab(event:any){
+    console.log(event);
+    this.currentSelectedType = event.detail.value;
+    if(this.currentSelectedType == 'all'){
+      this.filteredCommissions = this.commissions;
+    }else{
+      this.filteredCommissions = this.commissions.filter((commission)=>commission.service == this.currentSelectedType);
+    }
   }
 
   createWallet(){

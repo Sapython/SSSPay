@@ -1,45 +1,21 @@
-<!-- <section>
-  <div class="card">
-    <div class="texts">
-      <div class="row">
-        <img src="assets/icons/{{service}}.svg" alt="" />
-      </div>
-      <div class="row">
-        <p>{{ date | date:'short' }}</p>
-        <h6>{{ service | titlecase }}</h6>
-      </div>
-    </div>
-    <span>
-      <ion-text [color]="type == 'debit' ? 'danger' : 'primary'">
-        <p class="money">{{ type == "debit" ? "-" : "+" }} {{ money | currency:'INR'}}</p>
-      </ion-text>
-      <ion-text color="primary">
-        <p class="balance" *ngIf="balance>=0">Balance: {{ balance | currency:'INR'}}</p>
-        <p class="balance" *ngIf="balance<0">Balance: N/A</p>
-      </ion-text>
-    </span>
-  </div>
-  <hr>
-  <p class="statement">{{ statement }}</p>
-</section> -->
 <section>
   <div class="row">
     <span>
-      <strong>Trans ID:{{transactionId}}</strong>
+      <strong>Id: <p>{{transactionId}}</p><ion-icon name="copy-outline" color="primary" (click)="copyToClipboard(transactionId)"></ion-icon></strong>
       <p class="minText">{{ transactionTime | date:'medium' }}</p>
     </span>
     <span>
       <ion-text [color]="type == 'debit' ? 'danger' : 'primary'">
         <strong class="money">{{ type == "debit" ? "-" : "+" }} {{ amount | currency:'INR'}}</strong>
       </ion-text>
-      <p class="minText">Balance :{{balance}}</p>
+      <p class="minText">Bln : {{balance < 0 ? 'N/A' : (balance | currency:'INR')}}</p>
     </span>
   </div>
   <div class="body">
     <img src="assets/icons/{{service}}.svg" alt="" />
     <div class="narration">
-      <strong>{{service}} | {{actionType}}</strong>
-      <p>{{narration}}</p>
+      <strong>{{serviceText | titlecase}} | <ion-text color="primary"><i>{{actionType}}</i></ion-text></strong>
+      <p>{{narration | titlecase}}</p>
     </div>
   </div>
 </section>

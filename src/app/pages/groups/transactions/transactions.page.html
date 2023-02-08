@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <app-wallet-history *ngFor="let history of transactions" [service]="history.type" [statement]="history.description" [date]="history.transactionTime" [money]="history.exchangeAmount" [type]="history.transactionType"></app-wallet-history>
+  <!-- <app-wallet-history *ngFor="let history of transactions" [service]="history.type" [statement]="history.description" [date]="history.transactionTime" [money]="history.exchangeAmount" [type]="history.transactionType"></app-wallet-history> -->
   <ng-container *ngIf="transactions.length == 0">
     <img src="/assets/no-notification.svg" alt="No Transactions Found">
     <ion-text color="medium">
