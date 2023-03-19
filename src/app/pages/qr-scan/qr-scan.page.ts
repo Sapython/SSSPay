@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import jsQR from 'jsqr';
+// import jsQR from 'jsqr';
 import { ToastController, LoadingController, Platform } from '@ionic/angular';
 import { Plugins } from "@capacitor/core";
 const { BiometricAuth } = Plugins;
@@ -69,18 +69,18 @@ export class QrScanPage implements OnInit {
    
       this.canvasContext.drawImage(this.videoElement,0,0,this.canvasElement.width,this.canvasElement.height);
       const imageData = this.canvasContext.getImageData(0,0,this.canvasElement.width,this.canvasElement.height);
-      const code = jsQR(imageData.data, imageData.width, imageData.height, {
-        inversionAttempts: 'dontInvert'
-      });
-      if (code) {
-        this.scanActive = false;
-        this.scanResult = code.data;
-        this.showQrToast();
-      } else {
-        if (this.scanActive) {
-          requestAnimationFrame(this.scan.bind(this));
-        }
-      }
+      // const code = jsQR(imageData.data, imageData.width, imageData.height, {
+      //   inversionAttempts: 'dontInvert'
+      // });
+      // if (code) {
+      //   this.scanActive = false;
+      //   this.scanResult = code.data;
+      //   this.showQrToast();
+      // } else {
+      //   if (this.scanActive) {
+      //     requestAnimationFrame(this.scan.bind(this));
+      //   }
+      // }
     } else {
       requestAnimationFrame(this.scan.bind(this));
     }
@@ -96,12 +96,12 @@ export class QrScanPage implements OnInit {
     img.onload = () => {
       this.canvasContext.drawImage(img,0,0,this.canvasElement.width,this.canvasElement.height);
       const imageData = this.canvasContext.getImageData(0,0,this.canvasElement.width,this.canvasElement.height);
-      const code = jsQR(imageData.data, imageData.width, imageData.height, {inversionAttempts: 'dontInvert' });
-      console.log(code)
-      if (code) {
-        this.scanResult = code.data;
-        this.showQrToast();
-      }
+      // const code = jsQR(imageData.data, imageData.width, imageData.height, {inversionAttempts: 'dontInvert' });
+      // console.log(code)
+      // if (code) {
+      //   this.scanResult = code.data;
+      //   this.showQrToast();
+      // }
     };
     img.src = URL.createObjectURL(file);
   }

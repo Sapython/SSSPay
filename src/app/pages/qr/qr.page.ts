@@ -36,7 +36,8 @@ export class QRPage implements OnInit {
           customerName:this.dataProvider.userData.displayName,
           customerEmail:this.dataProvider.userData.email,
           customerMobile:this.dataProvider.userData.phoneNumber
-        }
+        },
+        userId:this.dataProvider.userData?.userId || null,
       }
       this.transactionService.addTransaction(data).then((doc)=>{
         console.log('Transaction added',doc.id);

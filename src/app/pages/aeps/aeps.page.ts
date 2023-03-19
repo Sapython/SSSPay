@@ -109,8 +109,7 @@ export class AepsPage implements OnInit {
     private alertify: AlertsAndNotificationsService,
   ) {}
 
-  async ngOnInit() {
-    // Get location
+  async getLocation(){
     try{
       const coordinates = await Geolocation.getCurrentPosition();
     } catch (e) {
@@ -127,7 +126,7 @@ export class AepsPage implements OnInit {
             });
             this.alertService.presentToast('Location Found');
           } else {
-            this.alertService.presentToast('Location Not Found', 'error');
+            this.alertService.presentToast('Location Not Found try again.', 'error');
             // this.alertService.presentToast(response.message);
             this.router.navigate(['/homepage']);
           }
@@ -136,6 +135,11 @@ export class AepsPage implements OnInit {
       (error) => {},
       { enableHighAccuracy: true, timeout: 2000, maximumAge: 1000 }
     );
+  }
+
+  async ngOnInit() {
+    // Get location
+    this.getLocation()
     // Get list of banks
     this.serverService
       .getAepsBanksList()
@@ -359,6 +363,7 @@ export class AepsPage implements OnInit {
         },
         receiver: 'AEPS',
         error: null,
+        userId: this.dataProvider.userData?.userId,
       };
       // alert(JSON.stringify(data.data) )
       // this.pidData = data.data;
@@ -406,6 +411,7 @@ export class AepsPage implements OnInit {
         },
         receiver: 'AEPS',
         error: null,
+        userId: this.dataProvider.userData?.userId,
       };
       this.transactionService
         .addTransaction(transaction)
@@ -451,6 +457,7 @@ export class AepsPage implements OnInit {
         },
         receiver: 'AEPS',
         error: null,
+        userId: this.dataProvider.userData?.userId,
       };
       this.transactionService
         .addTransaction(transaction)
@@ -496,6 +503,7 @@ export class AepsPage implements OnInit {
         },
         receiver: 'AEPS',
         error: null,
+        userId: this.dataProvider.userData?.userId,
       };
       this.transactionService
         .addTransaction(transaction)

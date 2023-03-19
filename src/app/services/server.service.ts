@@ -101,10 +101,12 @@ export class ServerService {
         console.log(result);
         return result;
       } else {
+
         throw mainResponse.statusText;
       }
     } catch (error) {
       this.dataProvider.pageSetting.blur = false;
+      this.alertify.presentToast(error['error']);
       console.log(error);
       // throw error
     }

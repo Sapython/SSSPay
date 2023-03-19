@@ -160,7 +160,8 @@ export class GasBillPayPage implements OnInit {
         customerNumber:this.operator['mainField'].control.value,
         fields:this.fields,
         customerId:this.dataProvider.userData.userId,
-      }
+      },
+      userId:this.dataProvider.userData.userId,
     }
     this.dataProvider.pageSetting.blur = true;
     this.transactionService.addTransaction(transaction).then((transaction)=>{

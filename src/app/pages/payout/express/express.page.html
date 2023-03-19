@@ -145,6 +145,7 @@
         Save Details
       </ion-button>
       <ion-button
+        *ngIf="showButton"
         (click)="makePayout()"
         [disabled]="!payoutForm.valid"
         expand="block"

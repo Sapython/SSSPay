@@ -14,6 +14,8 @@ import {
   deleteDoc,
   setDoc,
   increment,
+  limit,
+  startAfter,
 } from '@angular/fire/firestore';
 import {
   getDownloadURL,
@@ -265,6 +267,46 @@ export class DatabaseService {
           'users/' + this.dataProvider.userID + '/walletNarration'
         ),
         orderBy('transactionTime', 'desc')
+      )
+    )
+  }
+
+  getSomeTransactions(transactionLimit:number){
+    return getDocs(
+      query(
+        collection(
+          this.fs,
+          'users/' + this.dataProvider.userData.userId + '/transaction'
+        ),
+        orderBy('date', 'desc'),
+        limit(transactionLimit)
+      )
+    )
+  }
+
+  getFirstTransactions(){
+    return getDocs(
+      query(
+        collection(
+          this.fs,
+          'users/' + this.dataProvider.userData.userId + '/transaction'
+        ),
+        orderBy('date', 'desc'),
+        limit(10)
+      )
+    )
+  }
+
+  getNextTransactions(lastDoc,limitNumber:number=10){
+    return getDocs(
+      query(
+        collection(
+          this.fs,
+          'users/' + this.dataProvider.userData.userId + '/transaction'
+        ),
+        orderBy('date', 'desc'),
+        startAfter(lastDoc),
+        limit(limitNumber)
       )
     )
   }

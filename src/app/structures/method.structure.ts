@@ -153,4 +153,5 @@ export type Transaction = {
     extraData:any;
     successData?:any;
     refunded?:boolean;
+    userId:string;
 }

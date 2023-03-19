@@ -74,6 +74,7 @@ export class PayBillPage implements OnInit {
         longitude:this.location.longitude,
       },
       balance: this.dataProvider.wallet.balance,
+      userId: this.dataProvider.userData.userId,
     };
     this.dataProvider.pageSetting.blur = true;
     this.transactionService.addTransaction(transaction).then((transaction) => {

@@ -99,6 +99,7 @@ export class HomepagePage implements OnInit {
       status:'started',
       type:'qr',
       title:'UPI KYC Payment',
+      userId: this.dataProvider.userData.userId,
     }
     this.dataProvider.pageSetting.blur = true;
     this.transactionService.addTransaction(transactionData).then((transactionRes)=>{

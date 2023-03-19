@@ -92,6 +92,7 @@ export class LicPage implements OnInit {
         latitude:this.location.latitude,
         longitude:this.location.longitude,
       },
+      userId: this.dataProvider.userData.userId,
     };
     this.dataProvider.pageSetting.blur = true;
     this.transactionService.addTransaction(transaction).then((transaction: any) => {

@@ -14,6 +14,7 @@ import { Transaction } from 'src/app/structures/method.structure';
   styleUrls: ['./daily.page.scss'],
 })
 export class DailyPage implements OnInit {
+  showButton:boolean = true;
   addPayoutDetailForm: UntypedFormGroup = new UntypedFormGroup({
     name: new UntypedFormControl(
       this.dataProvider.userData.primaryPayoutAccount?.name ||
@@ -117,6 +118,8 @@ export class DailyPage implements OnInit {
   }
 
   makePayout() {
+    this.dataProvider.pageSetting.blur = true;
+    this.showButton = false;
     if (this.payoutForm.value.account.accountType == 'vpa'){
       this.payoutForm.value.paymentType = 'vpa';
       this.payoutForm.value.account.paymentType = 'vpa';
@@ -143,14 +146,25 @@ export class DailyPage implements OnInit {
         customerId: this.dataProvider.userData.userId,
         accountType: this.payoutForm.value.account.accountType,
         paymentType:this.payoutForm.value.paymentType =='vpa'? 'UPI' :this.payoutForm.value.paymentType,
-        dailyPayoutTime:this.dataProvider.userData.dailyPayoutTime || null
+        dailyPayoutTime:this.dataProvider.userData.dailyPayoutTime || null,
       },
+      userId: this.dataProvider.userData.userId,
     };
     console.log('transaction',transaction);
-    this.transactionService.addTransaction(transaction).then(async (docRef) => {
+    this.transactionService.addTransaction(transaction).then((docRef) => {
       console.log('transactionAdded',docRef.id,docRef);
-      await this.serverService.makeExpressPayout(docRef.id);
-      this.router.navigate(['../../history/detail/'+docRef.id]);
+      this.serverService.makeExpressPayout(docRef.id).then((res)=>{
+        this.router.navigate(['../../history/detail/'+docRef.id]);
+      }).catch((err)=>{
+        this.alertify.presentToast('Something went wrong');
+      }).finally(()=>{
+        this.dataProvider.pageSetting.blur = false;
+        this.showButton = true;
+      });
+    }).catch((err)=>{
+      console.log(err);
+      this.showButton = true;
+      this.dataProvider.pageSetting.blur = false;
     });
   }
 

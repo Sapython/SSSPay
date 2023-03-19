@@ -75,7 +75,8 @@ export class SelectPlansPage implements OnInit {
         },
         completed:false,
         idempotencyKey:Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
-        receiver:this.mobileNumber,        
+        receiver:this.mobileNumber,
+        userId:this.dataProvider.userData.userId,
       }
       this.dataProvider.pageSetting.blur = true;
       this.transactionsService.addTransaction(transaction).then((transaction:any)=>{

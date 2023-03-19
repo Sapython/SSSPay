@@ -12,10 +12,6 @@ import { AlertsAndNotificationsService } from './services/uiService/alerts-and-n
 import { NotificationService } from './services/notification.service';
 import { App, URLOpenListenerEvent } from '@capacitor/app';
 
-import {
-  FirebaseDynamicLinks,
-  LinkConfig,
-} from '@pantrist/capacitor-firebase-dynamic-links';
 import { ServerService } from './services/server.service';
 import { UserData } from './structures/user.structure';
 
@@ -43,6 +39,7 @@ export class AppComponent implements OnInit {
     'splashscreen',
     'signup-not-allowed'
   ];
+  startTime:Date = new Date();
   
   showHeaders: boolean = false;
   constructor(
@@ -56,6 +53,7 @@ export class AppComponent implements OnInit {
     private zone: NgZone,
     private serverService:ServerService
   ) {
+
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/serviceworker.js');
     }
@@ -150,18 +148,5 @@ export class AppComponent implements OnInit {
     //   }, 5000);
     // }
   }
-  createShortLink(): Promise<string> {
-    const config: LinkConfig = {
-      domainUriPrefix: 'https://ssspay.page.link',
-      uri: 'https://ssspay.page.link/upiPaymentComplete',
-    };
-    return FirebaseDynamicLinks.createDynamicShortLink(config).then(
-      (link) => link.value
-    );
-  }
-  listenToDeepLinkOpen() {
-    FirebaseDynamicLinks.addListener('deepLinkOpen', (data) => {
-      console.log("deepLinkOpen",data);
-    });
-  }
+ 
 }

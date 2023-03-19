@@ -135,10 +135,6 @@
         <p color="primary">{{successData.clientrefno}}</p>
         <ion-icon name="copy-outline" (click)="copy(transactionData?.successData.clientrefno)"></ion-icon>
       </span>
-      <span class="item" *ngIf="successData.clientrefno">
-        <p>Balance: </p>
-        <p color="primary">{{successData.balanceamount}}</p>
-      </span>
     </ng-container>
     <ng-container *ngIf="transactionData && transactionData?.successData && transactionData?.type == 'recharge'">
       <span class="item"> 

@@ -16,6 +16,7 @@ import { Transaction } from 'src/app/structures/method.structure';
 export class ExpressPage implements OnInit {
   addingAccount: boolean = false;
   usingData: boolean = false;
+  showButton:boolean = true;
   payoutForm: FormGroup = new FormGroup({
     amount: new FormControl(null, [
       Validators.required,
@@ -116,12 +117,14 @@ export class ExpressPage implements OnInit {
       this.payoutForm.get('accountType').addValidators([Validators.required]);
     } else {
       this.payoutForm
-        .get('accountType')
-        .removeValidators([Validators.required]);
+      .get('accountType')
+      .removeValidators([Validators.required]);
     }
   }
-
+  
   async makePayout() {
+    this.dataProvider.pageSetting.blur = true;
+    this.showButton = false;
     if(this.usingData){
       this.payoutForm.value.date = new Date();
       await this.databaseService.savePayoutDetail(this.payoutForm.value)
@@ -149,6 +152,7 @@ export class ExpressPage implements OnInit {
         paymentType: this.payoutForm.value.paymentType =='vpa'? 'UPI' :this.payoutForm.value.paymentType,
         dailyPayoutTime: this.dataProvider.userData.dailyPayoutTime || null,
       },
+      userId: this.dataProvider.userData.userId,
     };
     console.log('transaction',transaction);
     this.transactionService.addTransaction(transaction).then(async (docRef) => {
@@ -160,9 +164,13 @@ export class ExpressPage implements OnInit {
         console.log('error',err);
       }).finally(()=>{
         this.dataProvider.pageSetting.blur = false;
+        this.showButton = true;
       })
       console.log('response  => ',response);
       this.router.navigate(['../../history/detail/'+docRef.id]);
+    }).catch((err)=>{
+      this.dataProvider.pageSetting.blur = false;
+      this.showButton = true;
     });
   }
 

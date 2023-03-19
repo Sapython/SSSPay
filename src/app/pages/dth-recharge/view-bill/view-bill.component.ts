@@ -60,6 +60,7 @@ export class ViewBillComponent implements OnInit {
         ...this.formData,
         customerId: this.dataProvider.userData.userId,
       },
+      userId: this.dataProvider.userData.userId,
     }
     this.dataProvider.pageSetting.blur = true;
     this.transactionService.addTransaction(transaction).then(async (docRef) => {

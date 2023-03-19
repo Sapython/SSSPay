@@ -26,7 +26,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.pantrist.firebase.dynamiclinks.CapacitorFirebaseDynamicLinks;
 
 import ch.byrds.capacitor.contacts.Contacts;
 
@@ -40,16 +39,22 @@ public class MainActivity extends BridgeActivity {
   //  private Promise promise;
   private final Map<String, Object> logging = new HashMap<>();
   LocationManager locationManager;
-
+  private boolean isGPS = false;
   @Override
   public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
     registerPlugin(PaysprintOnboarding.class);
     registerPlugin(RdIntegration.class);
-    registerPlugin(CapacitorFirebaseDynamicLinks.class);
     registerPlugin(GoogleAuth.class);
     registerPlugin(com.capacitorjs.plugins.camera.CameraPlugin.class);
     registerPlugin(Contacts.class);
+    new GpsUtils(this).turnGPSOn(new GpsUtils.onGpsListener() {
+      @Override
+      public void gpsStatus(boolean isGPSEnable) {
+        // turn on GPS
+        isGPS = isGPSEnable;
+      }
+    });
+    super.onCreate(savedInstanceState);
   }
 
   @Override

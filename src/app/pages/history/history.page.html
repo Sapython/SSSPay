@@ -1,14 +1,23 @@
 <app-header pageName="History" backUrl="../homepage"></app-header>
 <ion-content>
-  <ion-card class="ion-padding card">
-    <ion-text id="history-details">Transaction History</ion-text>
-    <app-history-component routerLink="detail/{{transaction.id}}" *ngFor="let transaction of dataProvider.transactions" [status]="transaction.title"
-      [date]="transaction.date.toDate()" [additionalNumber]="transaction.additionalAmount || 0" [receiver]="transaction.receiver" [paymentStatus]="transaction.status" [description]="transaction.description" [type]="transaction.type" [serviceType]="transaction?.extraData?.aepsData?.transactionType" [amount]="transaction.amount"></app-history-component>
-  </ion-card>
-  <ng-container *ngIf="transactions.length == 0">
-    <img src="/assets/no-notification.svg" alt="No Transactions Found">
-    <ion-text color="medium">
-      <h2 class="ion-text-center">No Transactions Found</h2>
-    </ion-text>
-  </ng-container>
+  <ion-refresher (ionRefresh)="doRefresh($event)" slot="fixed">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-list>
+    <ion-card class="ion-padding card">
+      <ion-text id="history-details">Transaction History</ion-text>
+      <app-history-component routerLink="detail/{{transaction.id}}" *ngFor="let transaction of transactions" [status]="transaction.title"
+        [date]="transaction.date.toDate()" [additionalNumber]="transaction.additionalAmount || 0" [receiver]="transaction.receiver" [paymentStatus]="transaction.status" [description]="transaction.description" [type]="transaction.type" [serviceType]="transaction?.extraData?.aepsData?.transactionType" [amount]="transaction.amount"></app-history-component>
+    </ion-card>
+    <ng-container *ngIf="transactions.length == 0">
+      <img src="/assets/no-notification.svg" alt="No Transactions Found">
+      <ion-text color="medium">
+        <h2 class="ion-text-center">No Transactions Found</h2>
+      </ion-text>
+    </ng-container>
+    <ion-infinite-scroll threshold="25%" [disabled]="false" position="bottom" (ionInfinite)="loadData($event)">
+      <ion-infinite-scroll-content loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-list>
 </ion-content>
