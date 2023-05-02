@@ -10,8 +10,8 @@ android {
         minSdkVersion 26
         compileSdkVersion 31
         targetSdkVersion 31
-        versionCode 46
-        versionName "1.5.12"
+        versionCode 51
+        versionName "1.6.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
@@ -34,7 +34,7 @@ repositories {
 }
 
 dependencies {
-  implementation files('libs/finalonboardinglib-release_v1_0_9.aar')
+  implementation files('libs/onboardinglib_V.1.1.12.aar')
   implementation "com.squareup.retrofit2:retrofit:2.9.0"
   implementation "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
   implementation "com.squareup.retrofit2:converter-gson:2.9.0"

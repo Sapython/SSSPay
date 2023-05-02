@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Camera, CameraResultType } from '@capacitor/camera';
+import { NgxImageCompressService } from 'ngx-image-compress';
 import { DataProvider } from 'src/app/providers/data.provider';
 import { DatabaseService } from 'src/app/services/database.service';
 import { OnboardingService } from 'src/app/services/onboarding.service';
@@ -17,7 +18,9 @@ export class PhotoPage implements OnInit {
     private dataProvider: DataProvider,
     private onboardingService:OnboardingService,
     private alertify: AlertsAndNotificationsService,
-    private router:Router
+    private router:Router,
+    private compressService:NgxImageCompressService
+
   ) {}
   selfieImage: string;
   selfieFormat: string;
@@ -34,11 +37,14 @@ export class PhotoPage implements OnInit {
   async takeSelfie() {
     const image = await Camera.getPhoto({
       quality: 90,
-      allowEditing: true,
+      allowEditing: false,
       resultType: CameraResultType.Base64,
     });
     this.selfieFormat = image.format;
-    this.selfieImage = image.base64String;
+    // this.selfieImage = image.base64String;
+    let compressedData = await this.compressService.compressFile(image.base64String,1,50, 50,1000,1000);
+    let imageType = compressedData.split(';')[0].split('/')[1];
+    this.selfieImage = compressedData.split(',')[1];
     this.finalize();
   }
   b64toBlob(b64Data, contentType: any, sliceSize: number) {
@@ -59,11 +65,14 @@ export class PhotoPage implements OnInit {
   async takeShopPicture() {
     const image = await Camera.getPhoto({
       quality: 90,
-      allowEditing: true,
+      allowEditing: false,
       resultType: CameraResultType.Base64,
     });
     this.shopFormat = image.format;
-    this.shopImage = image.base64String;
+    // this.shopImage = image.base64String;
+    let compressedData = await this.compressService.compressFile(image.base64String,1,50, 50,1000,1000);
+    let imageType = compressedData.split(';')[0].split('/')[1];
+    this.selfieImage = compressedData.split(',')[1];
     this.finalize();
   }
 

@@ -44,6 +44,7 @@
     "fuse.js": "^6.6.2",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.25",
+    "ngx-image-compress": "^13.1.16",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"

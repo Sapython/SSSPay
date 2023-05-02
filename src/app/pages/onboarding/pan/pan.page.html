@@ -5,22 +5,54 @@
   <form (ngSubmit)="submit()" [formGroup]="uploadPanForm">
     <ion-item>
       <ion-label position="floating">Pan Number</ion-label>
-      <ion-input type="text" formControlName="panNumber" placeholder="Pan Number"></ion-input>
+      <ion-input
+        type="text"
+        formControlName="panNumber"
+        placeholder="Pan Number"
+      ></ion-input>
     </ion-item>
     <h5>Please upload a clear picture only.</h5>
-    <input type="file" hidden accept="image/jpeg, image/jpg, image/png" formControlName="panImage" (change)="selectImage($event)" #input>
-    <ion-button (click)="input.click()" expand="block" fill="solid" shape="round" *ngIf="!input.value">
+    <input
+      type="file"
+      hidden
+      accept="image/jpeg, image/jpg, image/png"
+      formControlName="panImage"
+      (change)="selectImage($event)"
+      #input
+    />
+    <ion-button
+      (click)="input.click()"
+      expand="block"
+      fill="solid"
+      shape="round"
+      *ngIf="!input.value"
+    >
       Upload File
-    </ion-button> 
-    
-    <img height="200" [style.display]="input.value ? 'inline' : 'none'" id="pan-image" />
-    <ion-button type="button" *ngIf="input.value" id="remove" (click)="input.value = ''">
+    </ion-button>
+
+    <img
+      height="200"
+      [style.display]="input.value ? 'inline' : 'none'"
+      id="pan-image"
+    />
+    <ion-button
+      type="button"
+      *ngIf="input.value"
+      id="remove"
+      (click)="input.value = ''"
+    >
       <ion-icon name="close-outline"></ion-icon> Remove
     </ion-button>
     <p>
       Ensure that your pan has the same details (name, address) you have
       provided earlier or else, your verification process will fail.
     </p>
-    <ion-button type="submit" *ngIf="uploadPanForm.status==='VALID'" expand="block" id="upload-button">Save & Next</ion-button>
+    <ion-button
+      type="submit"
+      *ngIf="uploadPanForm.status==='VALID'"
+      expand="block"
+      id="upload-button"
+      >Save & Next</ion-button
+    >
   </form>
 </div>

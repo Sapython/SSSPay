@@ -13,8 +13,8 @@ export const environment = {
     measurementId: 'G-QL9TMZGB6C',
   },
   production: false,
-  serverBaseUrl: 'http://localhost:8081',
-  // serverBaseUrl: 'https://ssspay-proxy-server-76zqkqboia-em.a.run.app',
+  // serverBaseUrl: 'http://localhost:8081',
+  serverBaseUrl: 'https://ssspay-proxy-server-76zqkqboia-em.a.run.app',
 };
 
 /*

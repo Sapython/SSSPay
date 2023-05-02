@@ -65,8 +65,28 @@ export class ExpressPage implements OnInit {
   }
 
   async saveDetail(){
-    this.payoutForm.value.date = new Date();
-    await this.databaseService.savePayoutDetail(this.payoutForm.value)
+    // only save payout details if they are not already saved
+    let alreadySaved = false;
+    this.previousDetails.forEach((detail)=>{
+      if (detail.accountType == 'bank_account') {
+        if (detail.accountNumber == this.payoutForm.value.accountNumber) {
+          alreadySaved = true;
+        }
+      } else if (detail.accountType == 'vpa') {
+        if (detail.vpa == this.payoutForm.value.vpa) {
+          alreadySaved = true;
+        }
+      } else if (detail.accountType == 'card') {
+        if (detail.cardNumber == this.payoutForm.value.cardNumber) {
+          alreadySaved = true;
+        }
+      }
+    })
+    if(!alreadySaved){
+      this.payoutForm.value.date = new Date();
+      await this.databaseService.savePayoutDetail(this.payoutForm.value)
+      this.alertify.presentToast('Account Saved')
+    }
   }
 
   checkErrors(){
@@ -125,10 +145,7 @@ export class ExpressPage implements OnInit {
   async makePayout() {
     this.dataProvider.pageSetting.blur = true;
     this.showButton = false;
-    if(this.usingData){
-      this.payoutForm.value.date = new Date();
-      await this.databaseService.savePayoutDetail(this.payoutForm.value)
-    }
+    this.saveDetail();
     const transaction: Transaction = {
       ownerId:this.dataProvider.userData?.ownerId || null,
       serviceType:this.payoutForm.value.paymentType =='vpa'? 'expressPayoutUpi' : 'expressPayoutImps',

@@ -10,6 +10,7 @@ import { DatabaseService } from 'src/app/services/database.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { OnboardingService } from 'src/app/services/onboarding.service';
 import { AlertsAndNotificationsService } from 'src/app/services/uiService/alerts-and-notifications.service';
+import {NgxImageCompressService} from 'ngx-image-compress';
 
 @Component({
   selector: 'app-aadhaar',
@@ -20,6 +21,8 @@ export class AadhaarPage implements OnInit {
   @ViewChild('aadhaarImage') aadhaarImage;
   @ViewChild('front') front;
   @ViewChild('back') back;
+  frontImageCompressed: File;
+  backImageCompressed: File;
   uploadAadhaarForm: UntypedFormGroup = new UntypedFormGroup({
     aadhaarNumber: new UntypedFormControl('', [
       Validators.required,
@@ -35,7 +38,8 @@ export class AadhaarPage implements OnInit {
     private databaseService: DatabaseService,
     private onboardingService: OnboardingService,
     private dataProvider: DataProvider,
-    private router: Router
+    private router: Router,
+    private compressService:NgxImageCompressService
   ) {}
 
   ngOnInit(): void {
@@ -44,7 +48,7 @@ export class AadhaarPage implements OnInit {
 
   imageIsValid(file: File): boolean {
     const validExtensions = ['image/jpeg', 'image/jpg', 'image/png'];
-    const MAX_SIZE = 1_000_000;
+    const MAX_SIZE = 10_000_000;
     const MAX_SIZE_STR = '1MB';
 
     if (!validExtensions.includes(file.type)) {
@@ -61,23 +65,37 @@ export class AadhaarPage implements OnInit {
     return true;
   }
 
-  selectImage(event: Event, type: 'front' | 'back'): void {
+  urltoFile(url, filename, mimeType){
+    return (fetch(url)
+        .then(function(res){return res.arrayBuffer();})
+        .then(function(buf){return new File([buf], filename,{type:mimeType});})
+    );
+  }
+
+  async selectImage(event: Event, type: 'front' | 'back'): Promise<void> {
     if (
       event.target &&
       event.target instanceof HTMLInputElement &&
       event.target.files &&
       event.target.files.length > 0
     ) {
-      const file = event.target.files[0];
+      const unCompresssedFile = event.target.files[0];
+      console.log("previous file",unCompresssedFile.size/1024/1024);
+      let compressedData = await this.compressService.compressFile((window.URL.createObjectURL(unCompresssedFile)),1,50, 50,1000,1000);
+      let imageType = compressedData.split(';')[0].split('/')[1];
+      let file = await this.urltoFile(compressedData,'aadhaarTemp-'+unCompresssedFile.name, 'image/'+imageType)
+      console.log("compressed file",file,file.size/1024/1024);
       if (this.imageIsValid(file)) {
         if (type === 'front') {
           var aadhaarImage = document.getElementById(
             'aadhaar-image-front'
           ) as HTMLImageElement;
+          this.frontImageCompressed = file;
         } else {
           var aadhaarImage = document.getElementById(
             'aadhaar-image-back'
           ) as HTMLImageElement;
+          this.backImageCompressed = file;
         }
         aadhaarImage.src = URL.createObjectURL(file);
       } else {
@@ -89,13 +107,14 @@ export class AadhaarPage implements OnInit {
   async submit(): Promise<void> {
     console.log(this.uploadAadhaarForm.value, this.back.nativeElement.files);
     if (
-      this.back.nativeElement.files.length > 0 ||
-      this.front.nativeElement.files.length > 0
+      this.frontImageCompressed ||
+      this.backImageCompressed
     ) {
       this.loaderService.start('Uploading');
-      const frontFile = this.front.nativeElement.files[0];
-      const backFile = this.back.nativeElement.files[0];
+      const frontFile = this.frontImageCompressed;
+      const backFile = this.backImageCompressed;
       try {
+        console.log("frontFile.size",frontFile.size/1024/1024);
         var frontImageUrl = await this.databaseService.upload(
           'aadhaarImages/' +
             new Date().getTime() +
@@ -103,6 +122,7 @@ export class AadhaarPage implements OnInit {
             this.dataProvider.userData?.userId,
           frontFile
         );
+        console.log("backFile.size",backFile.size/1024/1024);
         var backImageUrl = await this.databaseService.upload(
           'aadhaarImages/' +
             new Date().getTime() +

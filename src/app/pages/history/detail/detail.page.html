@@ -83,7 +83,7 @@
         </tbody>
       </table>
     </ng-container>
-    <ng-container *ngIf="transactionData?.type == 'dailyPayout'">
+    <ng-container *ngIf="transactionData?.type == 'dailyPayout' || transactionData?.type == 'expressPayout'">
       <span class="item">
         <p>Customer Contact</p>
         <p color="tertiary">{{transactionData?.extraData.account.contact}}</p>
@@ -97,8 +97,12 @@
         <p color="tertiary">{{transactionData?.extraData.account.name}}</p>
       </span>
       <span class="item">
-        <p>Account</p>
+        <p>Credit Account</p>
         <p color="tertiary">{{transactionData?.extraData.account.accountType == 'vpa' ? transactionData?.extraData.account.vpa : transactionData?.extraData.account.accountNumber}}</p>
+      </span>
+      <span class="item">
+        <p>Payout Id</p>
+        <p color="tertiary">{{transactionData?.newPayoutStatus?.id}}</p>
       </span>
     </ng-container>
     <ng-container *ngIf="successData && transactionData?.type == 'aeps'">
@@ -141,6 +145,14 @@
         <p>Acknowledgement No.</p>
         <p color="secondary">{{transactionData?.successData.ackno}}</p>
         <ion-icon name="copy-outline" (click)="copy(transactionData?.successData.ackno)"></ion-icon>
+      </span>
+      <span class="item"> 
+        <p>Phone</p>
+        <p color="secondary">{{transactionData?.extraData.caNumber}}</p>
+      </span>
+      <span class="item"> 
+        <p>Operator Id</p>
+        <p color="secondary">{{transactionData?.successData.operatorid}}</p>
       </span>
       <span class="item"> 
         <p>Operator Id</p>

@@ -4,37 +4,95 @@
   <form (ngSubmit)="submit()" [formGroup]="uploadAadhaarForm">
     <ion-item>
       <ion-label position="floating">Aadhaar Number</ion-label>
-      <ion-input type="number" formControlName="aadhaarNumber" placeholder="Aadhaar Number"></ion-input>
+      <ion-input
+        type="number"
+        formControlName="aadhaarNumber"
+        placeholder="Aadhaar Number"
+      ></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Full Name</ion-label>
-      <ion-input type="text" placeholder="Full Name" formControlName="fullName"></ion-input>
+      <ion-input
+        type="text"
+        placeholder="Full Name"
+        formControlName="fullName"
+      ></ion-input>
     </ion-item>
     <h5>Please upload a clear picture only.</h5>
-    <ion-button (click)="front.click()" expand="block" fill="solid" shape="round" *ngIf="!front.value">
+    <ion-button
+      (click)="front.click()"
+      expand="block"
+      fill="solid"
+      shape="round"
+      *ngIf="!front.value"
+    >
       Upload Front Image
-    </ion-button> 
-    <ion-button (click)="back.click()" expand="block" fill="solid" shape="round" *ngIf="!back.value">
-      Upload Back Image
-    </ion-button> 
-    <input type="file" hidden accept="image/jpeg, image/jpg, image/png" formControlName="aadhaarFrontImage" (change)="selectImage($event,'front')" #front />
-    <input type="file" hidden accept="image/jpeg, image/jpg, image/png" formControlName="aadhaarBackImage" (change)="selectImage($event,'back')" #back />
-    <ion-card>
-      <img height="200" [style.display]="front.value ? 'inline' : 'none'" id="aadhaar-image-front" />
-    <ion-button type="button" *ngIf="front.value" id="remove" (click)="front.value = ''">
-      <ion-icon name="close-outline"></ion-icon> Remove
     </ion-button>
+    <ion-button
+      (click)="back.click()"
+      expand="block"
+      fill="solid"
+      shape="round"
+      *ngIf="!back.value"
+    >
+      Upload Back Image
+    </ion-button>
+    <input
+      type="file"
+      hidden
+      accept="image/jpeg, image/jpg, image/png"
+      formControlName="aadhaarFrontImage"
+      (change)="selectImage($event,'front')"
+      #front
+    />
+    <input
+      type="file"
+      hidden
+      accept="image/jpeg, image/jpg, image/png"
+      formControlName="aadhaarBackImage"
+      (change)="selectImage($event,'back')"
+      #back
+    />
+    <ion-card>
+      <img
+        height="200"
+        [style.display]="front.value ? 'inline' : 'none'"
+        id="aadhaar-image-front"
+      />
+      <ion-button
+        type="button"
+        *ngIf="front.value"
+        id="remove"
+        (click)="front.value = ''"
+      >
+        <ion-icon name="close-outline"></ion-icon> Remove
+      </ion-button>
     </ion-card>
     <ion-card>
-      <img height="200" [style.display]="back.value ? 'inline' : 'none'" id="aadhaar-image-back" />
-    <ion-button type="button" *ngIf="back.value" id="remove" (click)="back.value = ''">
-      <ion-icon name="close-outline"></ion-icon> Remove
-    </ion-button>
+      <img
+        height="200"
+        [style.display]="back.value ? 'inline' : 'none'"
+        id="aadhaar-image-back"
+      />
+      <ion-button
+        type="button"
+        *ngIf="back.value"
+        id="remove"
+        (click)="back.value = ''"
+      >
+        <ion-icon name="close-outline"></ion-icon> Remove
+      </ion-button>
     </ion-card>
     <p>
       Ensure that your aadhaar has the same details (name, address) you have
       provided earlier or else, your verification process will fail.
     </p>
-    <ion-button type="submit" *ngIf="uploadAadhaarForm.status==='VALID'" expand="block" id="upload-button">Save & Next</ion-button>
+    <ion-button
+      type="submit"
+      *ngIf="uploadAadhaarForm.status==='VALID'"
+      expand="block"
+      id="upload-button"
+      >Save & Next</ion-button
+    >
   </form>
 </div>

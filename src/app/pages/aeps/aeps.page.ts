@@ -75,6 +75,14 @@ export class AepsPage implements OnInit {
       "id": "14",
       "image":"assets/bankLogos/bankOfIndia.jpg",
       "iinno": "508505"
+    },
+    { 
+      aadharpayiino: null,
+      activeFlag: "1", 
+      bankName: "Dakshin Bihar Gramin Bank", 
+      image:"assets/bankLogos/DakshinBiharGraminBank.jpg",
+      id: "26", 
+      iinno: "607136"
     }
   ]
   aepsForm: UntypedFormGroup = new UntypedFormGroup({

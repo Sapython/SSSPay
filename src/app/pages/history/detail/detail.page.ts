@@ -100,7 +100,6 @@ export class DetailPage implements OnInit {
   }
 
   print() {
-     
   }
 
   getPdf() {
