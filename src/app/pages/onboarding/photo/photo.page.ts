@@ -32,6 +32,7 @@ export class PhotoPage implements OnInit {
     console.log('finalize', this.selfieImage, this.shopImage);
     if (this.selfieImage && this.shopImage) {
       this.valid = true;
+      alert("valid")
     }
   }
   async takeSelfie() {
@@ -42,7 +43,11 @@ export class PhotoPage implements OnInit {
     });
     this.selfieFormat = image.format;
     // this.selfieImage = image.base64String;
-    let compressedData = await this.compressService.compressFile(image.base64String,1,50, 50,1000,1000);
+    // convert base64 to data url
+
+    let dataUrl = 'data:image/' + image.format + ';base64,' + image.base64String;
+    console.log('image', image);
+    let compressedData = await this.compressService.compressFile(dataUrl,1,50, 50,1000,1000);
     let imageType = compressedData.split(';')[0].split('/')[1];
     this.selfieImage = compressedData.split(',')[1];
     this.finalize();
@@ -70,9 +75,10 @@ export class PhotoPage implements OnInit {
     });
     this.shopFormat = image.format;
     // this.shopImage = image.base64String;
-    let compressedData = await this.compressService.compressFile(image.base64String,1,50, 50,1000,1000);
+    let dataUrl = 'data:image/' + image.format + ';base64,' + image.base64String;
+    let compressedData = await this.compressService.compressFile(dataUrl,1,50, 50,1000,1000);
     let imageType = compressedData.split(';')[0].split('/')[1];
-    this.selfieImage = compressedData.split(',')[1];
+    this.shopImage = compressedData.split(',')[1];
     this.finalize();
   }
 

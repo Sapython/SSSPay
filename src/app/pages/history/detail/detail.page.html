@@ -5,8 +5,13 @@
     <ion-text [color]="paymentStatus=='error' ? 'danger' : ((paymentStatus=='started' || paymentStatus=='pending') ? 'warning' : (paymentStatus=='success' ? 'success' : (paymentStatus=='unknown' ? 'tertiary' : '')))">
       <h6>{{paymentStatus | titlecase}}</h6>
     </ion-text>
-    <img src="assets/fino.jpg" width="100" alt="">
-    <img src="assets/icici.jpg" width="100" alt="">
+    <ng-container *ngIf="transactionData?.type == 'bbps'">
+      <img src="assets/bbps.png" width="100" alt="">
+    </ng-container>
+    <ng-container *ngIf="transactionData?.type != 'bbps'">
+      <img src="assets/fino.jpg" width="100" alt="">
+      <img src="assets/icici.jpg" width="100" alt="">
+    </ng-container>
   </div>
   <div class="transactionDetail" id="printer">
     <span class="item">
@@ -56,11 +61,11 @@
     <ng-container *ngIf="paymentStatus=='error' && transactionData?.type == 'dailyPayout'">
       <span class="item">
         <p>Error</p>
-        <p color="tertiary">{{transactionData.error.error ? transactionData.error.error.description : transactionData.error}}</p>
+        <p color="tertiary">{{transactionData?.error.error ? transactionData?.error.error.description : transactionData?.error}}</p>
       </span>
       <span class="item">
         <p>Refund</p>
-        <p color="tertiary">{{transactionData.error.error.refundAmount ? transactionData.error.error.refundAmount : 'No Refund'}}</p>
+        <p color="tertiary">{{transactionData?.error.error.refundAmount ? transactionData?.error.error.refundAmount : 'No Refund'}}</p>
       </span>
     </ng-container>
     <ng-container *ngIf="transactionData?.type == 'aeps' && transactionData?.extraData?.aepsData?.transactionType=='MS'">
@@ -165,6 +170,41 @@
       <span class="item"> 
         <p>Plan</p>
         <p color="secondary">{{transactionData?.extraData.plan.desc}}</p>
+      </span>
+    </ng-container>
+    <ng-container *ngIf="transactionData && transactionData?.successData && transactionData?.type == 'bbps'">
+      <span class="item" *ngIf="transactionData?.successData.ackno"> 
+        <p>Acknowledgement No.</p>
+        <p color="secondary">{{transactionData?.successData.ackno}}</p>
+        <ion-icon name="copy-outline" (click)="copy(transactionData?.successData.ackno)"></ion-icon>
+      </span>
+      <span class="item" *ngIf="transactionData?.extraData.closing"> 
+        <p>Closing</p>
+        <p color="secondary">{{transactionData?.extraData.closing}}</p>
+      </span>
+      <span class="item" *ngIf="transactionData?.extraData.opening"> 
+        <p>Opening</p>
+        <p color="secondary">{{transactionData?.extraData.opening}}</p>
+      </span>
+      <span class="item" *ngIf="transactionData?.extraData?.bill?.amount"> 
+        <p>Final Amount</p>
+        <p color="secondary">{{transactionData?.extraData?.bill?.amount}}</p>
+      </span>
+      <span class="item" *ngIf="transactionData?.extraData?.bill?.name"> 
+        <p>Customer Name</p>
+        <p color="secondary">{{transactionData?.extraData?.bill?.name}}</p>
+      </span>
+      <span class="item" *ngFor="let field of ((transactionData?.extraData?.fields || []) | keyvalue)"> 
+        <p>{{field.key == 'mainField' ? 'Account No.' : field.key}}</p>
+        <p color="secondary">{{field.value}}</p>
+      </span>
+      <span class="item" *ngIf="transactionData?.successData?.operatorid"> 
+        <p>Operator Id</p>
+        <p color="secondary">{{transactionData?.successData?.operatorid}}</p>
+      </span>
+      <span class="item" *ngIf="transactionData?.successData?.operatorid"> 
+        <p>Operator Name</p>
+        <p color="secondary">{{transactionData?.extraData?.operator?.name}}</p>
       </span>
     </ng-container>
   </div>
