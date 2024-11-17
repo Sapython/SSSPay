@@ -1,0 +1,22 @@
+<div class="card">
+  <div>
+    <img src="assets/icons/{{type}}.svg" alt="">
+    <p>{{date | date}}</p>
+  </div>
+  <div>
+    <h6>{{status | titlecase}}</h6>
+    <p>{{receiver}}  {{serviceType}}</p>
+  </div>
+  <div>
+    <b>&#8377;{{amount}}</b>
+    <p *ngIf="additionalNumber != 0" [class]="'additional ' + (additionalNumber < 0 ? 'negative' : 'positive')">&#8377;{{additionalNumber}}</p>
+    <p>
+      <ion-icon color="danger" name="alert-outline" *ngIf="paymentStatus=='error'"></ion-icon>
+      <ion-icon color="warning" name="time" *ngIf="paymentStatus=='started'"></ion-icon>
+      <ion-icon color="warning" name="hourglass" *ngIf="paymentStatus=='pending'"></ion-icon>
+      <ion-icon color="success" name="checkmark-done-outline" *ngIf="paymentStatus=='success'"></ion-icon>
+      <ion-icon color="tertiary" name="help-circle" *ngIf="paymentStatus=='unknown'"></ion-icon>
+      {{paymentStatus | titlecase}}
+    </p> 
+  </div>
+</div>

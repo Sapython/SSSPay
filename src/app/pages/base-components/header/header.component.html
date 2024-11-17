@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button  *ngIf="backButton && !isModal" slot="start" [defaultHref]="backUrl" (click)="goBack()"></ion-back-button>
+    <ion-button *ngIf="isModal" slot="start" (click)="closeModal()" expand="block" fill="clear" shape="round">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-button>
+    <ion-avatar slot="start" routerLink="/profile" *ngIf="!backButton && dataProvider.loggedIn && !onlyTitle">
+      <img [src]="dataProvider.userData?.photoURL" referrerPolicy="no-referrer"/>
+    </ion-avatar>
+    <ion-title color="light" slot="start">{{pageName}}</ion-title>
+    <ion-buttons slot="primary" *ngIf="!backButton && !onlyTitle">
+      <!-- <ion-icon name="people" *ngIf="allowMemberAccess()" routerLink="../groups"></ion-icon> -->
+      <!-- <p>{{allowMemberAccess() }} {{ ((this.dataProvider.userData?.ownerId!=undefined && this.dataProvider.userData?.ownerId!='') || this.dataProvider.userData?.access.access=='admin')}}</p> -->
+      <ion-icon name="people" *ngIf="allowMemberAccess() && (this.dataProvider.userData?.ownerId || this.dataProvider.userData?.access.access=='admin')" routerLink="../groups"></ion-icon>
+      <!-- <ion-icon name="people" *ngIf="allowMemberAccess() && this.dataProvider.userData?.ownerId" routerLink="../groups/manage-member/{{this.dataProvider.userData?.groupId}}"></ion-icon> -->
+      <ion-icon name="qr-code-outline" routerLink="../qr"></ion-icon>
+      <ion-icon name="notifications" routerLink="../notifications"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>

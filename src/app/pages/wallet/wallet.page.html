@@ -1,0 +1,28 @@
+<app-header pageName="Wallet" backUrl="../homepage"></app-header>
+<ion-content color="light">
+  <ion-card class="container">
+    <div class="inner-container">
+      <ion-label>{{dataProvider.wallet ? 'Total Assets' : 'No Wallet Found'}}</ion-label>
+      <p id="amount" *ngIf="dataProvider.wallet">{{dataProvider.wallet.balance | currency:'INR'}}</p>
+      <ion-button *ngIf="!dataProvider.wallet" (click)="createWallet()" expand="block" fill="solid" shape="round" color="light">
+        Create Wallet
+      </ion-button>
+    </div>
+    <ion-icon name="wallet"></ion-icon>
+  </ion-card>
+  <p id="amount">Wallet Updates</p>
+  <ion-segment [scrollable]="true" value="pizza" (ionChange)="switchTab($event)">
+    <ion-segment-button *ngFor="let service of services" [value]="service.code">
+      <ion-label>{{service.name}}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <ng-container *ngFor="let history of filteredCommissions" >
+    <app-wallet-history [service]="history.service" [balance]="history.balance ? history.balance : (history.availableBalance ? history.availableBalance : -1)" [transactionTime]="history.transactionTime.toDate()" [transactionId]="history.id" [amount]="history.amount" [actionType]="history.actionType || 'N/A'" [narration]="history.narration" [type]="history.transactionType"></app-wallet-history>
+  </ng-container>
+  <ng-container *ngIf="commissions.length == 0">
+    <img src="/assets/no-notification.svg" alt="No Commissions Found">
+    <ion-text color="medium">
+      <h2 class="ion-text-center">No Commissions Found</h2>
+    </ion-text>
+  </ng-container>
+</ion-content>

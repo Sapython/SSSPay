@@ -1,0 +1,19 @@
+ion-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f8f8f8;
+    margin: 10px 0px;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    font-size: 18px;
+    box-shadow: rgba(99, 99, 99, 0.35) 0px 2px 8px 0px;
+    border-radius: 5px;
+    color: black;
+    ion-avatar{
+        height: 37px;
+        width: 37px;
+        border: 1px solid red;
+        padding: 5px;
+    }
+  }

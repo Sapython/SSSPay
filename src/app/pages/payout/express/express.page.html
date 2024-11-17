@@ -1,0 +1,183 @@
+<app-header
+  pageName="Express Payout"
+  [backButton]="true"
+  backUrl="../homepage"
+></app-header>
+<ion-content class="ion-padding">
+  <div>
+    <h2>Please select an account to get payout.</h2>
+    <form [formGroup]="payoutForm">
+      <ion-item>
+        <ion-label position="floating">Customer Name</ion-label>
+        <ion-input
+          type="text"
+          formControlName="name"
+          placeholder="Customer Name"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Customer Email</ion-label>
+        <ion-input
+          type="text"
+          formControlName="email"
+          placeholder="Email"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Customer Phone</ion-label>
+        <ion-input
+          type="text"
+          formControlName="contact"
+          placeholder="Contact"
+        ></ion-input>
+      </ion-item>
+      <!-- <ion-input type="text" formControlName="accountType" placeholder="Account Type"></ion-input> -->
+      <ion-item>
+        <ion-label position="floating">Account Type</ion-label>
+        <ion-select
+          value="card"
+          formControlName="accountType"
+          placeholder="Account Type"
+          (ionChange)="changeControl($event); accountType.value=='vpa' ? setValue('upi') : {}"
+          #accountType
+        >
+          <ion-select-option value="bank_account"
+            >Bank Account</ion-select-option
+          >
+          <!-- <ion-select-option value="card">Card</ion-select-option> -->
+          <ion-select-option value="vpa">UPI</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="accountType.value == 'bank_account'">
+        <ion-label position="floating">Bank Account Name</ion-label>
+        <ion-input
+          type="text"
+          formControlName="bankAccountName"
+          placeholder="Bank Account Name"
+        ></ion-input>
+      </ion-item>
+      <ion-item *ngIf="accountType.value == 'bank_account'">
+        <ion-label position="floating">Account Number</ion-label>
+        <ion-input
+          type="text"
+          formControlName="accountNumber"
+          placeholder="Account Number"
+        ></ion-input>
+      </ion-item>
+      <ion-item *ngIf="accountType.value == 'bank_account'">
+        <ion-label position="floating">IFSC</ion-label>
+        <ion-input
+          type="text"
+          formControlName="ifsc"
+          pattern="^[A-Za-z]{4}\d[A-Z0-9]{6}$"
+          placeholder="IFSC"
+        ></ion-input>
+      </ion-item>
+      <ion-item *ngIf="accountType.value == 'vpa'">
+        <ion-label position="floating">UPI Id</ion-label>
+        <ion-input
+          type="text"
+          formControlName="vpa"
+          placeholder="UPI Id"
+        ></ion-input>
+      </ion-item>
+      <ion-item *ngIf="accountType.value == 'card'">
+        <ion-label position="floating">Card Number</ion-label>
+        <ion-input
+          type="text"
+          formControlName="cardNumber"
+          placeholder="Card Number"
+          pattern="[0-9]{16}"
+        ></ion-input>
+      </ion-item>
+      <ion-item *ngIf="accountType.value == 'card'">
+        <ion-label position="floating">Card Name</ion-label>
+        <ion-input
+          type="text"
+          formControlName="cardName"
+          placeholder="Card Name"
+        ></ion-input>
+      </ion-item>
+      <ion-item *ngIf="accountType.value  == 'bank_account'">
+        <ion-label>Payment Type</ion-label>
+        <ion-select required formControlName="paymentType" placeholder="Select Type">
+          <ion-select-option value="IMPS">IMPS</ion-select-option>
+          <ion-select-option value="NEFT">NEFT</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="accountType.value  == 'card'">
+        <ion-label>Payment Type</ion-label>
+        <ion-select formControlName="paymentType" placeholder="Select Type">
+          <ion-select-option value="IMPS">IMPS</ion-select-option>
+          <ion-select-option value="NEFT">NEFT</ion-select-option>
+          <ion-select-option value="UPI">UPI</ion-select-option>
+          <ion-select-option value="card">Card</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating"
+          >Amount <ion-text color="danger">*</ion-text>
+        </ion-label>
+        <ion-input
+          formControlName="amount"
+          [max]="dataProvider.wallet?.balance"
+          [min]="10"
+          required
+          type="number"
+        >
+        </ion-input>
+      </ion-item>
+      <ion-button
+        (click)="checkErrors()"
+        expand="block"
+        fill="default"
+        shape="round"
+      >
+        Check For Errors
+      </ion-button>
+      <ion-button
+        (click)="saveDetail()"
+        expand="block"
+        color="primary"
+        fill="default"
+        shape="round"
+      >
+        Save Details
+      </ion-button>
+      <ion-button
+        *ngIf="showButton"
+        (click)="makePayout()"
+        [disabled]="!payoutForm.valid"
+        expand="block"
+        fill="solid"
+      >
+        Get Payout
+      </ion-button>
+    </form>
+  </div>
+  <ion-list>
+    <h3>Previous Transactions</h3>
+    <ion-segment value="vpa" #type>
+      <ion-segment-button value="vpa">
+        <ion-label>UPIs</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="bank_account">
+        <ion-label>Bank Accounts</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <ng-container *ngFor="let account of fundAccounts">
+      <ion-item (click)="loadDetails(account)" detail button *ngIf="account.accountType==type.value && type.value=='vpa'" detailIcon="share">
+        <ion-label>UPI:</ion-label>
+        <ion-label color="primary">{{account.vpa}}</ion-label>
+      </ion-item>
+      <ion-item (click)="loadDetails(account)" detail button *ngIf="account.accountType==type.value && type.value=='bank_account'" >
+        <ion-label>Account No.</ion-label>
+        <ion-label color="primary">{{account.accountNumber}}</ion-label>
+      </ion-item>
+    </ng-container>
+    <br>
+    <br>
+    <br>
+    <br>
+  </ion-list>
+</ion-content>

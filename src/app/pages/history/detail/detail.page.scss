@@ -1,0 +1,110 @@
+ion-content{
+    --ion-background-color: #eee;
+    div.status{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: white;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        box-shadow: 5px 5px 30px rgba(0,0,0,0.15);
+        h6{
+            margin: 0px;
+        }
+        img{
+            height: 40px;
+            width: auto;
+        }
+    }
+    div.transactionDetail{
+        --ion-background-color:white;
+        margin: 10px;
+        background: white;
+        padding:10px;
+        border:2px solid rgb(218, 218, 218);
+        border-radius: 20px;
+        
+        .item{
+            display: flex;
+            padding: 5px 0px;
+            border-bottom: 2px solid rgb(246, 246, 246);
+            p{
+                margin: 0px;
+                font-size: 15px;
+                font-weight: 400;
+                text-align: left;
+            }
+            p:nth-child(2){
+                flex: 2;
+                text-align: right;
+                color:var(--ion-color-primary);
+                width: 180px;
+                text-overflow: clip;
+                overflow: hidden;
+            }
+            ion-icon{
+                color:rgb(103, 103, 103);
+            }
+        }
+        div.actions{
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+    }
+    button{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        bottom: 0px;
+        border: none;
+        padding:20px;
+        color:white;
+        font-size: 20px;
+        background-color: var(--ion-color-primary);
+        width: 100vw;
+        ion-icon{
+            font-size: 30px;
+            margin-right: 20px;
+        }
+    }
+}
+
+#print{
+    width: 10vw;
+    // height: 100%;
+    img{
+        width: 150px;
+        height: 150px;
+        margin-right: 20px;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+table{
+    width: 100%;
+    thead{
+        tr{
+            th{
+                text-align: center;
+                padding: 10px;
+                font-size: 17px;
+                font-weight: 700;
+            }
+        }
+    }
+    tbody{
+        tr{
+            border-bottom: 2px solid rgb(246, 246, 246);
+            td{
+                text-align: center;
+                padding: 6px;
+                font-size: 14px;
+                font-weight: 400;
+            }
+        }
+    }
+}

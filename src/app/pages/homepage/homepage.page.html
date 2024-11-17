@@ -1,0 +1,98 @@
+<app-header pageName="Home" [backButton]="false" backUrl="./"></app-header>
+<ion-content>
+  <div class="container">
+    <app-home-widget routerDirection="forward" [name]="items[0].name" [service]="items[0].service"
+      [page]="items[0].page" [routerLink]="items[0].routerLink"></app-home-widget>
+    <app-home-widget routerDirection="forward" [name]="this.dataProvider.userData?.dailyPayoutTime!=todayTime ? 'Free Daily Payout' : 'Daily Payout'" [service]="items[1].service"
+      [page]="items[1].page" [routerLink]="items[1].routerLink"></app-home-widget>
+    <app-home-widget routerDirection="forward" [name]="items[2].name" [service]="items[2].service"
+      [page]="items[2].page" [routerLink]="items[2].routerLink"></app-home-widget>
+    <app-home-widget routerDirection="forward" *ngIf="dataProvider.userData?.kycStatus !== 'approved'"
+      [name]="items[3].name" [service]="items[3].service" [page]="items[3].page" [routerLink]="items[3].routerLink">
+    </app-home-widget>
+    <div class="alert"
+      *ngIf="dataProvider?.userData?.kycStatus=='approved' && !dataProvider?.userData?.paysprintOnboardingDone">
+      <p>Onboarding is pending. Please complete the onboarding process to continue.</p>
+      <ion-button (click)="startOnboarding()" expand="block" fill="solid" shape="round" color="warning">
+        Complete Now
+      </ion-button> 
+    </div>
+    <ion-card class="ion-padding" mode="ios">
+      <ion-card-title mode="md" color="primary">Wallet Balance &nbsp; <strong>&#8377;{{dataProvider.wallet?.balance | number:'1.2-2'}}</strong></ion-card-title>
+    </ion-card>
+    <div class="inner">
+      <div class="box">
+        <p id="heading">Recharge And Pay Bills</p>
+        <div class="icon-container">
+          <div class="round-icons" routerLink="/dth-recharge" routerDirection="forward">
+            <div class="tapRegion"><img src="assets/tv-outline.png" alt=""></div>
+            <p id="subtitle">Cable/DTH</p>
+          </div>
+          <div class="round-icons" routerLink="/gas-bill-pay" routerDirection="forward">
+            <div class="tapRegion"><img src="assets/fire-flame-curved-solid.png" alt=""></div>
+            <p id="subtitle">LPG Gas</p>
+          </div>
+          <div class="round-icons" routerLink="/mobile-recharge" routerDirection="forward">
+            <div class="tapRegion"><img src="assets/phone-portrait-outline.png" alt=""></div>
+            <p id="subtitle">Recharge</p>
+          </div>
+          <div class="round-icons" id="fastag" routerLink="/fast-tag-recharge" routerDirection="forward">
+            <div class="tapRegion">
+              <img src="assets/truck-fast-solid.png" alt="">
+            </div>
+            <p id="subtitle">FASTag<br>Recharge</p>
+          </div>
+        </div>
+        <div class="icon-container">
+          <div class="round-icons" routerLink="/lic" routerDirection="forward">
+            <div class="tapRegion"><img src="assets/home-outline.png" alt=""></div>
+            <p id="subtitle">LIC</p>
+          </div>
+          <div class="round-icons" routerLink="/digitalAccount" routerDirection="forward">
+            <div class="tapRegion"><img src="assets/key-outline.png" alt=""></div>
+            <p id="subtitle">Digital <br> Account</p>
+          </div>
+          <div class="round-icons" routerLink="/error-page" routerDirection="forward"
+            [queryParams]="{text:'Currently only available on website',type:''}">
+            <div class="tapRegion"><img src="assets/card-outline.png" alt=""></div>
+            <p id="subtitle">Pancard</p>
+          </div>
+          <div class="round-icons" routerLink="/bill-payment" routerDirection="forward">
+            <div class="tapRegion"><img src="assets/document-text-outline.png" alt=""></div>
+            <p id="subtitle">Bill Payment</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="inner">
+      <div class="box">
+        <p id="heading">Promotions</p>
+        <div class="icon-container">
+          <div class="round-icons" routerLink="../rewards">
+            <img src="assets/reward.png" alt="">
+            <p id="subtitle">Reward</p>
+          </div>
+          <div class="round-icons" routerLink="/offers">
+            <img src="assets/offer.png" alt="">
+            <p id="subtitle">Offer</p>
+          </div>
+          <div class="round-icons" routerLink="/invite">
+            <img src="assets/invite.png" alt="">
+            <p id="subtitle">Invite</p>
+          </div>
+          <img src="assets/promotions.png" alt="" id="promotions">
+        </div>
+      </div>
+    </div> -->
+    <!-- <div class="inner">
+      <div class="box">
+        <p id="heading">Check Balance</p>
+        <div class="view" style="cursor: pointer;" (click)="openBalance()">
+          <p>View Balance</p>
+          <p>></p>
+        </div>
+      </div>
+    </div> -->
+  </div>
+  <a hidden [href]="webLink" #webRef target="_blank"></a>
+</ion-content>

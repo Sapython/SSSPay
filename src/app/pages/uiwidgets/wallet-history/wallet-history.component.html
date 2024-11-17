@@ -1,0 +1,21 @@
+<section>
+  <div class="row">
+    <span>
+      <strong>Id: <p>{{transactionId}}</p><ion-icon name="copy-outline" color="primary" (click)="copyToClipboard(transactionId)"></ion-icon></strong>
+      <p class="minText">{{ transactionTime | date:'medium' }}</p>
+    </span>
+    <span>
+      <ion-text [color]="type == 'debit' ? 'danger' : 'primary'">
+        <strong class="money">{{ type == "debit" ? "-" : "+" }} {{ amount | currency:'INR'}}</strong>
+      </ion-text>
+      <p class="minText">Bln : {{balance < 0 ? 'N/A' : (balance | currency:'INR')}}</p>
+    </span>
+  </div>
+  <div class="body">
+    <img src="assets/icons/{{service}}.svg" alt="" />
+    <div class="narration">
+      <strong>{{serviceText | titlecase}} | <ion-text color="primary"><i>{{actionType}}</i></ion-text></strong>
+      <p>{{narration | titlecase}}</p>
+    </div>
+  </div>
+</section>

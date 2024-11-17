@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="box">
+    <img src="assets/icons/{{notification.type || 'receive'}}.svg" [alt]="notification.type">
+    <p class="message">{{notification.message}}</p>
+    <ion-icon name="ellipsis-vertical" (click)="presentPopover($event)"></ion-icon>
+  </div>
+  <div class="text">
+    <p>{{notification.subtitle}}</p>
+    <p>{{notification.time.toDate() | date:'short'}}</p>
+  </div>
+</div>
+

@@ -1,0 +1,16 @@
+<app-header pageName="Notifications" backUrl="../homepage"></app-header>
+<ion-content>
+  <div class="container">
+    <div class="box">
+      <div class="topBar">
+        <p>Notifications</p>
+        <ion-button (click)="refreshNotification()">
+          <ion-icon slot="end" name="refresh"></ion-icon>
+          Refresh
+        </ion-button>
+      </div>
+      <app-notify-widget *ngFor="let notification of notifications" [notification]="notification" (delete)="delete($event)"></app-notify-widget> 
+      <img src="assets/no-notification.svg" alt="No Notification Available" *ngIf="notifications.length == 0">
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,18 @@
+{
+    "response_code": 1,
+    "status": true,
+    "amount": "1000.0",
+    "name": "NITESH  KUMAR SHARMA",
+    "duedate": "2021-09-20",
+    "bill_fetch": {
+      "billAmount": "1000.0",
+      "billnetamount": "1000.0",
+      "dueDate": "2023-09-20",
+      "maxBillAmount": "1000",
+      "acceptPayment": true,
+      "acceptPartPay": true,
+      "cellNumber": "DL12CB4685",
+      "userName": "NITESH  KUMAR SHARMA"
+    },
+    "message": "Bill Fetched Success."
+  }

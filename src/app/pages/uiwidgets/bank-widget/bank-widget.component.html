@@ -1,0 +1,4 @@
+<div class="container">
+  <img [src]="image" [alt]="name" #img (error)="img.src = defaultImage" />
+  <p>{{ name }}</p>
+</div>

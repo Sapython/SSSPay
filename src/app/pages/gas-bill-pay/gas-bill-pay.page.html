@@ -1,0 +1,48 @@
+<app-header [backButton]="true" backUrl="../homepage" pageName="Gas & LPG Service"></app-header>
+<ion-content>
+  <ng-container>
+    <ion-text>
+      <h1>Enter your details</h1>
+    </ion-text>
+    <form [formGroup]="lpgForm" (ngSubmit)="payLpgGasBill()">
+      <ion-item>
+        <ion-label position="floating">Select Type</ion-label>
+        <ion-select interface="popover" formControlName="type" (ionChange)="fetchOperators($event)" #type>
+          <ion-select-option value="Gas">Gas</ion-select-option>
+          <ion-select-option value="LPG">LPG</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Select Operator</ion-label>
+        <ion-select interface="alert" formControlName="operator" (ionChange)="operatorSelected($event)" [disabled]="!type.value" #operatorSelect>
+          <ng-container *ngFor="let op of operators">
+            <ion-select-option [value]="op.id">{{ op.name }}</ion-select-option>
+          </ng-container>
+        </ion-select>
+      </ion-item>
+      <ng-container *ngIf="operator">
+        <ng-container *ngIf="operatorFetched">
+          <ion-item>
+            <ion-label>{{operator.mainField.name}} <ion-text color="danger">*</ion-text></ion-label>
+            <ion-input required [formControl]="operator.mainField.control" #customerNumber></ion-input>
+            <ion-button (click)="fetchBill(customerNumber.value)">
+              <ion-icon slot="icon-only" name="chevron-forward"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </ng-container>
+        <ng-container *ngIf="billFetched">
+          <ion-text color="primary">
+            <h5>{{operator.name}}</h5>
+            <h6>{{operator.category}}</h6>
+            <hr>
+          </ion-text>
+          <ion-item *ngFor="let field of operator.fields">
+            <ion-label position="floating">{{ field.name }}</ion-label>
+            <ion-input type="text" [formControl]="field.control"></ion-input>
+          </ion-item>
+        </ng-container>
+      </ng-container>
+      <ion-button type="submit" expand="block" [disabled]="!lpgForm.valid">Recharge</ion-button>
+    </form>
+  </ng-container>
+</ion-content>

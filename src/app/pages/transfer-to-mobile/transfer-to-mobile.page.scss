@@ -1,0 +1,52 @@
+*{
+    font-family: 'Poppins',sans-serif;
+}
+.container{
+    margin: 10px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    p{
+        font-size: 25px;
+        margin-top: 10px;
+        font-weight: 600;
+    }
+    input{
+        border: none;
+        border-bottom: 1px solid #009970;
+        background-color: #fff;
+        color: grey;
+        width: 90%;
+        font-size: 20px;
+    }
+    button{
+        background-color: #009970;
+        color: #fff;
+        padding: 15px;
+        width: 75%;
+        font-size: 18px;
+        border-radius: 15px;
+        display: block;
+        margin: auto;
+        margin-top: 25px;
+    }
+}
+.container2{
+    background-color: #fff;
+    margin: 10px;
+    padding: 10px;
+    p{
+        font-size: 25px;
+        font-weight: 600;
+        margin-top: 10px;
+    }
+    ion-searchbar{
+        display: block;
+        margin: auto;
+        background-color: #fff;
+        color: grey;
+        border-radius: 15px;
+        border: 1px solid #009970;
+    }
+}
+

@@ -1,0 +1,28 @@
+.container{
+    padding: 10px;
+    margin-top: 10px;
+    font-family: 'Poppins',sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid grey;
+    p{
+        font-size: 18px;
+        font-weight: 500;
+    }
+}
+.container img{
+    height: 55px;
+    width: 55px;
+}
+.box{
+    right: 0;
+}
+ion-item-option{
+    border-radius: 15px;
+    font-size: 25px;
+    font-family: 'Poppins',sans-serif;
+    padding: 10px 5px;
+    margin: 10px;
+}

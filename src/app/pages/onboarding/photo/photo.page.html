@@ -1,0 +1,15 @@
+<ion-content>
+  <div>
+    <form>
+      <ion-button (click)="takeSelfie()" expand="block" fill="solid">
+        Take Your Selfie
+      </ion-button>
+      <ion-button (click)="takeShopPicture()" expand="block" fill="solid">
+        Take Selfie with your shop
+      </ion-button>
+      <ion-button [disabled]="!valid" (click)="upload()" expand="block" fill="solid" shape="round">
+        Upload
+      </ion-button>
+    </form>
+  </div>
+</ion-content>

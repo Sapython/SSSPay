@@ -1,0 +1,13 @@
+<app-header [backButton]="true" pageName="Offers"></app-header>
+<ion-content color="light">
+  <ion-card class="ion-margin ion-padding">
+    <ion-label>Offers</ion-label>
+    <app-offer-component
+      *ngFor="let offer of offers"
+      [offer]="offer.offer"
+      [image]="offer.Image"
+    ></app-offer-component>
+    <ion-card></ion-card>
+  </ion-card>
+</ion-content>
+

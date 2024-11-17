@@ -1,0 +1,57 @@
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+ion-content {
+  --padding: 0.3em;
+  --padding-top: var(--padding);
+  --padding-end: var(--padding);
+  --padding-bottom: var(--padding);
+  --padding-start: var(--padding);
+  text-align: center;
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  form {
+    margin-top: 1.5em;
+
+    ion-label {
+      font-family: "Poppins", sans-serif;
+    }
+
+    ion-input {
+      font-size: 1.1rem;
+    }
+
+    ion-button {
+      margin-top: 1.5em;
+    }
+  }
+}
+.type{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+}
+.row{
+  margin: 20px 0px 0px 0px;
+  display: flex;
+  gap:20px;
+  justify-content: center;
+  .chip{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    img{
+      width: 30px;
+      height: auto;
+    }
+  }
+}
+.scrollable{
+  padding:20px;
+  overflow-y: scroll;
+  height: 90vh;
+  
+}

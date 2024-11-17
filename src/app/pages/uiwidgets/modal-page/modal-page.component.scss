@@ -1,0 +1,34 @@
+
+  .card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 45vh;
+    gap:30px;
+    margin-top: 50px;
+    ion-label {
+      font-size: 20px;
+      color: var(--ion-true-dark);
+    }
+    ion-img {
+      height: 70px;
+      width: 70px;
+      background-color: rgb(255, 255, 255);
+      padding: 10px;
+      box-sizing: border-box;
+      border-radius: 10px;
+      text-align: right;
+    }
+    ion-button {
+      width: 300px;
+    }
+    ion-text {
+      color: var(--ion-text-color-1);
+      text-align: right;
+      align-self: right;
+      margin-left: 250px;
+    }
+  }
+
+  

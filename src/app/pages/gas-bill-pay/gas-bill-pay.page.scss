@@ -1,0 +1,62 @@
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+ion-content {
+  --padding: 1.5em;
+  --padding-top: var(--padding);
+  --padding-end: var(--padding);
+  --padding-bottom: var(--padding);
+  --padding-start: var(--padding);
+  text-align: center;
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  ion-button {
+    margin-top: 1.5em;
+  }
+
+  form {
+    margin-top: 1.5em;
+
+    ion-label {
+      font-family: "Poppins", sans-serif;
+    }
+
+    ion-input {
+      font-size: 1.1rem;
+    }
+  }
+
+  #lpg-details {
+    #gas-icon {
+      width: 30%;
+      margin-bottom: 1em;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5em;
+    }
+
+    .detail {
+      text-align: left;
+
+      &:not(:last-child) {
+        margin-bottom: 1em;
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        margin: 0;
+      }
+
+      p {
+        font-size: 1.25rem;
+        margin: 0;
+      }
+    }
+  }
+}

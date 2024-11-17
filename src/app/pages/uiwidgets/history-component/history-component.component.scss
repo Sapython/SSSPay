@@ -1,0 +1,64 @@
+div.card{
+    padding: 7px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px lightgrey solid;
+    div{
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        flex-direction: column;
+        margin-left: 10px;
+        height: max-content;
+    }
+    p,h6{
+        margin:0px;
+        width: fit-content;
+    }
+    div:nth-child(1){
+        height:75px;
+        img{
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+        p{
+            font-size: 11px;
+            color:grey;
+        }
+    }
+    div:nth-child(2){
+        flex: 2;
+        h6{
+            font-size: 17px;
+            color:var(--ion-color-primary);
+            margin-bottom: 15px;
+        }
+        p{
+            font-size: 15px;
+            color:grey;
+        }
+    }
+    div:nth-child(3){
+        height:75px;
+        b{
+            font-size: 16px;
+            color:var(--ion-color-primary);
+        }
+        p.negative{
+            color:var(--ion-color-danger);
+        }
+        p.positive{
+            color:var(--ion-color-success);
+        }
+        p{
+            display: flex;
+            align-items: center;
+            ion-icon{
+                font-size: 25px;
+            }
+            font-size: 13px;
+        }
+    }
+}
